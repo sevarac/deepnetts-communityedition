@@ -63,7 +63,7 @@ public class Cifar10Mse {
                                         .addInputLayer(imageWidth, imageHeight) 
                                         .addConvolutionalLayer(5, 1, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2)  
-                                        .addFullyConnectedLayer(20, ActivationType.TANH)          
+                                        .addFullyConnectedLayer(40, ActivationType.TANH)          
                                         .addOutputLayer(labelsCount, ActivationType.TANH)
                                         .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .randomSeed(123)

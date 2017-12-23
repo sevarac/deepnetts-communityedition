@@ -82,6 +82,7 @@ public class InputLayer extends AbstractLayer { // data Layer
      * @param in input matrix/array
      */
     public void setInput(Tensor in) {
+        // TODO: check input tensor dimensions and throw exception if they dont match
         inputs.setValues(in.getValues());
     }
             

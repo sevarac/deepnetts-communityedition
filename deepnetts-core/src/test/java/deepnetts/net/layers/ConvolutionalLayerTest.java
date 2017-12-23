@@ -763,7 +763,7 @@ public class ConvolutionalLayerTest {
     }         
         
     @Test
-    public void testBackwardFromConvolutionalToTwoChannels() {
+    public void testBackwardFromSingleConvolutionalToTwoConvolutionalChannels() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,
@@ -853,7 +853,7 @@ public class ConvolutionalLayerTest {
     
    // from multiple conv channels to single conv channel
    @Test
-    public void testBackwardFromTwoChannelsToSingleChannel() {
+    public void testBackwardFromTwoConvolutionalChannelsToSingleConvolutionalChannel() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,

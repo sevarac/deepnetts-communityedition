@@ -155,7 +155,7 @@ public class MaxPoolingLayer extends AbstractLayer {
             final int filterCenterX = (nextConvLayer.filterWidth-1) / 2;
             final int filterCenterY = (nextConvLayer.filterHeight-1) / 2;
                
-           for (int outZ = 0; outZ < this.depth; outZ++) {  // iteriraj sve kanale/feature mape u ovom lejeru, odnosno odgovarajuce filtere u sledecem
+         //  for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru, odnosno odgovarajuce filtere u sledecem // umesto ovog ici dole na fz
                 // 1. Propagate deltas from next conv layer for max outputs from this layer
                 for (int ndz = 0; ndz < nextLayer.deltas.getDepth(); ndz++) { // iteriraj i 3-cu dimeziju sledeceg sloja
                     for (int ndr = 0; ndr < nextLayer.deltas.getRows(); ndr++) { // sledeci lejer delte po visini
@@ -171,14 +171,15 @@ public class MaxPoolingLayer extends AbstractLayer {
                                         if (outRow < 0 || outRow >= outputs.getRows() || outCol < 0 || outCol >= outputs.getCols()) continue;
                                         
                                         // svaki filter propagira unazad svoju deltu, ne bi trebalo mesati delte iz razlicith kanala/filtera vec pre srednja vrednost ili sl?
-                                        deltas.add(outRow, outCol, outZ, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz));
+                                        deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz));
+                                                        /// ovde sam umesto ch stavio fz a gore ch iskomentarisao!!! tako treba, jos potvrdi
                                     }
                                 }
                             }
                         }                            
                     }
                 }                                                                                                          
-            }         
+           // }         
         }
      
         // we can also put zeros to all deltas that dont bellong to max outputs, and free prev convolutional layer to do that...        

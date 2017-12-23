@@ -64,7 +64,7 @@ public class Cifar10Ce {
                                         .addInputLayer(imageWidth, imageHeight) 
                                         .addConvolutionalLayer(5, 5, 6, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2, 2)                                 
-                                        .addFullyConnectedLayer(30, ActivationType.TANH)     
+                                        .addFullyConnectedLayer(40, ActivationType.TANH)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .lossFunction(LossType.CROSS_ENTROPY)                
                                         .build();

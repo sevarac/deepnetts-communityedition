@@ -93,7 +93,7 @@ public class Mnist {
                 .setMomentum(0.7f)
                 .setMaxError(0.02f)
                 .setBatchMode(false)
-                .setOptimizer(OptimizerType.MOMENTUM);
+                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSet);   
                        
         // Test trained network
