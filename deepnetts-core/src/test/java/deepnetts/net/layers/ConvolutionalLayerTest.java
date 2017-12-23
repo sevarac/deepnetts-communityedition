@@ -686,8 +686,7 @@ public class ConvolutionalLayerTest {
     
     
    /**
-    *   Backward pass through convolutional layer, is actually convolution operation on deltas (error) from next layer
-    * 
+    *   
         [0,0]: -0.013200 + -0.013200 + 0.042000 + 0.022000 = 0.0376
         [0,1]: -0.014300 + -0.014400 + 0.063000 + 0.044000 + -0.014300 + 0.023000 = 0.087
         [1,0]: 0.055000 + 0.048000 + -0.025200 + -0.024200 + 0.062000 + 0.032000 = 0.1476
@@ -695,7 +694,7 @@ public class ConvolutionalLayerTest {
     * 
     */ 
    @Test
-    public void testBackwardFromConvolutionalToSingleChannel() {
+    public void testBackwardFromSingleConvolutionalToSingleConvolutionalChannel() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,
@@ -792,9 +791,9 @@ public class ConvolutionalLayerTest {
                              -0.11f, -0.12f, -0.13f,
                               0.4f,   0.5f,  0.21f,
                               
-                              0.1f,   0.2f,  0.3f,
-                             -0.11f, -0.12f, -0.13f,
-                              0.4f,   0.5f,  0.21f                              
+                              0.2f, 0.4f, 0.6f,
+                              -0.22f, -0.24f, -0.26f,
+                              0.8f, 1.0f, 0.42f                       
                             });        
         
          
@@ -830,29 +829,205 @@ public class ConvolutionalLayerTest {
         instance.backward();
         
         Tensor actual = instance.getDeltas();
-        // netacno !!!! pa on ih duplira  a ne bi trebalo da ih duplira!!!!! tacno iamm visak jednu for petlju kojaih duplira!!!!!
+
         Tensor expected = new Tensor(6, 6, 2,
                 new float[]{
-                    0.0752f,  0.174f,  0.1788f,  0.1836f,  0.1884f,  0.1766f,
-                    0.2952f,  0.4922f,  0.5192f,  0.5462f,  0.5732f,  0.4496f,
-                    0.4892f,  0.7622f,  0.7892f,  0.8162f,  0.8432f,  0.6416f,
-                    0.6832f,  1.0322f,  1.0592f,  1.0862f,  1.1132f,  0.8336f,
-                    0.8772f,  1.3022f,  1.3292f,  1.3562f,  1.3832f,  1.0256f,
-                    0.6432f,  0.7122f,  0.7272f,  0.7422f,  0.7572f,  0.4636f,
+                                0.0376f, 0.087f, 0.0894f, 0.0918f, 0.0942f, 0.0883f,
+                                0.1476f, 0.2461f, 0.2596f, 0.2731f, 0.2866f, 0.22479999f,
+                                0.24459998f, 0.3811f, 0.3946f, 0.40809998f, 0.4216f, 0.3208f,
+                                0.34159997f, 0.5161f, 0.5296f, 0.5431f, 0.5566f, 0.4168f,
+                                0.4386f, 0.6511001f, 0.6646f, 0.6781f, 0.69159997f, 0.5128f,
+                                0.3216f, 0.3561f, 0.3636f, 0.3711f, 0.3786f, 0.2318f,
 
-                    0.0752f,  0.174f,  0.1788f,  0.1836f,  0.1884f,  0.1766f,
-                    0.2952f,  0.4922f,  0.5192f,  0.5462f,  0.5732f,  0.4496f,
-                    0.4892f,  0.7622f,  0.7892f,  0.8162f,  0.8432f,  0.6416f,
-                    0.6832f,  1.0322f,  1.0592f,  1.0862f,  1.1132f,  0.8336f,
-                    0.8772f,  1.3022f,  1.3292f,  1.3562f,  1.3832f,  1.0256f,
-                    0.6432f,  0.7122f,  0.7272f,  0.7422f,  0.7572f,  0.4636f                            
+                                0.0752f, 0.1740f, 0.1788f, 0.1836f, 0.1884f, 0.1766f,
+                                0.2952f, 0.4922f, 0.5192f, 0.5462f, 0.5732f, 0.4496f,
+                                0.4892f, 0.7622f, 0.7892f, 0.8162f, 0.8432f, 0.6416f,
+                                0.6832f, 1.0322f, 1.0592f, 1.0862f, 1.1132f, 0.8336f,
+                                0.8772f, 1.3022f, 1.3292f, 1.3562f, 1.3832f, 1.0256f,
+                                0.6432f, 0.7122f, 0.7272f, 0.7422f, 0.7572f, 0.4636f                      
                            });
+
 
         assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f); // 0.8432 vs 0.8431999
     }             
     
-    // forward convolution  applied on deltas - same as backward convolution
-    @Test
+   // from multiple conv channels to single conv channel
+   @Test
+    public void testBackwardFromTwoChannelsToSingleChannel() {
+        RandomGenerator.getDefault().initSeed(123);
+        InputLayer inputLayer = new InputLayer(6, 6, 1);
+        Tensor input = new Tensor(6, 6,
+                new float[]{ 
+                             0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
+                            -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
+                            -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
+                             0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
+                             0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
+                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f
+                });
+
+        Tensor filter = new Tensor(3, 3,
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f
+                            });
+
+        float[] biases = new float[]{0.0f};
+
+         
+        ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 1);
+        instance.setPrevLayer(inputLayer);
+        instance.activationType = ActivationType.LINEAR;
+        instance.init();
+        instance.filters[0] = filter;
+        instance.biases = biases;
+             
+        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
+        nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.init();
+        nextLayer.filters[0] = filter;
+        nextLayer.filters[1] = filter;
+        nextLayer.biases = new float[]{0.0f, 0.0f};
+                           
+        // propagate forward and backward
+        inputLayer.setInput(input);
+        instance.forward();
+        nextLayer.forward();
+        nextLayer.setDeltas(new Tensor(6, 6, 2,
+                                        new float[] { 
+                                            0.11f, 0.12f, 0.13f, 0.14f, 0.15f, 0.16f,
+                                            0.21f, 0.22f, 0.23f, 0.24f, 0.25f, 0.26f,
+                                            0.31f, 0.32f, 0.33f, 0.34f, 0.35f, 0.36f,
+                                            0.41f, 0.42f, 0.43f, 0.44f, 0.45f, 0.46f,
+                                            0.51f, 0.52f, 0.53f, 0.54f, 0.55f, 0.56f,
+                                            0.61f, 0.62f, 0.63f, 0.64f, 0.65f, 0.66f,
+                                            
+                                            0.22f,  0.24f,  0.26f,  0.28f,  0.3f,  0.32f,
+                                            0.42f,  0.44f,  0.46f,  0.48f,  0.5f,  0.52f,
+                                            0.62f,  0.64f,  0.66f,  0.68f,  0.7f,  0.72f,
+                                            0.82f,  0.84f,  0.86f,  0.88f,  0.9f,  0.92f,
+                                            1.02f,  1.04f,  1.06f,  1.08f,  1.1f,  1.12f,
+                                            1.22f,  1.24f,  1.26f,  1.28f,  1.3f,  1.32f                                            
+                                        }));
+        instance.backward();
+        
+        Tensor actual = instance.getDeltas();
+
+        Tensor expected = new Tensor(6, 6,
+                new float[]{
+                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
+                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
+                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
+                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
+                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
+                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f
+                           });
+
+        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f);
+    }        
+    
+   // from multiple conv channels to single conv channel
+   @Test
+    public void testBackwardFromTwoConvolutionalChannelsToTwoConvolutionalChannels() {
+        RandomGenerator.getDefault().initSeed(123);
+        InputLayer inputLayer = new InputLayer(6, 6, 1);
+        Tensor input = new Tensor(6, 6,
+                new float[]{ 
+                             0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
+                            -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
+                            -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
+                             0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
+                             0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
+                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f
+                });
+
+        Tensor filter = new Tensor(3, 3,
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f
+                            });
+        
+        Tensor filter2 = new Tensor(3, 3, 2, 
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f,
+                              
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f                              
+                            });           
+
+        float[] biases = new float[]{0.0f, 0.0f};
+
+         
+        ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 2);
+        instance.setPrevLayer(inputLayer);
+        instance.activationType = ActivationType.LINEAR;
+        instance.init();
+        instance.filters[0] = filter;
+        instance.biases = biases;
+             
+        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
+        nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.init();
+        nextLayer.filters[0] = filter2;
+        nextLayer.filters[1] = filter2;
+        nextLayer.biases = biases;
+                           
+        // propagate forward and backward
+        inputLayer.setInput(input);
+        instance.forward();
+        nextLayer.forward();
+        nextLayer.setDeltas(new Tensor(6, 6, 2,
+                                        new float[] { 
+                                            0.11f, 0.12f, 0.13f, 0.14f, 0.15f, 0.16f,
+                                            0.21f, 0.22f, 0.23f, 0.24f, 0.25f, 0.26f,
+                                            0.31f, 0.32f, 0.33f, 0.34f, 0.35f, 0.36f,
+                                            0.41f, 0.42f, 0.43f, 0.44f, 0.45f, 0.46f,
+                                            0.51f, 0.52f, 0.53f, 0.54f, 0.55f, 0.56f,
+                                            0.61f, 0.62f, 0.63f, 0.64f, 0.65f, 0.66f,
+                                            
+                                            0.22f, 0.24f, 0.26f, 0.28f, 0.3f,  0.32f,
+                                            0.42f, 0.44f, 0.46f, 0.48f, 0.5f,  0.52f,
+                                            0.62f, 0.64f, 0.66f, 0.68f, 0.7f,  0.72f,
+                                            0.82f, 0.84f, 0.86f, 0.88f, 0.9f,  0.92f,
+                                            1.02f, 1.04f, 1.06f, 1.08f, 1.1f,  1.12f,
+                                            1.22f, 1.24f, 1.26f, 1.28f, 1.3f,  1.32f                                           
+                                        }));
+        instance.backward();
+        
+        Tensor actual = instance.getDeltas();
+
+        Tensor expected = new Tensor(6, 6, 2,
+                new float[]{
+                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
+                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
+                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
+                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
+                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
+                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f,
+                                
+                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
+                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
+                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
+                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
+                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
+                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f                              
+                           });
+
+        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f);
+    }        
+    
+    
+    // forward convolution  applied on deltas - same as backward convolution - just experimenting
+    @Ignore
     public void testBackwardSingleFilter() {
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6, // ovo su delte iz sledeceg lejera u prethodnom testu

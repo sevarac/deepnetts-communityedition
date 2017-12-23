@@ -310,9 +310,9 @@ public class ConvolutionalLayer extends AbstractLayer {
         int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;      
 
         /// !!! Zasto u forward pasu imam 6 a u backward 7 loopova? - ako imam gz i ndZ da li mi treba ch ???
-        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru           
+       // for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru           
             // 1. Propagate deltas from next conv layer for max outputs from this layer            
-            for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) { // iteriraj sve kanale sledeceg sloja
+            for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) { // iteriraj sve kanale sledeceg sloja - ovde se moze paralelizovati takodje!
                 for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // iteriraj delte sledeceg lejera po visini
                     for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // iteriraj delte sledeceg lejera po sirini
                         final float nextLayerDelta = nextLayer.deltas.get(ndRow, ndCol, ndZ); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja, da li treba d ase sabiraju?
@@ -325,9 +325,9 @@ public class ConvolutionalLayer extends AbstractLayer {
 
                                     if (row < 0 || row >= outputs.getRows() || col < 0 || col >= outputs.getCols()) continue;
                                   
-                                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
+                                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
                                     //   ... ovde treba razjasniti kako se mnozi sa weightsomm? da li ih treba sabirati
-                                    deltas.add(row, col, ch, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);
+                                    deltas.add(row, col, fz, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);
                                 }
                             }
                         }
@@ -335,10 +335,10 @@ public class ConvolutionalLayer extends AbstractLayer {
                 }
             }
             
+            for (int ch = 0; ch < this.depth; ch++) {  
             // 2. calculate delta weights for this layer (this is same for all types of next layers)
-            calculateDeltaWeights(ch); // split these into fork joins too
-            
-        }
+                calculateDeltaWeights(ch); // split these into fork joins too            
+            }
     }
 
     /**
@@ -352,7 +352,7 @@ public class ConvolutionalLayer extends AbstractLayer {
             deltaBiases[ch] = 0; // da li b ovo trebalo da bude 2d niz? verovatno ne
         }
         
-        final float divisor = width * height; // * prev channels
+        final float divisor = width * height; // * prev channels ! TODO: ovo treba potvrditi
         
         // assumes that deltas from the next layer are allready propagated
         

@@ -314,6 +314,7 @@ public class MaxPoolingLayerTest {
         assertArrayEquals(actual.getValues(), expected.getValues(), 1e-8f);
     }    
     
+    // ovaj jos nije gotov. treba ovaj i Multi Channel from convolutional
     @Ignore
     public void testBackwardSingleChannelFromConvolutional() {
         RandomGenerator.getDefault().initSeed(123);
