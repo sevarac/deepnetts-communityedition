@@ -139,6 +139,7 @@ public class Tensor implements Serializable {
         values = new float[cols];        
     }    
     
+    // ovaj najbolje preko factory metode
     public Tensor(int cols, float val) {        
         if (cols < 0) throw new IllegalArgumentException("Number of cols cannot be negative: "+cols);        
         
@@ -235,6 +236,22 @@ public class Tensor implements Serializable {
         this.dimensions = 3;
         this.values = values;
     }
+    
+//    public Tensor(float[] values, int ... shape ) {
+//        if (shape.length > 4) throw new IllegalArgumentException("Tensor can have max 4 dimensions");
+//        this.dimensions = shape.length;
+//        
+//        if (dimensions == 1) this.cols = shape[1];
+//        
+//        this.rows = shape[0];
+//        
+//        if (dimensions > 2)
+//        
+//        this.depth = shape[2];
+//        this.fourthDim = shape[3];
+//        
+//        this.values = values;
+//    }
     
     private Tensor(Tensor t) {
         this.cols = t.cols;

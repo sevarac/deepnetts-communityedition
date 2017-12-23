@@ -309,22 +309,23 @@ public class ConvolutionalLayer extends AbstractLayer {
         int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
         int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;      
 
+        /// !!! Zasto u forward pasu imam 6 a u backward 7 loopova? - ako imam gz i ndZ da li mi treba ch ???
         for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru           
             // 1. Propagate deltas from next conv layer for max outputs from this layer            
             for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) { // iteriraj sve kanale sledeceg sloja
-                for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // sledeci lejer delte po visini
-                    for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // sledeci lejer delte po sirini
+                for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // iteriraj delte sledeceg lejera po visini
+                    for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // iteriraj delte sledeceg lejera po sirini
                         final float nextLayerDelta = nextLayer.deltas.get(ndRow, ndCol, ndZ); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja, da li treba d ase sabiraju?
                         
-                        for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) {
+                        for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) {    //!! pa da li je ovo isto kao i prvi loop - da li je dupliranje???!!! kao ovaj prvi ch!!! mislim da tu ima nepotrebnog preklapanja /dupliranja. kada filter ne bude iseo preko svih u prethodnom lejeru onda nece biti preklapanja
                             for (int fr = 0; fr < nextConvLayer.filterHeight; fr++) {
                                 for (int fc = 0; fc < nextConvLayer.filterWidth; fc++) {
-                                    final int row = ndRow * nextConvLayer.stride + (fr - filterCenterY);
+                                    final int row = ndRow * nextConvLayer.stride + (fr - filterCenterY); // proveri da li ovo dobro racuna
                                     final int col = ndCol * nextConvLayer.stride + (fc - filterCenterX);
 
                                     if (row < 0 || row >= outputs.getRows() || col < 0 || col >= outputs.getCols()) continue;
                                   
-                                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch));
+                                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
                                     //   ... ovde treba razjasniti kako se mnozi sa weightsomm? da li ih treba sabirati
                                     deltas.add(row, col, ch, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);
                                 }

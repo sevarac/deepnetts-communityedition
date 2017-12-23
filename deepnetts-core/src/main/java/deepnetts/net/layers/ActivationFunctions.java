@@ -65,7 +65,7 @@ public final class ActivationFunctions {
         throw new DeepNettsException("Unknown transfer function type!");
     }
     
-    public static final float prime(ActivationType type, float y) {
+    public static final float prime(final ActivationType type, final float y) {
         
         switch(type) {
             case SIGMOID:
