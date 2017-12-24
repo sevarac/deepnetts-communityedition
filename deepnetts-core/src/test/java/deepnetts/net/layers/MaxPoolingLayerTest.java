@@ -161,7 +161,7 @@ public class MaxPoolingLayerTest {
      * zapamcenih pozicija)
      */
     @Test
-    public void testBackwardSingleChannelFromFullyConnected() {
+    public void testBackwardFromFullyConnectedToSingleChannel() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,
@@ -508,7 +508,7 @@ public class MaxPoolingLayerTest {
    @Test
     public void testBackwardFromSingleConvolutionalToTwoPoolingChannels() {
         RandomGenerator.getDefault().initSeed(123);
-         InputLayer inputLayer = new InputLayer(12, 12, 1);
+        InputLayer inputLayer = new InputLayer(12, 12, 1);
         Tensor input = new Tensor(12, 12,
                 new float[]{ 
                              0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f, 0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
@@ -605,75 +605,115 @@ public class MaxPoolingLayerTest {
         assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f); // 0.8432 vs 0.8431999
     }                 
     
-    // ovaj jos nije gotov. treba ovaj i Multi Channel from convolutional
-    @Ignore
-    public void testBackwardSingleChannelFromConvolutional() {
+    @Test
+    public void testBackwardFromTwoConvolutionalChannelsToTwoPoolingChannels() {
         RandomGenerator.getDefault().initSeed(123);
-        InputLayer inputLayer = new InputLayer(6, 6, 1);
-        Tensor input = new Tensor(6, 6,
-                new float[]{0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
-                    -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
-                    -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
-                    0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
-                    0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
-                    0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f});
-     
-        ConvolutionalLayer prevLayer = new ConvolutionalLayer(3, 3, 1);
-        prevLayer.setPrevLayer(inputLayer);
+        InputLayer inputLayer = new InputLayer(12, 12, 1);
+        Tensor input = new Tensor(12, 12,
+                new float[]{ 
+                             0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f, 0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
+                            -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f, -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
+                            -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f, -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
+                             0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f, 0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
+                             0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f, 0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
+                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f, 0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f, 
+                             0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f, 0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
+                            -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f, -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
+                            -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f, -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
+                             0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f, 0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
+                             0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f, 0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
+                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f, 0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f                             
+                });
+        
+        Tensor filter = new Tensor(3, 3,
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f
+                            });
+        
+        Tensor filter2 = new Tensor(3, 3, 2, 
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f,
+                              
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f                              
+                            });           
+
+        float[] biases = new float[]{0.0f, 0.0f};
+
+        ConvolutionalLayer prevLayer = new ConvolutionalLayer(3, 3, 2);
+        prevLayer.setPrevLayer(inputLayer);        
         prevLayer.activationType = ActivationType.LINEAR;
-        prevLayer.init();
-        prevLayer.filters[0] = new Tensor(3, 3,
-                                  new float[]{0.1f, 0.2f, 0.3f,
-                                             -0.11f, -0.2f, -0.3f,
-                                              0.4f, 0.5f, 0.21f});
-        prevLayer.biases = new float[]{0.0f};
-
-        inputLayer.setInput(input);
-        prevLayer.forward();    // vidi koliki je output i njega onda pooluj
-
+             
         MaxPoolingLayer instance = new MaxPoolingLayer(2, 2, 2);
         instance.setPrevLayer(prevLayer);
-        instance.init();
-        instance.forward();
-
-        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 1);
-        instance.setNextlayer(nextLayer);
+        prevLayer.setNextlayer(instance);
+               
+        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
         nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+       
+        prevLayer.init();
+        instance.init();  
+        nextLayer.init();        
+        
+        prevLayer.filters[0] = filter;
+        prevLayer.filters[1] = filter;
+        prevLayer.biases = new float[] {0.0f, 0.0f};        
+        
         nextLayer.activationType = ActivationType.LINEAR;
-        nextLayer.init();
-        nextLayer.setDeltas(new Tensor(0.1f, 0.2f));
-        nextLayer.filters[0] = new Tensor(3, 3,
-                                  new float[]{0.1f, 0.2f, 0.3f,
-                                             -0.11f, -0.2f, -0.3f,
-                                              0.4f, 0.5f, 0.21f});;
-        nextLayer.biases = new float[]{0.0f};      
+        nextLayer.filters[0] = filter2;
+        nextLayer.filters[1] = filter2;
+        nextLayer.biases = new float[] {0.0f, 0.0f};     
         
-        nextLayer.setDeltas(new Tensor(3, 3)); // postavi delte iz sledeceg lejera
-        
-        // svaka celija iz narednog lejera treba da sa svojom deltom pomnozi sve tezine iz filtera i prepise ih u delte prethodnih lejera
-        // caka je sto se pozicije filtera preklapaju i tako sabiraju - idealan trenutak da razjasnij matematiku - crtaj u nekoj svesci@@
-        
-        /* test samo sa jednim neuronom u fc i delta 0.1, pomnozi sve tezine sa 0.1
-        
-       zadaj delte - ima ih onoliko kolik oima celija/outputa u conv layery
-       ispisi tezine kojih ima u 4d weights
-       ispisi i izracunaj ocekivane rezultate 
-        
-         */
-
+                           
+        // propagate forward and backward
+        inputLayer.setInput(input);
+        instance.forward();
+        nextLayer.forward();
+        nextLayer.setDeltas(new Tensor(6, 6, 2,
+                                        new float[] { 
+                                            0.11f, 0.12f, 0.13f, 0.14f, 0.15f, 0.16f,
+                                            0.21f, 0.22f, 0.23f, 0.24f, 0.25f, 0.26f,
+                                            0.31f, 0.32f, 0.33f, 0.34f, 0.35f, 0.36f,
+                                            0.41f, 0.42f, 0.43f, 0.44f, 0.45f, 0.46f,
+                                            0.51f, 0.52f, 0.53f, 0.54f, 0.55f, 0.56f,
+                                            0.61f, 0.62f, 0.63f, 0.64f, 0.65f, 0.66f,
+                                            
+                                            0.22f, 0.24f, 0.26f, 0.28f, 0.3f,  0.32f,
+                                            0.42f, 0.44f, 0.46f, 0.48f, 0.5f,  0.52f,
+                                            0.62f, 0.64f, 0.66f, 0.68f, 0.7f,  0.72f,
+                                            0.82f, 0.84f, 0.86f, 0.88f, 0.9f,  0.92f,
+                                            1.02f, 1.04f, 1.06f, 1.08f, 1.1f,  1.12f,
+                                            1.22f, 1.24f, 1.26f, 1.28f, 1.3f,  1.32f                                           
+                                        }));
         instance.backward();
         
         Tensor actual = instance.getDeltas();
 
-        // sum delta * weight and transpose
-        // Test: 0.1 * 0.18075174 + 0.2 * 11627263 = 0.0413297 ... 
-        Tensor expected = new Tensor(3, 3,
-                new float[]{0.0413297f, 0.062126942f, 0.16724476f, 
-                           -0.020589843f, -0.15361156f, 0.03141014f,
-                            0.12785016f, -0.14694643f, -0.1626513f});
+        Tensor expected = new Tensor(6, 6, 2,
+                new float[]{
+                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
+                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
+                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
+                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
+                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
+                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f,
+                                
+                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
+                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
+                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
+                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
+                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
+                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f                              
+                           });
 
-        assertArrayEquals(actual.getValues(), expected.getValues(), 1e-8f);
-    }
-        
-
+        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f);
+    }        
+    
+    
 }
