@@ -76,7 +76,7 @@ public class DukeDetector {
                 .addMaxPoolingLayer(2, 2, 2)
                 .addFullyConnectedLayer(10, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .lossFunction(BinaryCrossEntropyLoss.class)
+                .withLossFunction(BinaryCrossEntropyLoss.class)
                 .build();
 
         convNet.setOutputLabels(imageSet.getLabels());
@@ -87,7 +87,7 @@ public class DukeDetector {
         BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
         trainer.setMaxError(0.02f)
                 .setLearningRate(0.01f)
-                .setOptimizer(OptimizerType.MOMENTUM)
+                .setOptimizer(OptimizerType.SGD)
                 .setMomentum(0.2f);
         trainer.train(imageSet);
 

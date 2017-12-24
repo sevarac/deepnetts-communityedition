@@ -77,8 +77,8 @@ public class TrainDeepNetts {
                     .addFullyConnectedLayer(30)
                     .addFullyConnectedLayer(20)
                     .addOutputLayer(labelsCount, ActivationType.SOFTMAX) // softmax output // labelsCount
-                    .lossFunction(LossType.CROSS_ENTROPY)
-                    .randomSeed(123)
+                    .withLossFunction(LossType.CROSS_ENTROPY)
+                    .withRandomSeed(123)
                     .build();
             LOGGER.info("Done!");
             LOGGER.info("Training neural network");

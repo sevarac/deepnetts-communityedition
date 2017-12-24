@@ -68,8 +68,7 @@ public class MnistFromJson {
         imageSet.zeroMean();
         imageSet.shuffle();
         
-        // koad data / images from properties file
-        
+        // load data / images from properties file        
         int labelsCount = imageSet.getLabelsCount();
                   
         LOGGER.info("Creating neural network...");

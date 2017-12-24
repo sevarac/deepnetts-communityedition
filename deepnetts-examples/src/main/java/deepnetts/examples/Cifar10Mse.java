@@ -65,8 +65,8 @@ public class Cifar10Mse {
                                         .addMaxPoolingLayer(2, 2)  
                                         .addFullyConnectedLayer(40, ActivationType.TANH)          
                                         .addOutputLayer(labelsCount, ActivationType.TANH)
-                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
-                                        .randomSeed(123)
+                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .withRandomSeed(123)
                                         .build();
           
         LOGGER.info("Training neural network"); 
@@ -75,7 +75,7 @@ public class Cifar10Mse {
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.01f); // 0.0001
         trainer.setMomentum(0.9f); 
-        trainer.setOptimizer(OptimizerType.MOMENTUM); 
+        trainer.setOptimizer(OptimizerType.SGD); 
        // trainer.setBatchMode(false); // false by default
         trainer.train(imageSet);                                     
     }

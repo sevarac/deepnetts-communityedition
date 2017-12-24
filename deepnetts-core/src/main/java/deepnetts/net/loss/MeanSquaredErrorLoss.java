@@ -38,7 +38,7 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
     private final float[] outputError;
     private float totalPatternError;
     private float totalError;
-    //private int patternCount=0;
+    private int patternCount=0;
         
 
     public MeanSquaredErrorLoss(NeuralNetwork convNet) {
@@ -60,7 +60,8 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
             totalPatternError += outputError[i] * outputError[i];
         }
 
-        totalError += 0.5 * totalPatternError;
+        patternCount++;
+        totalError += totalPatternError;
         
         return outputError;
     }
@@ -70,13 +71,15 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
         return totalPatternError;
     }
     
+    @Override
     public float getTotalError() {
-        return totalError;
+        return  totalError / (2 * patternCount);
     }
     
-    public void resetTotalError() {
+    @Override
+    public void reset() {
         totalError = 0;
-        // patternCount=0;
+        patternCount=0;
     }
     
 

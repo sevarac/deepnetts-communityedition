@@ -36,6 +36,9 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
     private float[] actualOutput;
     private int targetIdx;
     
+    private float totalError;
+    private int patternCount=0;        
+    
     private final SoftmaxOutputLayer outputLayer;         
     
 
@@ -56,14 +59,18 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
     public float[] calculateOutputError(float[] actualOutput,  float[] targetOutput) {
         this.actualOutput = actualOutput;
         
-        for (int i = 0; i < actualOutput.length; i++) { 
+        patternCount++;        
+        
+        for (int i = 0; i < actualOutput.length; i++) {                                     
             outputError[i] = actualOutput[i] - targetOutput[i]; // ovo je dL/dy izvod loss funkcije u odnosu na izlaz ovog neurona - ovo se koristi za deltu izlaznog neurona
             if (targetOutput[i] == 1) {                        
                 targetIdx = i; // this could be set explicitly in data set in order to avoid this if
                 outputLayer.setTargetClassIdx(i);                
             }
         }     
-               
+
+        totalError += (float)-Math.log(actualOutput[targetIdx]);        
+        
         return outputError;        
     }
 
@@ -76,6 +83,17 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
     @Override
     public float getPatternError() {
         return (float)-Math.log(actualOutput[targetIdx]);
+    }
+
+    @Override
+    public float getTotalError() {
+        return  totalError / patternCount;
+    }
+    
+    @Override
+    public void reset() {
+        totalError = 0;
+        patternCount=0;
     }
     
 }

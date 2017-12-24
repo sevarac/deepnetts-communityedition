@@ -34,6 +34,9 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
     private float[] actualOutput;
     private float[] targetOutput;
     
+    private float totalError;
+    private int patternCount=0;    
+    
     // ovi treba da racunaju i ukupnu gresku i da vracaju total error a ne u Backrpop traineru. Da li treba 1/n i ovde? Verovatno, mada mozda i ne
   
     public BinaryCrossEntropyLoss(NeuralNetwork convNet) {
@@ -54,6 +57,10 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
         this.actualOutput = actualOutput;    
         this.targetOutput = targetOutput;
         
+        
+        totalError += (float)-(targetOutput[0]*Math.log(actualOutput[0]) + (1-targetOutput[0])*Math.log(1-actualOutput[0]));
+        patternCount++;
+        
         outputError[0] = actualOutput[0] - targetOutput[0]; // ovo je dL/dy izvod loss funkcije u odnosu na izlaz ovog neurona - ovo se koristi za deltu izlaznog neurona              
         return outputError;        
     }
@@ -66,6 +73,17 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
     @Override
     public float getPatternError() {
         return (float)-(targetOutput[0]*Math.log(actualOutput[0]) + (1-targetOutput[0])*Math.log(1-actualOutput[0]));
+    }
+    
+    @Override
+    public float getTotalError() {
+        return  totalError / patternCount;
+    }
+    
+    @Override
+    public void reset() {
+        totalError = 0;
+        patternCount=0;
     }
     
 }

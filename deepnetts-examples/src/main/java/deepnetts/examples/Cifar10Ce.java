@@ -66,7 +66,7 @@ public class Cifar10Ce {
                                         .addMaxPoolingLayer(2, 2, 2)                                 
                                         .addFullyConnectedLayer(40, ActivationType.TANH)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .lossFunction(LossType.CROSS_ENTROPY)                
+                                        .withLossFunction(LossType.CROSS_ENTROPY)                
                                         .build();
         
         LOGGER.info("Done!");       
@@ -76,7 +76,7 @@ public class Cifar10Ce {
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.5f);
         trainer.setMomentum(0.9f); 
-        trainer.setOptimizer(OptimizerType.MOMENTUM); 
+        trainer.setOptimizer(OptimizerType.SGD); 
         trainer.train(imageSet);       
         
         // Test trained network

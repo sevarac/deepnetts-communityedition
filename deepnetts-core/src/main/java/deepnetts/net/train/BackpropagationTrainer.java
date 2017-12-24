@@ -34,17 +34,17 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * This class implements training algorithm for convolutional neural network.
+ * This class implements training algorithm for feed forward and convolutional neural network.
  * 
  * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
  */
-public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable {
+public class BackpropagationTrainer implements Serializable {
 
     /**
-     * Maximum number of training iterations.
-     * Training will stop when this number of iterations is reached regardless the total network error.
+     * Maximum training epochs.
+     * Training will stop when this number of epochs is reached regardless the total network error.
      */
-    private long maxIterations = 100000L;
+    private long maxEpochs = 100000L;
     
     /**
      * Maximum allowed error.
@@ -60,20 +60,20 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
     /**
      * Optimizer type for all layers
      */
-    OptimizerType optimizer = OptimizerType.SGD;
+    private OptimizerType optimizer = OptimizerType.SGD;
     
-    float momentum = 0;
+    private float momentum = 0;
    
-    boolean batchMode = false;
-    int batchSize;    
-    boolean stopTraining = false;
+    private boolean batchMode = false;
+    private int batchSize;    
+    private boolean stopTraining = false;
     
-    int iteration;
+    private int epoch;
     private float totalError;
       
-    LossFunction lossFunction;
+    private LossFunction lossFunction;
     
-    List<TrainingListener> listeners = new ArrayList<>();
+    private List<TrainingListener> listeners = new ArrayList<>();
     
     public static final String PROP_MAX_ERROR = "maxError";
     public static final String PROP_MAX_ITERATIONS = "maxIterations";
@@ -82,7 +82,7 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
     public static final String PROP_BATCH_MODE = "batchMode";
     
     /**
-     * Network to train
+     * Neural network to train
      */
     private NeuralNetwork neuralNet;
 
@@ -100,7 +100,7 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
         this(neuralNet);
                 
         this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
-        this.maxIterations = Integer.parseInt(prop.getProperty(PROP_MAX_ITERATIONS));
+        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_ITERATIONS));
         this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
         this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
         this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));       
@@ -116,8 +116,7 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
      * put network as param
      * 
      * @param dataSet 
-     */
-    @Override
+     */    
     public void train(DataSet<?> dataSet) {
 
         if (dataSet == null) throw new IllegalArgumentException("Argument dataSet cannot be null!");
@@ -143,7 +142,7 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
         lossFunction = neuralNet.getLossFunction();
                 
         float[] outputError; 
-        iteration = 0;                
+        epoch = 0;                
         totalError = 0;
         float prevTotalError=0, totalErrorChange;
         long startTraining, endTraining, trainingTime, startEpoch, endEpoch, epochTime;
@@ -152,8 +151,9 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
 
         startTraining = System.currentTimeMillis();
         do {
-            iteration++;
-            totalError = 0; // lossFunction.reset();
+            epoch++;
+            totalError = 0; 
+            lossFunction.reset();
             int sampleCounter = 0;
             
             startEpoch = System.currentTimeMillis();
@@ -165,7 +165,7 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
                 
                 outputError = lossFunction.calculateOutputError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error using loss function
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje                
-                totalError += lossFunction.getPatternError();  // maybe sum this in loass function                              
+                //totalError += lossFunction.getPatternError();  // maybe sum this in loass function                              
                 
                 neuralNet.backward();                                 // do the backward propagation using current outputError - should I use outputError as a param here?
                              
@@ -192,17 +192,19 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
                 neuralNet.applyWeightChanges();
             }           
                                     
-            totalError = totalError / trainingSamplesCount; // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
-            totalErrorChange = totalError - prevTotalError; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti
+            // totalError = totalError / trainingSamplesCount; // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
+            totalError = lossFunction.getTotalError(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
+            
+            totalErrorChange = totalError - prevTotalError; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalError = totalError;
             epochTime = endEpoch-startEpoch;
 
-            LOGGER.info("Iteration:" + iteration + ", Time:"+epochTime + "ms, TotalError:" + totalError +", ErrorChange:"+totalErrorChange); // Time:"+epochTime + "ms,
+            LOGGER.info("Epoch:" + epoch + ", Time:"+epochTime + "ms, TotalError:" + totalError +", ErrorChange:"+totalErrorChange); // EpochTime:"+epochTime + "ms,
     //        LOG.log(Level.INFO, ConvNetLogger.getInstance().logNetwork(neuralNet));  
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
             
-            stopTraining = ((iteration == maxIterations) || (totalError <= maxError)) || stopTraining;
+            stopTraining = ((epoch == maxEpochs) || (totalError <= maxError)) || stopTraining;
             
         } while (!stopTraining); // or learning slowed, or overfitting, ...    
         
@@ -215,11 +217,11 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
     }
 
     public long getMaxIterations() {
-        return maxIterations;
+        return maxEpochs;
     }
 
     public BackpropagationTrainer setMaxIterations(long maxIterations) {
-        this.maxIterations = maxIterations;
+        this.maxEpochs = maxIterations;
         return this;
     }
 
@@ -295,8 +297,8 @@ public class BackpropagationTrainer implements Trainer<DataSet<?>>, Serializable
         return totalError;
     }
 
-    public int getIteration() {
-        return iteration;
+    public int getCurrentEpoch() {
+        return epoch;
     }
 
     public OptimizerType getOptimizer() {

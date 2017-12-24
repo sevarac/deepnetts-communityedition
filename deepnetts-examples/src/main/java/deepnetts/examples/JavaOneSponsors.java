@@ -71,10 +71,10 @@ public class JavaOneSponsors {
                                         .addInputLayer(imageWidth, imageHeight) 
                                         .addConvolutionalLayer(5, 5, 3, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2, 2)                 
-                                        .addFullyConnectedLayer(30, ActivationType.TANH)
+                                        .addFullyConnectedLayer(40, ActivationType.TANH)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .lossFunction(LossType.CROSS_ENTROPY)
-                                        .randomSeed(123)
+                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .withRandomSeed(123)
                                         .build();
                      
         LOGGER.info("Training neural network"); 
@@ -85,7 +85,7 @@ public class JavaOneSponsors {
                .setMomentum(0.7f)
                .setMaxError(0.03f)
                .setMaxIterations(500)
-               .setOptimizer(OptimizerType.MOMENTUM);
+               .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSet);   
           
         // Serialize network

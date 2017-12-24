@@ -21,19 +21,13 @@
     
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSetItem;
 import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.ActivationType;
-import deepnetts.net.layers.SoftmaxOutputLayer;
-import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 /**

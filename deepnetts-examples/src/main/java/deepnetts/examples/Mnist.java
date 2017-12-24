@@ -75,14 +75,14 @@ public class Mnist {
                                         .addInputLayer(imageWidth, imageHeight)
                                         .addConvolutionalLayer(5, 6)
                                         .addMaxPoolingLayer(2, 2)        
-//                                        .addConvolutionalLayer(5, 6) 
+//                                        .addConvolutionalLayer(5, 3) 
 //                                        .addMaxPoolingLayer(2, 2)       
                                         .addFullyConnectedLayer(30)
                                         .addFullyConnectedLayer(20)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .activationFunction(ActivationType.RELU) 
-                                        .lossFunction(LossType.CROSS_ENTROPY)
-                                        .randomSeed(123)       
+                                        .withActivationFunction(ActivationType.RELU) 
+                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .withRandomSeed(123)       
                                         .build();   
                    
         LOGGER.info("Training neural network"); 
@@ -91,7 +91,7 @@ public class Mnist {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.03f)
                 .setMomentum(0.7f)
-                .setMaxError(0.02f)
+                .setMaxError(0.05f)
                 .setBatchMode(false)
                 .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSet);   

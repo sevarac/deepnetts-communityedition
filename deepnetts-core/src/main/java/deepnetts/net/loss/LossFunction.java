@@ -31,4 +31,8 @@ public interface LossFunction {
     
     public float getPatternError();
     
+    public float getTotalError();
+    
+    public void reset();
+    
 }
