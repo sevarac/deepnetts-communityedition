@@ -25,10 +25,10 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
-import deepnetts.net.loss.BinaryCrossEntropyLoss;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -76,7 +76,7 @@ public class DukeDetector {
                 .addMaxPoolingLayer(2, 2, 2)
                 .addFullyConnectedLayer(10, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .withLossFunction(BinaryCrossEntropyLoss.class)
+                .withLossFunction(LossType.CROSS_ENTROPY)
                 .build();
 
         convNet.setOutputLabels(imageSet.getLabels());

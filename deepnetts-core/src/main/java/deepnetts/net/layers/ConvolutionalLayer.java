@@ -184,14 +184,14 @@ public class ConvolutionalLayer extends AbstractLayer {
     public void forward() {
         
         // paralelieze this external loop - channels
-        for (int outZ = 0; outZ < this.depth; outZ++) {
+        for (int ch = 0; ch < this.depth; ch++) {
             int outR = 0, outC = 0; // reset indexes for current output's row and col
  
             for (int inR = 0; inR < inputs.getRows(); inR += stride) { // iterate all input rows
                 outC = 0; // every time when input goes in next row, output does too, so reset column idx
 
                 for (int inC = 0; inC < inputs.getCols(); inC += stride) { // iterate all input cols
-                   outputs.set(outR, outC, outZ, biases[outZ]); // sum will be added to bias - I can set entire matrix to bias initial values  above
+                   outputs.set(outR, outC, ch, biases[ch]); // sum will be added to bias - I can set entire matrix to bias initial values  above
 
                     // apply filter to all channnels in previous layer                     
                     for (int fz = 0; fz < filterDepth; fz++) { // iterate filter by depth - all input channels (in previous layer) 
@@ -200,18 +200,18 @@ public class ConvolutionalLayer extends AbstractLayer {
                                 final int cr = inR + (fr - fCenterY); // convolved row idx 
                                 final int cc = inC + (fc - fCenterX); // convolved col idx
 
-                                // ignore input samples which are out of bounds
+                                // skip input indexes which are out of bounds
                                 if (cr < 0 || cr >= inputs.getRows() || cc < 0 || cc >= inputs.getCols()) continue;
                                
-                                final float out = inputs.get(cr, cc, fz) * filters[outZ].get(fr, fc, fz); // output of a single conv filter cell
-                                outputs.add(outR, outC, outZ, out); // accumulate filters from all channels
+                                final float out = inputs.get(cr, cc, fz) * filters[ch].get(fr, fc, fz); // output of a single conv filter cell
+                                outputs.add(outR, outC, ch, out); // accumulate filters from all channels
                             }
                         }
                     }
                     
                     // apply activation function
-                    final float out = ActivationFunctions.calc(activationType, outputs.get(outR, outC, outZ));
-                    outputs.set(outR, outC, outZ, out);
+                    final float out = ActivationFunctions.calc(activationType, outputs.get(outR, outC, ch));
+                    outputs.set(outR, outC, ch, out);
                     outC++; // move to next col in out layer after each filter position
                 }
                 outR++; // every time input goes to next row, output does too
@@ -356,7 +356,7 @@ public class ConvolutionalLayer extends AbstractLayer {
         
         // assumes that deltas from the next layer are allready propagated
         
-        // 2. calculate weight changes in filters -ovo bi trebalo da je isto u svima je podesava tezine u filterima!
+        // 2. calculate weight changes in filters
         for (int deltaRow = 0; deltaRow < deltas.getRows(); deltaRow++) {
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) {                
                 // iterate all weights in filter for filter depth

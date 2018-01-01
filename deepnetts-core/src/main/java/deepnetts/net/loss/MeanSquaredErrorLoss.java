@@ -25,24 +25,25 @@ import deepnetts.net.NeuralNetwork;
 import java.io.Serializable;
 
 /**
- * Mean Squared Error Loss function
+ * Mean Squared Error Loss function.
+ * Sum squared errors over all patterns and all outputs.
+ *  * 
+ * E = 1/(2*N) * SUM(SUM(y-t)^2)
  * 
- * Should i provide total error from here?
+ * Bishop, pg. 89, eq. 3.34
  * 
- * TODO: count patterns and return mean from here. makes more sense
- * 
+ * @see LossFunction
+ * @see CrossEntropyLoss
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
-
     private final float[] outputError;
-    private float totalPatternError;
-    private float totalError;
-    private int patternCount=0;
+    private float totalError = 0;
+    private int patternCount = 0;
         
-
-    public MeanSquaredErrorLoss(NeuralNetwork convNet) {
-        outputError = new float[convNet.getOutputLayer().getWidth()];
+    
+    public MeanSquaredErrorLoss(NeuralNetwork neuralNet) {
+        outputError = new float[neuralNet.getOutputLayer().getWidth()];        
     }
 
     /**
@@ -53,23 +54,17 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
      * @return 
      */
     @Override
-    public float[] calculateOutputError(final float[] actualOutput, final float[] targetOutput) {
-        totalPatternError = 0;
+    public float[] addPatternError(final float[] actualOutput, final float[] targetOutput) {
         for (int i = 0; i < actualOutput.length; i++) {
             outputError[i] = actualOutput[i] - targetOutput[i];
-            totalPatternError += outputError[i] * outputError[i];
+            totalError += outputError[i] * outputError[i];
         }
 
         patternCount++;
-        totalError += totalPatternError;
         
         return outputError;
     }
-
-    @Override
-    public float getPatternError() {
-        return totalPatternError;
-    }
+   
     
     @Override
     public float getTotalError() {
@@ -81,6 +76,6 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
         totalError = 0;
         patternCount=0;
     }
+   
     
-
 }

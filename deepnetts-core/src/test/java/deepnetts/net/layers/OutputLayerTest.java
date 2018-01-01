@@ -1,6 +1,5 @@
 package deepnetts.net.layers;
 
-
 import deepnetts.net.loss.LossType;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
@@ -14,7 +13,6 @@ import static org.junit.Assert.*;
  */
 public class OutputLayerTest {
     
-
     /**
      * Tests forward pass using default sigmoid activation function.
      */

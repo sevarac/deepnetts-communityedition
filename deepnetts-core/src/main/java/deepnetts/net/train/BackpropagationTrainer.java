@@ -152,7 +152,7 @@ public class BackpropagationTrainer implements Serializable {
         startTraining = System.currentTimeMillis();
         do {
             epoch++;
-            totalError = 0; 
+//            totalError = 0; 
             lossFunction.reset();
             int sampleCounter = 0;
             
@@ -163,7 +163,7 @@ public class BackpropagationTrainer implements Serializable {
                 neuralNet.setInput(dataSetItem.getInput());   // set network input     
                 neuralNet.forward();                                // do forward pass / calculate network output                         
                 
-                outputError = lossFunction.calculateOutputError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error using loss function
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error using loss function
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje                
                 //totalError += lossFunction.getPatternError();  // maybe sum this in loass function                              
                 
@@ -216,12 +216,12 @@ public class BackpropagationTrainer implements Serializable {
         fireTrainingEvent(TrainingEvent.Type.STOPPED);
     }
 
-    public long getMaxIterations() {
+    public long getMaxEpochs() {
         return maxEpochs;
     }
 
-    public BackpropagationTrainer setMaxIterations(long maxIterations) {
-        this.maxEpochs = maxIterations;
+    public BackpropagationTrainer setMaxEpochs(long maxEpochs) {
+        this.maxEpochs = maxEpochs;
         return this;
     }
 

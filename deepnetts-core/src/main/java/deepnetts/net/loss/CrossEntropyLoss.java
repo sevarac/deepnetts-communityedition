@@ -21,29 +21,38 @@
     
 package deepnetts.net.loss;
 
-import deepnetts.net.layers.SoftmaxOutputLayer;
 import deepnetts.net.NeuralNetwork;
+import deepnetts.net.layers.OutputLayer;
 import java.io.Serializable;
 
 /**
- * Represents Cross Entropy Loss function.
- * This function is commonly used as a loss function for multi class classification problems.
+ * Represents Average Cross Entropy Loss function.
+ * This function is used as a loss function for a multi class classification problems.
  * 
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * E = -1/n * SUM(SUM(t*ln(y)))
+ * 
+ * Since its 1-of-n classification scheme, all outputs but target are zeros so it comes down to  E = -1/n * SUM(ln(y_targetIdx))
+ * 
+ * Sum over all outputs and training samples
+ * Bishop, pg. 245, eq. 6.185
+ * 
+ * dE/ds = (y - t)     (when Softmax activation is used)
+ * 
+ * http://peterroelants.github.io/posts/neural_network_implementation_intermezzo02/
+ * 
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class CrossEntropyLoss implements LossFunction, Serializable {
     private final float[] outputError;
-    private float[] actualOutput;
-    private int targetIdx;
-    
+    private int targetIdx;    
     private float totalError;
     private int patternCount=0;        
     
-    private final SoftmaxOutputLayer outputLayer;         
+    private final OutputLayer outputLayer;         
     
 
     public CrossEntropyLoss(NeuralNetwork convNet) {
-        outputLayer = (SoftmaxOutputLayer)convNet.getOutputLayer();
+        outputLayer = (OutputLayer)convNet.getOutputLayer();
         outputError = new float[convNet.getOutputLayer().getWidth()];
     }
        
@@ -56,38 +65,25 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
      * @return error vector for specified actual and target outputs
      */
     @Override
-    public float[] calculateOutputError(float[] actualOutput,  float[] targetOutput) {
-        this.actualOutput = actualOutput;
-        
+    public float[] addPatternError(float[] actualOutput,  float[] targetOutput) {        
         patternCount++;        
         
         for (int i = 0; i < actualOutput.length; i++) {                                     
             outputError[i] = actualOutput[i] - targetOutput[i]; // ovo je dL/dy izvod loss funkcije u odnosu na izlaz ovog neurona - ovo se koristi za deltu izlaznog neurona
             if (targetOutput[i] == 1) {                        
-                targetIdx = i; // this could be set explicitly in data set in order to avoid this if
-                outputLayer.setTargetClassIdx(i);                
+                targetIdx = i; // TODO: this could be set explicitly in data set in order to avoid this if     
             }
         }     
 
-        totalError += (float)-Math.log(actualOutput[targetIdx]);        
+        totalError += (float)Math.log(actualOutput[targetIdx]);        
         
         return outputError;        
     }
 
     
-    /**
-     * Return the total error for the current pattern 
-     * 
-     * @return 
-     */
-    @Override
-    public float getPatternError() {
-        return (float)-Math.log(actualOutput[targetIdx]);
-    }
-
     @Override
     public float getTotalError() {
-        return  totalError / patternCount;
+        return  -totalError / patternCount;
     }
     
     @Override

@@ -16,7 +16,7 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
     
 package deepnetts.net.loss;
@@ -26,58 +26,59 @@ import deepnetts.net.NeuralNetwork;
 import java.io.Serializable;
 
 /**
- *
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * Cross Entropy Loss for binary(single output, two classes) classification.
+ * It should be used in combination with sigmoid output activation function
+ * 
+ * E = (1/n) * -SUM( t * ln(y) + (1-t) * ln(1-y) )
+ * 
+ * where t is target, and y actual output
+ * Bishop, C. pg. 231, eq. 6.120
+ * 
+ * Cross entropy derivative is
+ * 
+ * dE/dy = (y-t) / y*(1-y)
+ * 
+ * Since denominator is same as sigmoid derivative, they are canceled when calculating delta in output layer:
+ * delta = dE/dy * dy/ds = y - t
+ * 
+ * See 
+ *     http://neuralnetworksanddeeplearning.com/chap3.html#introducing_the_cross-entropy_cost_function
+ *     http://peterroelants.github.io/posts/neural_network_implementation_intermezzo01/
+ * 
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
     private final float[] outputError;
-    private float[] actualOutput;
-    private float[] targetOutput;
-    
     private float totalError;
     private int patternCount=0;    
-    
-    // ovi treba da racunaju i ukupnu gresku i da vracaju total error a ne u Backrpop traineru. Da li treba 1/n i ovde? Verovatno, mada mozda i ne
-  
-    public BinaryCrossEntropyLoss(NeuralNetwork convNet) {
-        if (convNet.getOutputLayer().getWidth()>1) throw new DeepNettsException("BinaryCrossEntropyLoss can be only used with networks with single output!");
+     
+    public BinaryCrossEntropyLoss(NeuralNetwork neuralNet) {
+        if (neuralNet.getOutputLayer().getWidth()>1) throw new DeepNettsException("BinaryCrossEntropyLoss can be only used with networks with single sigmoid output!");
         
         outputError = new float[1];
     }
        
     /**
-     * Calculates and returns error vector for specified actual and target outputs.
+     * Calculates pattern error to total error, and 
+     * returns output error vector for specified actual and target outputs.
+     * Also adds pattern error to total error .
      * 
-     * @param actualOutput actual output from the neural network
-     * @param targetOutput target/desired output of the neural network
+     * @param actual actual output from the neural network
+     * @param target target/desired output of the neural network
      * @return error vector for specified actual and target outputs
      */
     @Override
-    public float[] calculateOutputError(final float[] actualOutput,  final float[] targetOutput) {
-        this.actualOutput = actualOutput;    
-        this.targetOutput = targetOutput;
-        
-        
-        totalError += (float)-(targetOutput[0]*Math.log(actualOutput[0]) + (1-targetOutput[0])*Math.log(1-actualOutput[0]));
+    public float[] addPatternError(final float[] actual,  final float[] target) {                
+        outputError[0] = actual[0] - target[0]; // ovo je dL/dy izvod loss funkcije u odnosu na izlaz ovog neurona, kada je u outputu sigmoidna f-ja. ovo se koristi za deltu izlaznog neurona              
+        totalError += (float)(target[0] * Math.log(actual[0]) + (1-target[0]) * Math.log(1-actual[0]));
         patternCount++;
-        
-        outputError[0] = actualOutput[0] - targetOutput[0]; // ovo je dL/dy izvod loss funkcije u odnosu na izlaz ovog neurona - ovo se koristi za deltu izlaznog neurona              
+                
         return outputError;        
     }
-    
-    /**
-     * Return the total error for the current pattern 
-     * 
-     * @return 
-     */
-    @Override
-    public float getPatternError() {
-        return (float)-(targetOutput[0]*Math.log(actualOutput[0]) + (1-targetOutput[0])*Math.log(1-actualOutput[0]));
-    }
-    
+       
     @Override
     public float getTotalError() {
-        return  totalError / patternCount;
+        return  -totalError / patternCount;
     }
     
     @Override

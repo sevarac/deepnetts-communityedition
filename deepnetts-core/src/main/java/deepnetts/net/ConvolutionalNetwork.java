@@ -34,6 +34,7 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
+import deepnetts.util.DeepNettsException;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
@@ -217,8 +218,12 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
                     break;
                 case CROSS_ENTROPY:
                     if (neuralNet.getOutputLayer().getWidth() == 1) {
+                        if (neuralNet.getOutputLayer().getActivationType() != ActivationType.SIGMOID )
+                            throw new DeepNettsException("Illegal combination of activation and loss functions (Sigmoid activation must be used with Cross Entropy Loss)");
                         loss = new BinaryCrossEntropyLoss(neuralNet);
                     } else {
+                        if (neuralNet.getOutputLayer().getActivationType() != ActivationType.SOFTMAX )
+                         //   throw new DeepNettsException("Illegal combination of activation and loss functions (Softmax activation must be used with Cross Entropy Loss)");                        
                         loss = new CrossEntropyLoss(neuralNet);
                     }
                     break;

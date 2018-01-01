@@ -21,17 +21,23 @@
     
 package deepnetts.data;
 
+import deepnetts.util.RandomGenerator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A collection of data set items.
+ * 
+ * DataSet should also be an interface like List or Collection.
+ * We can have BasicDataSet or DefaultDataSet
  * 
  * thos should be the interface in visrec.ml
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
@@ -103,6 +109,42 @@ public class DataSet<ITEM_TYPE extends DataSetItem> implements Iterable<ITEM_TYP
                 
         return dataSet;          
     }
+        
+    public DataSet[] split(int ... parts) {    
+        if (parts.length < 2) throw new IllegalArgumentException("Must specify at least two parts");
+        int pSum=0;
+        for(int i=0; i<parts.length; i++)
+            pSum += parts[i];
+        
+        if (pSum > 100) throw new IllegalArgumentException("Sum of parts cann not be larger than 100!");
+        
+        int idx=0;
+        DataSet[] subsets = new DataSet[parts.length];
+      //  shuffle(); // this should be shuffled outside       
+        for(int i=0; i<parts.length; i++) {
+             DataSet subSet = new DataSet(this.inputs, this.outputs); 
+             int itemsCount =(int) (size() * parts[i] / 100.0f);
+             
+             for(int j=0; j<itemsCount; j++) {
+                 subSet.add(items.get(idx));
+                 idx++;
+             }
+             
+             subsets[i] = subSet;
+        }
+                        
+        return subsets;
+    }
+
+    public void shuffle() {
+        Random rnd = RandomGenerator.getDefault().getRandom();
+        Collections.shuffle(items, rnd); // use one with rand param
+    }
+    
+    public void shuffle(int seed) {
+        Random rnd = new Random(seed);
+        Collections.shuffle(items, rnd);
+    }        
     
             
 }

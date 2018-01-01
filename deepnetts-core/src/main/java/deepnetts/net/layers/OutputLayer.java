@@ -38,10 +38,6 @@ public class OutputLayer extends AbstractLayer {
     protected final String[] labels;      
     protected LossType lossType;    
     
-    /**
-     * Index position of target class on network output
-     */
-    int targetClassIdx;
 
     public OutputLayer(int width) {
         this.width = width;
@@ -51,7 +47,7 @@ public class OutputLayer extends AbstractLayer {
         labels = new String[depth];
         // generate enumerated class names from 1..n
         for (int i = 0; i < depth; i++) {
-            labels[i] = "Out_" + i;
+            labels[i] = "Output" + i;
         }
         
         setActivationType(ActivationType.SIGMOID);
@@ -65,7 +61,7 @@ public class OutputLayer extends AbstractLayer {
         labels = new String[depth];
         // generate enumerated class names from 1..n
         for (int i = 0; i < depth; i++) {
-            labels[i] = "Out_" + i;
+            labels[i] = "Output" + i;
         }
         
         setActivationType(activationFunction);
@@ -126,20 +122,20 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void forward() {                
-        outputs.copyFrom(biases);  // reset output to bias value        
-        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer  | ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols           
+        outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
+        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols           
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
             }                        
-            //outputs.set(outCol, ActivationFunctions.sigmoid(outputs.get(outCol)));      // apply activation function - could be tanh too
             outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
         }             
     }
 
     /**
      * This method implements backward pass for the output layer. 
-     * TODO: set externaly whcih loss function i used and correct  line 82 - cold be done in super class
-     * If CE loss is used output error should not be multiplied with prime
+     * 
+     * http://peterroelants.github.io/posts/neural_network_implementation_intermezzo01/
+     * http://neuralnetworksanddeeplearning.com/chap3.html#introducing_the_cross-entropy_cost_function                
      */
     @Override
     public void backward() {
@@ -149,24 +145,22 @@ public class OutputLayer extends AbstractLayer {
         }
         
         for (int dCol = 0; dCol < deltas.getCols(); dCol++) { // iterate all output neurons / deltas
-            // TODO: da li ovde ttreba mnoziti sa izvodom? za CE ne treba, raspisi postupno kompletne matematicke formule za MSE i CE, Binary i MultiClass
-            // ako je funkcija greske binary CE onda ne treba, a ako je MSE ond treba
-            // kako ovde da znam da koja je funkcija greske - prilikom kreiranja mreze (build) da se setuje neki parametar
+            
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
                 deltas.set(dCol, outputErrors[dCol] * ActivationFunctions.prime(activationType, outputs.get(dCol))); // delta = e*f1 
-            } else {
-                deltas.set(dCol, outputErrors[dCol]); // zato jer se u matematickom obliku skracuju - daj referencu!
-            }
+            } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY )  { // ovo samo za binary cross entropy, single sigmoid output
+                deltas.set(dCol, outputErrors[dCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
+            }             
                         
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) { // prev layer is allways FullyConnected
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 final float grad = deltas.get(dCol) * inputs.get(inCol);
                 final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));                
                 deltaWeights.add(inCol, dCol, deltaWeight ); // sum deltaWeight for batch mode
             }
-            //deltaBiases[dCol] += -learningRate * deltas.get(dCol) + momentum * prevDeltaBiases[dCol];
-              deltaBiases[dCol] += Optimizers.sgd(learningRate, deltas.get(dCol));
-//            deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
+
+            deltaBiases[dCol] += Optimizers.sgd(learningRate, deltas.get(dCol));
+//          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }
     }
 
@@ -195,5 +189,5 @@ public class OutputLayer extends AbstractLayer {
             Tensor.fill(deltaBiases, 0);
         }
     }
-
+    
 }

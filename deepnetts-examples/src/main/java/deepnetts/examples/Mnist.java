@@ -49,7 +49,8 @@ public class Mnist {
     int imageHeight = 28;
          
     String labelsFile   = "datasets/mnist/labels.txt";
-    String trainingFile = "datasets/mnist/train.txt";
+ //   String trainingFile = "datasets/mnist/train2.txt"; // 1000 cifara - probaj sa 10 000
+      String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; // 1000 cifara - probaj sa 10 000
     
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
     
@@ -61,22 +62,25 @@ public class Mnist {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true);
+        imageSet.loadImages(new File(trainingFile), true, 3000);
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
                 
+        
+        ImageSet[] imageSets = imageSet.split(66, 34);
+        
         int labelsCount = imageSet.getLabelsCount();
                   
         LOGGER.info("Creating neural network...");
                     
          // create convolutional neural network architecture           
-        ConvolutionalNetwork neuralNet = new ConvolutionalNetwork.Builder()
+        ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight)
                                         .addConvolutionalLayer(5, 6)
                                         .addMaxPoolingLayer(2, 2)        
-//                                        .addConvolutionalLayer(5, 3) 
-//                                        .addMaxPoolingLayer(2, 2)       
+                                        .addConvolutionalLayer(5, 3) 
+                                        .addMaxPoolingLayer(2, 2)       
                                         .addFullyConnectedLayer(30)
                                         .addFullyConnectedLayer(20)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
@@ -89,16 +93,16 @@ public class Mnist {
                  
         // create a trainer and train network
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-        trainer.setLearningRate(0.03f)
+        trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
-                .setMaxError(0.05f)
+                .setMaxError(0.06f)
                 .setBatchMode(false)
                 .setOptimizer(OptimizerType.SGD);
-        trainer.train(imageSet);   
+        trainer.train(imageSets[0]);   
                        
         // Test trained network
         ClassifierEvaluator tester = new ClassifierEvaluator();
-        tester.evaluate(neuralNet, imageSet);     
+        tester.evaluate(neuralNet, imageSets[1]);     
         System.out.println(tester);                          
                 
         // Save network to file as json

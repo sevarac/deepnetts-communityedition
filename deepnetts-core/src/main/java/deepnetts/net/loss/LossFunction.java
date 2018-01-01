@@ -22,17 +22,35 @@
 package deepnetts.net.loss;
 
 /**
- *
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * Interface for all loss functions.
+ * 
+ * TODO: add method to return firts derivative by y : dE/dy ?
+ * 
+ * @see MeanSquaredErrorLoss
+ * @see CrossEntropyLoss
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public interface LossFunction {
     
-    public float[] calculateOutputError(float[] actualOutput, float[] targetOutput);
-    
-    public float getPatternError();
-    
+    /**
+     * Calculates pattern error for specified actual and target outputs,
+     * adds the error to total error, and returns the pattern error.
+     * 
+     * @param actual actual network output
+     * @param target target network output
+     * @return  error vector
+     */
+    public float[] addPatternError(float[] actual, float[] target);
+       
+    /**
+     * Returns the total error calculated by this loss function.
+     * @return total error calculated by this loss function
+     */
     public float getTotalError();
-    
+   
+    /**
+     * Resets the total error and pattern counter.
+     */
     public void reset();
     
 }

@@ -69,9 +69,10 @@ public class JavaOneSponsors {
         // dodaj i bele slike kao negative u data set
         ConvolutionalNetwork javaOneNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 3, ActivationType.TANH)
+                                        .addConvolutionalLayer(5, 5, 5, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2, 2)                 
                                         .addFullyConnectedLayer(40, ActivationType.TANH)
+                                        .addFullyConnectedLayer(20, ActivationType.TANH)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .withRandomSeed(123)
@@ -83,8 +84,8 @@ public class JavaOneSponsors {
         BackpropagationTrainer trainer = new BackpropagationTrainer(javaOneNet);
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
-               .setMaxError(0.03f)
-               .setMaxIterations(500)
+               .setMaxError(0.4f)
+               .setMaxEpochs(500)
                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSet);   
           
@@ -104,21 +105,15 @@ public class JavaOneSponsors {
 //        DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(javaOneNet);
 //        ClassificationResults<ClassificationResult> results = imageClassifier.classify(image);
 //        System.out.println(results.toString());
-       
-                
+                       
     }
     
-    
-    
-    
-    public static void main(String[] args) {                     
             
+    public static void main(String[] args) {                                 
         try {
             (new JavaOneSponsors()).run();
         } catch (DeepNettsException | IOException ex) {
             LOGGER.error(ex);
-        }
-   
-                
+        }                   
     }
 }

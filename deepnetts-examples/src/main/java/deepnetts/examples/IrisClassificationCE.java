@@ -44,23 +44,23 @@ public class IrisClassificationCE {
         DataSet dataSet = DataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");        
         
         // create instance of multi addLayer percetpron using builder
-        FeedForwardNetwork convNet = FeedForwardNetwork.builder()
+        FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                                             .addInputLayer(4)
                                             .addFullyConnectedLayer(20, ActivationType.TANH)
-                                            .addFullyConnectedLayer(13)
+//                                            .addFullyConnectedLayer(13)
                                             .addOutputLayer(3, ActivationType.SOFTMAX)
                                             .withLossFunction(LossType.CROSS_ENTROPY)
-                                            .withRandomSeed(123).
-                                        build();
+                                            .withRandomSeed(123)
+                                            .build();
               
         // create and configure instanceof backpropagation trainer 
-        BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
-        trainer.setMaxError(0.02f);
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+        trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.5f);
         trainer.setMomentum(0.3f);
         trainer.setBatchMode(false);
         //trainer.setBatchSize(150);
-        trainer.setMaxIterations(10000);
+        trainer.setMaxEpochs(10000);
         trainer.train(dataSet);                                                                                                                
     }
     

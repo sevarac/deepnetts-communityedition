@@ -111,6 +111,8 @@ public class FullyConnectedLayer extends AbstractLayer {
     public void forward() {
         // if previous layer is FullyConnected
         if (prevLayer instanceof FullyConnectedLayer) { 
+            // weighted sum of input and weight tensors with added biases
+            // folowed by activation function applied to each output element
             
             outputs.copyFrom(biases);                                                       // first use (add) biases to all outputs
             for (int outCol = 0; outCol < outputs.getCols(); outCol++) {                    // for all neurons/outputs in this layer

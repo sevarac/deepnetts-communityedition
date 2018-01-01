@@ -41,7 +41,8 @@ public class Cifar10Ce {
     int imageHeight = 32;
          
     String labelsFile = "datasets/cifar10/labels.txt";
-    String trainingFile = "datasets/cifar10/train.txt";
+    //String trainingFile = "datasets/cifar10/train.txt";
+    String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
    // String testFile = "datasets/cifar10/test.txt";         
     
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
@@ -50,38 +51,45 @@ public class Cifar10Ce {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true, 100);
+        imageSet.loadImages(new File(trainingFile), true, 1000);
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
             
         int labelsCount = imageSet.getLabelsCount();
         
-        LOGGER.info("Done!");             
+        ImageSet[] imageSets = imageSet.split(66, 34);        
+                 
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 6, ActivationType.TANH)
-                                        .addMaxPoolingLayer(2, 2, 2)                                 
-                                        .addFullyConnectedLayer(40, ActivationType.TANH)     
+                                        .addConvolutionalLayer(5, 5, 12)
+                                        .addMaxPoolingLayer(2, 2, 2)      
+                                        .addConvolutionalLayer(5, 5, 24)
+                                        .addMaxPoolingLayer(2, 2, 2)                     
+                                        .addConvolutionalLayer(5, 5, 48)
+                                        .addMaxPoolingLayer(2, 2, 2)                                     
+                                        .addFullyConnectedLayer(40)     
+                                        .addFullyConnectedLayer(30)     
+                                        .addFullyConnectedLayer(20)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
+                                        .withActivationFunction(ActivationType.RELU)
                                         .withLossFunction(LossType.CROSS_ENTROPY)                
                                         .build();
-        
-        LOGGER.info("Done!");       
+           
         LOGGER.info("Training neural network"); 
          
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.5f);
+        trainer.setMaxError(0.03f);
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 
-        trainer.train(imageSet);       
+        trainer.train(imageSets[0]);       
         
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        evaluator.evaluate(neuralNet, imageSet);     
+        evaluator.evaluate(neuralNet, imageSets[1]);     
         System.out.println(evaluator);            
         
     }
