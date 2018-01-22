@@ -23,7 +23,6 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
-import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,9 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,9 +41,7 @@ import org.apache.logging.log4j.Logger;
  * @author zoran
  */
 public class ImageSet extends DataSet<ExampleImage> { 
-    // ovi ne mogu svi da budu u memoriji odjednom...
-    // this should be items
-    private final List<ExampleImage> images; // mozda neka konkurentna kolekcija da vise threadova moze paralelno da trenira i testira nekoliko neuronskih mreza
+
     private final List<String> labels;
     private final int imageWidth;
     private final int imageHeight;
@@ -54,35 +49,36 @@ public class ImageSet extends DataSet<ExampleImage> {
     
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());    
         
+    // ovi ne mogu svi da budu u memoriji odjednom...    
    // osmisliti i neki protocni / buffered data set, koji ucitava jedan batch
       
     public ImageSet(int imageWidth, int imageHeight) {
+        super();
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
-        
-        images = new ArrayList();       
+          
         labels = new ArrayList();     
     }    
 
     public ImageSet(int imageWidth, int imageHeight, int capacity) {
+        super();        
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
-        
-        images = new ArrayList(capacity);       
+         
         labels = new ArrayList();     
     }        
     
     /**
      * Adds image to this image set.
      * 
-     * @param image
+     * @param exImage
      * @throws DeepNettsException if image is empty or has wrong dimensions.
      */
-    public void add(ExampleImage image) throws DeepNettsException {
-        if (image == null) throw new DeepNettsException("Example image cannot be null!");
+    public void add(ExampleImage exImage) throws DeepNettsException {
+        if (exImage == null) throw new DeepNettsException("Example image cannot be null!");
         
-        if ((image.getWidth() == imageWidth) && (image.getHeight() == imageHeight)) {        
-            images.add(image);
+        if ((exImage.getWidth() == imageWidth) && (exImage.getHeight() == imageHeight)) {        
+            items.add(exImage);
         } else {
             throw new DeepNettsException("Wrong image dimensions for this data set. All images should be "+imageWidth + "x"  + imageHeight);
         }        
@@ -92,9 +88,10 @@ public class ImageSet extends DataSet<ExampleImage> {
     /**
      * Loads example images with labels from specified file.
      * 
-     * TODO: First load entire image index, then load and preprocess image in multihredaded way
+     * TODO: First load entire image index, then load and preprocess image in multithreaded way
      * 
      * @param imageIdxFile Plain text file that contains space delimited image file paths and labels
+     * @param absPaths True if file contains absolute paths for images, false otherwise
      * @throws java.io.FileNotFoundException if imageIdxFile was not found
      */    
     public void loadImages(File imageIdxFile, boolean absPaths) throws FileNotFoundException  {
@@ -117,23 +114,27 @@ public class ImageSet extends DataSet<ExampleImage> {
                 if (!absPaths) imgFileName = parentPath + File.separator + imgFileName;
                 if (str.length == 2) {
                     label = str[1];
-                } else if (str.length ==1) {
-                    // todo: extract label from parent folder
+                } else if (str.length == 1) {
+                    // todo: extract label from parent folder - check this
+                    final int labelEndIdx = imgFileName.lastIndexOf(File.separator);
+                    final int labelStartIdx = imgFileName.lastIndexOf(File.separator, labelEndIdx) + 1;
+                    label = imgFileName.substring(labelStartIdx, labelEndIdx);
+                    //parentPath
                 }
                 
                 // todo: load and preprocess image pixels in separate thread in batches of 10 images
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(createOutputVectorFor(label));
+                exImg.setTargetOutput(binaryVectorForLabel(label, labels.indexOf(label) ));
                 
                 // make sure all images are the same size
                 if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
                 
-                images.add(exImg);  
+                add(exImg);  
             }
             
-            if (images.isEmpty()) throw new DeepNettsException("Zero images loaded!");           
+            if (isEmpty()) throw new DeepNettsException("Zero images loaded!");           
             
-            LOGGER.info("Loaded "+images.size()+ " images");
+            LOGGER.info("Loaded "+size()+ " images");
             
         } catch (FileNotFoundException ex) {
             LOGGER.error(ex);
@@ -150,6 +151,7 @@ public class ImageSet extends DataSet<ExampleImage> {
      * Loads example images and corresponding labels from specified file.
      * 
      * @param imageIdxFile Plain text file which contains space delimited image file paths and labels
+     * @param absPaths True if file contains absolute paths for images, false otherwise
      * @param numOfImages number of images to load
      */    
     public void loadImages(File imageIdxFile, boolean absPaths, int numOfImages) throws DeepNettsException  {
@@ -173,23 +175,23 @@ public class ImageSet extends DataSet<ExampleImage> {
                 String[] str = line.split(" "); // parse file and class label from line
                 imgFileName = str[0];
                 if (!absPaths) imgFileName = parentPath + File.separator + imgFileName;
-                label = str[1];
+                label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
                 
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(createOutputVectorFor(label));
+                exImg.setTargetOutput(binaryVectorForLabel(label, labels.indexOf(label) ));
 
                 // make sure all images are the same size
                 if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) {
                     throw new DeepNettsException("Bad image size!");
                 }
 
-                images.add(exImg);
+                add(exImg);
             }
 
-            if (images.isEmpty()) {
+            if (isEmpty()) {
                 throw new DeepNettsException("Zero images loaded!");
             }
-            LOGGER.info("Loaded " + images.size() + " images");
+            LOGGER.info("Loaded " + size() + " images");
 
         } catch (FileNotFoundException ex) {
             LOGGER.error(ex);
@@ -204,15 +206,16 @@ public class ImageSet extends DataSet<ExampleImage> {
      * Creates and returns binary target vector for specified label using one-of-many scheme.
      * Returns all zeros for label 'negative'.
      * 
+     * TODO: add params size and idx and move to some util class
+     * 
      * @param label
      * @return 
      */
-    private float[] createOutputVectorFor(final String label) {
+    private float[] binaryVectorForLabel(final String label, int idx) {
         final float[] out = new float[labels.size()];
         
         if (label.equals("negative")) return out;
-        
-        final int idx = labels.indexOf(label); // get label index
+                
         if (idx != -1) {
             out[idx] = 1;
             return out;
@@ -220,57 +223,52 @@ public class ImageSet extends DataSet<ExampleImage> {
             
         throw new DeepNettsException("Label '"+label+"' not found in labels file!");
     }
+        
     
-    
-    
-    public List<ExampleImage> getImages() {
-        return images;
-    }
-
     public List<String> getLabels() {
-        return labels;
+        return Collections.unmodifiableList(labels);
     }
     
     public int getLabelsCount() {
         return labels.size();
     }
-    
-    // shuffle should have random seed?
-    public void shuffle() {
-        Random rnd = RandomGenerator.getDefault().getRandom();
-        Collections.shuffle(images, rnd); // use one with rand param
-    }
-    
-    public void shuffle(int seed) {
-        Random rnd = new Random(seed);
-        Collections.shuffle(images, rnd);
-    }    
-    
-    
-    public ImageSet[] split(int ... percents) {               
-        int pSum=0;
-        for(int i=0; i<percents.length; i++)
-            pSum += percents[i];
+          
+    /**
+     * Splits data set into several parts specified by the input parameter partSizes.
+     * Values of partSizes parameter represent the sizes of data set parts that will be returned.
+     * Part sizes are integer values that represent percents, cannot be negative or zero, and their sum must be 100
+     * 
+     * @param partSizes sizes of the parts in percents
+     * @return parts of the data set of specified size 
+     */    
+    @Override
+    public ImageSet[] split(int ... partSizes) {       
+        if (partSizes.length < 2) throw new IllegalArgumentException("Must specify at least two parts");        
+        int partsSum=0;
+        for(int i=0; i<partSizes.length; i++) {
+            if (partSizes[i] <= 0) throw new IllegalArgumentException("Value of the part cannot be zero or negative!");
+            partsSum += partSizes[i];
+        }
         
-        if (pSum > 100) throw new DeepNettsException("Sum of percents cann not be larger than 100!");
+        if (partsSum > 100) throw new IllegalArgumentException("Sum of parts/percents cannot be larger than 100!");
         
-        int idx=0;
-        ImageSet[] subsets = new ImageSet[percents.length];
-        shuffle();       
-        for(int i=0; i<percents.length; i++) {
-             ImageSet imageSubSet = new ImageSet(imageWidth, imageHeight); 
-             int itemsCount =(int) (size() * percents[i] / 100.0f);
+        ImageSet[] subSets = new ImageSet[partSizes.length];
+        int itemIdx=0;
+     
+        for(int p = 0; p < partSizes.length; p++) {
+             ImageSet subSet = new ImageSet(imageWidth, imageHeight); 
+             int itemsCount =(int) (size() * partSizes[p] / 100.0f);
              
              for(int j=0; j<itemsCount; j++) {
-                 imageSubSet.add(images.get(idx));
-                 idx++;
+                 subSet.add(items.get(itemIdx));
+                 itemIdx++;
              }
              
-             subsets[i] = imageSubSet;
-             subsets[i].labels.addAll(labels);
+             subSets[p] = subSet;
+             subSets[p].labels.addAll(labels);
         }
                         
-        return subsets;
+        return subSets;
     }
         
      public List<String> loadLabels(String filePath) throws DeepNettsException {
@@ -295,29 +293,25 @@ public class ImageSet extends DataSet<ExampleImage> {
         }        
     }
 
-    @Override
-    public int size() {
-       return images.size();
-    }
-    
+   
     /**
      * Applies zero mean normalization to entire dataset, and returns mean matrix.
-     * 
+     * TODO: this mean tensor is not correct!
      * @return Returns mean matrix for the entire dataset
      */
     public Tensor zeroMean() {
         mean = new Tensor(imageHeight, imageWidth, 3);
         
         // sum all matrices
-        for(ExampleImage image : images) {
+        for(ExampleImage image : items) {
             mean.add(image.getInput());
         }
         
         // divide by number of images
-        mean.div((float)images.size());
+        mean.div(items.size());
         
         // subtract mean from each image
-        for(ExampleImage image : images) {
+        for(ExampleImage image : items) {
             image.getInput().sub(mean);
         }        
         
@@ -325,7 +319,7 @@ public class ImageSet extends DataSet<ExampleImage> {
     }
     
     public void invert() {
-        for(ExampleImage image : images) {
+        for(ExampleImage image : items) {
         //    mean.add(image.getInput());
             float[] rgbVector = image.getRgbVector();
             for(int i=0; i<rgbVector.length; i++) {
@@ -333,13 +327,5 @@ public class ImageSet extends DataSet<ExampleImage> {
             }
         }        
     }
-    
-    
-    
-    @Override
-    public Iterator<ExampleImage> iterator() {        
-        return images.iterator();
-    }    
-    
-
+            
 }

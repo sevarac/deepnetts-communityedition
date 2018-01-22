@@ -28,7 +28,7 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -97,7 +97,7 @@ public class JavaOneSponsors {
         }
         
         // deserialize and evaluate neural network
-        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
         evaluator.evaluate(javaOneNet, imageSet);     
         System.out.println(evaluator);   
                           

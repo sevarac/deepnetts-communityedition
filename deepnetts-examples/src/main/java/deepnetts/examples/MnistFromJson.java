@@ -27,7 +27,7 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.FileReader;
@@ -90,7 +90,7 @@ public class MnistFromJson {
         trainer.train(imageSet);   
                        
         // Test trained network
-        ClassifierEvaluator tester = new ClassifierEvaluator();
+        ConvolutionalClassifierEvaluator tester = new ConvolutionalClassifierEvaluator();
         tester.evaluate(neuralNet, imageSet);     
         System.out.println(tester);                          
                 

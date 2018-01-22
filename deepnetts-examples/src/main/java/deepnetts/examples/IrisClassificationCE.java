@@ -32,7 +32,8 @@ import java.io.IOException;
 
 /**
  * Iris Classification Problem.
- * This example is using Softmax activation in output addLayer and Cross Entropy Loss function.
+ * This example is using Softmax activation in output layer and Cross Entropy Loss function.
+ * Overfits the iris data set
  * 
  * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
  */

@@ -23,19 +23,22 @@ package deepnetts.eval;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
-import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.data.ExampleImage;
-import deepnetts.data.ImageSet;
 import deepnetts.net.FeedForwardNetwork;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: put in visrec.ml
+ * if class count == 2 use binary classifier else, its multi class classifier!
+ * This class should build confusion matrix
+ * 
+ * Potreban mi je Classifier i Abstract Classifier, i abstract classifier da ima threshold
+ * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataSet<DataSetItem>> {
+public class FeedForwardClassifierEvaluator implements Evaluator<FeedForwardNetwork, DataSet<DataSetItem>> {
    
     /**
      * Class labels
@@ -45,18 +48,17 @@ public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataS
     /**
      * Classification stats for each class
      */
-    HashMap<String, ClassificationStats> resultsByLabels;
+    HashMap<String, ClassificationStats> resultsByLabels;   // for mutli class
     
     /**
      * Total classification performance
      */
-    private ClassificationStats total;
+    private ClassificationStats total; // average
     
     private float threshold = 0.5f;
     
     // we could use ConfusionMatrix here to. Can we reuse it from some other lib?
-    
-              
+                  
     private void  init() {
         resultsByLabels = new HashMap<>();
         for(String label : classLabels) {
@@ -68,7 +70,7 @@ public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataS
     
     
     @Override
-    public void evaluate(FeedForwardNetwork neuralNet, DataSet<DataSetItem> dataSet) {    
+    public Map<String, PerformanceMeasure> evaluate(FeedForwardNetwork neuralNet, DataSet<DataSetItem> dataSet) {    
         classLabels =  Arrays.asList(new String[] {"Versicolor", "Setosa", "Virginica"});
         init();
         
@@ -78,18 +80,18 @@ public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataS
             neuralNet.setInput(item.getInput());
             neuralNet.forward();
             float[] output = neuralNet.getOutput();
-            String predictedLabel = processResult(output, item.getTargetOutput());                       
-            //System.out.println(exampleImage.getFile().getName() + " : "+exampleImage.getLabel()+ " : " + predictedLabel + " : " + output[0]);            
+            processResult(output, item.getTargetOutput());                       
         }        
         
         calculatePercents();
+        return null;
     }
 
     private String processResult(float[] predictedOutput, float[] targetOutput) {
         
-        if (predictedOutput.length == 1) { // binary classifier
+        if (predictedOutput.length == 1) { // binary classifier, or num of classes == 2
             String clazz = classLabels.get(0);
-            if ((predictedOutput[0] > threshold) && (targetOutput[0] ==1)) {
+            if ((predictedOutput[0] > threshold) && (targetOutput[0] ==1)) { // the threshold should be checked in classifier
                 total.correct++;
                 resultsByLabels.get(clazz).correct++; //tp
                 return clazz;
@@ -174,7 +176,7 @@ public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataS
         }
     }
     
-    public static class ClassificationStats {
+    public static class ClassificationStats { // ovo treba u confusion matrix
         String classLabel;
         // razdvojiti ove
         // correct = tp+tn
@@ -204,13 +206,13 @@ public class ClassifierEvaluator1 implements Evaluator<FeedForwardNetwork, DataS
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
+        // print out Performance measures instead
         sb.append(System.lineSeparator()).append("------------------------------------------------------------------------").append(System.lineSeparator()).
            append("CLASSIFIER EVALUATION RESULTS ").append(System.lineSeparator()).append("------------------------------------------------------------------------").append(System.lineSeparator());
-        sb.append("Total classes: ").append(classLabels.size()).append(System.lineSeparator());
-        sb.append("Total correct: ").append(total.correct).append(System.lineSeparator());
-        sb.append("Total incorrect: ").append(total.incorrect).append(System.lineSeparator());        
-        sb.append("Results by labels").append(System.lineSeparator());
+        sb.append("Total classes: ").append(classLabels.size()).append(System.lineSeparator()); 
+        sb.append("Total correct: ").append(total.correct).append(System.lineSeparator());  // tp + tn
+        sb.append("Total incorrect: ").append(total.incorrect).append(System.lineSeparator()); // fp + fn
+        sb.append("Results by labels").append(System.lineSeparator()); // correct incorrect
         
         for(String label : resultsByLabels.keySet()) {            
             ClassificationStats result = resultsByLabels.get(label);

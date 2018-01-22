@@ -94,7 +94,6 @@ public class ExampleImage implements DataSetItem {
         extractPixelColors(image);        
     }    
 
-    // getRgbVector
     private void extractPixelColors(BufferedImage image ) {
         int[][][] pixels = new int[height][width][3]; // da li ovde mogu da koristim Raster ili DataBuffer?
         rgbVector = new float[width * height * 3];
@@ -106,10 +105,6 @@ public class ExampleImage implements DataSetItem {
                 pixels[y][x][0] = ColorUtils.getBlue(color);
                 pixels[y][x][1] = ColorUtils.getGreen(color);
                 pixels[y][x][2] = ColorUtils.getRed(color);
-
-                // razvicu boju na interval [-0.1, 1.175] umesto [0,1]
-                // -0.1 + 1.275 * x
-                // -0.1 + 1.275 * (1-x)
                 
                 rgbVector[y * width + x] = pixels[y][x][0] / 255.0f;// - 0.5;   normalize & translate // TODO: proveri da li ovo radi dobro!!!
                 rgbVector[width * height + y * width + x] = pixels[y][x][1] / 255.0f;// - 0.5;

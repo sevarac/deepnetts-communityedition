@@ -2,7 +2,7 @@ package deepnetts.examples;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.layers.OutputLayer;
@@ -43,7 +43,8 @@ public class RunLegoPeople {
         imageSet.zeroMean();
         imageSet.shuffle();
     
-       // int labelsCount = imageSet.getLabelsCount();
+        
+       ImageSet[] imageSets = imageSet.split(66, 34);
         
         LOG.info("Done loading images.");             
                 
@@ -71,10 +72,10 @@ public class RunLegoPeople {
         BackpropagationTrainer trainer = new BackpropagationTrainer(legoPeopleNet);
         trainer.setLearningRate(0.01f);
        // trainer.setMomentum(0.1f);
-        trainer.setMaxError(0.03f);
+        trainer.setMaxError(0.06f);
         trainer.setOptimizer(OptimizerType.SGD);
         trainer.setBatchMode(true).setBatchSize(10);
-        trainer.train(imageSet);   
+        trainer.train(imageSets[0]);   
         
         LOG.info("Done training neural network."); 
           
@@ -89,8 +90,8 @@ public class RunLegoPeople {
         ConvolutionalNetwork legoNet=null;
    //     try {
      //       legoNet = (ConvolutionalNetwork) FileIO.createFromFile("legoPeople.net");            
-            ClassifierEvaluator recognitionTester = new ClassifierEvaluator();
-            recognitionTester.evaluate(legoPeopleNet, imageSet);     
+            ConvolutionalClassifierEvaluator recognitionTester = new ConvolutionalClassifierEvaluator();
+            recognitionTester.evaluate(legoPeopleNet, imageSets[1]);     
             System.out.println(recognitionTester);                        
 //        } catch (IOException | ClassNotFoundException ex) {
 //            Logger.getLogger(RunLegoPeople.class.getName()).log(Level.SEVERE, null, ex);

@@ -22,8 +22,8 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSet;
-import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.ClassifierEvaluator1;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.FeedForwardClassifierEvaluator;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -44,15 +44,15 @@ public class IrisClassificationCE2 {
         
         // load iris data  set
         DataSet dataSet = DataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");        
-        
-        dataSet.shuffle();  dataSet.shuffle();
+        // shiffle the data set to randomize the order - shuffle during the training?
+        dataSet.shuffle();
         DataSet[] dataSets = dataSet.split(65, 35);// verify params
         
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                                             .addInputLayer(4)
                                             .addFullyConnectedLayer(3, ActivationType.TANH)
-                                            .addFullyConnectedLayer(3, ActivationType.TANH)
+//                                          .addFullyConnectedLayer(3, ActivationType.TANH)
                                             .addOutputLayer(3, ActivationType.SOFTMAX)
                                             .withLossFunction(LossType.CROSS_ENTROPY)
                                             .withRandomSeed(123).
@@ -60,7 +60,7 @@ public class IrisClassificationCE2 {
               
         // create and configure instanceof backpropagation trainer 
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-        trainer.setMaxError(0.1f);
+        trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setMomentum(0.3f);
         trainer.setBatchMode(false);
@@ -69,7 +69,7 @@ public class IrisClassificationCE2 {
         trainer.train(dataSets[0]);                                                                                                                
         
         
-        ClassifierEvaluator1 tester = new ClassifierEvaluator1();
+        FeedForwardClassifierEvaluator tester = new FeedForwardClassifierEvaluator();
         tester.evaluate(neuralNet, dataSets[1]);     
         System.out.println(tester);              
         

@@ -27,18 +27,16 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import visrec.classifier.ClassificationResult;
-import visrec.classifier.ClassificationResults;
 
 /**
  * Convolutional Neural Network that learns to detect Duke images.
@@ -54,18 +52,20 @@ public class DukeDetector {
         int imageWidth = 64;
         int imageHeight = 64;
 
-        String labelsFile = "datasets/DukeSet/labels.txt";
-        String trainingFile = "datasets/DukeSet/train.txt";
-        String testFile = "datasets/DukeSet/test.txt";
+        String trainingFile = "D:\\datasets\\DukeSet\\train.txt";        
+        String labelsFile = "D:\\datasets\\DukeSet\\labels.txt";
+//        String labelsFile = "datasets/DukeSet/labels.txt";
+//        String trainingFile = "datasets/DukeSet/train.txt";
+  //      String testFile = "datasets/DukeSet/test.txt";
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
 
         LOGGER.info("Loading images...");
 
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false);
-      //  imageSet.invert();
-        imageSet.zeroMean();
+        imageSet.loadImages(new File(trainingFile), true);
+        imageSet.invert();
+       // imageSet.zeroMean();
         imageSet.shuffle();
 
         LOGGER.info("Creating neural network...");
@@ -74,7 +74,7 @@ public class DukeDetector {
                 .addInputLayer(imageWidth, imageHeight, 3)
                 .addConvolutionalLayer(5, 5, 1, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
-                .addFullyConnectedLayer(10, ActivationType.TANH)
+                .addFullyConnectedLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .withLossFunction(LossType.CROSS_ENTROPY)
                 .build();
@@ -85,10 +85,10 @@ public class DukeDetector {
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
         BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
-        trainer.setMaxError(0.02f)
-                .setLearningRate(0.01f)
-                .setOptimizer(OptimizerType.SGD)
-                .setMomentum(0.2f);
+        trainer.setMaxError(0.5f)
+               .setLearningRate(0.01f)
+               .setOptimizer(OptimizerType.SGD)
+               .setMomentum(0.2f);
         trainer.train(imageSet);
 
         // to save neural network to file on disk
@@ -98,19 +98,18 @@ public class DukeDetector {
         // dukeNet = FileIO.createFromFile("DukeDetector.dnet");  
         // to serialize network in json use FileIO.toJson    
         // System.out.println(FileIO.toJson(dukeNet));
-
         
         // to evaluate recognizer with image set
-        ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        evaluator.evaluate(convNet, imageSet);
-        System.out.println(evaluator);
+        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
+        Map<String, PerformanceMeasure>  pm =  evaluator.evaluate(convNet, imageSet);
+        System.out.println(pm);
 
         // to use recognizer for single image
-        BufferedImage image = ImageIO.read(new File("/home/zoran/datasets/DukeSet/duke/duke7.jpg"));
-        DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(convNet);
-        ClassificationResults<ClassificationResult> results = imageClassifier.classify(image);
+//        BufferedImage image = ImageIO.read(new File("/home/zoran/datasets/DukeSet/duke/duke7.jpg"));
+//        DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(convNet);
+//        ClassificationResults<ClassificationResult> results = imageClassifier.classify(image);
 
-        System.out.println(results.toString());
+     //   System.out.println(results.toString());
     }
 
 }

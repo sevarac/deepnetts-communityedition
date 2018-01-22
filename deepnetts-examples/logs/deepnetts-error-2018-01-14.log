@@ -1,0 +1,18 @@
+[ERROR] 2018-01-14 16:36:28.319 [main] DeepNetts - Could not find labels file: D:\datasets\mnist\train\labels.txt
+java.io.FileNotFoundException: D:\datasets\mnist\train\labels.txt (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_151]
+	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_151]
+	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_151]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_151]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:281) [classes/:?]
+	at deepnetts.examples.Mnist.run(Mnist.java:66) [classes/:?]
+	at deepnetts.examples.Mnist.main(Mnist.java:117) [classes/:?]
+[ERROR] 2018-01-14 16:38:52.914 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 16:39:09.254 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 16:52:50.613 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:03:06.829 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:04:05.542 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:26:51.514 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:27:30.387 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:29:43.084 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-14 17:33:08.561 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!

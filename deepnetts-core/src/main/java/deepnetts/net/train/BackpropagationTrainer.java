@@ -152,7 +152,6 @@ public class BackpropagationTrainer implements Serializable {
         startTraining = System.currentTimeMillis();
         do {
             epoch++;
-//            totalError = 0; 
             lossFunction.reset();
             int sampleCounter = 0;
             
@@ -161,29 +160,21 @@ public class BackpropagationTrainer implements Serializable {
             for (DataSetItem dataSetItem : dataSet) {       // for all items in dataset 
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input     
-                neuralNet.forward();                                // do forward pass / calculate network output                         
-                
-                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error using loss function
-                neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje                
-                //totalError += lossFunction.getPatternError();  // maybe sum this in loass function                              
-                
+                neuralNet.forward();                          // do forward pass / calculate network output                                         
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
+                neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje                              
                 neuralNet.backward();                                 // do the backward propagation using current outputError - should I use outputError as a param here?
-                             
-//                if (LOGGER.getLevel().intValue() <= Level.FINE.intValue()) {
-//                    LOGGER.log(Level.INFO, ConvNetLogger.getInstance().logNetwork(neuralNet));  //  log the network details (outputs, wiights deltas ... )- for debugging purposes
-//                }    
-                
+                                            
                 // weight update for online mode after each training pattern
                 if (!isBatchMode()) { // for online training update weight changes after each pass
                     neuralNet.applyWeightChanges();   
                 } 
                 else if (sampleCounter % batchSize == 0) { // mini batch
-                    //LOG.info("Weight Update after: "+sampleCounter);    // ovde logovati mini batch, mozda i bacati event
                     neuralNet.applyWeightChanges();   
+                    // do we need to reset lossFunction for mini batch?
                 }
                 
-                fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED);  // move this inside for loop so we can track each pattern                           
-                
+                fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED);                
             }
             endEpoch = System.currentTimeMillis(); 
             
@@ -192,7 +183,6 @@ public class BackpropagationTrainer implements Serializable {
                 neuralNet.applyWeightChanges();
             }           
                                     
-            // totalError = totalError / trainingSamplesCount; // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
             totalError = lossFunction.getTotalError(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
             
             totalErrorChange = totalError - prevTotalError; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
@@ -200,7 +190,6 @@ public class BackpropagationTrainer implements Serializable {
             epochTime = endEpoch-startEpoch;
 
             LOGGER.info("Epoch:" + epoch + ", Time:"+epochTime + "ms, TotalError:" + totalError +", ErrorChange:"+totalErrorChange); // EpochTime:"+epochTime + "ms,
-    //        LOG.log(Level.INFO, ConvNetLogger.getInstance().logNetwork(neuralNet));  
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
             

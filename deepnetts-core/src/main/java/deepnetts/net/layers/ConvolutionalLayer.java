@@ -352,7 +352,7 @@ public class ConvolutionalLayer extends AbstractLayer {
             deltaBiases[ch] = 0; // da li b ovo trebalo da bude 2d niz? verovatno ne
         }
         
-        final float divisor = 1;// width * height; // * prev channels ! TODO: ovo treba potvrditi // moze i 1 za SGD!!! ali za momentum izlece!
+        final float divisor = width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
         
         // assumes that deltas from the next layer are allready propagated
         

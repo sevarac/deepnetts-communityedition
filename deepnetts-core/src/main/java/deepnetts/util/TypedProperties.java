@@ -16,5 +16,9 @@ public class TypedProperties extends Properties {
         return Float.parseFloat(key);
     }
     
+    public String getString(String key) {
+        return getProperty(key).toString();
+    }
+    
 
 }

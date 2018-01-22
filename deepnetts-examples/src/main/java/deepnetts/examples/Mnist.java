@@ -27,12 +27,14 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,9 +50,11 @@ public class Mnist {
     int imageWidth  = 28;
     int imageHeight = 28;
          
-    String labelsFile   = "datasets/mnist/labels.txt";
+      //String labelsFile   = "/home/zoran/datasets/mnist/train/labels.txt";
+      String labelsFile   = "D:\\datasets\\mnist\\train\\labels.txt";
  //   String trainingFile = "datasets/mnist/train2.txt"; // 1000 cifara - probaj sa 10 000
-      String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; // 1000 cifara - probaj sa 10 000
+ //     String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; // 1000 cifara - probaj sa 10 000
+      String trainingFile = "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 000
     
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
     
@@ -62,13 +66,13 @@ public class Mnist {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true, 3000);
+        imageSet.loadImages(new File(trainingFile), true, 100); //50000
         imageSet.invert();
-        imageSet.zeroMean();
+      //  imageSet.zeroMean();
         imageSet.shuffle();
                 
         
-        ImageSet[] imageSets = imageSet.split(66, 34);
+        ImageSet[] imageSets = imageSet.split(65, 35);
         
         int labelsCount = imageSet.getLabelsCount();
                   
@@ -95,15 +99,15 @@ public class Mnist {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
-                .setMaxError(0.06f)
+                .setMaxError(0.03f)
                 .setBatchMode(false)
                 .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);   
                        
         // Test trained network
-        ClassifierEvaluator tester = new ClassifierEvaluator();
-        tester.evaluate(neuralNet, imageSets[1]);     
-        System.out.println(tester);                          
+        ConvolutionalClassifierEvaluator tester = new ConvolutionalClassifierEvaluator();
+        Map<String, PerformanceMeasure>  pm = tester.evaluate(neuralNet, imageSets[1]);     
+        System.out.println(pm);                          
                 
         // Save network to file as json
         //FileIO.writeToFile(neuralNet, "mnistDemo.dnet");

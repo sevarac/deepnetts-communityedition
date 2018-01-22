@@ -25,12 +25,12 @@ import deepnetts.util.Tensor;
 import java.util.Arrays;
 
 /**
- * Represents an item in a supervised data set. 
+ * Represents a basic data set item (single row) with input tensor and target vector in a data set. 
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BasicDataSetItem  implements DataSetItem {
-
+    
     private final Tensor input; // network input
     private final float[] targetOutput; // for classifiers target can be index, int 
         
@@ -60,7 +60,7 @@ public class BasicDataSetItem  implements DataSetItem {
 
     @Override
     public String toString() {
-        return "VectorDataItem{" + "input=" + input + ", targetOutput=" + Arrays.toString(targetOutput) + '}';
+        return "BasicDataSetItem{" + "input=" + input + ", targetOutput=" + Arrays.toString(targetOutput) + '}';
     }
         
 }

@@ -28,7 +28,7 @@ import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConvolutionalClassifierEvaluator;
 import deepnetts.net.loss.LossType;
 import java.io.File;
 import java.io.IOException;
@@ -40,9 +40,11 @@ public class Cifar10Ce {
     int imageWidth = 32;
     int imageHeight = 32;
          
-    String labelsFile = "datasets/cifar10/labels.txt";
+    //String labelsFile = "/home/zoran/datasets/cifar10/train/labels.txt";
+    String labelsFile = "D:\\datasets\\cifar10\\train\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
-    String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
+    //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
+    String trainingFile = "D:\\datasets\\cifar10\\train\\train.txt";
    // String testFile = "datasets/cifar10/test.txt";         
     
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
@@ -51,7 +53,7 @@ public class Cifar10Ce {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true, 1000);
+        imageSet.loadImages(new File(trainingFile), true, 100);
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -64,12 +66,16 @@ public class Cifar10Ce {
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 12)
+                                        .addConvolutionalLayer(5, 5, 10)
                                         .addMaxPoolingLayer(2, 2, 2)      
-                                        .addConvolutionalLayer(5, 5, 24)
+                                        .addConvolutionalLayer(5, 5, 20)
+                                        .addMaxPoolingLayer(2, 2, 2)                
+                                        .addConvolutionalLayer(5, 5, 40)
                                         .addMaxPoolingLayer(2, 2, 2)                     
-                                        .addConvolutionalLayer(5, 5, 48)
-                                        .addMaxPoolingLayer(2, 2, 2)                                     
+//                                        .addConvolutionalLayer(5, 5, 48)
+//                                        .addMaxPoolingLayer(2, 2, 2)                                     
+//                                        .addFullyConnectedLayer(40)     
+//                                        .addFullyConnectedLayer(30)     
                                         .addFullyConnectedLayer(40)     
                                         .addFullyConnectedLayer(30)     
                                         .addFullyConnectedLayer(20)     
@@ -88,7 +94,7 @@ public class Cifar10Ce {
         trainer.train(imageSets[0]);       
         
         // Test trained network
-        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
         evaluator.evaluate(neuralNet, imageSets[1]);     
         System.out.println(evaluator);            
         

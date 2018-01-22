@@ -440,7 +440,12 @@ public class Tensor implements Serializable {
         final int idx = fourth * rows * cols * depth + z * rows * cols  + row * cols + col;
         values[idx] -= value;
     }        
-         
+
+     /**
+     * Subtracts specified tensor t from this tensor.
+     * 
+     * @param t tensor to subtract
+     */
     public final void sub(final Tensor t) {
         for(int i=0; i < values.length; i++) {
             values[i] -= t.values[i];
@@ -448,7 +453,8 @@ public class Tensor implements Serializable {
     }
     
     /**
-     * Subtracts m2 from m1
+     * Subtracts tensor t2 from t1.
+     * The result is t1.
      * 
      * @param t1
      * @param t2 
@@ -459,12 +465,22 @@ public class Tensor implements Serializable {
         }
     }
          
+    /**
+     * Divide all values in this tensor with specified value.
+     * 
+     * @param value 
+     */
     public final void div(final float value) {
         for(int i=0; i<values.length; i++) {
             values[i] /= value;
         }
     }        
          
+    /**
+     * Fills the entire tensor with specified value.
+     * 
+     * @param value value used to fill tensor
+     */
     public final void fill(final float value) {
         for (int i = 0; i < values.length; i++) {
             values[i] = value;
@@ -532,6 +548,18 @@ public class Tensor implements Serializable {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + this.cols;
+        hash = 41 * hash + this.rows;
+        hash = 41 * hash + this.depth;
+        hash = 41 * hash + this.fourthDim;
+        hash = 41 * hash + this.dimensions;
+        hash = 41 * hash + Arrays.hashCode(this.values);
+        return hash;
+    }
+
     public boolean equals(Tensor t2, float delta) {
         float[] arr2 = t2.getValues();
         
@@ -571,6 +599,14 @@ public class Tensor implements Serializable {
         }
     }
     
+    /**
+     * Factory method for creating tensor instance, 
+     * 
+     * @param rows
+     * @param cols
+     * @param values
+     * @return 
+     */
     public static Tensor create(int rows, int cols, float[] values) {
         return new Tensor(rows, cols, values);        
     }

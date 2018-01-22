@@ -1,1 +1,4 @@
-[ERROR] 2017-12-26 22:16:36.451 [main] DeepNetts - java.io.FileNotFoundException: /home/zoran/datasets/mnist/train.txt (No such file or directory)
+[ERROR] 2018-01-22 14:12:22.832 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-22 15:04:17.011 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-22 15:05:07.622 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2018-01-22 15:07:01.352 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
