@@ -25,7 +25,7 @@ import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
@@ -59,7 +59,7 @@ public class JavaOneSponsors {
         imageSet.loadImages(new File(trainingFile), false);
     
         imageSet.invert();
-        imageSet.zeroMean();
+        imageSet.zeroMean(); // standardize zero mean 1 variation
         imageSet.shuffle();        
         
         int labelsCount = imageSet.getLabelsCount();

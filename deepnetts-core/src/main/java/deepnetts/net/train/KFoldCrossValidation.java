@@ -62,6 +62,10 @@ public class KFoldCrossValidation {
         return trainedNetworks;
     }
     
+    public static Builder builder() {
+        return new Builder();
+    }
+    
     public static class Builder {
         
         KFoldCrossValidation kFoldCV = new KFoldCrossValidation();

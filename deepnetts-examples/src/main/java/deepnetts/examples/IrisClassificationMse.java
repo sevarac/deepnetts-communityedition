@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
@@ -49,7 +49,7 @@ public class IrisClassificationMse {
         // create multi layer perceptron with specified settings
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(8)
+                .addDenseLayer(8) // , ActivationType.SIGMOID
                 .addOutputLayer(3, ActivationType.SIGMOID)
                 .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                 .withRandomSeed(123)

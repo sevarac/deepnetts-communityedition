@@ -21,7 +21,10 @@
     
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationFunctions;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
+import deepnetts.net.layers.activation.ActivationFunction;
 import deepnetts.net.train.Optimizers;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.WeightsInit;
@@ -97,6 +100,7 @@ public class ConvolutionalLayer extends AbstractLayer {
         this.depth = channels; // ovo je isto kao i depth, broj feature mapa
         this.stride = 1;
         this.activationType = ActivationType.TANH; // use relu as default?
+        this.activation = ActivationFunction.create(activationType);
     }
 
     public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, ActivationType activationType) {
@@ -105,6 +109,7 @@ public class ConvolutionalLayer extends AbstractLayer {
         this.depth = channels;
         this.stride = 1;
         this.activationType = activationType;
+        this.activation = ActivationFunction.create(activationType);        
     }    
 
     public ConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels, ActivationType activationType) {
@@ -113,6 +118,7 @@ public class ConvolutionalLayer extends AbstractLayer {
         this.depth = channels;
         this.stride = stride;
         this.activationType = activationType;
+        this.activation = ActivationFunction.create(activationType);        
     }      
     
     

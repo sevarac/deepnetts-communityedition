@@ -5,7 +5,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.KFoldCrossValidation;
@@ -40,7 +40,7 @@ public class KFoldDemo {
         
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         
-        KFoldCrossValidation kfcv = new KFoldCrossValidation.Builder()
+        KFoldCrossValidation kfcv = KFoldCrossValidation.builder()
                                         .withModel(neuralNet)
                                         .withDataSet(dataSet)
                                         .withTrainer(trainer)

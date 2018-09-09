@@ -21,6 +21,9 @@
  */
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.net.layers.activation.ActivationFunctions;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.Optimizers;
 import deepnetts.util.WeightsInit;
@@ -50,9 +53,10 @@ public class OutputLayer extends AbstractLayer {
         }
 
         setActivationType(ActivationType.SIGMOID);
+        this.activation = ActivationFunction.create(ActivationType.SIGMOID);
     }
 
-    public OutputLayer(int width, ActivationType activationFunction) {
+    public OutputLayer(int width, ActivationType actType) {
         this.width = width;
         this.height = 1;
         this.depth = 1;
@@ -63,7 +67,8 @@ public class OutputLayer extends AbstractLayer {
             labels[i] = "Output" + i;
         }
 
-        setActivationType(activationFunction);
+        setActivationType(actType);
+        this.activation = ActivationFunction.create(actType);
     }
 
     public OutputLayer(String[] labels) {
@@ -72,6 +77,7 @@ public class OutputLayer extends AbstractLayer {
         this.depth = 1;
         this.labels = labels;
         setActivationType(ActivationType.SIGMOID);
+        this.activation = ActivationFunction.create(ActivationType.SIGMOID);
     }
 
     public OutputLayer(String[] labels, ActivationType activationFunction) {
@@ -127,8 +133,9 @@ public class OutputLayer extends AbstractLayer {
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
             }
-            outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
+           // outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
         }
+        outputs.apply(activation::getValue);
     }
 
     /**

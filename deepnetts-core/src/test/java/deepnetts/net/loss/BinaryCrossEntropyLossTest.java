@@ -2,7 +2,7 @@ package deepnetts.net.loss;
 
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

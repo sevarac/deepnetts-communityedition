@@ -22,7 +22,7 @@
 package deepnetts.util;
 
 import deepnetts.core.DeepNetts;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;

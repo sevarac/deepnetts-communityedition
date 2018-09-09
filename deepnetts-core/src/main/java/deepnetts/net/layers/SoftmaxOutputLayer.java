@@ -21,6 +21,7 @@
  */
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;

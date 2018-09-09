@@ -29,7 +29,7 @@ import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;

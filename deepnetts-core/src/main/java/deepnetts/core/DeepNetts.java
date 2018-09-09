@@ -52,9 +52,8 @@ public final class DeepNetts {
     }
 
     public static void checkLicense() {
-        // ako je na mom racunary u test vrati true
         LicenseChecker checker = new LicenseChecker();        
-        try { // OVAJ NE NALAZI JAVNI KLJUC!!!
+        try { 
             checker.checkLicense();       
         } catch(NullPointerException npe) {
             throw new LicenseChecker.LicenceException("License not found!");

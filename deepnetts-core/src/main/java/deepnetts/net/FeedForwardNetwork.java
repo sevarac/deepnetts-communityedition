@@ -22,8 +22,8 @@
 package deepnetts.net;
 
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.net.layers.ActivationFunctions;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationFunctions;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.DenseLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -74,9 +74,9 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @return builder instance
          */
         public Builder addInputLayer(int width) {
-            InputLayer inLayer = new InputLayer(width, 1, 1);
-            network.setInputLayer(inLayer);
+            InputLayer inLayer = new InputLayer(width);
             network.addLayer(inLayer);
+            network.setInputLayer(inLayer);
 
             return this;
         }
@@ -110,6 +110,12 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
+        /**
+         * Adds custom layer to this network (which inherits from AbstractLayer)
+         * 
+         * @param layer
+         * @return 
+         */
         public Builder addLayer(AbstractLayer layer) {
             network.addLayer(layer);
             return this;

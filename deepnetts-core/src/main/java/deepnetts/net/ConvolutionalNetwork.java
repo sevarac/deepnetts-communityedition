@@ -22,7 +22,7 @@
 package deepnetts.net;
 
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.ConvolutionalLayer;
 import deepnetts.net.layers.DenseLayer;
 import deepnetts.net.layers.InputLayer;

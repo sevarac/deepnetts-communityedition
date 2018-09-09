@@ -26,7 +26,7 @@ import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;

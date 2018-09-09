@@ -25,7 +25,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import java.io.File;
@@ -44,11 +44,11 @@ import java.util.logging.Logger;
 public class LinearRegression {
     
     public static void main(String[] args) {
-        
+        // load boston houses data set
         try {
             DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ","); // get data from some file or method
             
-            NeuralNetwork neuralNet = FeedForwardNetwork.builder()
+            FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(5)
                     .addOutputLayer(1, ActivationType.LINEAR)
                     .withLossFunction(LossType.MEAN_SQUARED_ERROR)

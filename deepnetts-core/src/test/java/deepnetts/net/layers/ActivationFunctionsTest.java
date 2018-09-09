@@ -1,5 +1,6 @@
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationFunctions;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

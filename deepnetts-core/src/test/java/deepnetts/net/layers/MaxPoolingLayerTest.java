@@ -1,5 +1,6 @@
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import org.junit.Test;

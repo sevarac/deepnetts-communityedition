@@ -29,7 +29,7 @@ import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -66,7 +66,7 @@ public class LeNet {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 60000); //50000
+        imageSet.loadImages(new File(trainingFile), false, 10000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -101,6 +101,7 @@ public class LeNet {
                 .setBatchMode(true)
                 .setBatchSize(64)
                 .setOptimizer(OptimizerType.MOMENTUM);
+        
         trainer.train(neuralNet, imageSets[0]);
 
         // Test trained network

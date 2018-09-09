@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
@@ -55,7 +55,7 @@ public class Cifar10Ce {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true, 100);
+        imageSet.loadImages(new File(trainingFile), true, 200);
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();

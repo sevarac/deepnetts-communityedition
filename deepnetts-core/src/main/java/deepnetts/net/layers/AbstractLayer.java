@@ -21,9 +21,11 @@
  */
 package deepnetts.net.layers;
 
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
+import deepnetts.net.layers.activation.ActivationFunction;
 
 /**
  * Base class for different types of layers (except data/input layer) Provides
@@ -82,6 +84,8 @@ public abstract class AbstractLayer implements Layer, Serializable {
     protected Tensor deltaWeights, prevDeltaWeights;
 
     protected Tensor gradients;
+    
+    protected ActivationFunction activation;
 
     /**
      * Learning rate for this layer
@@ -119,11 +123,13 @@ public abstract class AbstractLayer implements Layer, Serializable {
     /**
      * This method should implement forward pass in subclasses
      */
+    @Override
     public abstract void forward();
 
     /**
      * This method should implement backward pass in subclasses
      */
+    @Override
     public abstract void backward();
 
     /**
@@ -174,10 +180,12 @@ public abstract class AbstractLayer implements Layer, Serializable {
         this.biases = biases;
     }
 
+    @Override
     public final Tensor getOutputs() {
         return outputs;
     }
 
+    @Override
     public final Tensor getDeltas() {
         return deltas;
     }
@@ -210,6 +218,16 @@ public abstract class AbstractLayer implements Layer, Serializable {
         this.deltas = deltas;
     }
 
+    public ActivationFunction getActivation() {
+        return activation;
+    }
+
+    public void setActivation(ActivationFunction activation) {
+        this.activation = activation;
+    }
+    
+    
+
     public float getLearningRate() {
         return learningRate;
     }
@@ -224,6 +242,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
 //        in.defaultReadObject();
 //
 //    }
+    
     public boolean isBatchMode() {
         return batchMode;
     }

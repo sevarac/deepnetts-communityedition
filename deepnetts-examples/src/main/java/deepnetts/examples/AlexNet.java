@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;

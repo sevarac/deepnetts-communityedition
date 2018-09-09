@@ -23,6 +23,7 @@ package deepnetts.util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.function.Function;
 
 /**
  * This class represents multidimensional array/matrix (can be 1D, 2D, 3D or
@@ -571,6 +572,12 @@ public class Tensor implements Serializable {
 
     public static final void copy(final float[] src, final float[] dest) {
         System.arraycopy(src, 0, dest, 0, src.length);
+    }
+    
+    public void apply(Function<Float, Float> f) {
+        for(int i=0; i<values.length; i++) {
+            values[i] = f.apply(values[i]);
+        }
     }
 
     @Override

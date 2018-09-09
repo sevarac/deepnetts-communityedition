@@ -12,7 +12,7 @@ package deepnetts.examples;
 import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.layers.ActivationType;
+import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
@@ -36,7 +36,7 @@ public class QuickStart {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(6, ActivationType.TANH)
+                .addDenseLayer(10, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .withLossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123)
@@ -44,9 +44,9 @@ public class QuickStart {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.03f);
+        trainer.setMaxError(0.05f);
         trainer.setMaxEpochs(10000);
-        trainer.setLearningRate(0.2f);
+        trainer.setLearningRate(0.01f);
 
         
         // run training
