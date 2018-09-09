@@ -3,8 +3,11 @@ package deepnetts.eval;
 /**
  * Confusion matrix container, holds class labels and matrix values.
  * Columns correspond to actual classes, rows to predicted
- * ovo je bilo pre Rows correspond to actual classes, while columns correspond to predicted classes
- * zameni actual i predicted po uzoru na wiki https://en.wikipedia.org/wiki/Confusion_matrix#cite_note-Powers2011-2
+ * 
+ * https://en.wikipedia.org/wiki/Confusion_matrix
+ * http://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
+ * http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix
+ * 
  *                 Actual
  *                 T   F
  * Predicted  T   TP  FP

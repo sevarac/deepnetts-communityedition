@@ -144,7 +144,7 @@ public class MaxPoolingLayer extends AbstractLayer {
         // prvo treba propagirati delte iz narednog lejera u ovaj lejer
         // zapravo ovde treba samo preneti weighted deltas unazad a u prethodnom konvolucionom sloju se vrsi selekcija u skladu sa max ulazom itd.
                 
-        if (nextLayer instanceof FullyConnectedLayer) {
+        if (nextLayer instanceof DenseLayer) {
             backwardFromFullyConnected();                        
         }
         

@@ -234,7 +234,7 @@ public class ImageSetUtils {
     * 
     * TODO: sta se desava ako index.txt vec postoji? Da upozorava?
     * 
-    * @param path path to indes
+    * @param path path to directory to index
     * @param useFullPath true if image index should contain full image path, false otherwise
     * @throws java.io.IOException 
     */    

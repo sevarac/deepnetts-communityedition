@@ -21,7 +21,7 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
+import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.ActivationType;
@@ -38,17 +38,17 @@ public class Regression {
     
     public static void main(String[] args) {
         
-        DataSet dataSet = null;// get dataset from somewhere
+        BasicDataSet dataSet = null;// get dataset from somewhere
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                     .addInputLayer(5)
-                                    .addFullyConnectedLayer(10, ActivationType.TANH)
+                                    .addDenseLayer(10, ActivationType.TANH)
                                     .addOutputLayer(1, ActivationType.LINEAR)
                                     .withLossFunction(LossType.MEAN_SQUARED_ERROR)          
                                     .build();
                        
-        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-                               trainer.train(dataSet);         
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
+                               trainer.train(neuralNet, dataSet);         
     }
     
 }

@@ -29,7 +29,7 @@ import deepnetts.util.DeepNettsException;
  * TODO: add slope and amplitude for sigmoid, tanh etc.
  * annottations o automaticly generate enums for activation types?
  * 
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public final class ActivationFunctions {
        

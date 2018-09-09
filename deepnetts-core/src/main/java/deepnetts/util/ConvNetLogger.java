@@ -25,7 +25,7 @@ import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.SoftmaxOutputLayer;
 import deepnetts.net.layers.OutputLayer;
-import deepnetts.net.layers.FullyConnectedLayer;
+import deepnetts.net.layers.DenseLayer;
 import deepnetts.net.layers.ConvolutionalLayer;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.ConvolutionalNetwork;
@@ -35,7 +35,7 @@ import java.util.Arrays;
 /**
  * Methods for logging convolutional network (Logging utils)
  * 
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class ConvNetLogger { // this could be loggger or handler , and it should not be a singleton
     
@@ -95,7 +95,7 @@ public class ConvNetLogger { // this could be loggger or handler , and it should
                     sb.append(System.lineSeparator()).append(" delta biasess:").append(Arrays.toString(layer.getDeltaBiases()));
                 } 
                 sb.append("}").append(System.lineSeparator());
-            } else if (layer instanceof FullyConnectedLayer) {
+            } else if (layer instanceof DenseLayer) {
                 sb.append("{layer:FullyConnectedLayer");
                 if (logParams) sb.append(", layerIdx:"+layerIdx+", depth:"+layer.getDepth());
                 if (logOutputs) sb.append(", ").append(System.lineSeparator()).append(" outputs:").append(layer.getOutputs());                 

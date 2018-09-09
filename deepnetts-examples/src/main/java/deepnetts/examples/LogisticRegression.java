@@ -21,7 +21,7 @@
     
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
+import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.ActivationType;
@@ -41,7 +41,7 @@ public class LogisticRegression {
     
     public static void main(String[] args) {
         
-        DataSet dataSet =null; // get data from some file or method   
+        BasicDataSet dataSet =null; // get data from some file or method   
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(5)
@@ -49,9 +49,9 @@ public class LogisticRegression {
                 .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                 .build();
         
-        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
                                trainer.setLearningRate(0.1f)
-                                      .train(dataSet);        
+                                      .train(neuralNet, dataSet);        
                 
     }
     

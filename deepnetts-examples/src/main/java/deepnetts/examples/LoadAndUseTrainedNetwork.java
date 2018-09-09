@@ -25,10 +25,9 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import visrec.classifier.ClassificationResult;
-import visrec.classifier.ClassificationResults;
 
 /**
  * This example shows how to load and create instance of trained network from file.
@@ -43,7 +42,7 @@ public class LoadAndUseTrainedNetwork {
             ConvolutionalNetwork neuralNet =  FileIO.createFromFile("javaOneSponsors.net", ConvolutionalNetwork.class);
 
             DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(neuralNet);    // this image recognize shoul dbe used from visrec api
-            ClassificationResults<ClassificationResult> results = imageClassifier.classify(new File("/home/zoran/Desktop/JavaOneSponsors/redhat.png"));
+            Map<String, Float> results = imageClassifier.classify(new File("/home/zoran/Desktop/JavaOneSponsors/redhat.png"));
             System.out.println(results.toString());
 
         } catch (IOException | ClassNotFoundException ioe) {

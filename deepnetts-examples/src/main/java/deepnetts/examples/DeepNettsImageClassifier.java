@@ -26,12 +26,12 @@ import deepnetts.net.ConvolutionalNetwork;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import javax.imageio.ImageIO;
-import visrec.classifier.AbstractImageClassifier;
-import visrec.classifier.ClassificationResult;
-import visrec.classifier.ClassificationResults;
-import visrec.classifier.Classifier;
+import javax.visrec.AbstractImageClassifier;
+import javax.visrec.ml.classification.Classifier;
 
 /**
  * Example how to create image classifier using ConvolutionalNetwork
@@ -40,10 +40,11 @@ import visrec.classifier.Classifier;
  */
 public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
 
-    private final ConvolutionalNetwork convNet;
+   // private final ConvolutionalNetwork convNet;
 
     public DeepNettsImageClassifier(ConvolutionalNetwork convNet) {
-        this.convNet = convNet;
+      //TODO: has to beable to specify model instance also
+       super(BufferedImage.class);
     }
 
     /**
@@ -51,9 +52,10 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
      * @param image
      * @return
      */
-    @Override
-    public ClassificationResults<ClassificationResult> classify(BufferedImage image) {
-        ClassificationResults<ClassificationResult> results = new ClassificationResults();
+    //@Override
+    public Map<String, Float> classify(BufferedImage image) {
+        HashMap<String, Float> results = new HashMap<>();
+        ConvolutionalNetwork convNet = getModel();
 
         convNet.setInput((new ExampleImage(image)).getInput());
         convNet.forward();
@@ -66,15 +68,14 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
 //               max = outputs[i];
 //               maxIdx = i;
 //           }
-            ClassificationResult result = new ClassificationResult(convNet.getOutputLabel(i), outputs[i]);
-            results.add(result);
+            results.put(convNet.getOutputLabel(i), outputs[i]);
         }
 
         return results;
     }
     
     @Override
-     public ClassificationResults<ClassificationResult> classify(File imageFile) throws IOException {
+     public Map<String, Float> classify(File imageFile) throws IOException {
          BufferedImage image = ImageIO.read(imageFile);
          return classify(image);
      }

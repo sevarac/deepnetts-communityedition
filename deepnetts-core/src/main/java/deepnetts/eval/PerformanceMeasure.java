@@ -26,15 +26,9 @@ public class PerformanceMeasure {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Classification performance measure:").append(System.lineSeparator());
         values.entrySet().stream().forEach((e) ->  sb.append(e.getKey() + ": "+e.getValue() + System.lineSeparator()) );
                 
         return sb.toString();
     }
     
-    
-//    public void set(String key, Object value) {
-//        values.put(key, value);
-//    }    
-//    
 }

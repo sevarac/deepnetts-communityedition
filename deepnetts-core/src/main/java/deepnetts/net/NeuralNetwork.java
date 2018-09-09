@@ -21,6 +21,7 @@
     
 package deepnetts.net;
 
+import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -76,17 +77,24 @@ public class NeuralNetwork implements Serializable {
     /**
      * Labels for network outputs (classes)
      */
-    private List<String> outputLabels;    
-    
-    
+    private String[] outputLabels;    
+        
     private String label;
 
     protected NeuralNetwork() {
+        // if license is not valid this will throw exception
+        DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...
         layers = new ArrayList();
     }
       
+    /**
+     * Sets network input vector and triggers forward pass.
+     * 
+     * @param inputs  input tensor
+     */
     public void setInput(Tensor inputs) {
         inputLayer.setInput(inputs);
+        forward();
     }
 
     public float[] getOutput() {
@@ -97,11 +105,12 @@ public class NeuralNetwork implements Serializable {
         outputLayer.setOutputErrors(outputErrors);
     }    
     
-    
+    /**
+     * Apply calculated weight changes to all layers.
+     */
     public void applyWeightChanges() {
         layers.forEach((layer) -> layer.applyWeightChanges()); // this can be parellelized since all layers are allraedy calculated - each layer cann apply changes in its own thread                
     }         
-
     
     public void forward() {
         for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
@@ -114,8 +123,6 @@ public class NeuralNetwork implements Serializable {
         for (int i = layers.size() - 1; i > 0; i--) {
             layers.get(i).backward();  
         }
-      // ovo se moze pozavti i odavde ali onda imamo problem za logovanjem i debugovanjem   
-    //    applyWeightChanges(); 
     }
 
     protected void addLayer(AbstractLayer layer) {
@@ -134,16 +141,16 @@ public class NeuralNetwork implements Serializable {
         return outputLayer;
     }
 
-    public void setOutputLabels(List<String> outputLabels) {
+    public void setOutputLabels(String[] outputLabels) {
         this.outputLabels = outputLabels;
     }
 
-    public List<String> getOutputLabels() {
+    public String[] getOutputLabels() {
         return outputLabels;
     }
     
     public String getOutputLabel(int i) {
-        return outputLabels.get(i);
+        return outputLabels[i];
     }
 
     protected void setInputLayer(InputLayer inputLayer) {

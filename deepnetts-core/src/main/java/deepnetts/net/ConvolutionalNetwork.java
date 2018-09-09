@@ -24,7 +24,7 @@ package deepnetts.net;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.layers.ConvolutionalLayer;
-import deepnetts.net.layers.FullyConnectedLayer;
+import deepnetts.net.layers.DenseLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.MaxPoolingLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -65,9 +65,10 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
         private ActivationType defaultActivationType = ActivationType.RELU;
         private Class<CrossEntropyLoss> defaultLossFunction = CrossEntropyLoss.class;
+        private boolean setDefaultActivation = false;
 
         /**
-         * Input layer with specified width and height, and 3 channels by 
+         * Input layer with specified width and height, and 3 channels by
          * default.
          *
          * @param width
@@ -84,11 +85,11 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
         /**
          * Input layer with specified width, height and number of channels.
-         * 
+         *
          * @param width
          * @param height
          * @param channels
-         * @return 
+         * @return
          */
         public Builder addInputLayer(int width, int height, int channels) {
             InputLayer inLayer = new InputLayer(width, height, channels);
@@ -98,14 +99,22 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             return this;
         }
 
-        public Builder addFullyConnectedLayer(int width) {
-            FullyConnectedLayer layer = new FullyConnectedLayer(width);
+        public Builder addDenseLayer(int width) {
+            DenseLayer layer = new DenseLayer(width);
             neuralNet.addLayer(layer);
             return this;
         }
 
-        public Builder addFullyConnectedLayer(int width, ActivationType activationFunction) {
-            FullyConnectedLayer layer = new FullyConnectedLayer(width, activationFunction);
+        /**
+         * Add dense layer with specified width and activation function.
+         * In dense layer each neuron is connected to all outputs from previous layer.
+         * @param width layer width
+         * @param activationType type of activation function
+         * @return current builder instance
+         * @see ActivationType
+         */
+        public Builder addDenseLayer(int width, ActivationType activationType) {
+            DenseLayer layer = new DenseLayer(width, activationType);
             neuralNet.addLayer(layer);
             return this;
         }
@@ -159,7 +168,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
         // stride???
         public Builder addConvolutionalLayer(int filterSize, int channels) {
-            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterSize, filterSize, channels);
+            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterSize, filterSize, channels, defaultActivationType);
             neuralNet.addLayer(convolutionalLayer);
             return this;
         }
@@ -171,13 +180,25 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
         }
 
         public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int channels) {
-            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, channels);
+            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, channels, defaultActivationType);
+            neuralNet.addLayer(convolutionalLayer);
+            return this;
+        }
+
+        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels) {
+            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, stride, channels, defaultActivationType);
             neuralNet.addLayer(convolutionalLayer);
             return this;
         }
 
         public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int channels, ActivationType activationType) {
             ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, channels, activationType);
+            neuralNet.addLayer(convolutionalLayer);
+            return this;
+        }
+
+        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels, ActivationType activationType) {
+            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, stride, channels, activationType);
             neuralNet.addLayer(convolutionalLayer);
             return this;
         }
@@ -196,6 +217,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
         public Builder withActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
+            setDefaultActivation = true;
             return this;
         }
 
@@ -223,7 +245,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
                         loss = new BinaryCrossEntropyLoss(neuralNet);
                     } else {
                         if (neuralNet.getOutputLayer().getActivationType() != ActivationType.SOFTMAX )
-                         //   throw new DeepNettsException("Illegal combination of activation and loss functions (Softmax activation must be used with Cross Entropy Loss)");                        
+                         //   throw new DeepNettsException("Illegal combination of activation and loss functions (Softmax activation must be used with Cross Entropy Loss)");
                         loss = new CrossEntropyLoss(neuralNet);
                     }
                     break;
@@ -244,14 +266,14 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
             for (int i = 0; i < neuralNet.getLayers().size(); i++) {
                 AbstractLayer layer = neuralNet.getLayers().get(i);
-                if (!(layer instanceof OutputLayer)) { // ne za izlazni layer
-                    layer.setActivationType(defaultActivationType);
+                 if (setDefaultActivation && !(layer instanceof InputLayer) && !(layer instanceof OutputLayer)) { // ne za izlazni layer
+                    layer.setActivationType(defaultActivationType); // ali ovo ne treba ovako!!! ako je vec nesto setovano onda nemoj to d agazis
                 }
                 layer.setPrevLayer(prevLayer);
                 if (prevLayer != null) {
                     prevLayer.setNextlayer(layer);
                 }
-                prevLayer = layer; // current layer becomes prev layer in next iteration                            
+                prevLayer = layer; // current layer becomes prev layer in next iteration
             }
 
             // init all layers
@@ -271,7 +293,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
     /**
      * Returns all weights from this network as list of strings.
      * TODO; for convolutional layer get filter weights
-     * 
+     *
      * @return
      */
     public List<String> getWeights() {
@@ -284,29 +306,27 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             } else {
                 weightsList.add(layer.getDeltaWeight().toString());
             }
-        } 
+        }
         return weightsList;
     }
-    
+
     public void setWeights(List<String> weights) {
         int weightsIdx=0;
-        
+
         for (int layerIdx = 1; layerIdx < getLayers().size(); layerIdx++) {
             AbstractLayer layer = getLayers().get(layerIdx);
             if (layer instanceof ConvolutionalLayer) {
                 ((ConvolutionalLayer)layer).setFilters(weights.get(weightsIdx));
                 weightsIdx++;
-            } else if (layer instanceof FullyConnectedLayer || layer instanceof OutputLayer) {
+            } else if (layer instanceof DenseLayer || layer instanceof OutputLayer) {
                 layer.setWeights(weights.get(weightsIdx));
                 weightsIdx++;
-            } else {
-                continue;
             }
         }
     }
 
 
-    
+
 
     public List<String> getDeltaWeights() {
         List weightsList = new ArrayList();

@@ -27,7 +27,7 @@ public class OutputLayerTest {
        Tensor expectedOutputs = new Tensor( 0.51053022f, 0.59142921f, 0.52648754f, 0.56102458f, 0.54380692f, 0.58635918f, 0.54137987f, 0.41367945f, 0.52289978f, 0.4961883f );
          
         // create prev fc layer with 5 outputs
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5);        
+        DenseLayer prevLayer = new DenseLayer(5);        
         prevLayer.setOutputs(input); // and set its ouput that will be used as input for next layer
                 
         // create instance of layer to test
@@ -57,7 +57,7 @@ public class OutputLayerTest {
         WeightsInit.uniform(weights.getValues(), 5); // "[0.19961303, -0.23501621, 0.43907326, -0.17747784, -0.22066136, 0.06630343, 0.097314, -0.21566293, 0.273578, 0.10945064, 0.33577937, 0.044093937, 0.19323963, -0.3021235, -0.38288906, 0.16261822, 0.26498383, -0.207817, 0.070406556, -0.23022851, 0.36503863, 0.091478825, -0.31402034, -0.25345784, 0.42504954, -0.037393004, -0.38854277, -0.36758634, -0.38503492, -0.33786723, -0.36604232, -0.14479709, -0.06755906, 0.38639867, 0.3348655, 0.15910655, 0.06717491, -0.4455302, -0.09257606, -1.219213E-4, -0.21616945, 0.43006968, -0.31055218, 0.2699433, -0.214278, 0.25471163, -0.03427276, -0.43431506, -0.054469943, -0.23747501]"
        
         // create prev fc layer with 5 outputs
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5);        
+        DenseLayer prevLayer = new DenseLayer(5);        
         prevLayer.setOutputs(input);
                 
         // create instance of layer to test
@@ -85,7 +85,7 @@ public class OutputLayerTest {
         WeightsInit.uniform(weights.getValues(), 5); // "[0.19961303, -0.23501621, 0.43907326, -0.17747784, -0.22066136, 0.06630343, 0.097314, -0.21566293, 0.273578, 0.10945064, 0.33577937, 0.044093937, 0.19323963, -0.3021235, -0.38288906, 0.16261822, 0.26498383, -0.207817, 0.070406556, -0.23022851, 0.36503863, 0.091478825, -0.31402034, -0.25345784, 0.42504954, -0.037393004, -0.38854277, -0.36758634, -0.38503492, -0.33786723, -0.36604232, -0.14479709, -0.06755906, 0.38639867, 0.3348655, 0.15910655, 0.06717491, -0.4455302, -0.09257606, -1.219213E-4, -0.21616945, 0.43006968, -0.31055218, 0.2699433, -0.214278, 0.25471163, -0.03427276, -0.43431506, -0.054469943, -0.23747501]" 
         
         // create prev fc layer with 5 outputs
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5);        
+        DenseLayer prevLayer = new DenseLayer(5);        
         prevLayer.setOutputs(input); // and set its ouput that will be used as input for next layer
                 
         // create instance of layer to test
@@ -119,7 +119,7 @@ public class OutputLayerTest {
         Tensor outputErrors = new Tensor(10);
         outputErrors.setValues(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
                 
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5); // not used for anything just dummy to prevent npe in init      
+        DenseLayer prevLayer = new DenseLayer(5); // not used for anything just dummy to prevent npe in init      
         prevLayer.setOutputs(inputs);
         
         OutputLayer instance = new OutputLayer(10);
@@ -156,7 +156,7 @@ public class OutputLayerTest {
         Tensor outputErrors = new Tensor(10);
         outputErrors.setValues(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
                 
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5); // not used for anything just dummy to prevent npe in init      
+        DenseLayer prevLayer = new DenseLayer(5); // not used for anything just dummy to prevent npe in init      
         prevLayer.setOutputs(inputs);
         
         OutputLayer instance = new OutputLayer(10, ActivationType.TANH);
@@ -193,7 +193,7 @@ public class OutputLayerTest {
         Tensor outputErrors = new Tensor(10);
         outputErrors.setValues(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
                 
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5); // not used for anything just dummy to prevent npe in init      
+        DenseLayer prevLayer = new DenseLayer(5); // not used for anything just dummy to prevent npe in init      
         prevLayer.setOutputs(inputs);
         
         OutputLayer instance = new OutputLayer(10);
@@ -224,7 +224,7 @@ public class OutputLayerTest {
     @Test
     public void testApplyWeightChanges() {
         OutputLayer instance = new OutputLayer(10);
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5);
+        DenseLayer prevLayer = new DenseLayer(5);
         instance.setPrevLayer(prevLayer);
         instance.init();
         Tensor weights = new Tensor(5, 10);

@@ -40,9 +40,8 @@ import org.apache.logging.log4j.Logger;
  * 
  * @author zoran
  */
-public class ImageSet extends DataSet<ExampleImage> { 
+public class ImageSet extends BasicDataSet<ExampleImage> { 
 
-    private final List<String> labels;
     private final int imageWidth;
     private final int imageHeight;
     private Tensor mean;
@@ -53,20 +52,17 @@ public class ImageSet extends DataSet<ExampleImage> {
    // osmisliti i neki protocni / buffered data set, koji ucitava jedan batch
       
     public ImageSet(int imageWidth, int imageHeight) {
-        super();
+        super();          
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
           
-        labels = new ArrayList();     
+       // labels = new ArrayList();     
     }    
 
-    public ImageSet(int imageWidth, int imageHeight, int capacity) {
-        super();        
-        this.imageWidth = imageWidth;
-        this.imageHeight = imageHeight;
-         
-        labels = new ArrayList();     
-    }        
+//    public ImageSet(int capacity) {
+//        super();        
+//        labels = new ArrayList();     
+//    }        
     
     /**
      * Adds image to this image set.
@@ -76,12 +72,13 @@ public class ImageSet extends DataSet<ExampleImage> {
      */
     public void add(ExampleImage exImage) throws DeepNettsException {
         if (exImage == null) throw new DeepNettsException("Example image cannot be null!");
-        
-        if ((exImage.getWidth() == imageWidth) && (exImage.getHeight() == imageHeight)) {        
-            items.add(exImage);
-        } else {
-            throw new DeepNettsException("Wrong image dimensions for this data set. All images should be "+imageWidth + "x"  + imageHeight);
-        }        
+        items.add(exImage);
+
+//        if ((exImage.getWidth() == imageWidth) && (exImage.getHeight() == imageHeight)) {        
+//            items.add(exImage);
+//        } else {
+//            throw new DeepNettsException("Wrong image dimensions for this data set. All images should be "+imageWidth + "x"  + imageHeight);
+//        }        
     }
     
     
@@ -124,10 +121,10 @@ public class ImageSet extends DataSet<ExampleImage> {
                 
                 // todo: load and preprocess image pixels in separate thread in batches of 10 images
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(binaryVectorForLabel(label, labels.indexOf(label) ));
+                exImg.setTargetOutput(binaryVectorForLabel(label, columnNames));
                 
                 // make sure all images are the same size
-                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
+//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
                 
                 add(exImg);  
             }
@@ -178,12 +175,12 @@ public class ImageSet extends DataSet<ExampleImage> {
                 label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
                 
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(binaryVectorForLabel(label, labels.indexOf(label) ));
+                exImg.setTargetOutput(binaryVectorForLabel(label, columnNames));
 
                 // make sure all images are the same size
-                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) {
-                    throw new DeepNettsException("Bad image size!");
-                }
+//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) {
+//                    throw new DeepNettsException("Bad image size!");
+//                }
 
                 add(exImg);
             }
@@ -211,26 +208,26 @@ public class ImageSet extends DataSet<ExampleImage> {
      * @param label
      * @return 
      */
-    private float[] binaryVectorForLabel(final String label, int idx) {
-        final float[] out = new float[labels.size()];
+    private float[] binaryVectorForLabel(final String label, final String[] labels) {
+        final float[] vect = new float[labels.length];
         
-        if (label.equals("negative")) return out;
-                
-        if (idx != -1) {
-            out[idx] = 1;
-            return out;
-        }   
-            
-        throw new DeepNettsException("Label '"+label+"' not found in labels file!");
+        if (label.equals("negative")) return vect;
+        for(int i=0; i<labels.length; i++) {        
+            if (labels[i].equals(label)) {
+                vect[i] = 1;
+            }   
+        }
+        
+        return vect;
     }
         
     
-    public List<String> getLabels() {
-        return Collections.unmodifiableList(labels);
-    }
+//    public String> getLabels() {
+//        return Collections.unmodifiableList(labels);
+//    }
     
     public int getLabelsCount() {
-        return labels.size();
+        return columnNames.length;
     }
           
     /**
@@ -256,7 +253,7 @@ public class ImageSet extends DataSet<ExampleImage> {
         int itemIdx=0;
      
         for(int p = 0; p < partSizes.length; p++) {
-             ImageSet subSet = new ImageSet(imageWidth, imageHeight); 
+             ImageSet subSet = new ImageSet(imageWidth, imageHeight);
              int itemsCount =(int) (size() * partSizes[p] / 100.0f);
              
              for(int j=0; j<itemsCount; j++) {
@@ -265,25 +262,28 @@ public class ImageSet extends DataSet<ExampleImage> {
              }
              
              subSets[p] = subSet;
-             subSets[p].labels.addAll(labels);
+             subSets[p].columnNames = columnNames;
+             // anything else? image dimensions?
         }
                         
         return subSets;
     }
         
-     public List<String> loadLabels(String filePath) throws DeepNettsException {
+     public String[] loadLabels(String filePath) throws DeepNettsException {
          return loadLabels(new File(filePath));
      }
     
-    public List<String> loadLabels(File file) throws DeepNettsException {
+    public String[] loadLabels(File file) throws DeepNettsException {
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = null;        
+            List<String> labelsList = new ArrayList<>(); // temporary labels list
             // we can also catch and log FileNotFoundException, IOException in this loop
             while((line = br.readLine()) != null) {                              
-                labels.add(line);               
+                labelsList.add(line);               
             }
             br.close();
-            return labels;
+            this.columnNames = labelsList.toArray(new String[labelsList.size()]);
+            return columnNames;
         } catch (FileNotFoundException ex) {            
               LOGGER.error("Could not find labels file: "+file.getAbsolutePath(), ex);
               throw new DeepNettsException("Could not find labels file: "+file.getAbsolutePath(), ex);
@@ -300,7 +300,8 @@ public class ImageSet extends DataSet<ExampleImage> {
      * @return Returns mean matrix for the entire dataset
      */
     public Tensor zeroMean() {
-        mean = new Tensor(imageHeight, imageWidth, 3);
+        ExampleImage img = items.get(0);
+        mean = new Tensor(img.getHeight(), img.getWidth(), 3);
         
         // sum all matrices
         for(ExampleImage image : items) {
@@ -326,6 +327,12 @@ public class ImageSet extends DataSet<ExampleImage> {
                 rgbVector[i] =  1-rgbVector[i];
             }
         }        
+    }
+    
+    // since inputs are pixels we dont care about input labels
+    @Override
+    public String[] getOutputLabels() {
+        return columnNames;
     }
             
 }

@@ -99,20 +99,20 @@ public class ConvolutionalLayer extends AbstractLayer {
         this.activationType = ActivationType.TANH; // use relu as default?
     }
 
-    public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, ActivationType activationFunction) {
+    public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, ActivationType activationType) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;                 
         this.depth = channels;
         this.stride = 1;
-        this.activationType = activationFunction;
+        this.activationType = activationType;
     }    
 
-    public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, int stride, ActivationType activationFunction) {
+    public ConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels, ActivationType activationType) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;                 
         this.depth = channels;
         this.stride = stride;
-        this.activationType = activationFunction;
+        this.activationType = activationType;
     }      
     
     
@@ -167,7 +167,7 @@ public class ConvolutionalLayer extends AbstractLayer {
                                     // svaki kanal u ovom sloju ima filtera onoliko kolik ima kanala u prethodnom sloji. i Svi ti filteri imaju jedan bias
         deltaBiases = new float[depth];
         prevDeltaBiases = new float[depth];
-        prevBiasSums = new Tensor(depth);  
+        prevBiasSqrSum = new Tensor(depth);  
   //      WeightsInit.randomize(biases);        // sometimes the init to 0
     }
 
@@ -235,7 +235,7 @@ public class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        if (nextLayer instanceof FullyConnectedLayer) { 
+        if (nextLayer instanceof DenseLayer) { 
             backwardFromFullyConnected();
         }
                     
@@ -400,8 +400,8 @@ public class ConvolutionalLayer extends AbstractLayer {
                         deltaBias = Optimizers.momentum(learningRate, deltas.get(deltaRow, deltaCol, ch), momentum, prevDeltaBiases[ch]);
                         break;
                     case ADAGRAD:
-                        deltaBias = Optimizers.adaGrad(learningRate, deltas.get(deltaRow, deltaCol, ch), prevBiasSums.get(ch));
-                        prevBiasSums.add(ch, deltas.get(deltaRow, deltaCol, ch) * deltas.get(deltaRow, deltaCol, ch));
+                        deltaBias = Optimizers.adaGrad(learningRate, deltas.get(deltaRow, deltaCol, ch), prevBiasSqrSum.get(ch));
+                        prevBiasSqrSum.add(ch, deltas.get(deltaRow, deltaCol, ch) * deltas.get(deltaRow, deltaCol, ch));
                         break;
                 }                
                 deltaBiases[ch] /=divisor; 

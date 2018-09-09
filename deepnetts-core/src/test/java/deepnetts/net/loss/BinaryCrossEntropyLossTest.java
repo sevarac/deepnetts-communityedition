@@ -20,7 +20,7 @@ public class BinaryCrossEntropyLossTest {
         System.out.println("addPatternError");
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -39,7 +39,7 @@ public class BinaryCrossEntropyLossTest {
         // 1 * ln(0.1) + 0 * ln(0.9) = -2.30259
         
         float expTotalError = 2.30259f;
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         
         assertEquals(expTotalError, actualTotalError, 1e-5f);
     }
@@ -53,7 +53,7 @@ public class BinaryCrossEntropyLossTest {
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -69,7 +69,7 @@ public class BinaryCrossEntropyLossTest {
         assertArrayEquals(expResult, result, 1e-8f);
         
         float expTotalError = 2.30259f; 
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         
         assertEquals(expTotalError, actualTotalError, 1e-5f);        
                 
@@ -85,7 +85,7 @@ public class BinaryCrossEntropyLossTest {
         // 0 * ln(0.7) + 1 * ln(0.3) = −1.203972804
         
         expTotalError = 1.75328f; // -0.5 * ( -2.30259 + -1.20397 )
-        actualTotalError = instance.getTotalError();
+        actualTotalError = instance.getTotalValue();
                       
         assertEquals(expTotalError, actualTotalError, 1e-5f);
     }
@@ -99,7 +99,7 @@ public class BinaryCrossEntropyLossTest {
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -112,7 +112,7 @@ public class BinaryCrossEntropyLossTest {
         float[] result = instance.addPatternError(actualOutput, targetOutput);        
         instance.reset();
         
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         float expTotalError = Float.NaN;
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

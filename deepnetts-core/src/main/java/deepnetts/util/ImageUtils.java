@@ -41,7 +41,7 @@ import javax.imageio.ImageIO;
 
 /**
  * 
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class ImageUtils {
         
@@ -327,7 +327,7 @@ public class ImageUtils {
     
     
     /**
-     * Generates a specified number of randomly full colored images of specified size.
+     * Generates a specified number of randomly full colored images of a specified size.
      * Images are saved at specified destination path named using negative_x.jpg name pattern
      * 
      * @param width image width

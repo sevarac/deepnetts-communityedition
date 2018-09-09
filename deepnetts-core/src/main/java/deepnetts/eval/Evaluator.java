@@ -21,27 +21,24 @@
     
 package deepnetts.eval;
 
-import java.util.Map;
-
 /**
  * All evaluators implement this interface.
- *  Maybe move to visrec.ml.eval
  * CONSIDER: using more specific model type instead of general model class? Classifier, Regressor?
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.co m>
+ * 
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <MODEL_CLASS>
- * @param <DATA_CLASS>
+ * @param <DATASET_CLASS>
  */
-public interface Evaluator<MODEL_CLASS, DATA_CLASS> {
+@FunctionalInterface
+public interface Evaluator<MODEL_CLASS, DATASET_CLASS> {
     
     /**
-     * Evaluate model with specified data set.
-     * Return Map with performance metrics and values?
-     * Map<String, PerformanceMeasure> ili Map<Object, PerformanceMeasure>
+     * Evaluate model with specified test set.
      *
      * @param model A model to evaluate
      * @param testSet Data to use for evaluation
      * @return performance measures of a model for the specified test set
-     */    
-    public Map<String, PerformanceMeasure>  evaluate(MODEL_CLASS model, DATA_CLASS testSet); // kako ce da vrati rezultate testiranja - napraviti neku klasu za to?
+     */ 
+    public PerformanceMeasure evaluatePerformance(MODEL_CLASS model, DATASET_CLASS testSet);
     
 }

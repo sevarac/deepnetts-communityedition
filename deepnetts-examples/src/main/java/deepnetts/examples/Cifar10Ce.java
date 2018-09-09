@@ -28,10 +28,12 @@ import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -66,19 +68,13 @@ public class Cifar10Ce {
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 10)
+                                        .addConvolutionalLayer(5, 5, 3)
                                         .addMaxPoolingLayer(2, 2, 2)      
-                                        .addConvolutionalLayer(5, 5, 20)
-                                        .addMaxPoolingLayer(2, 2, 2)                
-                                        .addConvolutionalLayer(5, 5, 40)
-                                        .addMaxPoolingLayer(2, 2, 2)                     
-//                                        .addConvolutionalLayer(5, 5, 48)
-//                                        .addMaxPoolingLayer(2, 2, 2)                                     
-//                                        .addFullyConnectedLayer(40)     
-//                                        .addFullyConnectedLayer(30)     
-                                        .addFullyConnectedLayer(40)     
-                                        .addFullyConnectedLayer(30)     
-                                        .addFullyConnectedLayer(20)     
+                                        .addConvolutionalLayer(5, 5, 6)
+                                        .addMaxPoolingLayer(2, 2, 2)                      
+                                        .addDenseLayer(40)     
+                                        .addDenseLayer(30)     
+                                        .addDenseLayer(30)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .withActivationFunction(ActivationType.RELU)
                                         .withLossFunction(LossType.CROSS_ENTROPY)                
@@ -86,17 +82,27 @@ public class Cifar10Ce {
            
         LOGGER.info("Training neural network"); 
          
-        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.03f);
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 
-        trainer.train(imageSets[0]);       
+        trainer.train(neuralNet, imageSets[0]);       
         
         // Test trained network
-        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
-        evaluator.evaluate(neuralNet, imageSets[1]);     
-        System.out.println(evaluator);            
+        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, imageSets[1]);     
+        LOGGER.info("------------------------------------------------");                          
+        LOGGER.info("Classification performance measure"+System.lineSeparator());       
+        LOGGER.info("TOTAL AVERAGE");    
+        LOGGER.info(evaluator.getTotalAverage());
+        LOGGER.info("By Class");   
+        Map<String, PerformanceMeasure>  byClass = evaluator.getPerformanceByClass();          
+        byClass.entrySet().stream().forEach((entry) -> { 
+                                        LOGGER.info("Class " + entry.getKey() + ":");
+                                        LOGGER.info(entry.getValue());
+                                        LOGGER.info("----------------");
+                                    });        
         
     }
         

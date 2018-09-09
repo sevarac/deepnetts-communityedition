@@ -25,7 +25,7 @@ public class CrossEntropyLossTest {
         System.out.println("addPatternError");
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -44,7 +44,7 @@ public class CrossEntropyLossTest {
         // -sum(ln(actualTargetY)) =  0.356674944
         
         float expTotalError = 0.356674944f;
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         
         assertEquals(expTotalError, actualTotalError, 1e-7f);
     }
@@ -57,7 +57,7 @@ public class CrossEntropyLossTest {
         System.out.println("getTotalError");
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -76,7 +76,7 @@ public class CrossEntropyLossTest {
         // -sum(ln(actualTargetY)) =  0.356674944        
         
         float expTotalError = 0.356674944f;
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         
         assertEquals(expTotalError, actualTotalError, 1e-7f);
         
@@ -94,7 +94,7 @@ public class CrossEntropyLossTest {
         // total error = -sum/2
         
         expTotalError = 0.289909248f; // -0.5 * ( -2.30259 + -1.20397 )
-        actualTotalError = instance.getTotalError();
+        actualTotalError = instance.getTotalValue();
                       
         assertEquals(expTotalError, actualTotalError, 1e-5f);        
         
@@ -109,7 +109,7 @@ public class CrossEntropyLossTest {
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addFullyConnectedLayer(10)
+                                        .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -122,7 +122,7 @@ public class CrossEntropyLossTest {
         float[] result = instance.addPatternError(actualOutput, targetOutput);        
         instance.reset();
         
-        float actualTotalError = instance.getTotalError();
+        float actualTotalError = instance.getTotalValue();
         float expTotalError = Float.NaN;
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

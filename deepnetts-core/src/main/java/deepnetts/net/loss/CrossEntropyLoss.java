@@ -82,7 +82,7 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
 
     
     @Override
-    public float getTotalError() {
+    public float getTotalValue() {
         return  -totalError / patternCount;
     }
     
@@ -91,5 +91,5 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
         totalError = 0;
         patternCount=0;
     }
-    
+
 }

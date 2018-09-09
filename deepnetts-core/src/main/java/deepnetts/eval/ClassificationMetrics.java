@@ -8,7 +8,9 @@ import java.util.List;
 /**
  * Container class for all metrics which use confusion matrix for their computation 
  * see http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
- * http://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
+ * http://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics
+ * http://notesbyanerd.com/2014/12/17/multi-class-performance-measures/         Micro and macro averaging
+ * http://www.damienfrancois.be/blog/files/modelperfcheatsheet.pdf
  * 
  * http://www.damienfrancois.be/blog/files/modelperfcheatsheet.pdf
  * https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers
@@ -19,6 +21,8 @@ import java.util.List;
  * 
  * http://en.wikipedia.org/wiki/Matthews_correlation_coefficient
  * 
+ * https://stats.stackexchange.com/questions/44261/how-to-determine-the-quality-of-a-multiclass-classifier
+ * https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
  */
 public final class ClassificationMetrics {
 

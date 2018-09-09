@@ -28,7 +28,7 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
-import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -71,8 +71,8 @@ public class JavaOneSponsors {
                                         .addInputLayer(imageWidth, imageHeight) 
                                         .addConvolutionalLayer(5, 5, 5, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2, 2)                 
-                                        .addFullyConnectedLayer(40, ActivationType.TANH)
-                                        .addFullyConnectedLayer(20, ActivationType.TANH)
+                                        .addDenseLayer(40, ActivationType.TANH)
+                                        .addDenseLayer(20, ActivationType.TANH)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .withLossFunction(LossType.CROSS_ENTROPY)
                                         .withRandomSeed(123)
@@ -81,13 +81,13 @@ public class JavaOneSponsors {
         LOGGER.info("Training neural network"); 
         
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        BackpropagationTrainer trainer = new BackpropagationTrainer(javaOneNet);
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
                .setMaxError(0.4f)
                .setMaxEpochs(500)
                .setOptimizer(OptimizerType.SGD);
-        trainer.train(imageSet);   
+        trainer.train(javaOneNet, imageSet);   
           
         // Serialize network
         try {
@@ -97,8 +97,8 @@ public class JavaOneSponsors {
         }
         
         // deserialize and evaluate neural network
-        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
-        evaluator.evaluate(javaOneNet, imageSet);     
+        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        evaluator.evaluatePerformance(javaOneNet, imageSet);     
         System.out.println(evaluator);   
                           
 //        BufferedImage image = ImageIO.read(new File("/home/zoran/Desktop/JavaOneSet/java/java1.jpg"));

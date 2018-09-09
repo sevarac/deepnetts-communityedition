@@ -32,7 +32,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author Zoran Sevarac <zoran.sevarac@smart4net.co>
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class ScaleImages {
     

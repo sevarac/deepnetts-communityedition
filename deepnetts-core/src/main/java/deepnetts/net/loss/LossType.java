@@ -21,10 +21,31 @@
     
 package deepnetts.net.loss;
 
-/**
- *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
- */
 public enum LossType {
-    MEAN_SQUARED_ERROR, CROSS_ENTROPY;
+    MEAN_SQUARED_ERROR("MEAN_SQUARED_ERROR"), CROSS_ENTROPY("CROSS_ENTROPY");
+    
+    private final String name;       
+
+    private LossType(String s) {
+        name = s;
+    }    
+    
+    public boolean equalsName(String otherName) {
+        return name.equals(otherName);
+    }
+
+    public static LossType Of(Class layerClass) {
+        if (layerClass.equals(MeanSquaredErrorLoss.class)) {
+            return MEAN_SQUARED_ERROR;
+        } else if (layerClass.equals(CrossEntropyLoss.class) || layerClass.equals(BinaryCrossEntropyLoss.class)) {
+            return CROSS_ENTROPY;
+        }
+
+       throw new RuntimeException("Unknown network type!");       
+    }    
+    
+    @Override
+    public String toString() {
+       return this.name;
+    }      
 }

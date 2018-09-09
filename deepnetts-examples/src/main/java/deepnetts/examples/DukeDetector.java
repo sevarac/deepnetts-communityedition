@@ -27,14 +27,13 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
-import deepnetts.eval.ConvolutionalClassifierEvaluator;
+import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,22 +73,22 @@ public class DukeDetector {
                 .addInputLayer(imageWidth, imageHeight, 3)
                 .addConvolutionalLayer(5, 5, 1, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
-                .addFullyConnectedLayer(3, ActivationType.TANH)
+                .addDenseLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .withLossFunction(LossType.CROSS_ENTROPY)
                 .build();
 
-        convNet.setOutputLabels(imageSet.getLabels());
+        convNet.setOutputLabels(imageSet.getOutputLabels());
 
         LOGGER.info("Training neural network");
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.5f)
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.SGD)
                .setMomentum(0.2f);
-        trainer.train(imageSet);
+        trainer.train(convNet, imageSet);
 
         // to save neural network to file on disk
         FileIO.writeToFile(convNet, "DukeDetector.dnet");
@@ -100,8 +99,8 @@ public class DukeDetector {
         // System.out.println(FileIO.toJson(dukeNet));
         
         // to evaluate recognizer with image set
-        ConvolutionalClassifierEvaluator evaluator = new ConvolutionalClassifierEvaluator();
-        Map<String, PerformanceMeasure>  pm =  evaluator.evaluate(convNet, imageSet);
+        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, imageSet);
         System.out.println(pm);
 
         // to use recognizer for single image

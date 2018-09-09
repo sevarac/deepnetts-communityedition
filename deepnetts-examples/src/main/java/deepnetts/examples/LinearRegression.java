@@ -21,6 +21,7 @@
 
 package deepnetts.examples;
 
+import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
@@ -45,7 +46,7 @@ public class LinearRegression {
     public static void main(String[] args) {
         
         try {
-            DataSet dataSet = DataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ","); // get data from some file or method
+            DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ","); // get data from some file or method
             
             NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(5)
@@ -53,9 +54,9 @@ public class LinearRegression {
                     .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
             
-            BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+            BackpropagationTrainer trainer = new BackpropagationTrainer();
             trainer.setLearningRate(0.1f)           
-                    .train(dataSet);
+                    .train(neuralNet, dataSet);
         } catch (IOException ex) {
             Logger.getLogger(LinearRegression.class.getName()).log(Level.SEVERE, null, ex);
         }

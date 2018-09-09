@@ -369,7 +369,7 @@ public class ConvolutionalLayerTest {
         instance.filters[0] = filter;
         instance.biases = biases;
       
-        FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
+        DenseLayer nextLayer = new DenseLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
         nextLayer.init(); // init weights               
@@ -449,7 +449,7 @@ public class ConvolutionalLayerTest {
         instance.filters[1] = filter2;
         instance.biases = biases;
       
-        FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
+        DenseLayer nextLayer = new DenseLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
         nextLayer.init(); // init weights               

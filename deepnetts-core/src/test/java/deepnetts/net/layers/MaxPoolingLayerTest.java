@@ -203,7 +203,7 @@ public class MaxPoolingLayerTest {
                 /* maxIdxs  1,1     1,2     1,4
                             3,1     3,3     3,4
                             4,1     4,2     4,5  */
-        FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
+        DenseLayer nextLayer = new DenseLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
         nextLayer.init(); // init weights               
@@ -280,7 +280,7 @@ public class MaxPoolingLayerTest {
                 /* maxIdxs  1,1     1,2     1,4
                             3,1     3,3     3,4
                             4,1     4,2     4,5  */
-        FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
+        DenseLayer nextLayer = new DenseLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
         nextLayer.init(); // init weights               

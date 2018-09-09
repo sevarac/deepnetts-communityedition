@@ -27,13 +27,13 @@ package deepnetts.util;
  * @author Zoran Sevarac
  */
 public class BoundingBox {
-    private int id, x, y, width, height;
+    private int id, getX, y, width, height;
     private String label;
     private float score;
 
     public BoundingBox(int id, int x, int y, int width, int height, float score) {
         this.id = id;
-        this.x = x;
+        this.getX = x;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -41,7 +41,7 @@ public class BoundingBox {
     }
     
     public BoundingBox(int x, int y, int width, int height) {
-        this.x = x;
+        this.getX = x;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -49,7 +49,7 @@ public class BoundingBox {
     
     public BoundingBox(int id, int x, int y, int width, int height) {
         this.id =id;
-        this.x = x;
+        this.getX = x;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -57,7 +57,7 @@ public class BoundingBox {
     
     public BoundingBox(int id, int x, int y, int width, int height, String label, float score) {
         this.id = id;
-        this.x = x;
+        this.getX = x;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -66,7 +66,7 @@ public class BoundingBox {
     }    
 
     public int getX() {
-        return x;
+        return getX;
     }
 
     public int getY() {
@@ -88,6 +88,10 @@ public class BoundingBox {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    public String getLabel() {
+        return label;
+    }
     
     
 
@@ -105,7 +109,7 @@ public class BoundingBox {
 
     @Override
     public String toString() {
-        return "BoundingBox{" + "id=" + id + ", x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", label=" + label + ", score=" + score + '}';
+        return "BoundingBox{" + "id=" + id + ", x=" + getX + ", y=" + y + ", width=" + width + ", height=" + height + ", label=" + label + ", score=" + score + '}';
     }
 
 

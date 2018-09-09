@@ -29,7 +29,7 @@ public class SoftmaxOutputLayerTest {
         WeightsInit.uniform(weights.getValues(), 5); // "[0.19961303, -0.23501621, 0.43907326, -0.17747784, -0.22066136, 0.06630343, 0.097314, -0.21566293, 0.273578, 0.10945064, 0.33577937, 0.044093937, 0.19323963, -0.3021235, -0.38288906]"
        
         // create prev fc layer with 5 outputs
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5);        
+        DenseLayer prevLayer = new DenseLayer(5);        
         prevLayer.setOutputs(input);
                 
         // create instance of layer to test
@@ -69,7 +69,7 @@ public class SoftmaxOutputLayerTest {
         Tensor outputErrors = new Tensor(10);
         outputErrors.setValues(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
                 
-        FullyConnectedLayer prevLayer = new FullyConnectedLayer(5); // not used for anything just dummy to prevent npe in init      
+        DenseLayer prevLayer = new DenseLayer(5); // not used for anything just dummy to prevent npe in init      
         prevLayer.setOutputs(inputs);
         
         SoftmaxOutputLayer instance = new SoftmaxOutputLayer(10);
