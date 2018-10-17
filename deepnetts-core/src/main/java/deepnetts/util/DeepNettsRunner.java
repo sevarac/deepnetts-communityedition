@@ -86,7 +86,7 @@ public class DeepNettsRunner {
             // create a set of convolutional networks and do training, crossvalidation and performance evaluation
             BackpropagationTrainer trainer = new BackpropagationTrainer();
             trainer.setLearningRate(learningRate)
-                    .setMaxError(maxError);
+                    .setMaxLoss(maxError);
             //       .setMomentum(0.000)
             //     .setBatchMode(false);
             //.setBatchSize(10);

@@ -66,7 +66,7 @@ public class IrisClassificationCE2 {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.03f);
+        trainer.setMaxLoss(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);

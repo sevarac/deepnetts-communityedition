@@ -48,12 +48,11 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
     private float totalError;
     private int patternCount=0;        
     
-    private final OutputLayer outputLayer;         
+ //   private final OutputLayer outputLayer;         
     
-
-    public CrossEntropyLoss(NeuralNetwork convNet) {
-        outputLayer = (OutputLayer)convNet.getOutputLayer();
-        outputError = new float[convNet.getOutputLayer().getWidth()];
+    public CrossEntropyLoss(NeuralNetwork neuralNet) {
+     //   outputLayer = (OutputLayer)neuralNet.getOutputLayer();
+        outputError = new float[neuralNet.getOutputLayer().getWidth()];
     }
        
     

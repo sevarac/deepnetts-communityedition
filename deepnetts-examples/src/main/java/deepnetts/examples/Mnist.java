@@ -96,7 +96,7 @@ public class Mnist {
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                 //.setMomentum(0.7f)
-                .setMaxError(0.02f)
+                .setMaxLoss(0.02f)
                 .setBatchMode(false)
                 //.setBatchSize(128)
                 .setOptimizer(OptimizerType.ADAGRAD);

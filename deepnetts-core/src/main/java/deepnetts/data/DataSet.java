@@ -21,7 +21,7 @@ public interface DataSet <ITEM_TYPE extends DataSetItem> extends Iterable<ITEM_T
     
     public DataSet[] split(int parts);
     
-    public DataSet[] split(int ... parts);
+    public DataSet[] split(int ... parts); // float 0.65, 0.35
     
     public String[] getOutputLabels();
     

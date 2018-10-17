@@ -97,7 +97,7 @@ public class LeNet {
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
-                .setMaxError(0.7f)
+                .setMaxLoss(0.7f)
                 .setBatchMode(true)
                 .setBatchSize(64)
                 .setOptimizer(OptimizerType.MOMENTUM);

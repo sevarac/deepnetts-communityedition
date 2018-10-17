@@ -71,7 +71,7 @@ public class RunLegoPeople {
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
        // trainer.setMomentum(0.1f);
-        trainer.setMaxError(0.06f);
+        trainer.setMaxLoss(0.06f);
         trainer.setOptimizer(OptimizerType.SGD);
         trainer.setBatchMode(true).setBatchSize(10);
         trainer.train(legoPeopleNet, imageSets[0]);   

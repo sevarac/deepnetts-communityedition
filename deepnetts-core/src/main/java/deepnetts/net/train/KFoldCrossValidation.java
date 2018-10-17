@@ -46,7 +46,7 @@ public class KFoldCrossValidation {
                 trainingSet.addAll(folds[trainFoldIdx]);
             }
             
-            // clone th eoriginal network each time before training - create a new instace that will be added to trainedNetworks
+            // clone the original network each time before training - create a new instace that will be added to trainedNetworks
             NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
             
             trainer.train(neuralNet, trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!

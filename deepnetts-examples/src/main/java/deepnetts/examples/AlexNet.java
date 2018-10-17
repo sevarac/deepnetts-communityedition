@@ -19,7 +19,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
  */
-package deepnetts.examples;
+package setMaxLoss;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
@@ -87,7 +87,7 @@ public class AlexNet {
 
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.1f);
+        trainer.setMaxLoss(0.1f);
         trainer.setMomentum(0.7f)
                 .setBatchMode(true)
                 .setBatchSize(128);

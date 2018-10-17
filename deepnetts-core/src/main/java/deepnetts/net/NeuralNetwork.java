@@ -97,6 +97,11 @@ public class NeuralNetwork implements Serializable {
         forward();
     }
 
+    /**
+     * Returns network's output.
+     * 
+     * @return network's output
+     */
     public float[] getOutput() {
         return outputLayer.getOutputs().getValues();
     }

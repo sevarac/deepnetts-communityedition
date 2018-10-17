@@ -97,7 +97,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
             return createBinaryPerformanceMeasures();
         } else {    // for multi class classification
             createMultiClassPerformanceMeasures();
-            return getTotalAverage(); // najbolje da ovde vracam total a sa posebnom metodom da uzimam bu class
+            return getTotalAverage(); // najbolje da ovde vracam total a sa posebnom metodom da uzimam by class
         }
     }
 

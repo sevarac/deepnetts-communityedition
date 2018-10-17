@@ -52,7 +52,7 @@ public class XorExample {
                 .build();
 
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.01f);
+        trainer.setMaxLoss(0.01f);
         trainer.setLearningRate(0.9f);
         trainer.train(neuralNet, dataSet);
     }

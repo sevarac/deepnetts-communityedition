@@ -44,7 +44,7 @@ public class QuickStart {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.05f);
+        trainer.setMaxLoss(0.05f);
         trainer.setMaxEpochs(10000);
         trainer.setLearningRate(0.01f);
 

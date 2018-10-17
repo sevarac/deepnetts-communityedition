@@ -84,7 +84,7 @@ public class DukeDetector {
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.5f)
+        trainer.setMaxLoss(0.5f)
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.SGD)
                .setMomentum(0.2f);

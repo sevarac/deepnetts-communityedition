@@ -57,7 +57,7 @@ public class IrisClassificationMse {
 
         // create a trainer object with specified settings
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.01f)
+        trainer.setMaxLoss(0.01f)
                 .setLearningRate(0.5f)
                 .setMomentum(0.7f)
                 .setOptimizer(OptimizerType.MOMENTUM)

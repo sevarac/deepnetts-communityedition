@@ -21,6 +21,10 @@
  */
 package deepnetts.net.loss;
 
+import deepnetts.data.DataSet;
+import deepnetts.data.DataSetItem;
+import deepnetts.net.NeuralNetwork;
+
 /**
  * Interface for all loss functions.
  *
@@ -53,5 +57,22 @@ public interface LossFunction {
      * Resets the total error and pattern counter.
      */
     public void reset();
+    
+    
+    /**
+     * Calculates and returns loss function value for the given neural network and test set.
+     * 
+     * @param nnet
+     * @param testSet
+     * @return 
+     */
+    default public float valueFor(NeuralNetwork nnet, DataSet<? extends DataSetItem> testSet) {
+        for(DataSetItem tsItem : testSet) {            
+            nnet.setInput(tsItem.getInput());
+            float[] output = nnet.getOutput();
+            addPatternError(output, tsItem.getTargetOutput());
+        }
+        return getTotalValue();
+    }
 
 }

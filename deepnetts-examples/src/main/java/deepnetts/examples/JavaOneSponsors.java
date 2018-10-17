@@ -84,7 +84,7 @@ public class JavaOneSponsors {
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
-               .setMaxError(0.4f)
+               .setMaxLoss(0.4f)
                .setMaxEpochs(500)
                .setOptimizer(OptimizerType.SGD);
         trainer.train(javaOneNet, imageSet);   

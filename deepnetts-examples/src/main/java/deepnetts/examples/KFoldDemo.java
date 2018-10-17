@@ -31,7 +31,7 @@ public class KFoldDemo {
                                             .build();        
                 
         BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.01f);
+        trainer.setMaxLoss(0.01f);
         trainer.setLearningRate(0.5f);
         trainer.setMomentum(0.3f);
         trainer.setBatchMode(false);
