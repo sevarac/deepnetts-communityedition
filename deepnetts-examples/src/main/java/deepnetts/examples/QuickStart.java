@@ -14,7 +14,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -43,8 +43,8 @@ public class QuickStart {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.05f);
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.05f);
         trainer.setMaxEpochs(10000);
         trainer.setLearningRate(0.01f);
 

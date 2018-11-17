@@ -2,23 +2,36 @@ package deepnetts.net.layers.activation;
 
 import deepnetts.util.DeepNettsException;
 
+/**
+ * Interface for all activaton functions used in layers.
+ * 
+ * @see https://en.wikipedia.org/wiki/Activation_function
+ * @author zoran
+ */
 public interface ActivationFunction {
 
     /**
      * Returns the value of activation function for specified input x
      * @param x input for activation
-     * @return 
+     * @return value of activation function
      */
     public float getValue(float x); // apply(float x)
 
+    
+    /**
+     * Returns the first derivative of activation function for specified output y
+     * @param y output of activation function
+     * @return first derivative of activation function
+     */
     public float getPrime(float y);
 
     
     
     /**
-     * Creates and returns specified type of activation function
-     * @param type
-     * @return 
+     * Creates and returns specified type of activation function.
+     * @param type type of the activation function
+     * 
+     * @return returns instance of specified activation function type
      */
     public static ActivationFunction create(ActivationType type) {
         switch (type) {
@@ -26,6 +39,8 @@ public interface ActivationFunction {
                 return new Linear();
             case RELU:
                 return new Relu();
+            case LEAKY_RELU:
+                return new LeakyRelu();                
             case SIGMOID:
                 return new Sigmoid();
             case TANH:

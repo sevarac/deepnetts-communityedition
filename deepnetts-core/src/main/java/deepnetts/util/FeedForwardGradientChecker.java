@@ -29,7 +29,7 @@ import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;

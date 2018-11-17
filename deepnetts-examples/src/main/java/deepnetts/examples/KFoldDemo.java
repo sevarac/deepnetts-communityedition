@@ -7,7 +7,7 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.KFoldCrossValidation;
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +30,8 @@ public class KFoldDemo {
                                             .withRandomSeed(123)
                                             .build();        
                 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.01f);
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.5f);
         trainer.setMomentum(0.3f);
         trainer.setBatchMode(false);

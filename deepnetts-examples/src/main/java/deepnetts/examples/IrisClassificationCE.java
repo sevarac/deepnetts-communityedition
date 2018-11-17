@@ -26,7 +26,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
@@ -49,16 +49,16 @@ public class IrisClassificationCE {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(20, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
+                .addDenseLayer(9, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .withLossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123)
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.03f);
-        trainer.setLearningRate(0.5f);
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.03f);
+        trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.3f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);

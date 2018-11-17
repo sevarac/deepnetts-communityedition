@@ -26,7 +26,7 @@ import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 
 /**
  * Minimal example for regression neural network.
@@ -47,7 +47,7 @@ public class Regression {
                                     .withLossFunction(LossType.MEAN_SQUARED_ERROR)          
                                     .build();
                        
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        Backpropagation trainer = new Backpropagation();
                                trainer.train(neuralNet, dataSet);         
     }
     

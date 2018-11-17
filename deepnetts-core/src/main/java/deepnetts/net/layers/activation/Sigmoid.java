@@ -5,7 +5,10 @@ import java.io.Serializable;
 /**
  * Sigmoid activation function
  * 
- * @author zoran
+ * TODO: slope, amplitude?, avoid NaN
+ * 
+ * @see  <a href=" https://en.wikipedia.org/wiki/Sigmoid_function">Sigmoid_function on Wikipedia</a>
+ * @author Zoran Sevarac
  */
 public final class  Sigmoid implements ActivationFunction, Serializable {
 
@@ -18,7 +21,5 @@ public final class  Sigmoid implements ActivationFunction, Serializable {
     public float getPrime(final float y) {
         return y*(1-y);
     }
-    
-    
-    
+       
 }

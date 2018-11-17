@@ -25,7 +25,7 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
@@ -83,8 +83,8 @@ public class DukeDetector {
         LOGGER.info("Training neural network");
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.5f)
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.5f)
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.SGD)
                .setMomentum(0.2f);

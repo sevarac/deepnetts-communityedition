@@ -28,19 +28,19 @@ package deepnetts.net.train;
  */
 public final class TrainingEvent {
 
-    private final BackpropagationTrainer source;
+    private final Backpropagation source;
     private final Type type;
 
     public static enum Type {
         STARTED, STOPPED, EPOCH_FINISHED, MINI_BATCH, ITERATION_FINISHED;
     }
 
-    public TrainingEvent(final BackpropagationTrainer source, final Type type) {
+    public TrainingEvent(final Backpropagation source, final Type type) {
         this.source = source;
         this.type = type;
     }
 
-    public BackpropagationTrainer getSource() {
+    public Backpropagation getSource() {
         return source;
     }
 

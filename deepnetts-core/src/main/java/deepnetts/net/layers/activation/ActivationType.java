@@ -23,8 +23,7 @@ package deepnetts.net.layers.activation;
 
 /**
  * Activation function types
- * 
- * TODO: Generate this enum using annotations
+ * TODO: Should be generated automatically based on annotations on implementations @Activation
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
@@ -33,5 +32,6 @@ public enum ActivationType {
     SIGMOID,
     TANH,
     RELU,
+    LEAKY_RELU, 
     SOFTMAX;
 }

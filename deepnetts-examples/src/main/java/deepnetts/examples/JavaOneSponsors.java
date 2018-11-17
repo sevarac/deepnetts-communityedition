@@ -26,7 +26,7 @@ import deepnetts.util.DeepNettsException;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.net.loss.LossType;
@@ -81,10 +81,10 @@ public class JavaOneSponsors {
         LOGGER.info("Training neural network"); 
         
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        Backpropagation trainer = new Backpropagation();
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
-               .setMaxLoss(0.4f)
+               .setMaxError(0.4f)
                .setMaxEpochs(500)
                .setOptimizer(OptimizerType.SGD);
         trainer.train(javaOneNet, imageSet);   

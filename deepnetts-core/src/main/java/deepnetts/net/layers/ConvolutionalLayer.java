@@ -24,12 +24,12 @@ package deepnetts.net.layers;
 import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
-import deepnetts.net.layers.activation.ActivationFunction;
 import deepnetts.net.train.Optimizers;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
+import deepnetts.net.layers.activation.ActivationFunction;
 
 /**
  * This class implements convolutional layer. It performs convolution operation

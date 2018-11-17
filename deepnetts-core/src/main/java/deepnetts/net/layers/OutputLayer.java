@@ -21,7 +21,6 @@
  */
 package deepnetts.net.layers;
 
-import deepnetts.net.layers.activation.ActivationFunction;
 import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -29,6 +28,7 @@ import deepnetts.net.train.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
+import deepnetts.net.layers.activation.ActivationFunction;
 
 /**
  * This class represents output layer with sigmoid output function by default.

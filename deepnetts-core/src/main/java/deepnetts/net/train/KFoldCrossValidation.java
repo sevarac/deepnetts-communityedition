@@ -23,7 +23,7 @@ public class KFoldCrossValidation {
       
     private int kFolds; //number of folds, typically  5 or 10 used, pg. 184    
     private NeuralNetwork neuralNetwork; // arhitektura neuronske mreze
-    private BackpropagationTrainer trainer; // algoritam za trening sa svim svojim podesavanjima podesenim
+    private Backpropagation trainer; // algoritam za trening sa svim svojim podesavanjima podesenim
     private DataSet<?> dataSet; // data set koji se deli
     private Evaluator<NeuralNetwork, DataSet<?>> evaluator; // mogao bi u logu da ispisuje rezultate evaluacije kao json
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
@@ -80,7 +80,7 @@ public class KFoldCrossValidation {
             return this;
         }
         
-        public Builder withTrainer(BackpropagationTrainer trainer) {
+        public Builder withTrainer(Backpropagation trainer) {
             kFoldCV.trainer = trainer;
             return this;
         }

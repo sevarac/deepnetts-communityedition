@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Rectified Linear Activation and its Derivative.
  * 
- * y = max(0, x)
+ * y =  x for x > 0, 
+ *      0.1 * x for x<0
  *        - 
  *       | 1, x > 0
  * y' = <
@@ -14,16 +15,17 @@ import java.io.Serializable;
  * 
  * @author Zoran Sevarac
  */
-public final class Relu implements ActivationFunction, Serializable {
+public final class LeakyRelu implements ActivationFunction, Serializable {
 
     @Override
     public float getValue(final float x) {
-        return Math.max(0, x);  
+        return ( x >= 0 ? x : 0.1f*x );  
     }
 
     @Override
     public float getPrime(final float y) {
-         return ( y > 0 ? 1 : 0);
+        throw new UnsupportedOperationException("Nije implementirana");
+//  return ( y > 0 ? 1 : 0);
     }
     
 }

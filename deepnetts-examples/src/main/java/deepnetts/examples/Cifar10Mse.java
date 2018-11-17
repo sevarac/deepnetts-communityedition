@@ -26,7 +26,7 @@ import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
@@ -71,8 +71,8 @@ public class Cifar10Mse {
           
         LOGGER.info("Training neural network"); 
          
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.03f);
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.01f); // 0.0001
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 

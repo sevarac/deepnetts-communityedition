@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
@@ -91,10 +91,10 @@ public class MnistAdaDelta {
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        Backpropagation trainer = new Backpropagation();
         trainer.setLearningRate(0.01f)
                 //                .setMomentum(0.7f)
-                .setMaxLoss(0.02f)
+                .setMaxError(0.02f)
                 .setBatchMode(true)
                 .setBatchSize(16)
                 .setOptimizer(OptimizerType.ADADELTA);

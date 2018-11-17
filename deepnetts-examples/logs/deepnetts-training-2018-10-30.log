@@ -1,0 +1,14 @@
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:8098ms, TrainLoss:2.2666397, TestLoss:0.0, TrainLossChange:2.2666397, Accuracy: 0.0
+Epoch:2, Time:6951ms, TrainLoss:2.1628056, TestLoss:0.0, TrainLossChange:-0.10383415, Accuracy: 0.0
+Epoch:3, Time:7031ms, TrainLoss:2.0666366, TestLoss:0.0, TrainLossChange:-0.096168995, Accuracy: 0.0
+Epoch:4, Time:6945ms, TrainLoss:1.9557439, TestLoss:0.0, TrainLossChange:-0.11089265, Accuracy: 0.0
+Epoch:5, Time:7036ms, TrainLoss:1.8367388, TestLoss:0.0, TrainLossChange:-0.119005084, Accuracy: 0.0
+Epoch:6, Time:7248ms, TrainLoss:1.7176285, TestLoss:0.0, TrainLossChange:-0.119110346, Accuracy: 0.0

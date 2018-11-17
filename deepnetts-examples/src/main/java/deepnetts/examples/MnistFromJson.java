@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
@@ -85,7 +85,7 @@ public class MnistFromJson {
         trainProp.load(new FileReader("training.properties"));
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer(trainProp); // send props as a param to set all peoperties from properties file
+        Backpropagation trainer = new Backpropagation(trainProp); // send props as a param to set all peoperties from properties file
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setBatchMode(true);
         trainer.setBatchSize(128);

@@ -5,6 +5,9 @@ import java.io.Serializable;
 /**
  * Linear activation function and its derivative
  * 
+ * y = x
+ * y' = 1
+ * 
  * @author zoran
  */
 public final class Linear implements ActivationFunction, Serializable {

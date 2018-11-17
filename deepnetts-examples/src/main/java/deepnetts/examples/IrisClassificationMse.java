@@ -26,7 +26,7 @@ import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
@@ -56,8 +56,8 @@ public class IrisClassificationMse {
                 .build();
 
         // create a trainer object with specified settings
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxLoss(0.01f)
+        Backpropagation trainer = new Backpropagation();
+        trainer.setMaxError(0.01f)
                 .setLearningRate(0.5f)
                 .setMomentum(0.7f)
                 .setOptimizer(OptimizerType.MOMENTUM)

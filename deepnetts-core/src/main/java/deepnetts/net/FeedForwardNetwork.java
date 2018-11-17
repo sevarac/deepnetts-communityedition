@@ -22,7 +22,6 @@
 package deepnetts.net;
 
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.DenseLayer;
 import deepnetts.net.layers.InputLayer;
@@ -39,8 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Feed forward neural network architecture, also known as Multi Layer
- * Perceptron.
+ * Feed forward neural network architecture, also known as Multi Layer Perceptron.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
@@ -53,10 +51,17 @@ public class FeedForwardNetwork extends NeuralNetwork {
         super();
     }
 
+    /**
+     * Returns builder for Feed Forward Network
+     * @return 
+     */    
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Builder for FeedForwardNetwork
+     */
     public static class Builder {
 
         /**

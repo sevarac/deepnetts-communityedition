@@ -5,7 +5,7 @@ import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.configuration2.Configuration;
@@ -84,9 +84,9 @@ public class DeepNettsRunner {
             LOGGER.info("Training neural network");
 
             // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-            BackpropagationTrainer trainer = new BackpropagationTrainer();
+            Backpropagation trainer = new Backpropagation();
             trainer.setLearningRate(learningRate)
-                    .setMaxLoss(maxError);
+                    .setMaxError(maxError);
             //       .setMomentum(0.000)
             //     .setBatchMode(false);
             //.setBatchSize(10);

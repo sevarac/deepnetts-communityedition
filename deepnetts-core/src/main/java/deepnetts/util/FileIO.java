@@ -61,6 +61,8 @@ import org.json.JSONObject;
  */
 public class FileIO {
 
+    public static final String NETWORK_FILE_EXT = "dnet";
+    
     /**
      * This class has only static utility methods so we don't need instances
      */

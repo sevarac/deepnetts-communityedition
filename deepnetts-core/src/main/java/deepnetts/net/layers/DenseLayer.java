@@ -192,7 +192,8 @@ public final class DenseLayer extends AbstractLayer {
                     }
                 }
                 // apply activation function to all weigthed sums stored in outputs
-                outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
+                //outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
+                outputs.set(outCol, activation.getValue(outputs.get(outCol)));
             }
         }
     }

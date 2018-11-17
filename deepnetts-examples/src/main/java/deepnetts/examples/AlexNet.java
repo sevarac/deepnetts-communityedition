@@ -25,7 +25,7 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Backpropagation;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
@@ -85,9 +85,9 @@ public class AlexNet {
 
         LOGGER.info("Training neural network");
 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        Backpropagation trainer = new Backpropagation();
         trainer.setLearningRate(0.01f);
-        trainer.setMaxLoss(0.1f);
+        trainer.setMaxError(0.1f);
         trainer.setMomentum(0.7f)
                 .setBatchMode(true)
                 .setBatchSize(128);

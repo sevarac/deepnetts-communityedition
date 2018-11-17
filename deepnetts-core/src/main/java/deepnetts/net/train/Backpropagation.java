@@ -32,6 +32,9 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
+import deepnetts.util.FileIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,14 +42,13 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * Backpropagation training algorithm for feed forward and convolutional neural
- * networks.
+ * Backpropagation training algorithm for feed forward and convolutional neural networks.
  *
  * @see FeedForwardNetwork
  * @see ConvolutionalNetwork
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class BackpropagationTrainer {
+public class Backpropagation {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
@@ -58,7 +60,7 @@ public class BackpropagationTrainer {
      * Maximum allowed error. Training will stop once total error has reached
      * this value .
      */
-    private float maxLoss = 0.01f;
+    private float maxError = 0.01f;
 
     /**
      * Global learning rate
@@ -66,7 +68,7 @@ public class BackpropagationTrainer {
     private float learningRate = 0.01f;
 
     /**
-     * Optimizer type for all layers
+     * Optimization algorithm type
      */
     private OptimizerType optimizer = OptimizerType.SGD;
 
@@ -81,10 +83,13 @@ public class BackpropagationTrainer {
     private boolean batchMode = false;
 
     /**
-     * Size of mini batch. When full batch equals training set size
+     * Size of mini batch. When full batch is used, this equals training set size
      */
     private int batchSize;
 
+    /**
+     * Flag to stop training
+     */
     private boolean stopTraining = false;
 
     /**
@@ -92,7 +97,10 @@ public class BackpropagationTrainer {
      */
     private int epoch;
     
-    private float testLoss=0;
+    /**
+     * Value of loss function calculated on test set
+     */
+    private float testLoss=0, prevTestLoss=0;
     
     private float accuracy=0;    
 
@@ -109,18 +117,31 @@ public class BackpropagationTrainer {
     private DataSet<?> testSet;
     
     private LossFunction lossFunction;
+    
+    /**
+     * Use early stopping setting.
+     */
+    private boolean earlyStopping = false;
 
+    //regularization l1 or l2 add to loss 
+    // flag to save network weights during training
+    private boolean saveTrainingWeights = false;    
+    // on how many epochs to save weights
+    private int saveTrainingWeightsEpochs = 5;    
+    private String saveTrainingWeightsPath = "";
+    
+    
     private final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
-    public BackpropagationTrainer() {
+    public Backpropagation() {
 
     }
 
-    public BackpropagationTrainer(Properties prop) {
+    public Backpropagation(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
-        this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
+        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
         this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
         this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
         this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
@@ -195,6 +216,7 @@ public class BackpropagationTrainer {
             epoch++;
             lossFunction.reset();
             testLoss=0;
+            prevTotalLoss = 0;
             accuracy=0;
             
             if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed
@@ -205,7 +227,7 @@ public class BackpropagationTrainer {
             startEpoch = System.currentTimeMillis();
 
             // maybe generate a sequence of random indexes instead of foreach, so i dontneed to shuffle in every epoch?
-            for (DataSetItem dataSetItem : trainingSet) { // for all items in dataset
+            for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
@@ -222,8 +244,11 @@ public class BackpropagationTrainer {
                     LOGGER.info("Mini Batch:" + sampleCounter / batchSize + " Batch Loss:" + miniBatchError);
                     // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
                 }
-                fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED);
+                fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED); // BATCH_FINISHED?
+                
+                if (stopTraining) break; // if training was stoped externaly by calling stop() method
             }
+            
             endEpoch = System.currentTimeMillis();
 
             //   batch weight update after entire data set - ako vrlicina dataseta nije deljiva sa batchSize - ostatak
@@ -236,18 +261,35 @@ public class BackpropagationTrainer {
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalLoss = totalTrainingLoss;
             
+            // TODO: how many iterations to test accuracy?
             if (testSet != null) {
+                prevTestLoss = testLoss;
                 testLoss = testLoss(testSet);
-                accuracy = testaccuracy(testSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
+                accuracy = testAccuracy(testSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
+            } else {
+                accuracy = testAccuracy(this.trainingSet);
             }
             
             epochTime = endEpoch - startEpoch;
 
-            LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainLoss:" + totalTrainingLoss + ", TestLoss:" + testLoss + ", TrainLossChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
+            LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + testLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
 
+            // maybe to trigger this with event
+            if (saveTrainingWeights && epoch % saveTrainingWeightsEpochs == 0) {
+                try {
+                    // specify save path somehow or use some temp folder? 
+                    FileIO.writeToFile(neuralNet, saveTrainingWeightsPath + File.separatorChar + "NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
+                } catch (IOException ex) {
+                    LOGGER.catching(ex); //log(Level.SEVERE, null, ex);
+                }
+            }
+
+            
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
-            stopTraining = ((epoch == maxEpochs) || (totalTrainingLoss <= maxLoss)) || stopTraining;    // TODO: ovde dodati early stopping, ako test loss pocne da raste
+            if (earlyStopping && (testLoss > prevTestLoss)) stopTraining = true;    // basic eary stopping: stop as soon as you notice the test loss is growing. TODO: provide predicate for this
+            
+            stopTraining = ((epoch == maxEpochs) || (totalTrainingLoss <= maxError)) || stopTraining;    // TODO: ovde dodati early stopping, ako test loss pocne da raste
 
         } while (!stopTraining); // or learning slowed, or overfitting, ...
 
@@ -265,7 +307,7 @@ public class BackpropagationTrainer {
         return maxEpochs;
     }
 
-    public BackpropagationTrainer setMaxEpochs(long maxEpochs) {
+    public Backpropagation setMaxEpochs(long maxEpochs) {
         if (maxEpochs <= 0) {
             throw new IllegalArgumentException("Max epochs should be greater then zero : " + maxEpochs);
         }
@@ -273,20 +315,20 @@ public class BackpropagationTrainer {
         return this;
     }
 
-    public float getMaxLoss() {
-        return maxLoss;
+    public float getMaxError() {
+        return maxError;
     }
 
-    public BackpropagationTrainer setMaxLoss(float maxLoss) {
-        if (maxLoss < 0) {
-            throw new IllegalArgumentException("Max loss cannot be negative : " + maxLoss);
+    public Backpropagation setMaxError(float maxError) {
+        if (maxError < 0) {
+            throw new IllegalArgumentException("Max error cannot be negative : " + maxError);
         }
 
-        this.maxLoss = maxLoss;
+        this.maxError = maxError;
         return this;
     }
 
-    public BackpropagationTrainer setLearningRate(float learningRate) {
+    public Backpropagation setLearningRate(float learningRate) {
         if (learningRate < 0) {
             throw new IllegalArgumentException("Learning rate cannot be negative : " + learningRate);
         }
@@ -329,7 +371,7 @@ public class BackpropagationTrainer {
         return batchMode;
     }
 
-    public BackpropagationTrainer setBatchMode(boolean batchMode) {
+    public Backpropagation setBatchMode(boolean batchMode) {
         this.batchMode = batchMode;
         return this;
     }
@@ -338,12 +380,12 @@ public class BackpropagationTrainer {
         return batchSize;
     }
 
-    public BackpropagationTrainer setBatchSize(int batchSize) {
+    public Backpropagation setBatchSize(int batchSize) {
         this.batchSize = batchSize;
         return this;
     }
 
-    public BackpropagationTrainer setMomentum(float momentum) {
+    public Backpropagation setMomentum(float momentum) {
         this.momentum = momentum;
         return this;
     }
@@ -376,7 +418,7 @@ public class BackpropagationTrainer {
         return optimizer;
     }
 
-    public BackpropagationTrainer setOptimizer(OptimizerType optimizer) {
+    public Backpropagation setOptimizer(OptimizerType optimizer) {
         this.optimizer = optimizer;
         return this;
     }
@@ -388,6 +430,42 @@ public class BackpropagationTrainer {
     public void setTestSet(DataSet<?> testSet) {
         this.testSet = testSet;
     }
+
+    public boolean getEarlyStopping() {
+        return earlyStopping;
+    }
+
+    public void setEarlyStopping(boolean earlyStopping) {
+        this.earlyStopping = earlyStopping;
+    }
+    
+    /**
+     * Save weights during training on specified number of epochs
+     * 
+     * @param epochs 
+     */
+    public void setSaveTrainingWeightsEpochs(int epochs) {
+        if (epochs == 0) {
+            this.saveTrainingWeights = false;
+        } else {
+            this.saveTrainingWeights = true;
+            this.saveTrainingWeightsEpochs = epochs;
+        }
+    }
+    
+    public void setSaveTrainingWeightsPath(String path) {
+        this.saveTrainingWeightsPath = path;
+    }
+
+    public boolean getSaveTrainingWeights() {
+        return saveTrainingWeights;
+    }
+
+    public int getSaveTrainingWeightsEpochs() {
+        return saveTrainingWeightsEpochs;
+    }
+    
+    
     
     /**
      * Sets properties from available keys in specified prop object.
@@ -409,7 +487,7 @@ public class BackpropagationTrainer {
     }
 
     // property names
-    public static final String PROP_MAX_LOSS = "maxLoss";
+    public static final String PROP_MAX_ERROR = "maxError";
     public static final String PROP_MAX_EPOCHS = "maxEpochs";
     public static final String PROP_LEARNING_RATE = "learningRate";
     public static final String PROP_MOMENTUM = "momentum";
@@ -427,7 +505,7 @@ public class BackpropagationTrainer {
     
     Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
     // only for classification problems
-    private float testaccuracy(DataSet<? extends DataSetItem> testSet) {        
+    private float testAccuracy(DataSet<? extends DataSetItem> testSet) {        
         PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, testSet);
         return pm.get(PerformanceMeasure.ACCURACY);
     }
