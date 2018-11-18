@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deepnetts.util;
+package deepnetts.util.tools;
 
+import deepnetts.util.ImageSetUtils;
+import deepnetts.util.ImageUtils;
 import java.io.IOException;
 
 /**
@@ -13,7 +15,7 @@ import java.io.IOException;
  */
 public class GenerateRandomNegative {
     public static void main(String[] args) throws IOException {
-       // ImageUtils.generateRandomColoredImages(96, 96, 460, "D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\negative");
+        ImageUtils.generateRandomColoredImages(96, 96, 460, "D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\negative");
         ImageSetUtils.createImageIndex("D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\", true);
     }
 }

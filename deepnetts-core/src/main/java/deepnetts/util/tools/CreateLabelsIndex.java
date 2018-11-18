@@ -19,42 +19,17 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
     
-package deepnetts.util;
+package deepnetts.util.tools;
 
-import java.util.Arrays;
-import java.util.List;
+import deepnetts.util.ImageSetUtils;
+import java.io.IOException;
 
 /**
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class Parameter<T> {
-    String name;
-    T value;
-
-
-    public Parameter(String name, T value) {
-        this.value = value;
-        this.name = name;
+public class CreateLabelsIndex {
+    public static void main(String[] args) throws IOException {
+        ImageSetUtils.createLabelsIndex("/home/zoran/Desktop/JavaOneSponsors/randomlyCroped");
     }
-
-    public String getName() {
-        return name;
-    }      
-    
-    public T getValue() {
-        return value;
-    }
-    
-    public static List<Parameter> listOf(Parameter ... a) {
-        return Arrays.asList(a);
-    }
-
-    @Override
-    public String toString() {
-        return "Parameter{" + "name=" + name + ", value=" + value + '}';
-    }
-
-    
-  
 }

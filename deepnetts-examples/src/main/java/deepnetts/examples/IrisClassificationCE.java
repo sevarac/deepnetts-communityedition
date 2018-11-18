@@ -60,8 +60,6 @@ public class IrisClassificationCE {
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
-        trainer.setMomentum(0.3f);
-        trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
         trainer.train(neuralNet, dataSet);
     }

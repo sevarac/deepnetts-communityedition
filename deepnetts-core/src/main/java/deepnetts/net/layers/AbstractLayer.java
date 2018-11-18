@@ -81,7 +81,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
     /**
      * Weight changes for current and previous iteration
      */
-    protected Tensor deltaWeights, prevDeltaWeights;
+    protected Tensor deltaWeights;
 
     protected Tensor gradients;
     
@@ -108,11 +108,9 @@ public abstract class AbstractLayer implements Layer, Serializable {
 
     protected int width, height, depth; // layer dimensions - width and height
 
-    // biases are used by output, fully connected and convolutional layers
-    //  Note: Tensor biases,  deltaBiases; all these below can be Tensor
     protected float[] biases;
     protected float[] deltaBiases;
-    protected float[] prevDeltaBiases;
+
 
     /**
      * This method should implement layer initialization when layer is added to

@@ -19,8 +19,10 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
     
-package deepnetts.util;
+package deepnetts.util.tools;
 
+import deepnetts.util.ImageUtils;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,16 +36,14 @@ import javax.imageio.ImageIO;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class ObjectsOnBackgrounds {
+public class CenterOnWhiteBackground {
 
     public static void main(String[] args) throws IOException {
-        String objectSourcePath = "/home/zoran/Desktop/JavaOneSponsors/logos";
-        String bgSourcePath = "/home/zoran/Desktop/JavaOneSponsors/bg";
+        String sourcePath = "/home/zoran/Desktop/JavaOneSponsors/logos";
         String targetPath = "/home/zoran/Desktop/JavaOneSponsors/centered";
+        int width = 148, height = 148, padding=20;
 
-        HashMap<File, BufferedImage> objects = ImageUtils.loadFileImageMapFromDirectory(new File(objectSourcePath));
-        HashMap<File, BufferedImage> backgrounds = ImageUtils.loadFileImageMapFromDirectory(new File(bgSourcePath));
-
+        HashMap<File, BufferedImage> objects = ImageUtils.loadFileImageMapFromDirectory(new File(sourcePath));
         Iterator<Entry<File, BufferedImage>> objIter = objects.entrySet().iterator();
 
         while (objIter.hasNext()) { // iterate all object images
@@ -51,18 +51,11 @@ public class ObjectsOnBackgrounds {
             BufferedImage objImg = objEntry.getValue();
             String objName = objEntry.getKey().getName();
 
-            String imgType = objName.substring(objName.indexOf(".")+1);
-            
-            Iterator<Entry<File, BufferedImage>> bgIter = backgrounds.entrySet().iterator();
-            
+            String imgType = objName.substring(objName.indexOf(".") + 1);
 
-            while (bgIter.hasNext()) { // iterate all backgrounds
-                BufferedImage bgImg = bgIter.next().getValue(); //ovde je problem sto on odmah sve jedne preko drugih
+            BufferedImage newImage = ImageUtils.scaleAndCenter(objImg, width, height, padding, Color.WHITE);
+            ImageIO.write(newImage, imgType, new File(targetPath + "/" + objName));  //  TODO: set image type
 
-                bgImg.getGraphics().drawImage(objImg, 0, 0, null);
-                ImageIO.write(bgImg, imgType, new File(targetPath + "/" + objName));  //  TODO: set image type
-
-            }
         }
     }
 

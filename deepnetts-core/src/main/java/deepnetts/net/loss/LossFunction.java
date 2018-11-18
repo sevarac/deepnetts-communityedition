@@ -28,8 +28,6 @@ import deepnetts.net.NeuralNetwork;
 /**
  * Interface for all loss functions.
  *
- * TODO: add method to return firts derivative by y : dE/dy ?
- *
  * @see MeanSquaredErrorLoss
  * @see CrossEntropyLoss
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>

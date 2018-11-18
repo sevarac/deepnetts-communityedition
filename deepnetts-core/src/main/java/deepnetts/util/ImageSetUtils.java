@@ -148,23 +148,9 @@ public class ImageSetUtils {
             final String targetFile =  label + File.separator + label+"_"+count; // make sure the key is only filename without the path
 
             ImageUtils.writeImages(randomlyCropedImages, destPath, targetFile, imgType);
-            
-            
-//ImageIO.write(scaledImage, imgType, new File(targetFile)); // ovde pisi i png fajlocve aimenaim numerisi sa 123
-            
-            // and put it in image index (add labels to generated files too)
-//            if (useAbsolutePaths) {
-//                imgIndex.add(targetFile + " " + label);
-//            } else {
-//                imgIndex.add(label + File.separator + fileName + " " + label);
-//            }
-            
-            // create augmented images here?
-            // 
-            
+                       
             LOGGER.info(targetFile + " done!");
         } 
-        // new index cn be created here with separate method
     }      
   }  
   
@@ -357,8 +343,8 @@ public class ImageSetUtils {
     }
     
     
-    public static void main(String[] args) {
-        // get opetions from args  and invoke corresponding mehods
-    }
+//    public static void main(String[] args) {
+//        // get opetions from args  and invoke corresponding mehods
+//    }
     
 }

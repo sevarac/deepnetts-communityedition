@@ -21,7 +21,6 @@
  */
 package deepnetts.core;
 
-import deepnetts.util.LicenseChecker;
 import java.util.Properties;
 
 /**
@@ -33,13 +32,17 @@ public final class DeepNetts {
 
     private static DeepNetts instance;
     
-    // https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
+    /**
+     * Configuration of the current deep netts working environment 
+     * See https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
+     */
     private Properties prop;
 
     private DeepNetts() {
         // load properties from META-INF file that should be generated during the build
         prop = new Properties();
-        prop.put("version", "1.0");
+        prop.put("version", "1.0 Community Edition");
+        prop.put("license", "GPL with CPE");
         prop.put("vendor", "Deep Netts LLC");
     }
 

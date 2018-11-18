@@ -19,8 +19,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
 
-package deepnetts.util;
+package deepnetts.util.tools;
 
+import deepnetts.util.ImageUtils;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;

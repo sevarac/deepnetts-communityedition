@@ -41,7 +41,7 @@ public class LogisticRegression {
     
     public static void main(String[] args) {
         
-        BasicDataSet dataSet =null; // get data from some file or method   
+        BasicDataSet dataSet =null;
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(5)
@@ -50,8 +50,8 @@ public class LogisticRegression {
                 .build();
         
         Backpropagation trainer = new Backpropagation();
-                               trainer.setLearningRate(0.1f)
-                                      .train(neuralNet, dataSet);        
+        trainer.setLearningRate(0.1f)
+               .train(neuralNet, dataSet);        
                 
     }
     

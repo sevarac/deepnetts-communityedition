@@ -1,4 +1,4 @@
-package deepnetts.util;
+package deepnetts.util.tools;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
@@ -6,6 +6,7 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.Backpropagation;
+import deepnetts.util.DeepNettsException;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.configuration2.Configuration;

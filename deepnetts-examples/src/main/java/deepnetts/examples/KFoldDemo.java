@@ -20,7 +20,7 @@ public class KFoldDemo {
     
     public static void main(String[] args) throws IOException {
         DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");    
-        //dataSet.setLabels(new String[] {"Setose", "Vrsicolor", "Virginica"});
+        ((BasicDataSet)dataSet).setColumnNames(new String[] {"Setose", "Vrsicolor", "Virginica"});
         
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                                             .addInputLayer(4)

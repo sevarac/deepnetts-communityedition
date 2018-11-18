@@ -44,9 +44,8 @@ import java.util.logging.Logger;
 public class LinearRegression {
     
     public static void main(String[] args) {
-        // load boston houses data set
         try {
-            DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ","); // get data from some file or method
+            DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ",");
             
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(5)

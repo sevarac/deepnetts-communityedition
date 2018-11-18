@@ -112,12 +112,10 @@ public class OutputLayer extends AbstractLayer {
         weights = new Tensor(prevLayerWidth, width);
         gradients = new Tensor(prevLayerWidth, width);
         deltaWeights = new Tensor(prevLayerWidth, width);
-        prevDeltaWeights = new Tensor(prevLayerWidth, width);
         WeightsInit.xavier(weights.getValues(), prevLayerWidth, width);
 
         biases = new float[width];
         deltaBiases = new float[width];
-        prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
     }
 
@@ -128,10 +126,10 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void forward() {
-        outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
-        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols
+        outputs.copyFrom(biases);  
+        for (int outCol = 0; outCol < outputs.getCols(); outCol++) { 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
+                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));
             }
            // outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
         }
@@ -140,35 +138,30 @@ public class OutputLayer extends AbstractLayer {
 
     /**
      * This method implements backward pass for the output layer.
-     *
-     * http://peterroelants.github.io/posts/neural_network_implementation_intermezzo01/
-     * http://neuralnetworksanddeeplearning.com/chap3.html#introducing_the_cross-entropy_cost_function
      */
     @Override
     public void backward() {
-        if (!batchMode) {   // reset delta weights and deltaBiases to zero in ezch iteration if not in batch/minibatch mode
+        if (!batchMode) {
             deltaWeights.fill(0);
             Arrays.fill(deltaBiases, 0);
         }
 
-        for (int dCol = 0; dCol < deltas.getCols(); dCol++) { // iterate all output neurons / deltas
+        for (int dCol = 0; dCol < deltas.getCols(); dCol++) {
 
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                deltas.set(dCol, outputErrors[dCol] * ActivationFunctions.prime(activationType, outputs.get(dCol))); // delta = e*f1
-            } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
-                deltas.set(dCol, outputErrors[dCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
+                deltas.set(dCol, outputErrors[dCol] * ActivationFunctions.prime(activationType, outputs.get(dCol)));
+            } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { 
+                deltas.set(dCol, outputErrors[dCol]); 
             }
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 final float grad = deltas.get(dCol) * inputs.get(inCol);
                 final float deltaWeight = Optimizers.sgd(learningRate, grad);
-                //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
                 gradients.set(inCol, dCol, grad);
                 deltaWeights.add(inCol, dCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
             deltaBiases[dCol] += Optimizers.sgd(learningRate, deltas.get(dCol));
-//          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }
     }
 
@@ -177,22 +170,15 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void applyWeightChanges() {
-        if (batchMode) { // if batch mode calculate average delta weights using batch samples (mini batch)
+        if (batchMode) { 
             deltaWeights.div(batchSize);
             Tensor.div(deltaBiases, batchSize);
         }
 
-        // save current as prev delta weights (required for momentum)
-        Tensor.copy(deltaWeights, prevDeltaWeights);
-        // apply(add) delta weights
         weights.add(deltaWeights);
-
-        // save current as prev delta biases
-        Tensor.copy(deltaBiases, prevDeltaBiases);
-        // apply(add) delta bias
         Tensor.add(biases, deltaBiases);
 
-        if (batchMode) {    // for batch mode set all delta weights and biases to zero after applying changes. For online mode they are reseted in backward pass
+        if (batchMode) {
             deltaWeights.fill(0);
             Tensor.fill(deltaBiases, 0);
         }

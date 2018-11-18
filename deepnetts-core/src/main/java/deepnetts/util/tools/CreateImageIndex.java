@@ -19,46 +19,17 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
     
-package deepnetts.util;
+package deepnetts.util.tools;
 
-import java.util.HashMap;
+import deepnetts.util.ImageSetUtils;
+import java.io.IOException;
 
 /**
- * TODO: setMethod, throw meannigfull exceptions
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class Parameters {
-    HashMap<String, Parameter> parameters;
-
-    public Parameters() {
-        parameters = new HashMap<>();
+public class CreateImageIndex {
+    public static void main(String[] args) throws IOException {
+        ImageSetUtils.createImageIndex("/home/zoran/Desktop/JavaOneSponsors/randomlyCroped", true);
     }
-    
-    public Parameter<?> get(String name) {
-        return parameters.get(name);
-    }
-    
-    public Float getFloat(String name) {
-        return  (Float) parameters.get(name).getValue();
-    }    
-    
-    public Integer getInteger(String name) {
-        return  (Integer) parameters.get(name).getValue();
-    }    
-    
-    public Boolean getBoolean(String name) {
-        return (Boolean) parameters.get(name).getValue();
-    }
-    
-    public String getString(String name) {
-        return (String) parameters.get(name).getValue();
-    }    
-       
-    public void put(Parameter<?> param){
-        parameters.put(param.getName(), param);
-    }
-    
-    
-    
 }

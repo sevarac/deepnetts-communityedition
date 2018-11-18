@@ -44,14 +44,6 @@ public class ColorUtils {
     }
     
     public static Color getColorFor(float min, float max, float val) { // value [0..1]
-        // max alpha FF
-//        def rgb(minimum, maximum, value):
-//    minimum, maximum = float(minimum), float(maximum)
-//    ratio = 2 * (value-minimum) / (maximum - minimum)
-//    b = int(max(0, 255*(1 - ratio)))
-//    r = int(max(0, 255*(ratio - 1)))
-//    g = 255 - b - r
-//    return r, g, b
         int r, g, b;        
         float ratio = 2 * (val-min) / ((float)(max-min));
         
@@ -62,18 +54,5 @@ public class ColorUtils {
         Color color = new Color(r, g, b, 255);
         return color;
     }
-    
-    
-//    public int getIntFromColor(float Red, float Green, float Blue) {
-//        int R = Math.round(255 * Red);
-//        int G = Math.round(255 * Green);
-//        int B = Math.round(255 * Blue);
-//
-//        R = (R << 16) & 0x00FF0000;
-//        G = (G << 8) & 0x0000FF00;
-//        B = B & 0x000000FF;
-//
-//        return 0xFF000000 | R | G | B;
-//    }
-
+  
 }

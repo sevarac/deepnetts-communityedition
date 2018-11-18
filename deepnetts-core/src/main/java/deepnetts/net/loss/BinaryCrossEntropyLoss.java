@@ -29,22 +29,6 @@ import java.io.Serializable;
  * Cross Entropy Loss for binary(single output, two classes) classification.
  * It should be used in combination with sigmoid output activation function
  * 
- * E = (1/n) * -SUM( t * ln(y) + (1-t) * ln(1-y) )
- * 
- * where t is target, and y actual output
- * Bishop, C. pg. 231, eq. 6.120
- * 
- * Cross entropy derivative is
- * 
- * dE/dy = (y-t) / y*(1-y)
- * 
- * Since denominator is same as sigmoid derivative, they are canceled when calculating delta in output layer:
- * delta = dE/dy * dy/ds = y - t
- * 
- * See 
- *     http://neuralnetworksanddeeplearning.com/chap3.html#introducing_the_cross-entropy_cost_function
- *     http://peterroelants.github.io/posts/neural_network_implementation_intermezzo01/
- * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BinaryCrossEntropyLoss implements LossFunction, Serializable {

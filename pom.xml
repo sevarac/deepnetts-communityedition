@@ -8,7 +8,6 @@
     <modules>
         <module>deepnetts-examples</module>
         <module>deepnetts-core</module>
-        <module>deepnetts-license</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

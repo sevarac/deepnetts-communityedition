@@ -1,17 +1,1 @@
-[ERROR] 2018-09-09 20:59:41.581 [main] DeepNetts - Could not find labels file: D:\datasets\cifar10\train\labels.txt
-java.io.FileNotFoundException: D:\datasets\cifar10\train\labels.txt (The system cannot find the path specified)
-	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
-	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
-	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
-	at deepnetts.examples.Cifar10Ce.run(Cifar10Ce.java:57) [classes/:?]
-	at deepnetts.examples.Cifar10Ce.main(Cifar10Ce.java:110) [classes/:?]
-[ERROR] 2018-09-09 21:51:20.265 [main] DeepNetts - Could not find labels file: D:\datasets\DukeSet\labels.txt
-java.io.FileNotFoundException: D:\datasets\DukeSet\labels.txt (The system cannot find the path specified)
-	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
-	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
-	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
-	at deepnetts.examples.DukeDetector.main(DukeDetector.java:64) [classes/:?]
+[ERROR] 2018-11-18 17:10:08.142 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!

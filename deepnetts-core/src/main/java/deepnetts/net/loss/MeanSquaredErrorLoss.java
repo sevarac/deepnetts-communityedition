@@ -25,10 +25,7 @@ import deepnetts.net.NeuralNetwork;
 import java.io.Serializable;
 
 /**
- * Mean Squared Error Loss function. Sum squared errors over all patterns and
- * all outputs. * E = 1/(2*N) * SUM(SUM(y-t)^2)
- *
- * Bishop, pg. 89, eq. 3.34
+ * Mean Squared Error Loss function.
  *
  * @see LossFunction
  * @see CrossEntropyLoss

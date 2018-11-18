@@ -48,7 +48,6 @@ public class QuickStart {
         trainer.setMaxEpochs(10000);
         trainer.setLearningRate(0.01f);
 
-        
         // run training
         trainer.train(neuralNet, dataSet);
         

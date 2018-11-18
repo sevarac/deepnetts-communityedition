@@ -85,7 +85,7 @@ public class Mnist {
                 .addMaxPoolingLayer(2, 2)
                 .addDenseLayer(30)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .withActivationFunction(ActivationType.RELU)
+                .withActivationFunction(ActivationType.TANH)
                 .withLossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123)
                 .build();
@@ -95,12 +95,10 @@ public class Mnist {
         // create a trainer and train network
         Backpropagation trainer = new Backpropagation();
         trainer.setLearningRate(0.01f)
-                //.setMomentum(0.7f)
                 .setMaxError(0.02f)
-                .setBatchMode(false)
-                //.setBatchSize(128)
-                .setOptimizer(OptimizerType.ADAGRAD);
-        trainer.train(neuralNet, imageSets[0]);
+                .setBatchMode(true)
+                .setBatchSize(32);
+        trainer.train(neuralNet, imageSets[0], imageSets[1]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

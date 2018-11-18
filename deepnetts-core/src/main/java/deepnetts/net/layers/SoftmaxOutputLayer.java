@@ -56,12 +56,10 @@ public class SoftmaxOutputLayer extends OutputLayer {
         weights = new Tensor(prevLayerWidth, width);
         deltaWeights = new Tensor(prevLayerWidth, width);
         gradients = new Tensor(prevLayerWidth, width);
-        prevDeltaWeights = new Tensor(prevLayerWidth, width);
         WeightsInit.xavier(weights.getValues(), prevLayerWidth, width);
 
         biases = new float[width];
         deltaBiases = new float[width];
-        prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
     }
 

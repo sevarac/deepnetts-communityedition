@@ -44,8 +44,6 @@ public class ConvolutionalLayer extends AbstractLayer {
 
     Tensor[] filters;           // each filter corresponds to a single channel. Each filter can be 3D, where 3rd dimension coreesponds to depth in previous layer. TODO: the depth pf th efilter should be tunable
     Tensor[] deltaWeights;      //ovo za sada ovako dok proradi. Posle mozda ubaciti jos jednu dimenziju u matricu - niz za kanale. i treba da overriduje polje jer su weights u filterima za sve prethdne kanale
-    Tensor[] prevDeltaWeights;  // delta weights from previous iteration (used for momentum)
-    Tensor[] prevGradSums;  // delta weights from previous iteration (used for momentum)
 
     /**
      * Convolutional filter width
@@ -153,8 +151,6 @@ public class ConvolutionalLayer extends AbstractLayer {
         filterDepth = prevLayer.getDepth();  
         filters = new Tensor[depth]; // depth of the filters should be configurable - its a hyper param!    
         deltaWeights = new Tensor[depth];
-        prevDeltaWeights = new Tensor[depth];
-        prevGradSums = new Tensor[depth];
 
         int inputCount = (filterWidth * filterHeight + 1) * filterDepth;
         
@@ -164,16 +160,12 @@ public class ConvolutionalLayer extends AbstractLayer {
             WeightsInit.uniform(filters[ch].getValues(), inputCount); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija... 
 
             deltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
-            prevDeltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
-            prevGradSums[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
         }
 
         // and biases               // svaki kanal ima svoj filter i svoj bias - sta ako prethodni sloj ima vise biasa? mislim da bi tada svaki filter trebalo da ima svoj bias ovo bi znaci trebalo da bude 2D biases[depth][prevLayerDepth]
         biases = new float[depth]; // biasa ima koliko ima kanala - svaki FM ima jedan bias - mozda i vise... ili ce svaki filter imati svoj bias? - tako bi trebalo... 
                                     // svaki kanal u ovom sloju ima filtera onoliko kolik ima kanala u prethodnom sloji. i Svi ti filteri imaju jedan bias
         deltaBiases = new float[depth];
-        prevDeltaBiases = new float[depth];
-        prevBiasSqrSum = new Tensor(depth);  
   //      WeightsInit.randomize(biases);        // sometimes the init to 0
     }
 
@@ -383,15 +375,8 @@ public class ConvolutionalLayer extends AbstractLayer {
                                 case SGD:
                                     deltaWeight = Optimizers.sgd(learningRate, grad);
                                     break;
-                                case MOMENTUM:
-                                    deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz)); // ovaj sa momentumom odmah izleti u NaN
-                                    break;
-                                case ADAGRAD:
-                                    prevGradSums[ch].add(fr, fc, fz, grad * grad);                                    
-                                    deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSums[ch].get(fr, fc, fz));
-                                    break;
                             }
-                            deltaWeight /=divisor;  // da li je ovo matematicki tacno? momentum baca nana ako ovog nema
+                            deltaWeight /=divisor;  
                             deltaWeights[ch].add(fr, fc, fz, deltaWeight); 
                         }
                     } 
@@ -400,14 +385,6 @@ public class ConvolutionalLayer extends AbstractLayer {
                 switch (optimizer) {
                     case SGD:
                         deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
-                        break;
-                    case MOMENTUM:
-//                       deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
-                        deltaBias = Optimizers.momentum(learningRate, deltas.get(deltaRow, deltaCol, ch), momentum, prevDeltaBiases[ch]);
-                        break;
-                    case ADAGRAD:
-                        deltaBias = Optimizers.adaGrad(learningRate, deltas.get(deltaRow, deltaCol, ch), prevBiasSqrSum.get(ch));
-                        prevBiasSqrSum.add(ch, deltas.get(deltaRow, deltaCol, ch) * deltas.get(deltaRow, deltaCol, ch));
                         break;
                 }                
                 deltaBiases[ch] /=divisor; 
@@ -422,18 +399,14 @@ public class ConvolutionalLayer extends AbstractLayer {
     @Override
     public void applyWeightChanges() {
 
-        if (batchMode) {    // divide biases with batch samples if it is in batch mode
+        if (batchMode) {    
             Tensor.div(deltaBiases, batchSize);
         }
         
-        Tensor.copy(deltaBiases, prevDeltaBiases);  // save this for momentum       
-
         for (int ch = 0; ch < depth; ch++) {
-            if (batchMode) { // podeli Delta weights sa brojem uzoraka odnosno backward passova
+            if (batchMode) { 
                 deltaWeights[ch].div(batchSize);
             }
-
-            Tensor.copy(deltaWeights[ch], prevDeltaWeights[ch]); // da li ovo treba pre ilo posle prethodnog kad aje u batch mode-u?, ok je d abude posle jer se prienjuje pojedinacno
 
             filters[ch].add(deltaWeights[ch]);
             biases[ch] += deltaBiases[ch];
