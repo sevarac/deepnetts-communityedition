@@ -51,15 +51,6 @@ public final class DeepNetts {
         return instance;
     }
 
-    public static void checkLicense() {
-        LicenseChecker checker = new LicenseChecker();        
-        try { 
-            checker.checkLicense();       
-        } catch(NullPointerException npe) {
-            throw new LicenseChecker.LicenceException("License not found!");
-        }
-    }
-
     public String version() {
         return prop.getProperty("version");
     }

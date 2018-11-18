@@ -82,8 +82,6 @@ public class NeuralNetwork implements Serializable {
     private String label;
 
     protected NeuralNetwork() {
-        // if license is not valid this will throw exception
-        DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...
         layers = new ArrayList();
     }
       
