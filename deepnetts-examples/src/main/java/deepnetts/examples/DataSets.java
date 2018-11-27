@@ -30,7 +30,7 @@ import java.io.IOException;
 
 /**
  * TODO: add breast cancer, mnist  and other UCI stuff
- * @author Zoran
+ * @author Zoran Sevarac
  */
 public class DataSets {
 
