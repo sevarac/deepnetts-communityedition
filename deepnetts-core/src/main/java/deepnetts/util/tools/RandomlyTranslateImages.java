@@ -38,7 +38,7 @@ import javax.imageio.ImageIO;
 /**
  * just move 2(x) pix to left right up down
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class RandomlyTranslateImages {
     

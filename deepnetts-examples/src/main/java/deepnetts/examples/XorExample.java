@@ -16,9 +16,9 @@
  * Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <https://www.gnu.org/licenses/>.package
- * deepnetts.core;
+ * this program. If not, see <https://www.gnu.org/licenses/>.
  */
+
 package deepnetts.examples;
 
 import deepnetts.data.BasicDataSetItem;
@@ -28,14 +28,14 @@ import deepnetts.data.DataSetItem;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 
 /**
  * Solve XOR problem to confirm that backpropagation is working, and that it can
  * solve the simplest nonlinear problem.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class XorExample {
 
@@ -51,7 +51,7 @@ public class XorExample {
                 .withRandomSeed(123)
                 .build();
 
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.9f);
         trainer.train(neuralNet, dataSet);

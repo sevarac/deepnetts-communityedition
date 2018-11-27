@@ -32,7 +32,7 @@ import deepnetts.util.DeepNettsException;
  * 
  * Return 
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 @Deprecated
 public final class ActivationFunctions {

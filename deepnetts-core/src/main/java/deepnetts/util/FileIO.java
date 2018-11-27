@@ -56,7 +56,7 @@ import org.json.JSONObject;
 /**
  * File utilities for saving and loading neural networks.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class FileIO {
 

@@ -46,9 +46,9 @@ import org.apache.logging.log4j.LogManager;
  *
  * @see FeedForwardNetwork
  * @see ConvolutionalNetwork
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
-public class Backpropagation {
+public class BackpropagationTrainer {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
@@ -135,11 +135,11 @@ public class Backpropagation {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
-    public Backpropagation() {
+    public BackpropagationTrainer() {
 
     }
 
-    public Backpropagation(Properties prop) {
+    public BackpropagationTrainer(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
         this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
         this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
@@ -307,7 +307,7 @@ public class Backpropagation {
         return maxEpochs;
     }
 
-    public Backpropagation setMaxEpochs(long maxEpochs) {
+    public BackpropagationTrainer setMaxEpochs(long maxEpochs) {
         if (maxEpochs <= 0) {
             throw new IllegalArgumentException("Max epochs should be greater then zero : " + maxEpochs);
         }
@@ -319,7 +319,7 @@ public class Backpropagation {
         return maxError;
     }
 
-    public Backpropagation setMaxError(float maxError) {
+    public BackpropagationTrainer setMaxError(float maxError) {
         if (maxError < 0) {
             throw new IllegalArgumentException("Max error cannot be negative : " + maxError);
         }
@@ -328,7 +328,7 @@ public class Backpropagation {
         return this;
     }
 
-    public Backpropagation setLearningRate(float learningRate) {
+    public BackpropagationTrainer setLearningRate(float learningRate) {
         if (learningRate < 0) {
             throw new IllegalArgumentException("Learning rate cannot be negative : " + learningRate);
         }
@@ -371,7 +371,7 @@ public class Backpropagation {
         return batchMode;
     }
 
-    public Backpropagation setBatchMode(boolean batchMode) {
+    public BackpropagationTrainer setBatchMode(boolean batchMode) {
         this.batchMode = batchMode;
         return this;
     }
@@ -380,12 +380,12 @@ public class Backpropagation {
         return batchSize;
     }
 
-    public Backpropagation setBatchSize(int batchSize) {
+    public BackpropagationTrainer setBatchSize(int batchSize) {
         this.batchSize = batchSize;
         return this;
     }
 
-    public Backpropagation setMomentum(float momentum) {
+    public BackpropagationTrainer setMomentum(float momentum) {
         this.momentum = momentum;
         return this;
     }
@@ -418,7 +418,7 @@ public class Backpropagation {
         return optimizer;
     }
 
-    public Backpropagation setOptimizer(OptimizerType optimizer) {
+    public BackpropagationTrainer setOptimizer(OptimizerType optimizer) {
         this.optimizer = optimizer;
         return this;
     }

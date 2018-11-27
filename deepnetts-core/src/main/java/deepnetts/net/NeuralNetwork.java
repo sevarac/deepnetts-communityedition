@@ -21,7 +21,6 @@
     
 package deepnetts.net;
 
-import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -43,7 +42,7 @@ import java.util.List;
  *
  * @see AbstractLayer
  * @see LossFunction 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class NeuralNetwork implements Serializable {
                

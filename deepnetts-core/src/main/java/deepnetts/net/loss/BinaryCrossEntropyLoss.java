@@ -29,7 +29,7 @@ import java.io.Serializable;
  * Cross Entropy Loss for binary(single output, two classes) classification.
  * It should be used in combination with sigmoid output activation function
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
     private final float[] outputError;

@@ -34,7 +34,7 @@ import javax.imageio.ImageIO;
 /**
  * Center images on backgounds and save at target path.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class CenterOnWhiteBackground {
 

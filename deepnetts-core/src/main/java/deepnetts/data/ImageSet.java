@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Represents data set with images
  * 
- * @author zoran
+ * @author Zoran Sevarac
  */
 public class ImageSet extends BasicDataSet<ExampleImage> { 
 

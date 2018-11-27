@@ -23,7 +23,7 @@ package deepnetts.util;
 
 /**
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class DeepNettsException extends RuntimeException {
 

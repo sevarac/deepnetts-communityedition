@@ -25,7 +25,7 @@ import java.awt.Color;
 
 /**
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class ColorUtils {
 

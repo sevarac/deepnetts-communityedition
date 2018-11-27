@@ -24,7 +24,7 @@ import java.util.EventListener;
 
 /**
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public interface TrainingListener extends EventListener {
         public void handleEvent(TrainingEvent event);

@@ -25,7 +25,7 @@ package deepnetts.net.layers.activation;
  * Activation function types
  * TODO: Should be generated automatically based on annotations on implementations @Activation
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public enum ActivationType {
     LINEAR,

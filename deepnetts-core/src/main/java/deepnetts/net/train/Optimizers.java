@@ -24,7 +24,7 @@ package deepnetts.net.train;
 /**
  * Optimization methods.
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class Optimizers {
 

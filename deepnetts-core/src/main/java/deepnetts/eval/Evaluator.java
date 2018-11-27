@@ -25,7 +25,7 @@ package deepnetts.eval;
  * All evaluators implement this interface.
  * CONSIDER: using more specific model type instead of general model class? Classifier, Regressor?
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  * @param <MODEL_CLASS>
  * @param <DATASET_CLASS>
  */

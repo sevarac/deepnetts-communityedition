@@ -27,7 +27,7 @@ import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -36,24 +36,24 @@ import java.util.logging.Logger;
 /**
  * Minimal example for linear regression using FeedForwardNetwork.
  * Fits a straight line through the data.
- Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
- You can use linear regression to roughly estimate a global trend in data.
+ * Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
+ * You can use linear regression to roughly estimate a global trend in data.
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class LinearRegression {
     
     public static void main(String[] args) {
         try {
             DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ",");
-            
+                //  kako bi bilo da ima Trainable if Trainer getTrainer().train(DataSet), ili samo metodu tarin?
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(5)
                     .addOutputLayer(1, ActivationType.LINEAR)
                     .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
             
-            Backpropagation trainer = new Backpropagation();
+            BackpropagationTrainer trainer = new BackpropagationTrainer();
             trainer.setLearningRate(0.1f)           
                     .train(neuralNet, dataSet);
         } catch (IOException ex) {

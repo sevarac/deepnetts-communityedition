@@ -28,7 +28,7 @@ import java.io.Serializable;
  * Represents Average Cross Entropy Loss function.
  * This function is used as a loss function for a multi class classification problems.
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class CrossEntropyLoss implements LossFunction, Serializable {
     private final float[] outputError;

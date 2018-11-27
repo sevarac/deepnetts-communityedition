@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
@@ -43,9 +43,11 @@ import org.apache.logging.log4j.Logger;
  * to run this example you must download mnist data set and update image paths
  * in train.txt file
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * Mnist Train test set
+ * 
+ * @author Zoran Sevarac
  */
-public class Mnist {
+public class MnistTrainTest {
 
     int imageWidth = 28;
     int imageHeight = 28;
@@ -93,11 +95,11 @@ public class Mnist {
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
-                .setMaxError(0.02f)
-                .setBatchMode(true)
-                .setBatchSize(32);
+                .setMaxError(0.02f);
+//                .setBatchMode(true)
+//                .setBatchSize(32);
         trainer.train(neuralNet, imageSets[0], imageSets[1]);
 
         // Test trained network
@@ -121,6 +123,6 @@ public class Mnist {
     }
 
     public static void main(String[] args) throws IOException {
-        (new Mnist()).run();
+        (new MnistTrainTest()).run();
     }
 }

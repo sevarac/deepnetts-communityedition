@@ -42,7 +42,7 @@ import java.util.Random;
  *
  * this should be the interface in visrec ml TODO: make this class thread safe
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  * @param <ITEM_TYPE>
  */
 public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM_TYPE> {

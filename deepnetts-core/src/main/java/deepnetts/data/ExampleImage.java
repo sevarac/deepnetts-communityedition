@@ -31,6 +31,8 @@ import javax.imageio.ImageIO;
 /**
  * This class represents example image to train the network. 
  * It contains image and label information.
+ * 
+ * @author Zoran Sevarac
  */
 public class ExampleImage implements DataSetItem {
     

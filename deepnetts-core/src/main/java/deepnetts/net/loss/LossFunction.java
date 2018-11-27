@@ -30,7 +30,7 @@ import deepnetts.net.NeuralNetwork;
  *
  * @see MeanSquaredErrorLoss
  * @see CrossEntropyLoss
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public interface LossFunction {
 

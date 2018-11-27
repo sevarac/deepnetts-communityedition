@@ -26,7 +26,7 @@ import deepnetts.util.Tensor;
 /**
  * Single item in a data set that provides input and (optional) target output.
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public interface DataSetItem {
         

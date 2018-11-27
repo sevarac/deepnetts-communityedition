@@ -24,7 +24,7 @@ package deepnetts.net.layers;
 /**
  * Enum for supported types of layers.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public enum LayerType {
     INPUT("INPUT"), CONVOLUTIONAL("CONVOLUTIONAL"), MAXPOOLING("MAXPOOLING"), DENSE("DENSE"), OUTPUT("OUTPUT");

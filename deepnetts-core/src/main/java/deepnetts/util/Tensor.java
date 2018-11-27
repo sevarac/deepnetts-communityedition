@@ -19,6 +19,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
  */
+
 package deepnetts.util;
 
 import java.io.Serializable;

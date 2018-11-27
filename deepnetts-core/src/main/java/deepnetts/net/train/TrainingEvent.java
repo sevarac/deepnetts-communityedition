@@ -24,23 +24,23 @@ package deepnetts.net.train;
 /**
  * This class holds source and type of training event.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public final class TrainingEvent {
 
-    private final Backpropagation source;
+    private final BackpropagationTrainer source;
     private final Type type;
 
     public static enum Type {
         STARTED, STOPPED, EPOCH_FINISHED, MINI_BATCH, ITERATION_FINISHED;
     }
 
-    public TrainingEvent(final Backpropagation source, final Type type) {
+    public TrainingEvent(final BackpropagationTrainer source, final Type type) {
         this.source = source;
         this.type = type;
     }
 
-    public Backpropagation getSource() {
+    public BackpropagationTrainer getSource() {
         return source;
     }
 

@@ -29,7 +29,7 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
@@ -42,7 +42,7 @@ import org.apache.logging.log4j.Logger;
  * Iris Classification Problem. This example is using Softmax activation in
  * output addLayer and Cross Entropy Loss function.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class IrisClassificationCE2 {
 
@@ -52,7 +52,9 @@ public class IrisClassificationCE2 {
         // load iris data  set
         DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
         dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
-        DataSet[] dataSets = dataSet.split(65, 35);
+        DataSet[] dataSets = dataSet.split(65, 35); 
+        dataSet.shuffle();
+        
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator?
 
         // create instance of multi addLayer percetpron using builder
@@ -65,7 +67,7 @@ public class IrisClassificationCE2 {
                 build();
 
         // create and configure instanceof backpropagation trainer
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);

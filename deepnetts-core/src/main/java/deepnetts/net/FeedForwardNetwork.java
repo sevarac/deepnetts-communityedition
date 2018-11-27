@@ -40,7 +40,7 @@ import java.util.logging.Logger;
 /**
  * Feed forward neural network architecture, also known as Multi Layer Perceptron.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class FeedForwardNetwork extends NeuralNetwork {
 

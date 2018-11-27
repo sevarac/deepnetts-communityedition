@@ -27,7 +27,7 @@ import java.util.Arrays;
 /**
  * Represents a basic data set item (single row) with input tensor and target vector in a data set. 
  * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class BasicDataSetItem  implements DataSetItem {
     

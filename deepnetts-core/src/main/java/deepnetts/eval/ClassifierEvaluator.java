@@ -34,11 +34,7 @@ import java.util.Map;
  * TODO: if class count == 2 use binary classifier else, its multi class
  * classifier!
  *
- * http://www.ritchieng.com/machine-learning-evaluate-classification-model/
- * http://scikit-learn.org/stable/modules/model_evaluation.html
- * http://notesbyanerd.com/2014/12/17/multi-class-performance-measures/
- *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */                                         // Evaluator<Classifier, AbstractClassifier, annotate NeuralNetwork instance to become a Classifier
 public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> { // use Classifier as a generic, wrap convolutional network with classifier
 

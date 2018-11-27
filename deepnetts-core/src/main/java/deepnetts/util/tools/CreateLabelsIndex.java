@@ -26,7 +26,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class CreateLabelsIndex {
     public static void main(String[] args) throws IOException {

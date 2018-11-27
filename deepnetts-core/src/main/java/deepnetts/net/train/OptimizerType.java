@@ -21,7 +21,6 @@
  */
 package deepnetts.net.train;
 
-// http://ruder.io/optimizing-gradient-descent/index.html
 public enum OptimizerType {
     SGD, MOMENTUM, ADAGRAD, RMSPROP, ADADELTA, ADAM; // NESTEROV, NEWTON
 }

@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  * Global configuration and settings.
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public final class DeepNetts {
 
@@ -34,7 +34,7 @@ public final class DeepNetts {
     
     /**
      * Configuration of the current deep netts working environment 
-     * See https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
+     * 
      */
     private Properties prop;
 
@@ -43,7 +43,6 @@ public final class DeepNetts {
         prop = new Properties();
         prop.put("version", "1.0 Community Edition");
         prop.put("license", "GPL with CPE");
-        prop.put("vendor", "Deep Netts LLC");
     }
 
     public static DeepNetts getInstance() {

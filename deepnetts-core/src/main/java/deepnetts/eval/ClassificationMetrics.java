@@ -1,3 +1,25 @@
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
+ *  based learning and image recognition.
+ *
+ *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
+ *
+ * This file is part of DeepNetts.
+ *
+ * DeepNetts is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <https://www.gnu.org/licenses/>.package
+ * deepnetts.core;
+ */
+
 package deepnetts.eval;
 
 
@@ -7,22 +29,8 @@ import java.util.List;
 
 /**
  * Container class for all metrics which use confusion matrix for their computation 
- * see http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
- * http://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics
- * http://notesbyanerd.com/2014/12/17/multi-class-performance-measures/         Micro and macro averaging
- * http://www.damienfrancois.be/blog/files/modelperfcheatsheet.pdf
- * 
- * http://www.damienfrancois.be/blog/files/modelperfcheatsheet.pdf
- * https://en.wikipedia.org/wiki/Evaluation_of_binary_classifiers
- * 
- * Based on:
- * http://java-ml.sourceforge.net/api/0.1.7/net/sf/javaml/classification/evaluation/PerformanceMeasure.html
- * http://sourceforge.net/p/java-ml/java-ml-code/ci/a25ddde7c3677da44e47a643f88e32e2c8bbc32f/tree/net/sf/javaml/classification/evaluation/PerformanceMeasure.java
- * 
- * http://en.wikipedia.org/wiki/Matthews_correlation_coefficient
- * 
- * https://stats.stackexchange.com/questions/44261/how-to-determine-the-quality-of-a-multiclass-classifier
- * https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
+ *
+ * @author Zoran Sevarac
  */
 public final class ClassificationMetrics {
 
@@ -232,9 +240,7 @@ public final class ClassificationMetrics {
         @Override
         public String toString() {
             return "Stats{" + "accuracy=" + accuracy + ", precision=" + precision + ", recall=" + recall + ", fScore=" + fScore + ", mserror=" + mserror + ", corelationCoefficient=" + correlationCoefficient + '}';
-        }
-        
-        
+        }  
     }
     
 

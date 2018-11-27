@@ -26,7 +26,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
@@ -36,7 +36,7 @@ import java.io.IOException;
  * Iris Classification Problem. This example is using Softmax activation in
  * output layer and Cross Entropy Loss function. Overfits the iris data set
  *
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ * @author Zoran Sevarac
  */
 public class IrisClassificationCE {
 
@@ -56,7 +56,7 @@ public class IrisClassificationCE {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
