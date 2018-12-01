@@ -44,7 +44,7 @@ public class CrossEntropyLossTest {
         // -sum(ln(actualTargetY)) =  0.356674944
         
         float expTotalError = 0.356674944f;
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-7f);
     }
@@ -76,7 +76,7 @@ public class CrossEntropyLossTest {
         // -sum(ln(actualTargetY)) =  0.356674944        
         
         float expTotalError = 0.356674944f;
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-7f);
         
@@ -94,7 +94,7 @@ public class CrossEntropyLossTest {
         // total error = -sum/2
         
         expTotalError = 0.289909248f; // -0.5 * ( -2.30259 + -1.20397 )
-        actualTotalError = instance.getTotalValue();
+        actualTotalError = instance.getTotal();
                       
         assertEquals(expTotalError, actualTotalError, 1e-5f);        
         
@@ -122,7 +122,7 @@ public class CrossEntropyLossTest {
         float[] result = instance.addPatternError(actualOutput, targetOutput);        
         instance.reset();
         
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         float expTotalError = Float.NaN;
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

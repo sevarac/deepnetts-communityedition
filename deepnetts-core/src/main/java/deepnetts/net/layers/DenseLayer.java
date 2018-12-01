@@ -21,14 +21,13 @@
  */
 package deepnetts.net.layers;
 
-import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.activation.Relu;
 import deepnetts.net.layers.activation.Sigmoid;
-import deepnetts.net.train.Optimizers;
-import deepnetts.net.train.optimizer.Optimizer;
-import deepnetts.net.train.optimizer.SGDOptimizer;
+import deepnetts.net.train.opt.Optimizers;
+import deepnetts.net.train.opt.Optimizer;
+import deepnetts.net.train.opt.SGDOptimizer;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;

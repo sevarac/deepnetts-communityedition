@@ -1,4 +1,4 @@
-package deepnetts.net.train.optimizer;
+package deepnetts.net.train.opt;
 
 public final class SGDOptimizer extends AbstractOptimizer {
 

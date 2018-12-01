@@ -19,7 +19,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
  */
-package deepnetts.net.train;
+package deepnetts.net.train.opt;
 
 import deepnetts.net.layers.AbstractLayer;
 

@@ -37,21 +37,21 @@ import deepnetts.net.NeuralNetwork;
 public interface LossFunction {
 
     /**
-     * Calculates pattern error for specified actual and target outputs, adds
-     * the error to total error, and returns the pattern error.
+     * Calculates pattern error for the specified predicted and target outputs,
+     * adds the error to total error, and returns the pattern error.
      *
-     * @param actual actual network output
-     * @param target target network output
-     * @return error vector
+     * @param predictedOutput actual network output
+     * @param targetOutput target network output
+     * @return output error vector
      */
-    public float[] addPatternError(float[] actual, float[] target);
+    public float[] addPatternError(float[] predictedOutput, float[] targetOutput);
 
     /**
-     * Returns the total error value calculated by this loss function.
+     * Returns the total error calculated by this loss function.
      *
      * @return total error calculated by this loss function
      */
-    public float getTotalValue();
+    public float getTotal();
 
     /**
      * Resets the total error and pattern counter.
@@ -72,7 +72,7 @@ public interface LossFunction {
             float[] output = nnet.getOutput();
             addPatternError(output, tsItem.getTargetOutput());
         }
-        return getTotalValue();
+        return getTotal();
     }
 
 }

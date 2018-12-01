@@ -22,7 +22,7 @@
 package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
 import deepnetts.net.layers.activation.ActivationFunction;

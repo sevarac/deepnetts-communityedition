@@ -21,6 +21,7 @@
  */
 package deepnetts.net.train;
 
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.AbstractLayer;
@@ -48,11 +49,12 @@ import org.apache.logging.log4j.LogManager;
  * @see ConvolutionalNetwork
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class Backpropagation {
+public class BackpropagationTrainer {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
      * reached regardless the total network error.
+     * One epoch represents one pass of the entire training set.
      */
     private long maxEpochs = 100000L;
 
@@ -135,11 +137,11 @@ public class Backpropagation {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
-    public Backpropagation() {
+    public BackpropagationTrainer() {
 
     }
 
-    public Backpropagation(Properties prop) {
+    public BackpropagationTrainer(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
         this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
         this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
@@ -240,7 +242,7 @@ public class Backpropagation {
                 } else if (sampleCounter % batchSize == 0) { // mini batch
                     neuralNet.applyWeightChanges();
                     // do we need to reset lossFunction for mini batch?
-                    float miniBatchError = lossFunction.getTotalValue();
+                    float miniBatchError = lossFunction.getTotal();
                     LOGGER.info("Mini Batch:" + sampleCounter / batchSize + " Batch Loss:" + miniBatchError);
                     // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
                 }
@@ -256,7 +258,7 @@ public class Backpropagation {
                 neuralNet.applyWeightChanges();
             }
 
-            totalTrainingLoss = lossFunction.getTotalValue(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
+            totalTrainingLoss = lossFunction.getTotal(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
 
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalLoss = totalTrainingLoss;
@@ -307,7 +309,7 @@ public class Backpropagation {
         return maxEpochs;
     }
 
-    public Backpropagation setMaxEpochs(long maxEpochs) {
+    public BackpropagationTrainer setMaxEpochs(long maxEpochs) {
         if (maxEpochs <= 0) {
             throw new IllegalArgumentException("Max epochs should be greater then zero : " + maxEpochs);
         }
@@ -319,7 +321,7 @@ public class Backpropagation {
         return maxError;
     }
 
-    public Backpropagation setMaxError(float maxError) {
+    public BackpropagationTrainer setMaxError(float maxError) {
         if (maxError < 0) {
             throw new IllegalArgumentException("Max error cannot be negative : " + maxError);
         }
@@ -328,7 +330,7 @@ public class Backpropagation {
         return this;
     }
 
-    public Backpropagation setLearningRate(float learningRate) {
+    public BackpropagationTrainer setLearningRate(float learningRate) {
         if (learningRate < 0) {
             throw new IllegalArgumentException("Learning rate cannot be negative : " + learningRate);
         }
@@ -371,7 +373,7 @@ public class Backpropagation {
         return batchMode;
     }
 
-    public Backpropagation setBatchMode(boolean batchMode) {
+    public BackpropagationTrainer setBatchMode(boolean batchMode) {
         this.batchMode = batchMode;
         return this;
     }
@@ -380,12 +382,12 @@ public class Backpropagation {
         return batchSize;
     }
 
-    public Backpropagation setBatchSize(int batchSize) {
+    public BackpropagationTrainer setBatchSize(int batchSize) {
         this.batchSize = batchSize;
         return this;
     }
 
-    public Backpropagation setMomentum(float momentum) {
+    public BackpropagationTrainer setMomentum(float momentum) {
         this.momentum = momentum;
         return this;
     }
@@ -418,7 +420,7 @@ public class Backpropagation {
         return optimizer;
     }
 
-    public Backpropagation setOptimizer(OptimizerType optimizer) {
+    public BackpropagationTrainer setOptimizer(OptimizerType optimizer) {
         this.optimizer = optimizer;
         return this;
     }

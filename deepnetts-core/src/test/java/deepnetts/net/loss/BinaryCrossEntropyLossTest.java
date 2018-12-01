@@ -39,7 +39,7 @@ public class BinaryCrossEntropyLossTest {
         // 1 * ln(0.1) + 0 * ln(0.9) = -2.30259
         
         float expTotalError = 2.30259f;
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-5f);
     }
@@ -69,7 +69,7 @@ public class BinaryCrossEntropyLossTest {
         assertArrayEquals(expResult, result, 1e-8f);
         
         float expTotalError = 2.30259f; 
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-5f);        
                 
@@ -85,7 +85,7 @@ public class BinaryCrossEntropyLossTest {
         // 0 * ln(0.7) + 1 * ln(0.3) = −1.203972804
         
         expTotalError = 1.75328f; // -0.5 * ( -2.30259 + -1.20397 )
-        actualTotalError = instance.getTotalValue();
+        actualTotalError = instance.getTotal();
                       
         assertEquals(expTotalError, actualTotalError, 1e-5f);
     }
@@ -112,7 +112,7 @@ public class BinaryCrossEntropyLossTest {
         float[] result = instance.addPatternError(actualOutput, targetOutput);        
         instance.reset();
         
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         float expTotalError = Float.NaN;
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

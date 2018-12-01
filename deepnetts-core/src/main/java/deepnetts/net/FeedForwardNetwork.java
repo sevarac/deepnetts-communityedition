@@ -50,7 +50,15 @@ public class FeedForwardNetwork extends NeuralNetwork {
     private FeedForwardNetwork() {
         super();
     }
-
+ /*   
+    public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
+        builder().addInputLayer(layerWidths[0]);
+//        builder().addOutputLayer(0, activation)
+        builder().withActivationFunction(activation);
+        builder().withLossFunction(loss);        
+    }
+*/
+    
     /**
      * Returns builder for Feed Forward Network
      * @return 

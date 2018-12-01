@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class for all neural networks in DeepNetts.
- * Containes a list of abstract layers and loss function.
- * Provides methods for forward and backward calculation, and methods to access to input and output layers.
+ * Base class for all neural networks in DeepNetts. 
+ * Holds a list of abstract layers and loss function. 
+ * Provides methods for forward and backward calculation, and to access input and output layers.
  * Also provides network and output labels.
  *
  * @see AbstractLayer
@@ -56,21 +56,21 @@ public class NeuralNetwork implements Serializable {
     private final List<AbstractLayer> layers;    
         
     /**
-     * Loss function (MSE, CE).
-     * Loss function represents total network error for some data, and network larns by minimizinga that error.
-     * Commonly used tyles of loff functions are Mean Squared Error and Cross Entropy.
-     * 
-     * @see MeanSquaredErrorLoss CrossEntropyLoss
+     * Loss function
+     * Loss function represents total network error for some data, and network learns by minimizing that error.
+     * Commonly used types of loss functions are Mean Squared Error for regression problems and and Cross Entropy for classification problems.
      */
     private LossFunction lossFunction;
 
     /**
-     * Input layer
+     * Input layer.  
+     * This layer accepts external inputs and sends them to the next layer 
      */
     private InputLayer inputLayer;
   
     /**
-     * Output layer
+     * Output layer.
+     * This layer is the final step of processing network's input and its output is network's output.
      */    
     private OutputLayer outputLayer;
     
@@ -79,8 +79,12 @@ public class NeuralNetwork implements Serializable {
      */
     private String[] outputLabels;    
         
+    /**
+     * Network's label
+     */
     private String label;
 
+    
     protected NeuralNetwork() {
         // if license is not valid this will throw exception
         DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...

@@ -1,4 +1,4 @@
-package deepnetts.net.train.optimizer;
+package deepnetts.net.train.opt;
 
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.util.Tensor;

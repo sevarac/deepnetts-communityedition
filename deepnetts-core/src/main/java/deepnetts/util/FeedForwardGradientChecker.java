@@ -29,7 +29,7 @@ import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -122,7 +122,7 @@ public class FeedForwardGradientChecker {
                         outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput());
                         nnet.setOutputError(outputError);
                         nnet.backward();
-                        float lossPlusEps = nnet.getLossFunction().getTotalValue();
+                        float lossPlusEps = nnet.getLossFunction().getTotal();
                         nnet.getLossFunction().reset();
 
                         // calculate loss fo (w-eps)
@@ -131,7 +131,7 @@ public class FeedForwardGradientChecker {
                         outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput());
                         nnet.setOutputError(outputError);
                         nnet.backward();
-                        float lossMinusEps = nnet.getLossFunction().getTotalValue();
+                        float lossMinusEps = nnet.getLossFunction().getTotal();
                         nnet.getLossFunction().reset();
 
                         // should we check biases too? why are lossPlusEps - lossMinusEps Nan

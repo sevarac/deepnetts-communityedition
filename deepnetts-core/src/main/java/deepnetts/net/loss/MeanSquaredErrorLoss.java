@@ -26,8 +26,14 @@ import java.io.Serializable;
 
 /**
  * Mean Squared Error Loss function. Sum squared errors over all patterns and
- * all outputs. * E = 1/(2*N) * SUM(SUM(y-t)^2)
+ * all outputs. Should be used for regression problems.
  *
+ * Math formula:
+ *                     N   K 
+ *      E = 1/(2*N) * SUM(SUM(y-t)^2)
+ *
+ * where N is number of patterns and K is dimension of output vector.
+ *  
  * Bishop, pg. 89, eq. 3.34
  *
  * @see LossFunction
@@ -39,22 +45,28 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
     private final float[] outputError;
     private float totalError = 0;
     private int patternCount = 0;
-
+    
+    /**
+     * Creates a new mean squared error loss for the given neural network.
+     * 
+     * @param neuralNet 
+     */
     public MeanSquaredErrorLoss(NeuralNetwork neuralNet) {
         outputError = new float[neuralNet.getOutputLayer().getWidth()];
     }
 
     /**
-     * Returns output error vector and adds it to total error.
+     * Adds output error vector for the given predicted and target output vectors
+     * to total error sum and returns and  error vector.
      *
-     * @param actualOutput
-     * @param targetOutput
+     * @param predictedOutput   
+     * @param targetOutput  
      * @return
      */
     @Override
-    public float[] addPatternError(final float[] actualOutput, final float[] targetOutput) {
-        for (int i = 0; i < actualOutput.length; i++) {
-            outputError[i] = actualOutput[i] - targetOutput[i];
+    public float[] addPatternError(final float[] predictedOutput, final float[] targetOutput) {
+        for (int i = 0; i < predictedOutput.length; i++) {
+            outputError[i] = predictedOutput[i] - targetOutput[i];
             totalError += outputError[i] * outputError[i];
         }
 
@@ -63,7 +75,7 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
     }
 
     @Override
-    public float getTotalValue() {
+    public float getTotal() {
         return totalError / (2 * patternCount);
     }
 

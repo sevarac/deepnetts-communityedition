@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deepnetts.net.train.optimizer;
+package deepnetts.net.train.opt;
 
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.util.Tensor;

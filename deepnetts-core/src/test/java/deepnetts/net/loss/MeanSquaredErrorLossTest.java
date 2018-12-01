@@ -38,7 +38,7 @@ public class MeanSquaredErrorLossTest {
         assertArrayEquals(expResult, result, 1e-8f);
         
         float expTotalError = 0.0972f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 2
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);
         
@@ -67,7 +67,7 @@ public class MeanSquaredErrorLossTest {
         assertArrayEquals(expResult, result, 1e-8f);
 
         float expTotalError = 0.0972f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 2
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);
         
@@ -80,7 +80,7 @@ public class MeanSquaredErrorLossTest {
         assertArrayEquals(expResult, result, 1e-7f);
         
         expTotalError = 0.089225f; // ( 0.0972 +  (-0.1*-0.1 + 0.09*0.09 + 0.38*0.38)/2 ) /2
-        actualTotalError = instance.getTotalValue();
+        actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);
     }
@@ -106,7 +106,7 @@ public class MeanSquaredErrorLossTest {
         float[] result = instance.addPatternError(actualOutput, targetOutput);        
         instance.reset();
         
-        float actualTotalError = instance.getTotalValue();
+        float actualTotalError = instance.getTotal();
         float expTotalError = Float.NaN;
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

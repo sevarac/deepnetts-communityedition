@@ -77,7 +77,7 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
     }
        
     @Override
-    public float getTotalValue() {
+    public float getTotal() {
         return  -totalError / patternCount;
     }
     

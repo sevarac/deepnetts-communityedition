@@ -25,7 +25,7 @@ import deepnetts.util.LicenseChecker;
 import java.util.Properties;
 
 /**
- * Global configuration and settings.
+ * Global configuration and settings for Deep Netts Engine.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
