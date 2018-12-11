@@ -10,8 +10,10 @@ import java.io.Serializable;
  *        - 
  *       | 1, x > 0
  * y' = <
- *       | 0, 0x<=0 
+ *       | 0.1 , x<=0 
  *        -
+ * allow a small, positive gradient when the unit is not active
+ * https://ai.stanford.edu/~amaas/papers/relu_hybrid_icml2013_final.pdf
  * 
  * @author Zoran Sevarac
  */
@@ -24,8 +26,7 @@ public final class LeakyRelu implements ActivationFunction, Serializable {
 
     @Override
     public float getPrime(final float y) {
-        throw new UnsupportedOperationException("Nije implementirana");
-//  return ( y > 0 ? 1 : 0);
+         return ( y > 0 ? 1 : 0.1f);
     }
     
 }

@@ -119,18 +119,33 @@ public class BackpropagationTrainer {
     private DataSet<?> testSet;
     
     private LossFunction lossFunction;
-    
+        
     /**
      * Use early stopping setting.
      */
     private boolean earlyStopping = false;
 
+    /**
+     * Checkpoint epochs for early stopping.
+     */
+    private int checkpointEpochs=1;
+    
+    private int prevCheckpointEpoch=0;
+    
+    /**
+     * Min delta between checkpoints to continue training
+     */
+    private float checkpointMinDelta=0.000001f;
+    
+    private float prevCheckpointTestLoss=0;
+        
+    private String checkpointSavePath = "";    
+    
     //regularization l1 or l2 add to loss 
     // flag to save network weights during training
-    private boolean saveTrainingWeights = false;    
-    // on how many epochs to save weights
-    private int saveTrainingWeightsEpochs = 5;    
-    private String saveTrainingWeightsPath = "";
+//    private boolean saveTrainingWeights = false;    
+     
+
     
     
     private final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
@@ -241,7 +256,7 @@ public class BackpropagationTrainer {
                     neuralNet.applyWeightChanges();
                 } else if (sampleCounter % batchSize == 0) { // mini batch
                     neuralNet.applyWeightChanges();
-                    // do we need to reset lossFunction for mini batch?
+                    // do we need to reset lossFunction for mini batch - we probably should - saw it in tensorflow, ali ne ovde nego na pocetki batch-a
                     float miniBatchError = lossFunction.getTotal();
                     LOGGER.info("Mini Batch:" + sampleCounter / batchSize + " Batch Loss:" + miniBatchError);
                     // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
@@ -263,7 +278,6 @@ public class BackpropagationTrainer {
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalLoss = totalTrainingLoss;
             
-            // TODO: how many iterations to test accuracy?
             if (testSet != null) {
                 prevTestLoss = testLoss;
                 testLoss = testLoss(testSet);
@@ -277,21 +291,33 @@ public class BackpropagationTrainer {
             LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + testLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
 
             // maybe to trigger this with event
-            if (saveTrainingWeights && epoch % saveTrainingWeightsEpochs == 0) {
-                try {
-                    // specify save path somehow or use some temp folder? 
-                    FileIO.writeToFile(neuralNet, saveTrainingWeightsPath + File.separatorChar + "NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
-                } catch (IOException ex) {
-                    LOGGER.catching(ex); //log(Level.SEVERE, null, ex);
-                }
-            }
-
+//            if (earlyStopping && epoch % checkpointEpochs == 0) {
+//                try { // save to some tmp file only if test loss was smaller
+//                    FileIO.writeToFile(neuralNet, saveTrainingWeightsPath + File.separatorChar + "NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
+//                } catch (IOException ex) {
+//                    LOGGER.catching(ex); //log(Level.SEVERE, null, ex);
+//                }
+//            }
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
-            if (earlyStopping && (testLoss > prevTestLoss)) stopTraining = true;    // basic eary stopping: stop as soon as you notice the test loss is growing. TODO: provide predicate for this
-            
-            stopTraining = ((epoch == maxEpochs) || (totalTrainingLoss <= maxError)) || stopTraining;    // TODO: ovde dodati early stopping, ako test loss pocne da raste
+            if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
+                if (prevCheckpointTestLoss - testLoss  < checkpointMinDelta) { 
+                    stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
+                } else { 
+                    // save network at this checkpoint since loss if going down
+                    prevCheckpointTestLoss = testLoss;
+                    prevCheckpointEpoch = epoch;                      
+                    try { // save to some tmp file only if test loss was smaller
+                        FileIO.writeToFile(neuralNet, checkpointSavePath + File.separatorChar + "checkhpoint_NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
+                    } catch (IOException ex) {
+                        LOGGER.catching(ex);
+                    }
+                }
+                
+            }
+                                   
+            stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));
 
         } while (!stopTraining); // or learning slowed, or overfitting, ...
 
@@ -446,26 +472,50 @@ public class BackpropagationTrainer {
      * 
      * @param epochs 
      */
-    public void setSaveTrainingWeightsEpochs(int epochs) {
-        if (epochs == 0) {
-            this.saveTrainingWeights = false;
-        } else {
-            this.saveTrainingWeights = true;
-            this.saveTrainingWeightsEpochs = epochs;
-        }
-    }
+//    public void setSaveTrainingWeightsEpochs(int epochs) {
+//        if (epochs == 0) {
+//            this.saveTrainingWeights = false;
+//        } else {
+//            this.saveTrainingWeights = true;
+//            this.saveTrainingWeightsEpochs = epochs;
+//        }
+//    }
     
-    public void setSaveTrainingWeightsPath(String path) {
-        this.saveTrainingWeightsPath = path;
+    public BackpropagationTrainer setCheckpointSavePath(String path) {
+        this.checkpointSavePath = path;
+        return this;
     }
 
-    public boolean getSaveTrainingWeights() {
-        return saveTrainingWeights;
+    public int getCheckpointEpochs() {
+        return checkpointEpochs;
     }
 
-    public int getSaveTrainingWeightsEpochs() {
-        return saveTrainingWeightsEpochs;
+    public BackpropagationTrainer setCheckpointEpochs(int checkpointEpochs) {
+        this.checkpointEpochs = checkpointEpochs;
+        return this;
     }
+
+    public float getCheckpointMinDelta() {
+        return checkpointMinDelta;
+    }
+
+    public BackpropagationTrainer setCheckpointMinDelta(float checkpointMinDelta) {
+        this.checkpointMinDelta = checkpointMinDelta;
+        return this;
+    }
+
+
+
+    
+    
+    
+//    public boolean getSaveTrainingWeights() {
+//        return saveTrainingWeights;
+//    }
+//
+//    public int getSaveTrainingWeightsEpochs() {
+//        return saveTrainingWeightsEpochs;
+//    }
     
     
     
