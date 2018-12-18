@@ -24,41 +24,47 @@ package deepnetts.examples;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Minimal example for linear regression using FeedForwardNetwork.
+ * Minimal example for simple linear regression using FeedForwardNetwork.
  * Fits a straight line through the data.
  * Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
  * You can use linear regression to roughly estimate a global trend in data.
+ * 
+ * TODO: dont print accuracy for regression problems!
+ * 
+ * predicting the total payment for all claims in thousands of Swedish Kronor, given the total number of claims.
  * 
  * @author Zoran Sevarac
  */
 public class LinearRegression {
     
-    public static void main(String[] args) {
-        try {
-            DataSet dataSet = BasicDataSet.fromCSVFile(new File("fileName.csv"), 5, 1, ",");
-                //  kako bi bilo da ima Trainable if Trainer getTrainer().train(DataSet), ili samo metodu tarin?
-            FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                    .addInputLayer(5)
-                    .addOutputLayer(1, ActivationType.LINEAR)
-                    .withLossFunction(LossType.MEAN_SQUARED_ERROR)
-                    .build();
-            
-            BackpropagationTrainer trainer = new BackpropagationTrainer();
-            trainer.setLearningRate(0.1f)           
-                    .train(neuralNet, dataSet);
-        } catch (IOException ex) {
-            Logger.getLogger(LinearRegression.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void main(String[] args) throws IOException {
+
+        String datasetFile = "datasets/SweedenAutoInsurance.csv";
+        int inputsCount = 1;
+        int outputsCount = 1;
+        String delimiter = ",";
+        
+        DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);
+
+        FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
+                .addInputLayer(1)
+                .addOutputLayer(1, ActivationType.LINEAR)
+                .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                .build();
+
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        trainer.setMaxError(0.01f)
+               .setMaxEpochs(100)                
+               .setLearningRate(0.1f)
+               .train(neuralNet, dataSet);
+
     }
     
 }

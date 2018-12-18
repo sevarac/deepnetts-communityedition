@@ -22,11 +22,14 @@
 package deepnetts.examples;
 
 import deepnetts.data.BasicDataSet;
+import deepnetts.data.DataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Minimal example for logistic regression using FeedForwardNetwork.
@@ -39,12 +42,17 @@ import deepnetts.net.train.BackpropagationTrainer;
 public class LogisticRegression {
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
-        BasicDataSet dataSet =null;
+        String datasetFile = "datasets/sonar.csv";
+        int inputsCount = 60;
+        int outputsCount = 1;
+        String delimiter = ",";
+        
+        DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(5)
+                .addInputLayer(60)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .withLossFunction(LossType.MEAN_SQUARED_ERROR)
                 .build();
