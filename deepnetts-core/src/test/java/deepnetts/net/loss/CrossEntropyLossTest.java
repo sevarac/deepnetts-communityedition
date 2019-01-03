@@ -27,7 +27,7 @@ public class CrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
@@ -59,7 +59,7 @@ public class CrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
@@ -111,7 +111,7 @@ public class CrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();

@@ -690,7 +690,7 @@ public class Tensor implements Serializable {
     public float sumAbs() {
         float sum = 0;
         for (int i = 0; i < values.length; i++) {
-            sum = sum + Math.abs(values[i]);
+            sum += Math.abs(values[i]);
         }
         return sum;
     }
@@ -703,11 +703,20 @@ public class Tensor implements Serializable {
     public float sumSqr() {
         float sum = 0;
         for (int i = 0; i < values.length; i++) {
-            sum = sum + values[i] * values[i];
+            sum += values[i] * values[i];
         }
         return sum;
     }
 
+    // works for 2d tensors
+    public void randomize() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                values[i * cols + j] = RandomGenerator.getDefault().nextFloat();
+            }
+        }
+    }    
+    
     public static Tensor random(int rows, int cols) {
         Tensor tensor = new Tensor(rows, cols);
 

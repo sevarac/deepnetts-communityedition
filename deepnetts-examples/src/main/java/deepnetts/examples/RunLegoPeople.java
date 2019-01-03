@@ -7,8 +7,8 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -43,7 +43,7 @@ public class RunLegoPeople {
         imageSet.zeroMean();
         imageSet.shuffle();
             
-        ImageSet[] imageSets = imageSet.split(66, 34);
+        ImageSet[] imageSets = imageSet.split(0.66, 0.34);
         
         LOG.info("Done loading images.");             
                 
@@ -57,7 +57,7 @@ public class RunLegoPeople {
                                         .addDenseLayer(30, ActivationType.TANH)  
                                         .addDenseLayer(10, ActivationType.TANH)  
                                         .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)                
+                                        .lossFunction(LossType.CROSS_ENTROPY)                
                                         .withRandomSeed(123)
                                         .build();        
               
@@ -68,7 +68,7 @@ public class RunLegoPeople {
       //  List<ImageSet> subsets = imageSet.split(20, 80);
         
         // train convolutional network
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
        // trainer.setMomentum(0.1f);
         trainer.setMaxError(0.06f);

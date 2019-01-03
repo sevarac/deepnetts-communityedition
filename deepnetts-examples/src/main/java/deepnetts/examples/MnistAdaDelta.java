@@ -24,8 +24,8 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
@@ -71,7 +71,7 @@ public class MnistAdaDelta {
         imageSet.zeroMean();
         imageSet.shuffle();
 
-        ImageSet[] imageSets = imageSet.split(65, 35);
+        ImageSet[] imageSets = imageSet.split(0.65, 0.35);
         int labelsCount = imageSet.getLabelsCount();
 
         LOGGER.info("Creating neural network...");
@@ -84,14 +84,14 @@ public class MnistAdaDelta {
                 .addDenseLayer(30)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .withActivationFunction(ActivationType.RELU)
-                .withLossFunction(LossType.CROSS_ENTROPY)
+                .lossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123)
                 .build();
 
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                 //                .setMomentum(0.7f)
                 .setMaxError(0.02f)

@@ -25,8 +25,8 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
@@ -55,36 +55,40 @@ public class Cifar10Ce {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true, 200);
-        imageSet.invert();
+        imageSet.loadImages(new File(trainingFile), false, 200);
+//        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
             
         int labelsCount = imageSet.getLabelsCount();
         
-        ImageSet[] imageSets = imageSet.split(66, 34);        
+        ImageSet[] imageSets = imageSet.split(0.75, 0.25);        
                  
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 3)
+                                        .addConvolutionalLayer(3, 3, 3)
                                         .addMaxPoolingLayer(2, 2, 2)      
-                                        .addConvolutionalLayer(5, 5, 6)
-                                        .addMaxPoolingLayer(2, 2, 2)                      
-                                        .addDenseLayer(40)     
+                                        .addConvolutionalLayer(3, 3, 12)
+                                        .addMaxPoolingLayer(2, 2, 2)       
+                                        .addConvolutionalLayer(3, 3, 24)
+                                        .addMaxPoolingLayer(2, 2, 2)                   
+                                        .addConvolutionalLayer(3, 3, 48)
+                                        .addMaxPoolingLayer(2, 2, 2)                    
                                         .addDenseLayer(30)     
-                                        .addDenseLayer(30)     
+                                        .addDenseLayer(20)     
+                                        .addDenseLayer(10)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .withActivationFunction(ActivationType.RELU)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)                
+                                        .withActivationFunction(ActivationType.TANH)
+                                        .lossFunction(LossType.CROSS_ENTROPY)                
                                         .build();
            
         LOGGER.info("Training neural network"); 
          
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.03f);
+        trainer.setMaxError(2.29f);
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 
         trainer.train(neuralNet, imageSets[0]);       

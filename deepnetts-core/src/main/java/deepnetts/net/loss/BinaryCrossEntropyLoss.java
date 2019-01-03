@@ -75,6 +75,11 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
                 
         return outputError;        
     }
+    
+    @Override
+    public void addRegularizationSum(final float reg) {
+        totalError += reg;
+    }       
        
     @Override
     public float getTotal() {
@@ -86,5 +91,6 @@ public class BinaryCrossEntropyLoss implements LossFunction, Serializable {
         totalError = 0;
         patternCount=0;
     }
+
     
 }

@@ -25,8 +25,8 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
@@ -75,7 +75,7 @@ public class DukeDetector {
                 .addMaxPoolingLayer(2, 2, 2)
                 .addDenseLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .withLossFunction(LossType.CROSS_ENTROPY)
+                .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
 
         convNet.setOutputLabels(imageSet.getOutputLabels());
@@ -83,7 +83,7 @@ public class DukeDetector {
         LOGGER.info("Training neural network");
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.5f)
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.SGD)

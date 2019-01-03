@@ -38,11 +38,10 @@ import java.util.Random;
 /**
  * A collection of data set items that will be used by deep learning algorithm.
  *
- * DataSet should also be an interface like List or Collection. We can have
- * BasicDataSet or DefaultDataSet
+ * TODO: make this class thread safe
  *
- * this should be the interface in visrec ml TODO: make this class thread safe
- *
+ * add a builder using .builder()   so you can build complex data set import from csv, specif columns names and stuff
+ * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <ITEM_TYPE>
  */
@@ -58,7 +57,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     protected String[] columnNames; // - data set ce uvek biti importovan iz nekog fajla ili baze
 
     /**
-     * Data set ID
+     * Data set ID / name / label
      */
     private String id;
 
@@ -103,6 +102,14 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
         return items.size();
     }
 
+    public int getInputsNum() {
+        return inputs;
+    }
+
+    public int getOutputsNum() {
+        return outputs;
+    }
+    
     public List<ITEM_TYPE> getItems() {
         return Collections.unmodifiableList(items);
     }
@@ -133,8 +140,8 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * type of attributes Move this method to some factory class or something?
      * or as a default method in data set?
      */
-    public static DataSet fromCSVFile(File csvFile, int inputCount, int outputCount, String delimiter) throws FileNotFoundException, IOException {
-        DataSet dataSet = new BasicDataSet(inputCount, outputCount);
+    public static BasicDataSet fromCSVFile(File csvFile, int inputCount, int outputCount, String delimiter) throws FileNotFoundException, IOException {
+        BasicDataSet dataSet = new BasicDataSet(inputCount, outputCount);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         String line = br.readLine(); // get col names from the first line
         String[] colNames = line.split(delimiter);
@@ -169,21 +176,29 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
         return dataSet;
     }
     
-    public static DataSet fromCSVFile(String fileName, int inputCount, int outputCount, String delimiter) throws FileNotFoundException, IOException {
+    public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount, String delimiter) throws IOException {
         return fromCSVFile(new File(fileName), inputCount, outputCount, delimiter);
     }
+    
+    public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount) throws IOException {
+        return fromCSVFile(new File(fileName), inputCount, outputCount, ",");
+    }
+    
+    // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3)
+ 
 
     /**
      * Split data set into specified number of part of equal sizes. Utility
      * method used during crossvalidation
-     *
+     * note this can be default method
+     * 
      * @param parts
      * @return
      */
     @Override
     public DataSet[] split(int parts) {
-        int partSize = (int) (100f / parts);
-        int[] partsArr = new int[parts];
+        double partSize = (Math.round((100d / parts)*100))/100;
+        double[] partsArr = new double[parts];
         for (int i = 0; i < parts; i++) {
             partsArr[i] = partSize;
         }
@@ -194,37 +209,43 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     /**
      * Splits data set into several parts specified by the input parameter
      * partSizes. Values of partSizes parameter represent the sizes of data set
-     * parts that will be returned. Part sizes are integer values that represent
-     * percents, cannot be negative or zero, and their sum must be 100
+     * parts that will be returned. Part sizes are decimal values that represent
+     * percents, cannot be negative or zero, and their sum must be 1
      *
-     * @param partSizes sizes of the parts in percents
+     * @param parts sizes of the parts in percents
      * @return parts of the data set of specified size
      */
     @Override
-    public DataSet[] split(int... partSizes) {
-        if (partSizes.length < 2) {
-            throw new IllegalArgumentException("Must specify at least two parts");
+    public DataSet[] split(double... parts) {
+        if (parts.length < 1) {
+            throw new IllegalArgumentException("");
+        } else if (parts.length == 1) {
+            double[] newParts = new double[2];
+            newParts[0] = parts[0];
+            newParts[1] = 1 - parts[0];
+            parts = newParts;
         }
-        int partsSum = 0;
-        for (int i = 0; i < partSizes.length; i++) {
-            if (partSizes[i] <= 0) {
+        
+        double partsSum = 0;
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i] <= 0) {
                 throw new IllegalArgumentException("Value of the part cannot be zero or negative!");
             }
-            partsSum += partSizes[i];
+            partsSum += parts[i];
         }
 
-        if (partsSum > 100) {
-            throw new IllegalArgumentException("Sum of parts cannot be larger than 100!");
+        if (partsSum > 1) {
+            throw new IllegalArgumentException("Sum of parts cannot be larger than 1!");
         }
 
-        DataSet[] subSets = new BasicDataSet[partSizes.length];
+        DataSet[] subSets = new BasicDataSet[parts.length];
         int itemIdx = 0;
 
-        //this.shuffle(); // shuffle before splting, how to specify provide random seed?
-        for (int p = 0; p < partSizes.length; p++) {
+        //this.shuffle(); // shuffle before splting, how to specify provide random seed? 
+        for (int p = 0; p < parts.length; p++) {
             DataSet subSet = new BasicDataSet(this.inputs, this.outputs);
             subSet.setColumnNames(this.columnNames);
-            int itemsCount = (int) (size() * partSizes[p] / 100.0f);
+            int itemsCount = (int) (size() * parts[p]);
 
             for (int j = 0; j < itemsCount; j++) {
                 subSet.add(items.get(itemIdx));
@@ -238,12 +259,13 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     }
 
     /**
-     * Shuffles the data set items using the default random generator
+     * Shuffles the data set items using the default random generator.
+     * Default rng can be initialized independently
      */
     @Override
     public void shuffle() {
         Random rnd = RandomGenerator.getDefault().getRandom();
-        Collections.shuffle(items, rnd); // use one with rand param
+        Collections.shuffle(items, rnd);
     }
 
     /**

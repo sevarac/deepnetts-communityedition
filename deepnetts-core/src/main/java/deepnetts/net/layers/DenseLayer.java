@@ -218,12 +218,15 @@ public final class DenseLayer extends AbstractLayer {
         } // end sum weighted deltas from next layer
 
         // STEP 2. calculate delta weights if previous layer is Dense (2D weights matrix) - optimize
-        if ((prevLayer instanceof DenseLayer)) {
+        if ((prevLayer instanceof DenseLayer)) { // ili 1d Input Layer, dodati uslov
 //            Optimizer opt = new SGDOptimizer(); // create instance in init method
 //            opt.optimize(this);
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // this iterates neurons (weights depth)
                 for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-                    final float grad = deltas.get(deltaCol) * inputs.get(inCol); // gradient dE/dw
+                   //final float grad = deltas.get(deltaCol) * inputs.get(inCol); // gradient dE/dw
+                    final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization
+//                    final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 );
+
                     gradients.set(inCol, deltaCol, grad);
 
                     float deltaWeight = 0;
@@ -295,7 +298,7 @@ public final class DenseLayer extends AbstractLayer {
 
                 deltaBiases[deltaCol] += deltaBias;
             }
-        } else if ((prevLayer instanceof InputLayer) // CHECK: sta ako j einput layer 1d da li ovo radi akko treba?
+        } else if ((prevLayer instanceof InputLayer) // CHECK: sta ako je input layer 1d da li ovo radi akko treba?
                 || (prevLayer instanceof ConvolutionalLayer)
                 || (prevLayer instanceof MaxPoolingLayer)) {
 

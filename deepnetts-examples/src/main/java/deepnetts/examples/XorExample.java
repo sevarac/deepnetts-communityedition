@@ -16,8 +16,7 @@
  * Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <https://www.gnu.org/licenses/>.package
- * deepnetts.core;
+ * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 package deepnetts.examples;
 
@@ -28,7 +27,7 @@ import deepnetts.data.DataSetItem;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 
 /**
@@ -47,11 +46,11 @@ public class XorExample {
                 .addInputLayer(2)
                 .addDenseLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .withLossFunction(LossType.MEAN_SQUARED_ERROR)
-                .withRandomSeed(123)
+                .lossFunction(LossType.MEAN_SQUARED_ERROR)
+                .randomSeed(123)
                 .build();
 
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.9f);
         trainer.train(neuralNet, dataSet);

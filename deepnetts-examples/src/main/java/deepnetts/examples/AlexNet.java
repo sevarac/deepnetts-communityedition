@@ -19,18 +19,18 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
  */
-package setMaxLoss;
+package deepnetts.examples;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
+import deepnetts.net.train.opt.OptimizerType;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -62,7 +62,7 @@ public class AlexNet {
 
         int labelsCount = imageSet.getLabelsCount();
 
-        ImageSet[] imageSets = imageSet.split(66, 34);
+        ImageSet[] imageSets = imageSet.split(0.66, 0.34);
 
         LOGGER.info("Creating neural network...");
 
@@ -80,12 +80,12 @@ public class AlexNet {
                 .addDenseLayer(256)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .withActivationFunction(ActivationType.RELU)
-                .withLossFunction(LossType.CROSS_ENTROPY)
+                .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
 
         LOGGER.info("Training neural network");
 
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.1f);
         trainer.setMomentum(0.7f)

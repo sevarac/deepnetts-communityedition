@@ -1,7 +1,12 @@
 package deepnetts.data;
 
+import deepnetts.util.RandomGenerator;
+import java.util.Random;
+
 /**
- * @author Zoran
+ * Generic interface for all data sets
+ * 
+ * @author Zoran Sevarac
  */
 public interface DataSet <ITEM_TYPE extends DataSetItem> extends Iterable<ITEM_TYPE> {
     
@@ -19,14 +24,24 @@ public interface DataSet <ITEM_TYPE extends DataSetItem> extends Iterable<ITEM_T
 
     public int size(); 
     
+    public DataSet[] split(double ... parts); 
+    
     public DataSet[] split(int parts);
     
-    public DataSet[] split(int ... parts); // float 0.65, 0.35
+    public default DataSet[] split(long randomSeed, double ... parts) {
+        RandomGenerator.getDefault().initSeed(randomSeed);
+        return split(parts);
+    }    
+    
+    public default DataSet[] split(long randomSeed, int parts) {
+        RandomGenerator.getDefault().initSeed(randomSeed);
+        return split(parts);
+    }        
     
     public String[] getOutputLabels();
     
     public void setColumnNames(String[] labels);
     
-    public void shuffle();
+    public void shuffle();  // shuffle using default RandomGenerator
     
 }

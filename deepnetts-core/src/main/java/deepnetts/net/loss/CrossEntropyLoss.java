@@ -47,6 +47,7 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
     private int targetIdx;    
     private float totalError;
     private int patternCount=0;        
+    private float regularization;
     
  //   private final OutputLayer outputLayer;         
     
@@ -78,6 +79,12 @@ public class CrossEntropyLoss implements LossFunction, Serializable {
         
         return outputError;        
     }
+    
+    @Override
+    public void addRegularizationSum(final float reg) {
+        totalError += reg;
+    }       
+    
 
     
     @Override

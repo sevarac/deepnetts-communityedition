@@ -294,7 +294,7 @@ public class FileIO {
 
         // set loss function
         String lossFunction = jsonObj.getString("lossFunction");
-        builder.withLossFunction(LossType.valueOf(lossFunction));
+        builder.lossFunction(LossType.valueOf(lossFunction));
 
         ConvolutionalNetwork neuralNet = builder.build();
 
@@ -345,7 +345,7 @@ public class FileIO {
 
         // set loss function
         String lossFunction = jsonObj.getString("lossFunction");
-        builder.withLossFunction(LossType.valueOf(lossFunction));
+        builder.lossFunction(LossType.valueOf(lossFunction));
 
         FeedForwardNetwork neuralNet = builder.build();
 

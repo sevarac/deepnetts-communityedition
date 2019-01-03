@@ -239,7 +239,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * @return parts of the data set of specified size 
      */    
     @Override
-    public ImageSet[] split(int ... partSizes) {       
+    public ImageSet[] split(double ... partSizes) {       
         if (partSizes.length < 2) throw new IllegalArgumentException("Must specify at least two parts");        
         int partsSum=0;
         for(int i=0; i<partSizes.length; i++) {
@@ -254,7 +254,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      
         for(int p = 0; p < partSizes.length; p++) {
              ImageSet subSet = new ImageSet(imageWidth, imageHeight);
-             int itemsCount =(int) (size() * partSizes[p] / 100.0f);
+             int itemsCount =(int) (size() * partSizes[p]);
              
              for(int j=0; j<itemsCount; j++) {
                  subSet.add(items.get(itemIdx));

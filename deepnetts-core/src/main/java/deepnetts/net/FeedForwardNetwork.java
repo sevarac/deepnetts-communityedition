@@ -32,6 +32,7 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.WeightsInit;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
@@ -42,13 +43,14 @@ import java.util.logging.Logger;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class FeedForwardNetwork extends NeuralNetwork {
+public final class FeedForwardNetwork extends NeuralNetwork /*<BackpropagationTrainer>*/ {
 
     /**
      * Private constructor allows instantiation only using builder
      */
     private FeedForwardNetwork() {
         super();
+        // setTrainer(new BackpropagationTrainer())
     }
  /*   
     public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
@@ -106,6 +108,14 @@ public class FeedForwardNetwork extends NeuralNetwork {
             network.addLayer(layer);
             return this;
         }
+        
+        public Builder addDenseLayers(int... widths) {
+            for(int width : widths) {
+                DenseLayer layer = new DenseLayer(width);
+                network.addLayer(layer);
+            }
+            return this;
+        }        
 
         /**
          * Adds fully connected addLayer with specified width and activation
@@ -123,6 +133,14 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
+        public Builder addDenseLayers(ActivationType activation, int... widths) {
+            for(int width : widths) {
+                DenseLayer layer = new DenseLayer(width, activation);
+                network.addLayer(layer);
+            }
+            return this;
+        }        
+                
         /**
          * Adds custom layer to this network (which inherits from AbstractLayer)
          * 
@@ -134,39 +152,6 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
-        /**
-         * Adds SoftMaxOutput Layer as output addLayer to the network
-         *
-         * @param width addLayer width / number of neurons
-         * @return builder instance
-         */
-//        public Builder addOutputLayer(int width) {
-//            SoftmaxOutputLayer outputLayer = new SoftmaxOutputLayer(width);
-//            network.setOutputLayer(outputLayer);
-//            network.addLayer(outputLayer);
-//
-//            return this;
-//        }
-        /**
-         * Adds output addLayer of specified class to the network Output
-         * addLayer class can be SoftmaxOutputLayer or SigmoidOutputLayer
-         *
-         * @param width addLayer width / number of neurons
-         * @param activationType
-         * @param clazz output addLayer class
-         * @return builder instance
-         */
-//        public Builder addOutputLayer(int width, Class<? extends OutputLayer> clazz) {
-//            try {
-//                OutputLayer outputLayer = clazz.getDeclaredConstructor( Integer.TYPE).newInstance(width);
-//                network.setOutputLayer(outputLayer);
-//                network.addLayer(outputLayer);
-//            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
-//                Logger.getLogger(ConvolutionalNetwork.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            return this;
-//        }
         public Builder addOutputLayer(int width, ActivationType activationType) {
             OutputLayer outputLayer = null;
             if (activationType.equals(ActivationType.SOFTMAX)) {
@@ -182,7 +167,9 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
-        public Builder withActivationFunction(ActivationType activationType) {
+        
+        // hidden activation function
+        public Builder activationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;
@@ -195,18 +182,18 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @param clazz
          * @return
          */
-        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
-            try {
-                LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(network);
-                network.setLossFunction(loss);
-            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(ConvolutionalNetwork.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
+//            try {
+//                LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(network);
+//                network.setLossFunction(loss);
+//            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+//                Logger.getLogger(ConvolutionalNetwork.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            return this;
+//        }
 
-            return this;
-        }
-
-        public Builder withLossFunction(LossType lossType) {
+        public Builder lossFunction(LossType lossType) {
             LossFunction loss = null;
             switch (lossType) {
                 case MEAN_SQUARED_ERROR:
@@ -231,7 +218,7 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @param seed
          * @return
          */
-        public Builder withRandomSeed(long seed) {
+        public Builder randomSeed(long seed) {
             WeightsInit.initSeed(seed);
             return this;
         }

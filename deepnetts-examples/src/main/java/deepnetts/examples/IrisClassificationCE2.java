@@ -29,8 +29,8 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
 import java.io.IOException;
@@ -50,32 +50,32 @@ public class IrisClassificationCE2 {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
-        DataSet[] dataSets = dataSet.split(65, 35);
-        // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator?
+        DataSet[] dataSets = dataSet.split(0.60, 0.2, 0.2); // provide random generator in order to do spliting the same way
+        // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(9, ActivationType.TANH)
+                .addDenseLayer(20, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
-                .withLossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123).
+                .lossFunction(LossType.CROSS_ENTROPY)
+                .randomSeed(123).
                 build();
 
         // create and configure instanceof backpropagation trainer
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.03f);
-        trainer.setLearningRate(0.1f);
+        trainer.setLearningRate(0.01f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(neuralNet, dataSets[0]);
+        trainer.train(neuralNet, dataSets[0], dataSets[1]);
 
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[1]);
+        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info(pm);
@@ -85,7 +85,6 @@ public class IrisClassificationCE2 {
             LOGGER.info(entry.getValue());
             LOGGER.info("----------------");
         });
-
     }
 
 }

@@ -31,6 +31,7 @@ import java.io.Serializable;
  * Math formula:
  *                     N   K 
  *      E = 1/(2*N) * SUM(SUM(y-t)^2)
+ *              N*K ?
  *
  * where N is number of patterns and K is dimension of output vector.
  *  
@@ -45,6 +46,7 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
     private final float[] outputError;
     private float totalError = 0;
     private int patternCount = 0;
+    private float regularizationSum = 0;
     
     /**
      * Creates a new mean squared error loss for the given neural network.
@@ -74,15 +76,22 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
         return outputError;
     }
 
+    // enable adding l1, l2 or both l1 and l2 (elastic net) regularizers
+    @Override
+    public void addRegularizationSum(final float regSum) {
+        regularizationSum = regSum;
+    }    
+    
     @Override
     public float getTotal() {
-        return totalError / (2 * patternCount);
+        return (totalError / (2 * patternCount * outputError.length )) + regularizationSum; // should we use patternCount * outputCount in denominator ??? confirm this
     }
 
     @Override
     public void reset() {
         totalError = 0;
         patternCount = 0;
+        regularizationSum = 0;
     }
 
 }

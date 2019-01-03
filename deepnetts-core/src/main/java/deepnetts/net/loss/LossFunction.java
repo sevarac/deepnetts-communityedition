@@ -45,7 +45,12 @@ public interface LossFunction {
      * @return output error vector
      */
     public float[] addPatternError(float[] predictedOutput, float[] targetOutput);
-
+    
+    /**
+     * Adds regularization sum to loss function
+     */
+    public void addRegularizationSum(float regSum);
+       
     /**
      * Returns the total error calculated by this loss function.
      *
@@ -57,7 +62,6 @@ public interface LossFunction {
      * Resets the total error and pattern counter.
      */
     public void reset();
-    
     
     /**
      * Calculates and returns loss function value for the given neural network and test set.

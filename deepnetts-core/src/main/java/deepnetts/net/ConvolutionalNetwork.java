@@ -232,7 +232,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             return this;
         }
 
-        public Builder withLossFunction(LossType lossType) {
+        public Builder lossFunction(LossType lossType) {
             LossFunction loss = null;
             switch (lossType) {
                 case MEAN_SQUARED_ERROR:

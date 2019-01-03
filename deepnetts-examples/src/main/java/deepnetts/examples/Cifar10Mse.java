@@ -26,8 +26,8 @@ import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
 import java.io.IOException;
@@ -65,13 +65,13 @@ public class Cifar10Mse {
                                         .addMaxPoolingLayer(2, 2)  
                                         .addDenseLayer(40, ActivationType.TANH)          
                                         .addOutputLayer(labelsCount, ActivationType.TANH)
-                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .withRandomSeed(123)
                                         .build();
           
         LOGGER.info("Training neural network"); 
          
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.01f); // 0.0001
         trainer.setMomentum(0.9f); 

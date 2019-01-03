@@ -160,8 +160,8 @@ public class FeedForwardGradientChecker {
                 .addInputLayer(4)
                 .addDenseLayer(10, ActivationType.SIGMOID)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
-                .withLossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123)
+                .lossFunction(LossType.CROSS_ENTROPY)
+                .randomSeed(123)
                 .build();
 
         return neuralNet;

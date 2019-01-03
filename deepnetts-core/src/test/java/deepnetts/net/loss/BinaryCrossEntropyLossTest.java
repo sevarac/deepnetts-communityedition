@@ -22,7 +22,7 @@ public class BinaryCrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         BinaryCrossEntropyLoss instance = (BinaryCrossEntropyLoss)neuralNet.getLossFunction();
@@ -55,7 +55,7 @@ public class BinaryCrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         BinaryCrossEntropyLoss instance = (BinaryCrossEntropyLoss)neuralNet.getLossFunction();
@@ -101,7 +101,7 @@ public class BinaryCrossEntropyLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
         
         BinaryCrossEntropyLoss instance = (BinaryCrossEntropyLoss)neuralNet.getLossFunction();

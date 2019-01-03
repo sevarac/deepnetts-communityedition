@@ -22,6 +22,7 @@
 package deepnetts.net;
 
 import deepnetts.core.DeepNetts;
+import deepnetts.data.DataSet;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -30,6 +31,9 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.Trainable;
+import deepnetts.net.train.TrainerProvider;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +49,7 @@ import java.util.List;
  * @see LossFunction 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class NeuralNetwork implements Serializable {
+public class NeuralNetwork implements /*Trainable, TrainerProvider<T>,*/ Serializable {
                
     private static final long serialVersionUID = 1L;
         
@@ -83,6 +87,7 @@ public class NeuralNetwork implements Serializable {
      * Network's label
      */
     private String label;
+    private float regularizationSum=0;
 
     
     protected NeuralNetwork() {
@@ -190,5 +195,22 @@ public class NeuralNetwork implements Serializable {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    public float getL2Reg() {
+        regularizationSum=0;
+        for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
+            regularizationSum += layers.get(i).getL2();
+        }
+        return regularizationSum; 
+    }
+    
+    public float getL1Reg() {
+        regularizationSum=0;
+        for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
+            regularizationSum += layers.get(i).getL1();
+        }
+        return regularizationSum; 
+    }    
+
             
 }

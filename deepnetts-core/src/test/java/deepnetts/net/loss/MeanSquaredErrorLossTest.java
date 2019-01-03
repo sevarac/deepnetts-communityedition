@@ -24,7 +24,7 @@ public class MeanSquaredErrorLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
-                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
         
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();
@@ -53,7 +53,7 @@ public class MeanSquaredErrorLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
-                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
         
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();
@@ -95,7 +95,7 @@ public class MeanSquaredErrorLossTest {
                                         .addInputLayer(5)
                                         .addDenseLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
-                                        .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                                        .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
         
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();

@@ -27,7 +27,7 @@ import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -51,10 +51,10 @@ public class LinearRegression {
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(5)
                     .addOutputLayer(1, ActivationType.LINEAR)
-                    .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                    .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
             
-            Backpropagation trainer = new Backpropagation();
+            BackpropagationTrainer trainer = new BackpropagationTrainer();
             trainer.setLearningRate(0.1f)           
                     .train(neuralNet, dataSet);
         } catch (IOException ex) {

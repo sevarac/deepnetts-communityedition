@@ -49,7 +49,7 @@ import org.apache.logging.log4j.LogManager;
  * @see ConvolutionalNetwork
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class BackpropagationTrainer {
+public class BackpropagationTrainer implements Trainer {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
@@ -100,9 +100,9 @@ public class BackpropagationTrainer {
     private int epoch;
     
     /**
-     * Value of loss function calculated on test set
+     * Value of loss function calculated on validation set
      */
-    private float testLoss=0, prevTestLoss=0;
+    private float validationLoss=0, prevValidationLoss=0;
     
     private float accuracy=0;    
 
@@ -116,7 +116,8 @@ public class BackpropagationTrainer {
     private NeuralNetwork neuralNet;
     
     private DataSet<?> trainingSet;
-    private DataSet<?> testSet;
+    
+    private DataSet<?> validationSet;
     
     private LossFunction lossFunction;
         
@@ -137,11 +138,20 @@ public class BackpropagationTrainer {
      */
     private float checkpointMinDelta=0.000001f;
     
-    private float prevCheckpointTestLoss=0;
+    private int checkpointNum = 2;  //  checkpoint limit
+    private int checkpointCounter = 0; // checkpoint counter during training
+    
+    private float prevCheckpointTestLoss=100f;
         
     private String checkpointSavePath = "";    
     
+    /**
+     * Ovaj inicijalizovati ili na ovo ili na RMSE
+     */
+    private Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
+    
     //regularization l1 or l2 add to loss 
+    private float regL2, regL1;    
     // flag to save network weights during training
 //    private boolean saveTrainingWeights = false;    
      
@@ -151,6 +161,7 @@ public class BackpropagationTrainer {
     private final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
+
 
     public BackpropagationTrainer() {
 
@@ -167,11 +178,18 @@ public class BackpropagationTrainer {
         this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
     
-        
-    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet, DataSet<?> testSet) {    
-        this.testSet = testSet;
+    
+    // da li da eksplicitno navedem validation set ili samo procenat trening koji se koristi za validaciju? odnos 2:1
+    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet, DataSet<?> validationSet) {    
+        this.validationSet = validationSet;
         train(neuralNet, trainingSet);
     }
+    
+    // assumes that neuralnetwork has allready been set using setNetwork method
+    public void train(DataSet<?> trainingSet) {    
+        this.validationSet = validationSet;
+        train(this.neuralNet, trainingSet);
+    }    
     
     /**
      * This method does actual training procedure.
@@ -209,13 +227,14 @@ public class BackpropagationTrainer {
         for (AbstractLayer layer : neuralNet.getLayers()) {
             layer.setLearningRate(learningRate);
             layer.setMomentum(momentum);
+            layer.setRegularization(regL2);
             layer.setBatchMode(batchMode);
             layer.setBatchSize(batchSize);
             layer.setOptimizer(optimizer);
         }
 
         lossFunction = neuralNet.getLossFunction();
-
+        
         float[] outputError;
         epoch = 0;
         totalTrainingLoss = 0;
@@ -232,7 +251,7 @@ public class BackpropagationTrainer {
         do {
             epoch++;
             lossFunction.reset();
-            testLoss=0;
+            validationLoss=0;
             prevTotalLoss = 0;
             accuracy=0;
             
@@ -248,6 +267,7 @@ public class BackpropagationTrainer {
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
+                                
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
                 neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
 
@@ -266,6 +286,8 @@ public class BackpropagationTrainer {
                 if (stopTraining) break; // if training was stoped externaly by calling stop() method
             }
             
+           if (regL2!=0) lossFunction.addRegularizationSum(regL2 * neuralNet.getL2Reg()); // 0.00001f
+            
             endEpoch = System.currentTimeMillis();
 
             //   batch weight update after entire data set - ako vrlicina dataseta nije deljiva sa batchSize - ostatak
@@ -278,48 +300,46 @@ public class BackpropagationTrainer {
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalLoss = totalTrainingLoss;
             
-            if (testSet != null) {
-                prevTestLoss = testLoss;
-                testLoss = testLoss(testSet);
-                accuracy = testAccuracy(testSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
+            // use validation set here instead of test set
+            if (validationSet != null) {    // kako da znam da li je klasifikacija ili regresija? mozda da imam neki setting, flag?
+                prevValidationLoss = validationLoss;
+                validationLoss = validationLoss(validationSet);   // pre je i test loss
+                accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             } else {
-                accuracy = testAccuracy(this.trainingSet);
+                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad
             }
             
             epochTime = endEpoch - startEpoch;
 
-            LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + testLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
-
-            // maybe to trigger this with event
-//            if (earlyStopping && epoch % checkpointEpochs == 0) {
-//                try { // save to some tmp file only if test loss was smaller
-//                    FileIO.writeToFile(neuralNet, saveTrainingWeightsPath + File.separatorChar + "NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
-//                } catch (IOException ex) {
-//                    LOGGER.catching(ex); //log(Level.SEVERE, null, ex);
-//                }
-//            }
+            LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + validationLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
+            // EARLY STOPPING
             if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
-                if (prevCheckpointTestLoss - testLoss  < checkpointMinDelta) { 
-                    stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
-                } else { 
-                    // save network at this checkpoint since loss if going down
-                    prevCheckpointTestLoss = testLoss;
-                    prevCheckpointEpoch = epoch;                      
-                    try { // save to some tmp file only if test loss was smaller
-                        FileIO.writeToFile(neuralNet, checkpointSavePath + File.separatorChar + "checkhpoint_NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
-                    } catch (IOException ex) {
-                        LOGGER.catching(ex);
+                if (prevCheckpointTestLoss - validationLoss < checkpointMinDelta) {
+                    if (checkpointCounter == checkpointNum) {
+                        stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
+                    } else {
+                        checkpointCounter++;    // count how many checkpoints have validation loss stagnated or grown?
                     }
+                } else {
+                    checkpointCounter = 0;  // reset counter for loss growth or stagnation
                 }
-                
+
+                // save network at this checkpoint since loss if going down
+                prevCheckpointTestLoss = validationLoss;
+                prevCheckpointEpoch = epoch;
+                try { // save to some tmp file only if test loss was smaller
+                    FileIO.writeToFile(neuralNet, checkpointSavePath + File.separatorChar + "checkhpoint_NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
+                } catch (IOException ex) {
+                    LOGGER.catching(ex);
+                }
             }
                                    
             stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));
 
-        } while (!stopTraining); // or learning slowed, or overfitting, ...
+        } while (!stopTraining); // main training loop
 
         endTraining = System.currentTimeMillis();
         trainingTime = endTraining - startTraining;
@@ -368,6 +388,16 @@ public class BackpropagationTrainer {
 
         return this;
     }
+    
+    public BackpropagationTrainer setL2Regularization(float regL2) {
+        this.regL2 = regL2;
+        return this;
+    }    
+    
+    public BackpropagationTrainer setL1Regularization(float regL1) {
+        this.regL1 = regL1;
+        return this;
+    }        
 
     public boolean getShuffle() {
         return shuffle;
@@ -435,7 +465,7 @@ public class BackpropagationTrainer {
     }
 
     public float getTestLoss() {
-        return testLoss;
+        return validationLoss;
     }
 
     public int getCurrentEpoch() {
@@ -452,11 +482,11 @@ public class BackpropagationTrainer {
     }
 
     public DataSet<?> getTestSet() {
-        return testSet;
+        return validationSet;
     }
 
     public void setTestSet(DataSet<?> testSet) {
-        this.testSet = testSet;
+        this.validationSet = testSet;
     }
 
     public boolean getEarlyStopping() {
@@ -504,19 +534,15 @@ public class BackpropagationTrainer {
         return this;
     }
 
+    public int getCheckpointNum() {
+        return checkpointNum;
+    }
 
+    public BackpropagationTrainer setCheckpointNum(int checkpointNum) {
+        this.checkpointNum = checkpointNum;
+        return this;
+    }
 
-    
-    
-    
-//    public boolean getSaveTrainingWeights() {
-//        return saveTrainingWeights;
-//    }
-//
-//    public int getSaveTrainingWeightsEpochs() {
-//        return saveTrainingWeightsEpochs;
-//    }
-    
     
     
     /**
@@ -548,18 +574,19 @@ public class BackpropagationTrainer {
     public static final String PROP_OPTIMIZER_TYPE = "optimizer";  // for mini batch
 
     
-    private float testLoss(DataSet<? extends DataSetItem> testSet) {
+    private float validationLoss(DataSet<? extends DataSetItem> validationSet) {
         lossFunction.reset();             
-        float testLoss = lossFunction.valueFor(neuralNet, testSet);
-        return testLoss;
+        float validationLoss =  lossFunction.valueFor(neuralNet, validationSet);
+        return validationLoss;
     }
-
     
-    Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
     // only for classification problems
-    private float testAccuracy(DataSet<? extends DataSetItem> testSet) {        
-        PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, testSet);
+    private float testAccuracy(DataSet<? extends DataSetItem> validationSet) {        
+        PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, validationSet);
         return pm.get(PerformanceMeasure.ACCURACY);
     }
+
+
+
 
 }

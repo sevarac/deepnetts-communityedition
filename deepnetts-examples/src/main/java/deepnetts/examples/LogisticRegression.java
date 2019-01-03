@@ -26,7 +26,7 @@ import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.Backpropagation;
+import deepnetts.net.train.BackpropagationTrainer;
 
 /**
  * Minimal example for logistic regression using FeedForwardNetwork.
@@ -46,10 +46,10 @@ public class LogisticRegression {
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(5)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .build();
         
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
                                trainer.setLearningRate(0.1f)
                                       .train(neuralNet, dataSet);        
                 

@@ -151,23 +151,26 @@ public class OutputLayer extends AbstractLayer {
             Arrays.fill(deltaBiases, 0);
         }
 
-        for (int dCol = 0; dCol < deltas.getCols(); dCol++) { // iterate all output neurons / deltas
+        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
 
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                deltas.set(dCol, outputErrors[dCol] * ActivationFunctions.prime(activationType, outputs.get(dCol))); // delta = e*f1
+                deltas.set(deltaCol, outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol))); // delta = e*f1
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
-                deltas.set(dCol, outputErrors[dCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
+                deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
             }
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-                final float grad = deltas.get(dCol) * inputs.get(inCol);
+               // final float grad = deltas.get(dCol) * inputs.get(inCol);
+                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
+//                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 ); // gradient dE/dw + regularization l2
+                 
                 final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
-                gradients.set(inCol, dCol, grad);
-                deltaWeights.add(inCol, dCol, deltaWeight); // sum deltaWeight for batch mode
+                gradients.set(inCol, deltaCol, grad);
+                deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
-            deltaBiases[dCol] += Optimizers.sgd(learningRate, deltas.get(dCol));
+            deltaBiases[deltaCol] += Optimizers.sgd(learningRate, deltas.get(deltaCol));
 //          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }
     }

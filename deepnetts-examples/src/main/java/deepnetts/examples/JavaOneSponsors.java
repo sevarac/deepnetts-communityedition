@@ -26,8 +26,8 @@ import deepnetts.util.DeepNettsException;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.Backpropagation;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
@@ -74,14 +74,14 @@ public class JavaOneSponsors {
                                         .addDenseLayer(40, ActivationType.TANH)
                                         .addDenseLayer(20, ActivationType.TANH)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .withLossFunction(LossType.CROSS_ENTROPY)
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .withRandomSeed(123)
                                         .build();
                      
         LOGGER.info("Training neural network"); 
         
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        Backpropagation trainer = new Backpropagation();
+        BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
                .setMaxError(0.4f)

@@ -77,7 +77,7 @@ public class DeepNettsRunner {
                     .addDenseLayer(30)
                     .addDenseLayer(20)
                     .addOutputLayer(labelsCount, ActivationType.SOFTMAX) // softmax output // labelsCount
-                    .withLossFunction(LossType.CROSS_ENTROPY)
+                    .lossFunction(LossType.CROSS_ENTROPY)
                     .withRandomSeed(123)
                     .build();
             LOGGER.info("Done!");

@@ -91,8 +91,10 @@ public abstract class AbstractLayer implements Layer, Serializable {
      * Learning rate for this layer
      */
     protected float learningRate = 0.1f;
-
-    protected float momentum = 0;
+    
+    protected float momentum = 0f;
+    
+    protected float regularization = 0f;
 
     /**
      * Activation function for this layer Use function reference for activation
@@ -283,12 +285,16 @@ public abstract class AbstractLayer implements Layer, Serializable {
         this.activationType = activationType;
     }
 
-    public float getL1Norm() {
+    public float getL1() {
         return weights.sumAbs();
     }
 
-    public float getL2Norm() {
+    public float getL2() {
         return weights.sumSqr();
+    }
+
+    public void setRegularization(float reg) {
+        this.regularization = reg;
     }
 
 }
