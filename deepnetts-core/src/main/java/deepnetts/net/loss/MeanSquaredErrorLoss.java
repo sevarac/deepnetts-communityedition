@@ -79,12 +79,12 @@ public final class MeanSquaredErrorLoss implements LossFunction, Serializable {
     // enable adding l1, l2 or both l1 and l2 (elastic net) regularizers
     @Override
     public void addRegularizationSum(final float regSum) {
-        regularizationSum = regSum;
+       // regularizationSum = regSum;
     }    
     
     @Override
     public float getTotal() {
-        return (totalError / (2 * patternCount * outputError.length )) + regularizationSum; // should we use patternCount * outputCount in denominator ??? confirm this
+        return ( totalError / (2 * patternCount * outputError.length ) ) + regularizationSum; // should we use patternCount * outputCount in denominator ??? confirm this
     }
 
     @Override

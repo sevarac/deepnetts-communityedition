@@ -1,12 +1,3 @@
-/**
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
- *  based learning and image recognition.
- *
- *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
- *
- * This file is part of DeepNetts.
- *
- */
 package deepnetts.examples;
 
 import deepnetts.data.DataSet;
@@ -30,8 +21,8 @@ public class QuickStart {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load data  set from csv file
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
-        dataSet.shuffle();
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
+//        dataSet.shuffle();
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -43,14 +34,14 @@ public class QuickStart {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = neuralNet.getTrainer();
         trainer.setMaxError(0.05f);
         trainer.setMaxEpochs(10000);
+        trainer.setBatchMode(true);
         trainer.setLearningRate(0.01f);
-
         
         // run training
-        trainer.train(neuralNet, dataSet);
+        neuralNet.train(dataSet);
         
         // save trained network to file
         FileIO.writeToFile(neuralNet, "myNeuralNet.dnet");

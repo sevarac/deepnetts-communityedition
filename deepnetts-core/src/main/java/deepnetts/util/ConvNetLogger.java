@@ -56,7 +56,7 @@ public class ConvNetLogger { // this could be loggger or handler , and it should
     
     
   
-    public String logNetwork(NeuralNetwork convNet) {
+    public String logNetwork(NeuralNetwork<?> convNet) {
         StringBuilder sb = new StringBuilder();
         
         int layerIdx=0;

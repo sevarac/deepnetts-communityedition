@@ -33,6 +33,7 @@ import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.Trainable;
+import deepnetts.net.train.Trainer;
 import deepnetts.net.train.TrainerProvider;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
@@ -49,9 +50,10 @@ import java.util.List;
  * @see LossFunction 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class NeuralNetwork implements /*Trainable, TrainerProvider<T>,*/ Serializable {
+public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Serializable {
                
     private static final long serialVersionUID = 1L;
+    private T trainer;
         
     /**
      * Collection of all layers in this network (including input(first), output(last) and hidden(in between)).
@@ -95,7 +97,8 @@ public class NeuralNetwork implements /*Trainable, TrainerProvider<T>,*/ Seriali
         DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...
         layers = new ArrayList();
     }
-      
+    
+   
     /**
      * Sets network input vector and triggers forward pass.
      * 
@@ -118,6 +121,10 @@ public class NeuralNetwork implements /*Trainable, TrainerProvider<T>,*/ Seriali
     public void setOutputError(float[] outputErrors) {
         outputLayer.setOutputErrors(outputErrors);
     }    
+    
+    public void train(DataSet<?> trainingSet) {
+        trainer.train(trainingSet);
+    }
     
     /**
      * Apply calculated weight changes to all layers.
@@ -211,6 +218,16 @@ public class NeuralNetwork implements /*Trainable, TrainerProvider<T>,*/ Seriali
         }
         return regularizationSum; 
     }    
+
+    @Override
+    public T getTrainer() {
+        return trainer;
+    }
+
+    @Override
+    public void setTrainer(T trainer) {
+        this.trainer = trainer;
+    }
 
             
 }

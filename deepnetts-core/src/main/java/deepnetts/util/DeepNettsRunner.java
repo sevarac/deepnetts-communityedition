@@ -78,19 +78,19 @@ public class DeepNettsRunner {
                     .addDenseLayer(20)
                     .addOutputLayer(labelsCount, ActivationType.SOFTMAX) // softmax output // labelsCount
                     .lossFunction(LossType.CROSS_ENTROPY)
-                    .withRandomSeed(123)
+                    .randomSeed(123)
                     .build();
             LOGGER.info("Done!");
             LOGGER.info("Training neural network");
 
             // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-            BackpropagationTrainer trainer = new BackpropagationTrainer();
+            BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
             trainer.setLearningRate(learningRate)
                     .setMaxError(maxError);
             //       .setMomentum(0.000)
             //     .setBatchMode(false);
             //.setBatchSize(10);
-            trainer.train(convNet, imageSet);
+            trainer.train(imageSet);
 
             // how/where to get neural net from training is several nnets are theresult
 //        ImageRecognizer imageRecognizer = new ImageRecognizer(convNet); // ConvolutionalImageRecognizer    

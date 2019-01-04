@@ -283,6 +283,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
 
     public final void setActivationType(ActivationType activationType) {
         this.activationType = activationType;
+        this.activation = ActivationFunction.create(activationType);
     }
 
     public float getL1() {

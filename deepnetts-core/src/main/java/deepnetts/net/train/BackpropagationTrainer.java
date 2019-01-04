@@ -113,7 +113,7 @@ public class BackpropagationTrainer implements Trainer {
      */
     private boolean shuffle = false;
 
-    private NeuralNetwork neuralNet;
+    private NeuralNetwork<?> neuralNet;
     
     private DataSet<?> trainingSet;
     
@@ -163,33 +163,28 @@ public class BackpropagationTrainer implements Trainer {
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
 
-    public BackpropagationTrainer() {
-
+    public BackpropagationTrainer(NeuralNetwork neuralNet) {
+        this.neuralNet = neuralNet;
     }
 
     public BackpropagationTrainer(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
-        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
-        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
-        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
-        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
-        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
-        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
+//        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
+//        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
+//        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
+//        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
+//        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
+//        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
+//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
     
     
     // da li da eksplicitno navedem validation set ili samo procenat trening koji se koristi za validaciju? odnos 2:1
-    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet, DataSet<?> validationSet) {    
+    public void train(DataSet<?> trainingSet, DataSet<?> validationSet) {    
         this.validationSet = validationSet;
-        train(neuralNet, trainingSet);
+        train(trainingSet);
     }
-    
-    // assumes that neuralnetwork has allready been set using setNetwork method
-    public void train(DataSet<?> trainingSet) {    
-        this.validationSet = validationSet;
-        train(this.neuralNet, trainingSet);
-    }    
+     
     
     /**
      * This method does actual training procedure.
@@ -200,11 +195,8 @@ public class BackpropagationTrainer implements Trainer {
      * @param neuralNet neural network to train
      * @param trainingSet training set data
      */
-    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet) {
+    public void train(DataSet<?> trainingSet) {
 
-        if (neuralNet == null) {
-            throw new IllegalArgumentException("Parameter neuralNet cannot be null!");
-        }
         if (trainingSet == null) {
             throw new IllegalArgumentException("Argument trainingSet cannot be null!");
         }
@@ -212,7 +204,6 @@ public class BackpropagationTrainer implements Trainer {
             throw new IllegalArgumentException("Training set cannot be empty!");
         }
 
-        this.neuralNet = neuralNet;
         this.trainingSet = trainingSet;
         neuralNet.setOutputLabels(trainingSet.getOutputLabels());
 
@@ -255,7 +246,7 @@ public class BackpropagationTrainer implements Trainer {
             prevTotalLoss = 0;
             accuracy=0;
             
-            if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed
+            if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed - settings for Trainer
                 trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
             }
             int sampleCounter = 0;
@@ -266,8 +257,7 @@ public class BackpropagationTrainer implements Trainer {
             for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input
-                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
-                                
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function                                
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
                 neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
 
@@ -306,7 +296,7 @@ public class BackpropagationTrainer implements Trainer {
                 validationLoss = validationLoss(validationSet);   // pre je i test loss
                 accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             } else {
-                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad
+//                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad
             }
             
             epochTime = endEpoch - startEpoch;
@@ -551,6 +541,14 @@ public class BackpropagationTrainer implements Trainer {
      * @param prop 
      */    
     public void setProperties(Properties prop) {
+        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
+        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
+        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
+        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
+        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
+        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
+        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));        
+        
         // iterate properties keys?use reflection to set them?
    //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
 //        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));

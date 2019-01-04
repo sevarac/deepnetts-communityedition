@@ -85,14 +85,14 @@ public class AlexNet {
 
         LOGGER.info("Training neural network");
 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.1f);
         trainer.setMomentum(0.7f)
                 .setBatchMode(true)
                 .setBatchSize(128);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
-        trainer.train(neuralNet, imageSets[0]);
+        trainer.train(imageSets[0]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

@@ -50,7 +50,7 @@ public class IrisClassificationCETestLoss {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
         DataSet[] dataSets = dataSet.split(65, 35);
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator?
@@ -65,14 +65,14 @@ public class IrisClassificationCETestLoss {
                 build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.03f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(neuralNet, dataSets[0], dataSets[1]);
+        trainer.train(dataSets[0], dataSets[1]);
 
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[1]);

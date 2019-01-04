@@ -43,7 +43,7 @@ public class IrisClassificationMse {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data set from csv file
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle();
 
         // create multi layer perceptron with specified settings
@@ -55,8 +55,10 @@ public class IrisClassificationMse {
                 .randomSeed(123)
                 .build();
 
+        neuralNet.train(dataSet);
+        
         // create a trainer object with specified settings
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.06f)
                 .setLearningRate(0.5f)
                 .setMomentum(0.0f)
@@ -65,7 +67,7 @@ public class IrisClassificationMse {
         //.setBatchSize(10);
 
         // train the network
-        trainer.train(neuralNet, dataSet);
+        trainer.train(dataSet);
     }
 
 }

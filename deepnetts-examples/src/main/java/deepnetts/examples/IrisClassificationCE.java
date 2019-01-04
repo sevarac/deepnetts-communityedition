@@ -43,7 +43,7 @@ public class IrisClassificationCE {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle();
 
         // create instance of multi addLayer percetpron using builder
@@ -56,14 +56,14 @@ public class IrisClassificationCE {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.3f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(neuralNet, dataSet);
+        trainer.train(dataSet);
     }
 
 }

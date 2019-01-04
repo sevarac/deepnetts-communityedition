@@ -85,11 +85,11 @@ public class MnistFromJson {
         trainProp.load(new FileReader("training.properties"));
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer(trainProp); // send props as a param to set all peoperties from properties file
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet); // send props as a param to set all peoperties from properties file
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setBatchMode(true);
         trainer.setBatchSize(128);
-        trainer.train(neuralNet, imageSet);
+        trainer.train(imageSet);
 
         // Test trained network
         ClassifierEvaluator tester = new ClassifierEvaluator();

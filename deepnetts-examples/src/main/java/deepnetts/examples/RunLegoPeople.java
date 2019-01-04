@@ -58,7 +58,7 @@ public class RunLegoPeople {
                                         .addDenseLayer(10, ActivationType.TANH)  
                                         .addOutputLayer(1, ActivationType.SIGMOID)
                                         .lossFunction(LossType.CROSS_ENTROPY)                
-                                        .withRandomSeed(123)
+                                        .randomSeed(123)
                                         .build();        
               
         LOG.info("Done creating network.");       
@@ -68,13 +68,13 @@ public class RunLegoPeople {
       //  List<ImageSet> subsets = imageSet.split(20, 80);
         
         // train convolutional network
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = legoPeopleNet.getTrainer();
         trainer.setLearningRate(0.01f);
        // trainer.setMomentum(0.1f);
         trainer.setMaxError(0.06f);
         trainer.setOptimizer(OptimizerType.SGD);
         trainer.setBatchMode(true).setBatchSize(10);
-        trainer.train(legoPeopleNet, imageSets[0]);   
+        trainer.train(imageSets[0]);   
         
         LOG.info("Done training neural network."); 
           

@@ -169,7 +169,7 @@ public class FeedForwardGradientChecker {
 
     private DataSet createDataSet() {
         try {
-            DataSet dataSet = BasicDataSet.fromCSVFile(new File("../deepnetts-examples/datasets/iris_data_normalised.txt"), 4, 3, ",");
+            DataSet dataSet = BasicDataSet.fromCSVFile("../deepnetts-examples/datasets/iris_data_normalised.txt", 4, 3);
             return dataSet;
         } catch (IOException ex) {
             Logger.getLogger(FeedForwardGradientChecker.class.getName()).log(Level.SEVERE, null, ex);

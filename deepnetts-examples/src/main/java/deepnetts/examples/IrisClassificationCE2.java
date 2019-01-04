@@ -65,14 +65,14 @@ public class IrisClassificationCE2 {
                 build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.01f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(neuralNet, dataSets[0], dataSets[1]);
+        trainer.train(dataSets[0], dataSets[1]);
 
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);

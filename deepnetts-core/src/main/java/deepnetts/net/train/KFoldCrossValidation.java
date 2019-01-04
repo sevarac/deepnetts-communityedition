@@ -49,7 +49,7 @@ public class KFoldCrossValidation {
             // clone the original network each time before training - create a new instace that will be added to trainedNetworks
             NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
             
-            trainer.train(neuralNet, trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
+            trainer.train(trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
             PerformanceMeasure pe = evaluator.evaluatePerformance(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
             measures.add(pe);
             trainedNetworks.add(neuralNet);

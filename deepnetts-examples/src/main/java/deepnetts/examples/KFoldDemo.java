@@ -19,7 +19,7 @@ import java.io.IOException;
 public class KFoldDemo {
     
     public static void main(String[] args) throws IOException {
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");    
+        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);    
         //dataSet.setLabels(new String[] {"Setose", "Vrsicolor", "Virginica"});
         
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -30,7 +30,7 @@ public class KFoldDemo {
                                             .randomSeed(123)
                                             .build();        
                 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.5f);
         trainer.setMomentum(0.3f);

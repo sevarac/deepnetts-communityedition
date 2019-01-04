@@ -40,7 +40,7 @@ public class WeightsInit {
      */
     public static void randomize(float[] array) {
         for (int i = 0; i < array.length; i++) {
-           array[i] = randomGen.nextFloat()- 0.5f;
+           array[i] = randomGen.nextFloat() - 0.5f;
         }
     }
   

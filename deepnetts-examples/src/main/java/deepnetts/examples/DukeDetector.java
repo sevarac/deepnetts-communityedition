@@ -83,12 +83,12 @@ public class DukeDetector {
         LOGGER.info("Training neural network");
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
         trainer.setMaxError(0.5f)
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.SGD)
                .setMomentum(0.2f);
-        trainer.train(convNet, imageSet);
+        trainer.train(imageSet);
 
         // to save neural network to file on disk
         FileIO.writeToFile(convNet, "DukeDetector.dnet");

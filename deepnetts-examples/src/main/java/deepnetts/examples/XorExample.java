@@ -40,38 +40,26 @@ public class XorExample {
 
     public static void main(String[] args) throws DeepNettsException {
 
-        DataSet dataSet = xorDataSet();
+        DataSet dataSet = ExampleDataSets.xor();
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(2)
                 .addDenseLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
-                .randomSeed(123)
+//                .randomSeed(123)
                 .build();
+        
+//        neuralNet.getTrainer().setLearningRate(0.9f);
+        
+        neuralNet.train(dataSet);
 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.01f);
-        trainer.setLearningRate(0.9f);
-        trainer.train(neuralNet, dataSet);
+//        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+//        trainer.setMaxError(0.01f);
+//        trainer.setLearningRate(0.9f);
+//        trainer.train(dataSet);
     }
 
-    public static DataSet xorDataSet() {
-        DataSet dataSet = new BasicDataSet();
 
-        DataSetItem item1 = new BasicDataSetItem(new float[]{0, 0}, new float[]{0});
-        dataSet.add(item1);
-
-        DataSetItem item2 = new BasicDataSetItem(new float[]{0, 1}, new float[]{1});
-        dataSet.add(item2);
-
-        DataSetItem item3 = new BasicDataSetItem(new float[]{1, 0}, new float[]{1});
-        dataSet.add(item3);
-
-        DataSetItem item4 = new BasicDataSetItem(new float[]{1, 1}, new float[]{0});
-        dataSet.add(item4);
-
-        return dataSet;
-    }
 
 }

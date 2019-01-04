@@ -21,7 +21,6 @@
 
 package deepnetts.util;
 
-import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.ConvolutionalNetwork;
@@ -112,7 +111,7 @@ public class FileIO {
      * @param nnet
      * @return
      */
-    public static String  toJson(NeuralNetwork nnet) {
+    public static String  toJson(NeuralNetwork<?> nnet) {
         JSONObject json = new JSONObject();
         JSONArray layers = new JSONArray();
 

@@ -43,14 +43,14 @@ import java.util.logging.Logger;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public final class FeedForwardNetwork extends NeuralNetwork /*<BackpropagationTrainer>*/ {
+public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrainer> {
 
     /**
      * Private constructor allows instantiation only using builder
      */
     private FeedForwardNetwork() {
         super();
-        // setTrainer(new BackpropagationTrainer())
+        setTrainer(new BackpropagationTrainer(this));
     }
  /*   
     public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
@@ -157,8 +157,7 @@ public final class FeedForwardNetwork extends NeuralNetwork /*<BackpropagationTr
             if (activationType.equals(ActivationType.SOFTMAX)) {
                 outputLayer = new SoftmaxOutputLayer(width);
             } else {
-                outputLayer = new OutputLayer(width);
-                outputLayer.setActivationType(activationType);
+                outputLayer = new OutputLayer(width, activationType);
             }
 
             network.setOutputLayer(outputLayer);

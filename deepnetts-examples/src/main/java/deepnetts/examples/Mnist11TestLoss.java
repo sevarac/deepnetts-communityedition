@@ -88,20 +88,20 @@ public class Mnist11TestLoss {
                 .addOutputLayer(labelsCount, ActivationType.TANH)
                 .withActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123)
+                .randomSeed(123)
                 .build();
 
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
              //   .setMomentum(0.7f)
                 .setMaxError(0.02f)
                 .setBatchMode(true)
                 .setBatchSize(32)
                 .setOptimizer(OptimizerType.SGD);
-        trainer.train(neuralNet, imageSets[0], imageSets[1]);
+        trainer.train(imageSets[0], imageSets[1]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

@@ -1,8 +1,9 @@
 package deepnetts.net;
 
 /**
- *
- * @author Zoran
+ * Neural network architecture types
+ * 
+ * @author Zoran Sevarac
  */
 public enum NetworkType {
     FEEDFORWARD("FEEDFORWARD"), CONVOLUTIONAL("CONVOLUTIONAL");

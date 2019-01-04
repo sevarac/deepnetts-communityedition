@@ -86,12 +86,12 @@ public class Cifar10Ce {
            
         LOGGER.info("Training neural network"); 
          
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(2.29f);
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 
-        trainer.train(neuralNet, imageSets[0]);       
+        trainer.train(imageSets[0]);       
         
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

@@ -53,7 +53,7 @@ public class OutputLayer extends AbstractLayer {
         }
 
         setActivationType(ActivationType.SIGMOID);
-        this.activation = ActivationFunction.create(ActivationType.SIGMOID);
+        //this.activation = ActivationFunction.create(ActivationType.SIGMOID); // done in setter now
     }
 
     public OutputLayer(int width, ActivationType actType) {
@@ -68,7 +68,7 @@ public class OutputLayer extends AbstractLayer {
         }
 
         setActivationType(actType);
-        this.activation = ActivationFunction.create(actType);
+        //this.activation = ActivationFunction.create(actType); // done in setter now
     }
 
     public OutputLayer(String[] labels) {
@@ -77,7 +77,7 @@ public class OutputLayer extends AbstractLayer {
         this.depth = 1;
         this.labels = labels;
         setActivationType(ActivationType.SIGMOID);
-        this.activation = ActivationFunction.create(ActivationType.SIGMOID);
+        // this.activation = ActivationFunction.create(ActivationType.SIGMOID); //this.activation = ActivationFunction.create(actType); // done in setter now
     }
 
     public OutputLayer(String[] labels, ActivationType activationFunction) {
@@ -129,13 +129,14 @@ public class OutputLayer extends AbstractLayer {
     @Override
     public void forward() {
         outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
+        // mnozenje vektora (input) matricom (weights) i smestanje u outputs vector
         for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) { 
                 outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
             }
-           // outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
         }
-        outputs.apply(activation::getValue);
+        
+        outputs.apply(activation::getValue);    // apply activation function on all outputs
     }
 
     /**
@@ -146,22 +147,22 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        if (!batchMode) {   // reset delta weights and deltaBiases to zero in ezch iteration if not in batch/minibatch mode
+        if (!batchMode) {   // reset delta weights and deltaBiases to zero in each iteration if not in batch/minibatch mode
             deltaWeights.fill(0);
             Arrays.fill(deltaBiases, 0);
         }
 
         for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
-
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                deltas.set(deltaCol, outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol))); // delta = e*f1
+                final float delta = outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol)); // delta = e*dE/ds
+                deltas.set(deltaCol, delta); 
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
                 deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
-            }
+            } // jel treba ovde neki else ? jel postoji taj slucaj? Cross entropy sa softmax j eposeban layer...
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-               // final float grad = deltas.get(dCol) * inputs.get(inCol);
-                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
+               final float grad = deltas.get(deltaCol) * inputs.get(inCol);
+             //   final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
 //                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 ); // gradient dE/dw + regularization l2
                  
                 final float deltaWeight = Optimizers.sgd(learningRate, grad);

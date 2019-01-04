@@ -10,6 +10,6 @@ import java.io.IOException;
  */
 public class DataSets {
     public static DataSet readCsv(String fileName, int inputCount, int outputCount) throws IOException {
-        return BasicDataSet.fromCSVFile(new File(fileName), inputCount, outputCount, ",");
+        return BasicDataSet.fromCSVFile(fileName, inputCount, outputCount);
     }
 }

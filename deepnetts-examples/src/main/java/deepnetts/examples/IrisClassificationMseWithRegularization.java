@@ -60,7 +60,7 @@ public class IrisClassificationMseWithRegularization {
         // create multi layer perceptron with specified settings
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(8) // , ActivationType.SIGMOID
+                .addDenseLayer(8)
                 .addOutputLayer(3, ActivationType.SIGMOID)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .randomSeed(123)
@@ -70,16 +70,16 @@ public class IrisClassificationMseWithRegularization {
         // neuralNet.train(trainingSet);    // getTrainer().train() 
         // neuralNet.train(trainingSet, validationSet);
         // create a trainer object with specified settings
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.03f)                  // should be default
                 .setMaxEpochs(21000)
-                .setLearningRate(0.01f)             // should be default
+                .setLearningRate(0.5f)             // should be default
                 .setL2Regularization(0.00001f)
                 .setOptimizer(OptimizerType.SGD) // should be default
                 .setBatchMode(false);   // should be default    provide logging options - what to log - logMiniBatch
 
         // train the network
-        trainer.train(neuralNet, dataSets[0]);
+        trainer.train(dataSets[0]);
         
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[1]);

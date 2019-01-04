@@ -127,8 +127,8 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * skipped
      *
      * @param csvFile CSV file
-     * @param inputCount number of input values in a row
-     * @param outputCount number of output values in a row
+     * @param inputsNum number of input values in a row
+     * @param outputsNum number of output values in a row
      * @param delimiter delimiter used to separate values
      * @return instance of data set with values loaded from file
      *
@@ -140,30 +140,45 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * type of attributes Move this method to some factory class or something?
      * or as a default method in data set?
      */
-    public static BasicDataSet fromCSVFile(File csvFile, int inputCount, int outputCount, String delimiter) throws FileNotFoundException, IOException {
-        BasicDataSet dataSet = new BasicDataSet(inputCount, outputCount);
+    public static BasicDataSet fromCSVFile(File csvFile, int inputsNum, int outputsNum, String delimiter, boolean hasColumnNames) throws FileNotFoundException, IOException {
+        BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
-        String line = br.readLine(); // get col names from the first line
-        String[] colNames = line.split(delimiter);
+        String line=null;
+        if (hasColumnNames) {    // get col names from the first line
+            line = br.readLine();
+            String[] colNames = line.split(delimiter);
+            // todo checsk number of col names
+            dataSet.setColumnNames(colNames);
+        } else {
+            String[] colNames = new String[inputsNum+outputsNum];
+            for(int i=0; i<inputsNum;i++)
+                colNames[i] = "in"+(i+1);
+            
+            for(int j=0; j<outputsNum;j++)
+                colNames[inputsNum+j] = "out"+(j+1);
+            
+            dataSet.setColumnNames(colNames);
+        }
+        
         while ((line = br.readLine()) != null) {
             if (line.isEmpty()) {
                 continue; // skip empty lines
             }
             String[] values = line.split(delimiter);
-            if (values.length != (inputCount + outputCount)) {
-                throw new DeepNettsException("Wrong number of values in the row " + (dataSet.size() + 1) + ": found " + values.length + " expected " + (inputCount + outputCount));
+            if (values.length != (inputsNum + outputsNum)) {
+                throw new DeepNettsException("Wrong number of values in the row " + (dataSet.size() + 1) + ": found " + values.length + " expected " + (inputsNum + outputsNum));
             }
-            float[] in = new float[inputCount];
-            float[] out = new float[outputCount];
+            float[] in = new float[inputsNum];
+            float[] out = new float[outputsNum];
 
             try {
                 // these methods could be extracted into parse float vectors
-                for (int i = 0; i < inputCount; i++) { //parse inputs
+                for (int i = 0; i < inputsNum; i++) { //parse inputs
                     in[i] = Float.parseFloat(values[i]);
                 }
 
-                for (int j = 0; j < outputCount; j++) { // parse outputs
-                    out[j] = Float.parseFloat(values[inputCount + j]);
+                for (int j = 0; j < outputsNum; j++) { // parse outputs
+                    out[j] = Float.parseFloat(values[inputsNum + j]);
                 }
             } catch (NumberFormatException nex) {
                 throw new DeepNettsException("Error parsing line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
@@ -171,17 +186,17 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
 
             dataSet.add(new BasicDataSetItem(in, out));
         }
-        dataSet.setColumnNames(colNames);
-
+        
         return dataSet;
     }
     
+    
     public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount, String delimiter) throws IOException {
-        return fromCSVFile(new File(fileName), inputCount, outputCount, delimiter);
+        return fromCSVFile(new File(fileName), inputCount, outputCount, delimiter, false);
     }
     
     public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount) throws IOException {
-        return fromCSVFile(new File(fileName), inputCount, outputCount, ",");
+        return fromCSVFile(new File(fileName), inputCount, outputCount, ",", false);
     }
     
     // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3)

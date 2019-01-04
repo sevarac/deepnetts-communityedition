@@ -88,13 +88,13 @@ public class LeNet {
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .withActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123)
+                .randomSeed(123)
                 .build();
 
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
                 .setMaxError(0.7f)
@@ -102,7 +102,7 @@ public class LeNet {
                 .setBatchSize(64)
                 .setOptimizer(OptimizerType.MOMENTUM);
         
-        trainer.train(neuralNet, imageSets[0]);
+        trainer.train(imageSets[0]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
