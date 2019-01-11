@@ -52,6 +52,8 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
         super();
         setTrainer(new BackpropagationTrainer(this));
     }
+       
+    
  /*   
     public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
         builder().addInputLayer(layerWidths[0]);
@@ -127,15 +129,15 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
          * @return builder instance
          * @see ActivationFunctions
          */
-        public Builder addDenseLayer(int width, ActivationType activation) {
-            DenseLayer layer = new DenseLayer(width, activation);
+        public Builder addDenseLayer(int width, ActivationType activationType) {
+            DenseLayer layer = new DenseLayer(width, activationType);
             network.addLayer(layer);
             return this;
         }
 
-        public Builder addDenseLayers(ActivationType activation, int... widths) {
+        public Builder addDenseLayers(ActivationType activationType, int... widths) {
             for(int width : widths) {
-                DenseLayer layer = new DenseLayer(width, activation);
+                DenseLayer layer = new DenseLayer(width, activationType);
                 network.addLayer(layer);
             }
             return this;

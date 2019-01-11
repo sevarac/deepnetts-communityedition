@@ -154,25 +154,18 @@ public final class DenseLayer extends AbstractLayer {
 //            outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
 //        }
 //        if previous layer is DenseLayer
-        if (prevLayer instanceof DenseLayer) {
+        if (prevLayer instanceof DenseLayer) { // ovde bi rebalo or InputLayer u 2D
             // weighted sum of input and weight tensors with added biases
             // folowed by activation function applied to each output element
 
             // pomonizi ulazni vektor sa matricom tezina, na to dodaj bias i sve to propusti kroz aktivacionu funkciju
             // mozda najbolje ovo benchmarkovati nezavisno od ovog koda koji radi pa onda odluciti kako implementirati
             outputs.copyFrom(biases);                                                       // first use (add) biases to all outputs
-            // put gtters cols in fibal locals
+            // put getters cols in final locals
             for (int outCol = 0; outCol < outputs.getCols(); outCol++) {                    // for all neurons/outputs in this layer
                 for (int inCol = 0; inCol < inputs.getCols(); inCol++) {                    // iterate all inputs from prev layer
                     outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // and add weighted sum to outputs
-                }
-
-                // apply activation function to all weigthed sums stored in outputs
-                // ovo moze i nezavisno drugi thread da radi samo ne sme da pretekne mnozenje matrica
-                //outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol))); // this could be lambda or Function - apply it to entire Tensor
-                // outputs.applyFunction(activationFunction);
-                // outputs.applyFunction(activationFunction); // apply activation function to all elements of the tensor/vector
-                //outputs.set(outCol, activation.getValue(outputs.get(outCol)));                                 
+                }                            
             }
             outputs.apply(activation::getValue);
         } // if previous layer is MaxPooling, Convolutional or input layer (2D or 3D) - TODO: posto je povezanost svi sa svima ovo mozda moze i kao 1d na 1d niz, verovatno je efikasnije
@@ -214,7 +207,6 @@ public final class DenseLayer extends AbstractLayer {
                 deltas.add(deltaCol, nextLayer.deltas.get(ndCol) * nextLayer.weights.get(deltaCol, ndCol)); // calculate weighted sum of deltas from the next layer
             }
 
-//            final float delta = deltas.get(deltaCol) * ActivationFunctions.prime(activationType, outputs.get(deltaCol));
             final float delta = deltas.get(deltaCol) * activation.getPrime(outputs.get(deltaCol));
             deltas.set(deltaCol, delta);
         } // end sum weighted deltas from next layer
@@ -308,7 +300,7 @@ public final class DenseLayer extends AbstractLayer {
                     for (int inRow = 0; inRow < inputs.getRows(); inRow++) {
                         for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                             final float grad = deltas.get(deltaCol) * inputs.get(inRow, inCol, inDepth);  // da li je ovde greska treba ih sumitrati sve tri po dubini  // da li ove ulaze treba sabirati??? jer jedna celija ima ulaze iz tri prethodna kanala?
-                            gradients.set(inCol, inRow, inDepth, grad);   // da li ovo radi kada je fc sa obicnim input lyerom -  proveri??
+                            gradients.set(inRow, inCol, inDepth, deltaCol, grad);   // da li ovo radi kada je fc sa obicnim input lyerom -  proveri??
 
                             float deltaWeight = 0;
                             switch (optimizer) {

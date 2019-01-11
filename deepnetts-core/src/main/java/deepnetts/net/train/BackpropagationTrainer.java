@@ -33,6 +33,7 @@ import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
+import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
@@ -302,6 +303,7 @@ public class BackpropagationTrainer implements Trainer {
             epochTime = endEpoch - startEpoch;
 
             LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + validationLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
+            if (Float.isNaN(totalTrainingLoss)) throw new DeepNettsException("NaN value during training!");
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 

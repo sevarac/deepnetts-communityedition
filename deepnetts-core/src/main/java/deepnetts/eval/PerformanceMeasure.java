@@ -7,7 +7,13 @@ import java.util.HashMap;
  * @author Zoran
  */
 public class PerformanceMeasure {
-    public final static String MSE          = "MSE";
+    // Regression metrics
+    public final static String MEAN_ABSOLUTE_ERROR      = "MEAN_BSOLUTE_ERROR";
+    public final static String MEAN_SQUARED_ERROR       = "MEAN_SQUARED_ERROR";
+    public final static String ROOT_MEAN_SQUARED_ERROR  = "ROOT_MEAN_SQUARED_ERROR";
+    public final static String R2                       = "R2";
+    
+    // Classification Metrics
     public final static String ACCURACY     = "Accuracy";
     public final static String PRECISION    = "Precision";
     public final static String RECALL       = "Recall";

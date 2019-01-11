@@ -121,7 +121,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 
                 // todo: load and preprocess image pixels in separate thread in batches of 10 images
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(binaryVectorForLabel(label, columnNames));
+                exImg.setTargetOutput(oneHotEncode(label, columnNames));
                 
                 // make sure all images are the same size
 //                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
@@ -175,7 +175,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
                 
                 ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(binaryVectorForLabel(label, columnNames));
+                exImg.setTargetOutput(oneHotEncode(label, columnNames));
 
                 // make sure all images are the same size
 //                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) {
@@ -208,10 +208,10 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * @param label
      * @return 
      */
-    private float[] binaryVectorForLabel(final String label, final String[] labels) {
+    private float[] oneHotEncode(final String label, final String[] labels) {
         final float[] vect = new float[labels.length];
         
-        if (label.equals("negative")) return vect;
+        if (label.equals("negative")) return vect; // ovaj izbaci u opstoj verziji
         for(int i=0; i<labels.length; i++) {        
             if (labels[i].equals(label)) {
                 vect[i] = 1;

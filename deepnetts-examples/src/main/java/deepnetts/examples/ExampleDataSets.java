@@ -14,7 +14,7 @@ import java.io.IOException;
 public class ExampleDataSets {
 
     public static DataSet iris() throws IOException {
-       return BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
+       return BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
     public static DataSet xor() {

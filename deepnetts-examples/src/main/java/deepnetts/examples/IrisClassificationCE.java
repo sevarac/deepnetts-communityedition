@@ -29,7 +29,6 @@ import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -43,8 +42,7 @@ public class IrisClassificationCE {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
-        dataSet.shuffle();
+        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()

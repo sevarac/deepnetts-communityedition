@@ -1,1 +1,8 @@
-[ERROR] 2019-01-03 18:58:58.174 [main] DeepNetts - java.io.NotSerializableException: deepnetts.net.train.opt.SGDOptimizer
+[ERROR] 2019-01-10 22:40:42.357 [main] DeepNetts - Could not find labels file: D:\datasets\DukeSet\labels.txt
+java.io.FileNotFoundException: D:\datasets\DukeSet\labels.txt (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
+	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
+	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
+	at deepnetts.examples.DukeDetector.main(DukeDetector.java:64) [classes/:?]

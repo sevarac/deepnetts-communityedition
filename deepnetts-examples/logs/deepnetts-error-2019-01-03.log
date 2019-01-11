@@ -1,0 +1,1 @@
+[ERROR] 2019-01-03 18:58:58.174 [main] DeepNetts - java.io.NotSerializableException: deepnetts.net.train.opt.SGDOptimizer

@@ -55,8 +55,8 @@ public class AlexNet {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 10000);
-        imageSet.invert();
+        imageSet.loadImages(new File(trainingFile), false, 1000);
+//        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
 
@@ -88,9 +88,9 @@ public class AlexNet {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.1f);
-        trainer.setMomentum(0.7f)
-                .setBatchMode(true)
-                .setBatchSize(128);
+        trainer.setMomentum(0.7f);
+               // .setBatchMode(true)
+          //      .setBatchSize(128);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 

@@ -25,6 +25,7 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.Evaluators;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -50,19 +51,20 @@ public class IrisClassificationCE2 {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
-        dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
-        DataSet[] dataSets = dataSet.split(0.60, 0.2, 0.2); // provide random generator in order to do spliting the same way
+        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
+        DataSet[] dataSets = dataSet.split(0.6, 0.1, 0.3); // provide random generator in order to do spliting the same way
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(20, ActivationType.TANH)
+                .addDenseLayer(9, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123).
                 build();
+        
+//        neuralNet.train(dataSets[0]);
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
@@ -74,17 +76,19 @@ public class IrisClassificationCE2 {
         trainer.setMaxEpochs(10000);
         trainer.train(dataSets[0], dataSets[1]);
 
-        ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);
+        
+        PerformanceMeasure pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
+        //ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        //PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info(pm);
-        Map<String, PerformanceMeasure> byClass = evaluator.getPerformanceByClass();
-        byClass.entrySet().stream().forEach((entry) -> {
-            LOGGER.info("Class " + entry.getKey() + ":");
-            LOGGER.info(entry.getValue());
-            LOGGER.info("----------------");
-        });
+//        Map<String, PerformanceMeasure> byClass = evaluator.getPerformanceByClass();
+//        byClass.entrySet().stream().forEach((entry) -> {
+//            LOGGER.info("Class " + entry.getKey() + ":");
+//            LOGGER.info(entry.getValue());
+//            LOGGER.info("----------------");
+//        });
     }
 
 }

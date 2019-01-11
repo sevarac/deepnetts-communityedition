@@ -21,7 +21,7 @@ public class QuickStart {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load data  set from csv file
-        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
+        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
 //        dataSet.shuffle();
 
         // create instance of multi addLayer percetpron using builder

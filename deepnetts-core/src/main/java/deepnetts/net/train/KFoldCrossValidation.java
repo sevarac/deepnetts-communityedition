@@ -21,7 +21,7 @@ import org.apache.commons.lang3.SerializationUtils;
  */
 public class KFoldCrossValidation {
       
-    private int kFolds; //number of folds, typically  5 or 10 used, pg. 184    
+    private int splitsNum; //number of folds, typically  5 or 10 used, pg. 184    // numSplits
     private NeuralNetwork neuralNetwork; // arhitektura neuronske mreze
     private BackpropagationTrainer trainer; // algoritam za trening sa svim svojim podesavanjima podesenim
     private DataSet<?> dataSet; // data set koji se deli
@@ -36,12 +36,12 @@ public class KFoldCrossValidation {
     
     public PerformanceMeasure runCrossValidation() {                 
         List<PerformanceMeasure> measures = new ArrayList<>();
-        DataSet[] folds = dataSet.split(kFolds);
+        DataSet[] folds = dataSet.split(splitsNum);
                                 
-        for (int testFoldIdx = 0; testFoldIdx < kFolds; testFoldIdx++) {
+        for (int testFoldIdx = 0; testFoldIdx < splitsNum; testFoldIdx++) {
             DataSet testSet = folds[testFoldIdx];
             DataSet trainingSet = new BasicDataSet();
-            for (int trainFoldIdx = 0; trainFoldIdx < kFolds; trainFoldIdx++) {
+            for (int trainFoldIdx = 0; trainFoldIdx < splitsNum; trainFoldIdx++) {
                 if (trainFoldIdx == testFoldIdx) continue;
                 trainingSet.addAll(folds[trainFoldIdx]);
             }
@@ -70,27 +70,27 @@ public class KFoldCrossValidation {
         
         KFoldCrossValidation kFoldCV = new KFoldCrossValidation();
         
-        public Builder withKFolds(int k) {
-           kFoldCV.kFolds = k;
+        public Builder splitsNum(int k) {
+           kFoldCV.splitsNum = k;
            return this;
         }
         
-        public Builder withModel(NeuralNetwork neuralNet) {
+        public Builder model(NeuralNetwork neuralNet) {
             kFoldCV.neuralNetwork = neuralNet;
             return this;
         }
         
-        public Builder withTrainer(BackpropagationTrainer trainer) {
+        public Builder trainer(BackpropagationTrainer trainer) {
             kFoldCV.trainer = trainer;
             return this;
         }
         
-        public Builder withDataSet(DataSet dataSet) {
+        public Builder dataSet(DataSet dataSet) {
             kFoldCV.dataSet = dataSet;
             return this;
         }
         
-        public Builder withEvaluator(Evaluator<NeuralNetwork, DataSet<?>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<?>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }

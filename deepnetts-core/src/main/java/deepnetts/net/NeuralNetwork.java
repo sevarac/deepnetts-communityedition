@@ -23,6 +23,8 @@ package deepnetts.net;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.data.DataSet;
+import deepnetts.eval.Evaluators;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -85,6 +87,9 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
      */
     private String[] outputLabels;    
         
+    
+    private Tensor inputWrapper;
+    
     /**
      * Network's label
      */
@@ -108,6 +113,12 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         inputLayer.setInput(inputs);
         forward();
     }
+    
+    public void setInput(float[] inputs) {
+//        inputWrapper.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!        
+        inputLayer.setInput(inputWrapper);
+        forward();
+    }    
 
     /**
      * Returns network's output.
@@ -125,6 +136,10 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
     public void train(DataSet<?> trainingSet) {
         trainer.train(trainingSet);
     }
+    
+    public PerformanceMeasure test(DataSet<?> testSet) {
+        return Evaluators.evaluateClassifier(this, testSet);    // check the loss and output function and use appropriate classifier
+    }    
     
     /**
      * Apply calculated weight changes to all layers.

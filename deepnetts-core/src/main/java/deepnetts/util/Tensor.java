@@ -445,6 +445,10 @@ public class Tensor implements Serializable {
         return sb.toString();
     }
 
+    public final void add(final int idx, final float value) {
+        values[idx] += value;
+    }
+    
     /**
      * Adds specified value to matrix value at position x, y
      *
@@ -467,9 +471,7 @@ public class Tensor implements Serializable {
         values[idx] += value;
     }
 
-    public final void add(final int idx, final float value) {
-        values[idx] += value;
-    }
+
 
     /**
      * Adds specified tensor t to this tensor.

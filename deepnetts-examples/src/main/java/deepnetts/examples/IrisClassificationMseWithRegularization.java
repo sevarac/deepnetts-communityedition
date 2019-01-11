@@ -74,7 +74,7 @@ public class IrisClassificationMseWithRegularization {
         trainer.setMaxError(0.03f)                  // should be default
                 .setMaxEpochs(21000)
                 .setLearningRate(0.5f)             // should be default
-                .setL2Regularization(0.00001f)
+                .setL2Regularization(0.00001f) // iskljuceno u mse i layerima dok se testira linearn aregresija
                 .setOptimizer(OptimizerType.SGD) // should be default
                 .setBatchMode(false);   // should be default    provide logging options - what to log - logMiniBatch
 

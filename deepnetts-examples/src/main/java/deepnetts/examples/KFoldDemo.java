@@ -2,6 +2,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
+import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class KFoldDemo {
     
     public static void main(String[] args) throws IOException {
-        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);    
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
         //dataSet.setLabels(new String[] {"Setose", "Vrsicolor", "Virginica"});
         
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -40,14 +41,16 @@ public class KFoldDemo {
         
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         
+        // prilagodi ga https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
         KFoldCrossValidation kfcv = KFoldCrossValidation.builder()
-                                        .withModel(neuralNet)
-                                        .withDataSet(dataSet)
-                                        .withTrainer(trainer)
-                                        .withKFolds(5)
-                                        .withEvaluator(evaluator)
+                                        .model(neuralNet)
+                                        .dataSet(dataSet)
+                                        .trainer(trainer)   // this one should be optional
+                                        .splitsNum(5)
+                                        .evaluator(evaluator)
                                         .build();
         
+        // ispisi srednju vrednost i standardnu devijaciju po uzoru na jasona        
         PerformanceMeasure pm = kfcv.runCrossValidation();
         System.out.println(pm);
     }

@@ -139,11 +139,15 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * labels, set class1, class2, class3 in classifier evaluation! and detect
      * type of attributes Move this method to some factory class or something?
      * or as a default method in data set?
+     * 
+     *  TODO: should I wrap IO with DeepNetts Exception?
      */
-    public static BasicDataSet fromCSVFile(File csvFile, int inputsNum, int outputsNum, String delimiter, boolean hasColumnNames) throws FileNotFoundException, IOException {
+    public static BasicDataSet fromCsv(File csvFile, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
         BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         String line=null;
+        // auto detect column names - ako sadrzi slova onda ima imena. Sta ako su atributi nominalni? U ovoj fazi se pretpostavlja d anisu...
+        // i ako u redovima ispod takodje ima stringova u istoj koloni - detect header
         if (hasColumnNames) {    // get col names from the first line
             line = br.readLine();
             String[] colNames = line.split(delimiter);
@@ -181,7 +185,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
                     out[j] = Float.parseFloat(values[inputsNum + j]);
                 }
             } catch (NumberFormatException nex) {
-                throw new DeepNettsException("Error parsing line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
+                throw new DeepNettsException("Error parsing csv, number expected line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
             }
 
             dataSet.add(new BasicDataSetItem(in, out));
@@ -190,16 +194,23 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
         return dataSet;
     }
     
-    
-    public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount, String delimiter) throws IOException {
-        return fromCSVFile(new File(fileName), inputCount, outputCount, delimiter, false);
+    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws IOException {
+         return fromCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, delimiter);
+    }
+
+    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames) throws IOException {
+        return fromCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, ",");
     }
     
-    public static BasicDataSet fromCSVFile(String fileName, int inputCount, int outputCount) throws IOException {
-        return fromCSVFile(new File(fileName), inputCount, outputCount, ",", false);
+    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, String delimiter) throws IOException {
+        return fromCsv(new File(fileName), inputsNum, outputsNum, false, delimiter);
     }
     
-    // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3)
+    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum) throws IOException {
+        return fromCsv(new File(fileName), inputsNum, outputsNum, false, ",");
+    }
+    
+    // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3) detektuj da li je putanja fajla ili url i otvori input stream
  
 
     /**
@@ -212,7 +223,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      */
     @Override
     public DataSet[] split(int parts) {
-        double partSize = (Math.round((100d / parts)*100))/100;
+        double partSize = (Math.round((100d / parts)))/100d;
         double[] partsArr = new double[parts];
         for (int i = 0; i < parts; i++) {
             partsArr[i] = partSize;
@@ -249,14 +260,14 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
             partsSum += parts[i];
         }
 
-        if (partsSum > 1) {
+        if (partsSum > 1) { // a sta ako je int?
             throw new IllegalArgumentException("Sum of parts cannot be larger than 1!");
         }
 
         DataSet[] subSets = new BasicDataSet[parts.length];
         int itemIdx = 0;
 
-        //this.shuffle(); // shuffle before splting, how to specify provide random seed? 
+        this.shuffle(); // shuffle before splting, using global random seed
         for (int p = 0; p < parts.length; p++) {
             DataSet subSet = new BasicDataSet(this.inputs, this.outputs);
             subSet.setColumnNames(this.columnNames);

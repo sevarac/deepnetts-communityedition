@@ -270,9 +270,9 @@ public class ConvolutionalLayer extends AbstractLayer {
             // 1. Propagate deltas from the next FC layer
             for (int row = 0; row < this.height; row++) {
                 for (int col = 0; col < this.width; col++) {
-                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // dy/ds
+                    final float actDerivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // dy/ds
                     for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer delte po sirini/kolone posto je fully connected
-                        final float delta = nextLayer.deltas.get(ndC) * nextLayer.weights.get(col, row, ch, ndC) * derivative; // TODO: mnoziti sumu na kraju samo jednom optimizacija -mozda 
+                        final float delta = nextLayer.deltas.get(ndC) * nextLayer.weights.get(col, row, ch, ndC) * actDerivative; // TODO: mnoziti sumu na kraju samo jednom optimizacija -mozda 
                         deltas.add(row, col, ch, delta);
                     }
                 }
@@ -374,8 +374,8 @@ public class ConvolutionalLayer extends AbstractLayer {
                             final int inCol = deltaCol * stride + fc - fCenterX;
                             
                             if (inRow < 0 || inRow >= inputs.getRows() || inCol < 0 || inCol >= inputs.getCols()) continue;
-                            
-                            final float input = inputs.get(inRow, inCol, fz); // get input for this output and weight; padding? 
+                            // da li ovde ispod nedostaje kanal cs? ne kanal je fz - to je dubina filtera i to ide kroz svekanale
+                            final float input = inputs.get(inRow, inCol, fz); // get input for this output and weight; padding?  da li ovde imam kanal?
                             final float grad = deltas.get(deltaRow, deltaCol, ch) * input;
 
                             float deltaWeight = 0;

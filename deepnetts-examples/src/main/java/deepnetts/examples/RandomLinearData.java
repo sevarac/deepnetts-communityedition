@@ -6,8 +6,8 @@ public class RandomLinearData {
     
     static final int X = 0;
     static final int Y = 1;
-    static final int NUM_POINTS = 20;
-    static final int NOISE_FACTOR =5;  // smaller gives bigger noise
+    static final int NUM_POINTS = 30;
+    static final int NOISE_FACTOR =20;  // smaller gives bigger noise
     
     // parameters of the linear function
     static double slope = 0.5;
@@ -19,9 +19,9 @@ public class RandomLinearData {
         
         // generate random points with underlying linear trend as specified in method linear
         for(int i=0; i<dataPoints.length; i++) {
-           dataPoints[i][X] =  Math.random();                     // X values are random numbers from [0, 1]
+           dataPoints[i][X] =  0.5-Math.random();                     // X values are random numbers from [0, 1]
            double noise = Math.random() / NOISE_FACTOR;          // generate random noise   
-           dataPoints[i][Y] = (linear(dataPoints[i][X]) + noise)/2; // add noise to underlying linear function
+           dataPoints[i][Y] = linear(dataPoints[i][X]) + noise; // add noise to underlying linear function
         }
                 
         Plot.scatter(dataPoints);    

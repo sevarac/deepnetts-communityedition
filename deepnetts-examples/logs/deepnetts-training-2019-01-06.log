@@ -1,0 +1,84 @@
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:64ms, TrainError:0.04984353, TestError:0.0, TrainErrorChange:0.04984353, Accuracy: 0.0
+Epoch:2, Time:5ms, TrainError:0.03315916, TestError:0.0, TrainErrorChange:0.03315916, Accuracy: 0.0
+Epoch:3, Time:2ms, TrainError:0.027253522, TestError:0.0, TrainErrorChange:0.027253522, Accuracy: 0.0
+Epoch:4, Time:1ms, TrainError:0.022710225, TestError:0.0, TrainErrorChange:0.022710225, Accuracy: 0.0
+Epoch:5, Time:1ms, TrainError:0.019205874, TestError:0.0, TrainErrorChange:0.019205874, Accuracy: 0.0
+Epoch:6, Time:5ms, TrainError:0.01650265, TestError:0.0, TrainErrorChange:0.01650265, Accuracy: 0.0
+Epoch:7, Time:1ms, TrainError:0.014417239, TestError:0.0, TrainErrorChange:0.014417239, Accuracy: 0.0
+Epoch:8, Time:1ms, TrainError:0.012808268, TestError:0.0, TrainErrorChange:0.012808268, Accuracy: 0.0
+Epoch:9, Time:1ms, TrainError:0.0115667675, TestError:0.0, TrainErrorChange:0.0115667675, Accuracy: 0.0
+Epoch:10, Time:1ms, TrainError:0.010608662, TestError:0.0, TrainErrorChange:0.010608662, Accuracy: 0.0
+Epoch:11, Time:1ms, TrainError:0.009869164, TestError:0.0, TrainErrorChange:0.009869164, Accuracy: 0.0
+
+TRAINING COMPLETED
+Total Training Time: 89ms
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:6ms, TrainError:0.03395808, TestError:0.0, TrainErrorChange:0.03395808, Accuracy: 0.0
+Epoch:2, Time:2ms, TrainError:0.028938677, TestError:0.0, TrainErrorChange:0.028938677, Accuracy: 0.0
+Epoch:3, Time:2ms, TrainError:0.025481442, TestError:0.0, TrainErrorChange:0.025481442, Accuracy: 0.0
+Epoch:4, Time:1ms, TrainError:0.02256724, TestError:0.0, TrainErrorChange:0.02256724, Accuracy: 0.0
+Epoch:5, Time:0ms, TrainError:0.020126155, TestError:0.0, TrainErrorChange:0.020126155, Accuracy: 0.0
+Epoch:6, Time:1ms, TrainError:0.018081943, TestError:0.0, TrainErrorChange:0.018081943, Accuracy: 0.0
+Epoch:7, Time:1ms, TrainError:0.016370129, TestError:0.0, TrainErrorChange:0.016370129, Accuracy: 0.0
+Epoch:8, Time:0ms, TrainError:0.014936677, TestError:0.0, TrainErrorChange:0.014936677, Accuracy: 0.0
+Epoch:9, Time:0ms, TrainError:0.013736364, TestError:0.0, TrainErrorChange:0.013736364, Accuracy: 0.0
+Epoch:10, Time:1ms, TrainError:0.012731274, TestError:0.0, TrainErrorChange:0.012731274, Accuracy: 0.0
+Epoch:11, Time:0ms, TrainError:0.011889678, TestError:0.0, TrainErrorChange:0.011889678, Accuracy: 0.0
+Epoch:12, Time:0ms, TrainError:0.011185002, TestError:0.0, TrainErrorChange:0.011185002, Accuracy: 0.0
+Epoch:13, Time:0ms, TrainError:0.010594981, TestError:0.0, TrainErrorChange:0.010594981, Accuracy: 0.0
+Epoch:14, Time:0ms, TrainError:0.010100969, TestError:0.0, TrainErrorChange:0.010100969, Accuracy: 0.0
+Epoch:15, Time:1ms, TrainError:0.009687361, TestError:0.0, TrainErrorChange:0.009687361, Accuracy: 0.0
+
+TRAINING COMPLETED
+Total Training Time: 23ms
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:5ms, TrainError:0.03395808, TestError:0.0, TrainErrorChange:0.03395808, Accuracy: 0.0
+Epoch:2, Time:2ms, TrainError:0.028938677, TestError:0.0, TrainErrorChange:0.028938677, Accuracy: 0.0
+Epoch:3, Time:1ms, TrainError:0.025481442, TestError:0.0, TrainErrorChange:0.025481442, Accuracy: 0.0
+Epoch:4, Time:1ms, TrainError:0.02256724, TestError:0.0, TrainErrorChange:0.02256724, Accuracy: 0.0
+Epoch:5, Time:1ms, TrainError:0.020126155, TestError:0.0, TrainErrorChange:0.020126155, Accuracy: 0.0
+Epoch:6, Time:0ms, TrainError:0.018081943, TestError:0.0, TrainErrorChange:0.018081943, Accuracy: 0.0
+Epoch:7, Time:0ms, TrainError:0.016370129, TestError:0.0, TrainErrorChange:0.016370129, Accuracy: 0.0
+Epoch:8, Time:1ms, TrainError:0.014936677, TestError:0.0, TrainErrorChange:0.014936677, Accuracy: 0.0
+Epoch:9, Time:0ms, TrainError:0.013736364, TestError:0.0, TrainErrorChange:0.013736364, Accuracy: 0.0
+Epoch:10, Time:0ms, TrainError:0.012731274, TestError:0.0, TrainErrorChange:0.012731274, Accuracy: 0.0
+Epoch:11, Time:0ms, TrainError:0.011889678, TestError:0.0, TrainErrorChange:0.011889678, Accuracy: 0.0
+Epoch:12, Time:0ms, TrainError:0.011185002, TestError:0.0, TrainErrorChange:0.011185002, Accuracy: 0.0
+Epoch:13, Time:0ms, TrainError:0.010594981, TestError:0.0, TrainErrorChange:0.010594981, Accuracy: 0.0
+Epoch:14, Time:0ms, TrainError:0.010100969, TestError:0.0, TrainErrorChange:0.010100969, Accuracy: 0.0
+Epoch:15, Time:1ms, TrainError:0.009687361, TestError:0.0, TrainErrorChange:0.009687361, Accuracy: 0.0
+
+TRAINING COMPLETED
+Total Training Time: 16ms
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.03395808, TestError:0.0, TrainErrorChange:0.03395808, Accuracy: 0.0
+Epoch:2, Time:3ms, TrainError:0.028938677, TestError:0.0, TrainErrorChange:0.028938677, Accuracy: 0.0
+Epoch:3, Time:1ms, TrainError:0.025481442, TestError:0.0, TrainErrorChange:0.025481442, Accuracy: 0.0
+Epoch:4, Time:2ms, TrainError:0.02256724, TestError:0.0, TrainErrorChange:0.02256724, Accuracy: 0.0
+Epoch:5, Time:1ms, TrainError:0.020126155, TestError:0.0, TrainErrorChange:0.020126155, Accuracy: 0.0
+Epoch:6, Time:1ms, TrainError:0.018081943, TestError:0.0, TrainErrorChange:0.018081943, Accuracy: 0.0
+Epoch:7, Time:1ms, TrainError:0.016370129, TestError:0.0, TrainErrorChange:0.016370129, Accuracy: 0.0
+Epoch:8, Time:0ms, TrainError:0.014936677, TestError:0.0, TrainErrorChange:0.014936677, Accuracy: 0.0
+Epoch:9, Time:0ms, TrainError:0.013736364, TestError:0.0, TrainErrorChange:0.013736364, Accuracy: 0.0
+Epoch:10, Time:1ms, TrainError:0.012731274, TestError:0.0, TrainErrorChange:0.012731274, Accuracy: 0.0
+Epoch:11, Time:0ms, TrainError:0.011889678, TestError:0.0, TrainErrorChange:0.011889678, Accuracy: 0.0
+Epoch:12, Time:1ms, TrainError:0.011185002, TestError:0.0, TrainErrorChange:0.011185002, Accuracy: 0.0
+Epoch:13, Time:0ms, TrainError:0.010594981, TestError:0.0, TrainErrorChange:0.010594981, Accuracy: 0.0
+Epoch:14, Time:1ms, TrainError:0.010100969, TestError:0.0, TrainErrorChange:0.010100969, Accuracy: 0.0
+Epoch:15, Time:0ms, TrainError:0.009687361, TestError:0.0, TrainErrorChange:0.009687361, Accuracy: 0.0
+
+TRAINING COMPLETED
+Total Training Time: 21ms
+------------------------------------------------------------------------

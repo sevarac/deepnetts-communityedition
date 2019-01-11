@@ -66,7 +66,7 @@ public class Mnist1 {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 1000); //50000
+        imageSet.loadImages(new File(trainingFile), false, 2000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -96,8 +96,8 @@ public class Mnist1 {
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
                 .setMaxError(0.02f)
-                .setBatchMode(true)
-                .setBatchSize(32)
+                .setBatchMode(false)
+          //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 

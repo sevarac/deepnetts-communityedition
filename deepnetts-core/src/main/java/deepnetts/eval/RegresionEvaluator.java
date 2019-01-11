@@ -22,7 +22,7 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> 
             mse.add(neuralNet.getOutput(), item.getTargetOutput());
         }
 
-        pe.set(PerformanceMeasure.MSE, mse.getTotal());
+        pe.set(PerformanceMeasure.MEAN_SQUARED_ERROR, mse.getTotal());
 
         return pe;
     }

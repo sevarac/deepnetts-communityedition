@@ -1,6 +1,8 @@
 package deepnetts.net.train.opt;
 
-public final class SGDOptimizer extends AbstractOptimizer {
+import java.io.Serializable;
+
+public final class SGDOptimizer extends AbstractOptimizer implements Serializable {
 
     // optimizeri treba da imaju dodatne strukture koje su im potrebne
     @Override

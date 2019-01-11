@@ -1,13 +1,15 @@
 package deepnetts.eval;
 
 /**
- * this is an evaluation metric not a loss function
+ * A measure of error for regression problems.
+ * Represents average error for all predictions.
+ * 
  * @author Zoran
  */
 public class RootMeanSquaredError {
     
     private float totalSum;
-    private int patternCount;
+    private float patternCount=0;
     
     public void add(float[] predicted, float[] target) {
         for(int i=0; i<predicted.length; i++)

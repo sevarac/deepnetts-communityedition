@@ -43,7 +43,7 @@ public class IrisClassificationMse {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data set from csv file
-        DataSet dataSet = BasicDataSet.fromCSVFile("datasets/iris_data_normalised.txt", 4, 3);
+        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle();
 
         // create multi layer perceptron with specified settings
