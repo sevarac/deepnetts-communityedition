@@ -103,7 +103,7 @@ public class ConvNetLogger { // this could be loggger or handler , and it should
                 if (logWeights) sb.append(", ").append(System.lineSeparator()).append(" biases:").append(Arrays.toString(layer.getBiases()));                 
                 if (logDeltas) sb.append(System.lineSeparator()).append(" deltas:").append(layer.getDeltas());
                 if (logDeltaWeights) { 
-                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeight());
+                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeights());
                     sb.append(System.lineSeparator()).append(" delta biasess:").append(Arrays.toString(layer.getDeltaBiases()));
                 }
                 sb.append("}").append(System.lineSeparator());                
@@ -116,7 +116,7 @@ public class ConvNetLogger { // this could be loggger or handler , and it should
                 if (logWeights) sb.append(", ").append(System.lineSeparator()).append(" biases:").append(Arrays.toString(layer.getBiases()));                                                 
                 if (logDeltas)  sb.append(", ").append(System.lineSeparator()).append(" deltas:").append(layer.getDeltas());
                 if (logDeltaWeights) { 
-                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeight());
+                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeights());
                     sb.append(System.lineSeparator()).append(" delta biasess:").append(Arrays.toString(layer.getDeltaBiases()));
                 }                              
                 sb.append("}").append(System.lineSeparator());
@@ -129,7 +129,7 @@ public class ConvNetLogger { // this could be loggger or handler , and it should
                 if (logWeights) sb.append(", ").append(System.lineSeparator()).append(" biases:").append(Arrays.toString(layer.getBiases()));                                 
                 if (logDeltas)  sb.append(", ").append(System.lineSeparator()).append(" deltas:").append(layer.getDeltas());
                 if (logDeltaWeights) { 
-                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeight());
+                    sb.append(System.lineSeparator()).append(" deltaWeights:").append(layer.getDeltaWeights());
                     sb.append(System.lineSeparator()).append(" delta biasess:").append(Arrays.toString(layer.getDeltaBiases()));
                 }                              
                 sb.append("}").append(System.lineSeparator());

@@ -86,7 +86,7 @@ public class Mnist11TestLoss {
                 .addDenseLayer(30)
                 .addDenseLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.TANH)
-                .withActivationFunction(ActivationType.TANH)
+                .activationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();

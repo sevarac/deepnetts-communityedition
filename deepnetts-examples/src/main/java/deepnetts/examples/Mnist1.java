@@ -66,7 +66,7 @@ public class Mnist1 {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 2000); //50000
+        imageSet.loadImages(new File(trainingFile), false, 1000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -84,7 +84,7 @@ public class Mnist1 {
                 .addDenseLayer(30)
                 .addDenseLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .withActivationFunction(ActivationType.RELU)
+                .activationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
@@ -95,10 +95,10 @@ public class Mnist1 {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.7f)
-                .setMaxError(0.02f)
+                .setMaxError(0.03f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
-                .setOptimizer(OptimizerType.MOMENTUM);
+                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);
 
         // Test trained network

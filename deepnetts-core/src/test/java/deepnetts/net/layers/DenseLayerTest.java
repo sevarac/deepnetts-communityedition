@@ -254,7 +254,7 @@ public class DenseLayerTest {
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-7f);
 
-        Tensor deltaWeights = instance.getDeltaWeight();
+        Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-0.000236471f, -0.000927142f, -0.00048962f, -0.00291046f, -0.00378909f, -0.000472941f, -0.00185428f, -0.000979239f, -0.00582093f, -0.00757819f, -0.000709412f, -0.00278143f, -0.00146886f, -0.00873139f, -0.0113673f, -0.000945883f, -0.00370857f, -0.00195848f, -0.0116419f, -0.0151564f, -0.00118235f, -0.00463571f, -0.0024481f, -0.0145523f, -0.0189455f);
 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-7f);
@@ -309,7 +309,7 @@ public class DenseLayerTest {
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-8f);
 
-        Tensor deltaWeights = instance.getDeltaWeight();
+        Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-5.87212395072e-05f, -0.000227243306352f, -0.000118434237896f, -0.000726905494703f, -0.000938668826303f, -0.000117442479014f, -0.000454486612705f, -0.000236868475791f, -0.00145381098941f, -0.00187733765261f, -0.000176163722897f, -0.000681729935988f, -0.000355302722511f, -0.00218071653827f, -0.00281600654885f, -0.000234884958029f, -0.000908973225409f, -0.000473736951583f, -0.00290762197881f, -0.00375467530521f, -0.000293606193161f, -0.00113621651483f, -0.000592171180654f, -0.00363452741935f, -0.00469334406158f);
 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-9f);
@@ -354,7 +354,7 @@ public class DenseLayerTest {
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-7f);
 
-        Tensor deltaWeights = instance.getDeltaWeight();
+        Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-0.00023021194604f, -0.000857233286545f, -0.00043001848101f, -0.0028991194114f, -0.00365388885605f, -0.000460423892081f, -0.00171446657309f, -0.00086003696202f, -0.0057982388228f, -0.0073077777121f, -0.000690635855273f, -0.0025716999235f, -0.00129005547507f, -0.0086973584502f, -0.0109616668404f, -0.000920847784162f, -0.00342893314618f, -0.00172007392404f, -0.0115964776456f, -0.0146155554242f, -0.00115105971305f, -0.00428616636886f, -0.00215009237301f, -0.014495596841f, -0.018269444008f);
 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-8f);
@@ -399,7 +399,7 @@ public class DenseLayerTest {
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-7f);
 
-        Tensor deltaWeights = instance.getDeltaWeight();
+        Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-0.000236470702834f, -0.000927142142164f, -0.000489619605089f, -0.0f, -0.00378909325285f, -0.000472941405668f, -0.00185428428433f, -0.000979239210177f, -0.0f, -0.00757818650571f, -0.00070941212612f, -0.00278142649557f, -0.00146885885175f, -0.0f, -0.0113672800409f, -0.000945882811336f, -0.00370856856866f, -0.00195847842035f, -0.0f, -0.0151563730114f, -0.00118235349655f, -0.00463571064174f, -0.00244809798896f, -0.0f, -0.018945465982f);
 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-8f);

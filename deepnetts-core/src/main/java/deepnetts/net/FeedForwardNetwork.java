@@ -170,7 +170,7 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
 
         
         // hidden activation function
-        public Builder activationFunction(ActivationType activationType) {
+        public Builder hiddenActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;

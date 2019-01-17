@@ -143,6 +143,10 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
  
     }
     
+    public void loadImages(String imageIdxFile, boolean absPaths) throws FileNotFoundException  {
+        loadImages(new File(imageIdxFile), absPaths);
+    }
+    
     
     /**
      * Loads example images and corresponding labels from specified file.

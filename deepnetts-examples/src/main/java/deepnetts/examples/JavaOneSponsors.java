@@ -42,12 +42,11 @@ public class JavaOneSponsors {
     int imageWidth = 128;
     int imageHeight = 128;
          
-    String labelsFile = "datasets/JavaOneSponsors/labels.txt";
-    String trainingFile = "datasets/JavaOneSponsors/train.txt";
+    String labelsFile = "D:\\datasets\\JavaOneSponsors2\\labels.txt";
+    String trainingFile = "D:\\datasets\\JavaOneSponsors2\\train.txt";
    // String testFile = "datasets/JavaOneSponsors/test/test.txt";         
     
-    private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());    
-    
+    private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
     
     public void run() throws DeepNettsException, IOException {
 
@@ -69,10 +68,9 @@ public class JavaOneSponsors {
         // dodaj i bele slike kao negative u data set
         ConvolutionalNetwork javaOneNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight) 
-                                        .addConvolutionalLayer(5, 5, 5, ActivationType.TANH)
+                                        .addConvolutionalLayer(5, 5, 3, ActivationType.TANH)
                                         .addMaxPoolingLayer(2, 2, 2)                 
-                                        .addDenseLayer(40, ActivationType.TANH)
-                                        .addDenseLayer(20, ActivationType.TANH)
+                                        .addDenseLayer(10, ActivationType.TANH)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .randomSeed(123)
@@ -84,7 +82,7 @@ public class JavaOneSponsors {
         BackpropagationTrainer trainer = new BackpropagationTrainer(javaOneNet);
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
-               .setMaxError(0.4f)
+               .setMaxError(0.3f)
                .setMaxEpochs(500)
                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSet);   

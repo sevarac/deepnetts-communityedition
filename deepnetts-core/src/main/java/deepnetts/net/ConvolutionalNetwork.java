@@ -54,6 +54,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
 
     private ConvolutionalNetwork() {
         super();
+        setTrainer(new BackpropagationTrainer(this));
     }
 
     public static ConvolutionalNetwork.Builder builder() {
@@ -216,13 +217,13 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        public Builder withActivationFunction(ActivationType activationType) {
+        public Builder activationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;
         }
 
-        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
+        public Builder lossFunction(Class<? extends LossFunction> clazz) {
             try {
                 LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(neuralNet);
                 neuralNet.setLossFunction(loss);
@@ -284,7 +285,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
 
             // if loss is not set use default loss function
             if (neuralNet.getLossFunction() == null) {
-                Builder.this.withLossFunction(defaultLossFunction);
+                Builder.this.lossFunction(defaultLossFunction);
             }
 
             return neuralNet;
@@ -305,7 +306,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
                 String filterStr = Tensor.valuesAsString(filters);
                 weightsList.add(filterStr);
             } else {
-                weightsList.add(layer.getDeltaWeight().toString());
+                weightsList.add(layer.getDeltaWeights().toString());
             }
         }
         return weightsList;
@@ -332,7 +333,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
     public List<String> getDeltaWeights() {
         List weightsList = new ArrayList();
         for (AbstractLayer layer : getLayers()) {
-                weightsList.add(layer.getDeltaWeight().toString());
+                weightsList.add(layer.getDeltaWeights().toString());
         }
         return weightsList;
     }

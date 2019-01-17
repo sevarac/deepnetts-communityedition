@@ -69,7 +69,7 @@ public class AlexNet {
         // input treba da bude 224 x224 za 1000 klasa
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight)
-                .addConvolutionalLayer(5, 5, 3) // 11 x 11
+                .addConvolutionalLayer(11, 11, 3) // 11 x 11
                 .addMaxPoolingLayer(2, 2, 2) // 3, 3, 2
                 .addConvolutionalLayer(5, 5, 16)
                 .addMaxPoolingLayer(2, 2, 2)
@@ -79,7 +79,7 @@ public class AlexNet {
                 .addDenseLayer(256)
                 .addDenseLayer(256)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .withActivationFunction(ActivationType.RELU)
+                .activationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
 

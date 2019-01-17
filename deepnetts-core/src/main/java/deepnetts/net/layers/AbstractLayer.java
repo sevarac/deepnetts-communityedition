@@ -196,9 +196,23 @@ public abstract class AbstractLayer implements Layer, Serializable {
         return gradients;
     }
 
-    public Tensor getDeltaWeight() {
+    public Tensor getDeltaWeights() {
         return deltaWeights;
     }
+
+    public Tensor getPrevDeltaWeights() {
+        return prevDeltaWeights;
+    }
+
+    public void setPrevDeltaWeights(Tensor prevDeltaWeights) {
+        this.prevDeltaWeights = prevDeltaWeights;
+    }
+
+    public float[] getPrevDeltaBiases() {
+        return prevDeltaBiases;
+    }
+    
+    
 
     public float[] getDeltaBiases() {
         return deltaBiases;

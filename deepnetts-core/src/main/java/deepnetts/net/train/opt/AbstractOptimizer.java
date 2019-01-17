@@ -3,36 +3,49 @@ package deepnetts.net.train.opt;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.util.Tensor;
 
-public abstract class AbstractOptimizer implements Optimizer {
+// ovaj da moze da radi na output i dense layer
+public abstract class AbstractOptimizer  {
 
+    protected AbstractLayer layer;
+    
+    protected Tensor gradients; // gradients are salculated in layer    
     protected Tensor deltas;
     protected Tensor inputs;
-    protected Tensor gradients;
+    
+    // uloga optimizaera je da uzracuna delta weight 
+
     protected float learningRate;   // this can also be for each weight!
+   
     protected Tensor deltaWeights;
     protected float[] deltaBiases;
 
-    // ovo treba napraviti tako da na istu osnovu mogu lako da se dodaju optimizeri
-    @Override
-    public void optimize(AbstractLayer layer) {
+    public AbstractOptimizer(AbstractLayer layer) {
+        this.layer = layer;
+        gradients = layer.getGradients();   // sve ove takodje inicijalizuj u konstruktoru
         deltas = layer.getDeltas();
-        gradients = layer.getGradients();
-        deltaWeights = layer.getDeltaWeight();
+        deltaWeights = layer.getDeltaWeights();
         deltaBiases = layer.getBiases();
         inputs = layer.getPrevlayer().getOutputs();
-        learningRate = layer.getLearningRate();
-
-        for (int dCol = 0; dCol < deltas.getCols(); dCol++) { // this iterates neurons
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-                final float grad = deltas.get(dCol) * inputs.get(inCol); // gradient dE/dw
-                gradients.set(inCol, dCol, grad);
-
-                final float deltaWeight = calculate(grad); // zapravo ne bih ja ovo slao dalje u petlji, nece da inlinuje...
-                deltaWeights.add(inCol, dCol, deltaWeight);
+        learningRate = layer.getLearningRate();        
+    }
+    
+    // ovo treba napraviti tako da na istu osnovu mogu lako da se dodaju optimizeri
+    // kako da radi i za 2d i 3d layere
+    // ovo je prakticno step 2 iz backward-a
+  //  @Override
+    public void optimize() { // layer treba proslediti konstruktru optimizera
+        // iteriraj neurone/delte i ulaze i za svaki ulaz izracunaj promenu tezine
+        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) {   // this iterates neurons/deltas
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {        // iterate inputs for each neuron
+                final float grad = deltas.get(deltaCol) * inputs.get(inCol); // calculate gradient dE/dw = delta * input_of_the_realated_weight
+                gradients.set(inCol, deltaCol, grad);
+                
+                final float deltaWeight = calculate(grad);
+                deltaWeights.add(inCol, deltaCol, deltaWeight); // accumulate delta weighsts    // add or set?
             }
 
-            final float deltaBias = calculate(deltas.get(dCol));
-            deltaBiases[dCol] += deltaBias;
+            final float deltaBias = calculate(deltas.get(deltaCol));
+            deltaBiases[deltaCol] += deltaBias;
         }
     }
 

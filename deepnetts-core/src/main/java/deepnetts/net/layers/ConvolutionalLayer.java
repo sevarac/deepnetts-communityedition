@@ -349,8 +349,9 @@ public class ConvolutionalLayer extends AbstractLayer {
 
     /**
      * Calculates delta weights for the specified channel ch in this convolutional layer.
+     * This can be fully paralelized
      * 
-     * @param ch channel/depth
+     * @param ch channel/depth index
      */
     private void calculateDeltaWeights(int ch) {
         if (!batchMode) {

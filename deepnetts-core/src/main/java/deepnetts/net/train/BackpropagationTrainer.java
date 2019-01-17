@@ -37,6 +37,7 @@ import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +51,7 @@ import org.apache.logging.log4j.LogManager;
  * @see ConvolutionalNetwork
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class BackpropagationTrainer implements Trainer {
+public class BackpropagationTrainer implements Trainer, Serializable {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
@@ -116,9 +117,9 @@ public class BackpropagationTrainer implements Trainer {
 
     private NeuralNetwork<?> neuralNet;
     
-    private DataSet<?> trainingSet;
+    private transient DataSet<?> trainingSet;
     
-    private DataSet<?> validationSet;
+    private transient DataSet<?> validationSet;
     
     private LossFunction lossFunction;
         
@@ -149,7 +150,7 @@ public class BackpropagationTrainer implements Trainer {
     /**
      * Ovaj inicijalizovati ili na ovo ili na RMSE
      */
-    private Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
+    private transient Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
     
     //regularization l1 or l2 add to loss 
     private float regL2, regL1;    
@@ -159,7 +160,7 @@ public class BackpropagationTrainer implements Trainer {
 
     
     
-    private final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
+    private transient final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
@@ -193,7 +194,6 @@ public class BackpropagationTrainer implements Trainer {
      * Make this pure function so it can run in multithreaded - can train
      * several nn in parallel put network as param
      *
-     * @param neuralNet neural network to train
      * @param trainingSet training set data
      */
     public void train(DataSet<?> trainingSet) {
@@ -244,7 +244,6 @@ public class BackpropagationTrainer implements Trainer {
             epoch++;
             lossFunction.reset();
             validationLoss=0;
-            prevTotalLoss = 0;
             accuracy=0;
             
             if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed - settings for Trainer
@@ -289,20 +288,30 @@ public class BackpropagationTrainer implements Trainer {
             totalTrainingLoss = lossFunction.getTotal(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
 
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
+            
             prevTotalLoss = totalTrainingLoss;
             
             // use validation set here instead of test set
             if (validationSet != null) {    // kako da znam da li je klasifikacija ili regresija? mozda da imam neki setting, flag?
-                prevValidationLoss = validationLoss;
+                prevValidationLoss = validationLoss;   
                 validationLoss = validationLoss(validationSet);   // pre je i test loss
                 accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             } else {
-//                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad
+                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?
             }
             
             epochTime = endEpoch - startEpoch;
-
-            LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + validationLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
+            // todo: validation error change!!!
+//            StringBuilder logMsgBuilder = new StringBuilder();
+//            logMsgBuilder.append("Epoch:" + epoch);
+//            logMsgBuilder.append(logMsgBuilder);
+            
+            if (validationSet != null)
+                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", ValidationError:" + validationLoss + ", Accuracy: "+accuracy);
+            else
+                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy);
+            
+            
             if (Float.isNaN(totalTrainingLoss)) throw new DeepNettsException("NaN value during training!");
             
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);

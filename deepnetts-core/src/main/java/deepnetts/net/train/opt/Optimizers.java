@@ -60,6 +60,7 @@ public class Optimizers {
     }
 
     public static final float nestorov() {
+        /// makes changes in two iterations first momentum cnange then correction based on gradient
         return 0;
     }
 

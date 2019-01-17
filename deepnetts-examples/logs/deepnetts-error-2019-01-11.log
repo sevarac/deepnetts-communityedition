@@ -1,0 +1,10 @@
+[ERROR] 2019-01-11 21:59:25.632 [main] DeepNetts - Could not find labels file: D:\datasets\LegoPeopleNoviJecaPreprocessed\labels.txt
+java.io.FileNotFoundException: D:\datasets\LegoPeopleNoviJecaPreprocessed\labels.txt (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
+	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
+	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
+	at deepnetts.examples.RunLegoPeople.run(RunLegoPeople.java:40) [classes/:?]
+	at deepnetts.examples.RunLegoPeople.main(RunLegoPeople.java:110) [classes/:?]
+[ERROR] 2019-01-11 22:47:59.379 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!

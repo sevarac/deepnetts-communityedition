@@ -89,7 +89,7 @@ public class SoftmaxOutputLayerTest {
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-8f);        
         
-        Tensor deltaWeights = instance.getDeltaWeight();
+        Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-0.000421271f,  -0.00369877f,  -0.00106049f,  -0.00245321f,  -0.00175678f,  -0.00348935f,  -0.00165899f,  0.00348775f,  -0.000916632f,  0.000152471f,  -0.000842543f,  -0.00739754f,  -0.00212099f,  -0.00490643f,  -0.00351356f,  -0.00697869f,  -0.00331798f,  0.00697551f,  -0.00183326f,  0.000304942f,  -0.00126381f,  -0.0110963f,  -0.00318148f,  -0.00735964f,  -0.00527034f,  -0.010468f,  -0.00497697f,  0.0104633f,  -0.0027499f,  0.000457413f,  -0.00168509f,  -0.0147951f,  -0.00424198f,  -0.00981285f,  -0.00702712f,  -0.0139574f,  -0.00663596f,  0.013951f,  -0.00366653f,  0.000609884f,  -0.00210636f,  -0.0184938f,  -0.00530247f,  -0.0122661f,  -0.00878391f,  -0.0174467f,  -0.00829495f,  0.0174388f,  -0.00458316f,  0.000762355f);
                 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-7f);

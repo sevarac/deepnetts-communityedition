@@ -50,7 +50,7 @@ public class IrisClassificationCETestLoss {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
+        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true);
         dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
         DataSet[] dataSets = dataSet.split(65, 35);
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator?

@@ -62,18 +62,25 @@ public class DukeDetector {
         LOGGER.info("Loading images...");
 
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true);
+        imageSet.loadImages(new File(trainingFile), false);
+        imageSet.zeroMean();
+
         imageSet.invert();
-       // imageSet.zeroMean();
         imageSet.shuffle();
 
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork convNet = new ConvolutionalNetwork.Builder()
                 .addInputLayer(imageWidth, imageHeight, 3)
-                .addConvolutionalLayer(5, 5, 1, ActivationType.TANH)
+                .addConvolutionalLayer(3, 3, 3, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
-                .addDenseLayer(3, ActivationType.TANH)
+                .addConvolutionalLayer(3, 3, 6, ActivationType.TANH)
+                .addMaxPoolingLayer(2, 2, 2)
+                .addConvolutionalLayer(3, 3, 12, ActivationType.TANH)
+                .addMaxPoolingLayer(2, 2, 2)
+                .addDenseLayer(10, ActivationType.TANH)
+                .addDenseLayer(10, ActivationType.TANH)
+                .addDenseLayer(10, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
@@ -84,10 +91,10 @@ public class DukeDetector {
 
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
         BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
-        trainer.setMaxError(0.5f)
+        trainer.setMaxError(0.2f)
                .setLearningRate(0.01f)
-               .setOptimizer(OptimizerType.SGD)
-               .setMomentum(0.2f);
+               .setOptimizer(OptimizerType.MOMENTUM)
+               .setMomentum(0.9f);
         trainer.train(imageSet);
 
         // to save neural network to file on disk

@@ -25,14 +25,15 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.activation.Relu;
 import deepnetts.net.layers.activation.Sigmoid;
+import deepnetts.net.train.opt.MomentumOptimizer;
 import deepnetts.net.train.opt.Optimizers;
-import deepnetts.net.train.opt.Optimizer;
-import deepnetts.net.train.opt.SGDOptimizer;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
 import java.util.logging.Logger;
-import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.net.train.opt.Optimizer;
+import deepnetts.net.train.opt.OptimizerType;
+import deepnetts.net.train.opt.SgdOptimizer;
 
 /**
  * Fully connected layer has a single row of neurons connected to all neurons in
@@ -47,7 +48,7 @@ public final class DenseLayer extends AbstractLayer {
 
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
     
-    Optimizer optim = new SGDOptimizer(); // create instance in init method
+    private Optimizer optim;
 
     /**
      * Creates an instance of fully connected layer with specified width (number
@@ -59,8 +60,8 @@ public final class DenseLayer extends AbstractLayer {
         this.width = width;
         this.height = 1;
         this.depth = 1;
-        this.activationType = ActivationType.SIGMOID;
-        this.activation = ActivationFunction.create(activationType);
+        
+        setActivationType(ActivationType.SIGMOID);
     }
 
     /**
@@ -68,13 +69,12 @@ public final class DenseLayer extends AbstractLayer {
      * of neurons) and activation function.
      *
      * @param width layer width / number of neurons in this layer
-     * @param activationFunction activation function to use with this layer
+     * @param actType activation function to use with this layer
      * @see ActivationFunctions
      */
     public DenseLayer(int width, ActivationType actType) {
         this(width);
-        this.activationType = actType;
-        this.activation = ActivationFunction.create(actType);
+        setActivationType(actType);
     }
 
     /**
@@ -93,7 +93,7 @@ public final class DenseLayer extends AbstractLayer {
         deltas = new Tensor(width);
 
         // sta ako je input layer a nema vise dimenzija nego samo jednu?
-        if (prevLayer instanceof DenseLayer) { // ovo ako je prethodni 1d layer, odnosno ako je prethodni fully connected
+        if (prevLayer instanceof DenseLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovo ako je prethodni 1d layer, odnosno ako je prethodni fully connected
             weights = new Tensor(prevLayer.width, width);
             deltaWeights = new Tensor(prevLayer.width, width); // dont store delta weighst but gradients? thas seem s betetr soltion
             gradients = new Tensor(prevLayer.width, width);
@@ -126,8 +126,21 @@ public final class DenseLayer extends AbstractLayer {
         biases = new float[width];
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
-        WeightsInit.randomize(biases);
+        
+        if (activationType == ActivationType.RELU)
+               Tensor.fill(biases, 0.5f);
+            else
+               WeightsInit.randomize(biases);        
     }
+
+    @Override
+    public void setOptimizer(OptimizerType optimizer) {
+        super.setOptimizer(optimizer); 
+        optim = Optimizer.create(optimizer, this);
+    }
+    
+
+    
 
     // TODO: idalno bi bilo da ova metoda ima samo jednu granu bez obzira na dimenzije prethodnog lejera,
     // to se verovatno postize broadcastingom po prethodnom lejeru sa dimenzijama 1
@@ -154,7 +167,7 @@ public final class DenseLayer extends AbstractLayer {
 //            outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
 //        }
 //        if previous layer is DenseLayer
-        if (prevLayer instanceof DenseLayer) { // ovde bi rebalo or InputLayer u 2D
+        if (prevLayer instanceof DenseLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovde bi rebalo or InputLayer u 2D
             // weighted sum of input and weight tensors with added biases
             // folowed by activation function applied to each output element
 
@@ -186,12 +199,13 @@ public final class DenseLayer extends AbstractLayer {
                     }
                 }
                 // apply activation function to all weigthed sums stored in outputs
-                //outputs.set(outCol, ActivationFunctions.calc(activationType, outputs.get(outCol)));
                 outputs.set(outCol, activation.getValue(outputs.get(outCol)));
             }
         }
     }
 
+    
+    //SgdOptimizer2 opt2 = new SgdOptimizer2(this); //ali kad ce mu biti setovan i learning rate, kad krene priprema za trening
     @Override
     public void backward() {
         if (!batchMode) { // if online mode reset deltaWeights and deltaBiases to zeros
@@ -200,8 +214,8 @@ public final class DenseLayer extends AbstractLayer {
         }
 
         deltas.fill(0); // reset current delta
-
-        // STEP 1. propagate weighted deltas from next layer (which can be output or fully connected) and calculate deltas for this layer
+        
+        // STEP 1. propagate and sum weighted deltas from the next layer (which can be output or fully connected) to calculate deltas for this layer
         for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) {   // for every neuron/delta in this layer
             for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // iterate all deltas from next layer
                 deltas.add(deltaCol, nextLayer.deltas.get(ndCol) * nextLayer.weights.get(deltaCol, ndCol)); // calculate weighted sum of deltas from the next layer
@@ -212,8 +226,9 @@ public final class DenseLayer extends AbstractLayer {
         } // end sum weighted deltas from next layer
 
         // STEP 2. calculate delta weights if previous layer is Dense (2D weights matrix) - optimize
-        if ((prevLayer instanceof DenseLayer)) { // ili 1d Input Layer, dodati uslov
-
+        if ((prevLayer instanceof DenseLayer) ||
+            ((prevLayer instanceof InputLayer) && (prevLayer.height==1 && prevLayer.depth==1))   ) { // ili 1d Input Layer, dodati uslov
+            
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // this iterates neurons (weights depth)
                 for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                    final float grad = deltas.get(deltaCol) * inputs.get(inCol); // gradient dE/dw
@@ -222,22 +237,45 @@ public final class DenseLayer extends AbstractLayer {
 
                     gradients.set(inCol, deltaCol, grad);
 
-                    float deltaWeight = 0;
+                    final float deltaWeight = optim.calculateWeightDelta(grad, inCol, deltaCol); 
                     // OPTIMIZER TREBA DA ima referencu na layer i da sam uzima sta mu treba. Ili da sam optimizer kod sebe skladisti stukrure podataka potrebne za konkretan algoritam
                     // napravi interfejs optimizer, konkretna implementacija d aima referencu na lejer, i da sadrzi sve strukture podataka koje su potrebne za konkretan optimizer
-                    // idealno da radi nad matricama a ne nad pojedinacnim vrednostima
+                    // idealno da radi nad matricama a ne nad pojedinacnim vrednostima. Da li se onda moze generalizovati?
                     // treba da radi nad weights i biasom
                     // svi optimizeri mogu da nasledjuju jedan osnovni koji vrti petlju i da imaju templejt metod koji predstavlja konkretnu implementaciju
-                    switch (optimizer) {
+                    
+                // mozda je najbolje da optimizer ima refrencu na layer i da sam uzme sta mu sve treba od polja. 
+                // layar onda mora da expousuje sve sto treba sto je sasvim u redu i vec radi         
+                
+                //    deltaWeight = opt.optimize(grad); // array of floats?
+                                                  // ako su razliciti parametri mora optimizer da ih povuce iz layera
+                 // kako da za sve varijante ispod imam samo jedan poziv      
+                 // prosledi kao parametar optimizer type? uslovnu logiku prebaci u optimizer? razne vrste optimizera mogu interno da skladiste specificne strukture
+                 // idealno bi bilo ak obi imao instance razlicitih optimizera
+                 // za prosledjivanja parametara opcija 1 je da se prosledi vrednost a opcija 2 indeks
+                 // ako se prosledjuje indeksi onda bi morali razliciti optimizeri za razlcite layere?
+                 // preostalo pitanje je kako da azuriram strukture tipa  prevGradSqrSum prevDeltaWeightSqrSum koje nisu deo apdejta
+                 //                 - pozovi metodu save structures na kraju koja ce da prekopira ceo tensor koji treba
+                 // kako istoj apstrakciji prosledjivati razlicite liste parametara, u zavisnosti od implementacije?
+                 // jedno resenje da bude varijabilna lista parametara? float ... izgleda kao jedino moguce....
+                 // jedino moguce je da sam optimizer uzima sta mu treba i to da radi za ceo tensor - u tom slucaju bi mu trebalo prosledjivati index pociciju kao niz?
+// !!!           // trenutno jedino resenje je da mu se prosledjuje  vrta optimizacije i da swith logika bude u optimizeru tako se nece duplirti kod u lejerima
+//              cilj: umesto switcha jedan poziv metode
+                // optim.calculateParamDelta(grad, inCol, deltaCol);
+                 
+                /*
+                switch (optimizer) {
                         case SGD:
-                            deltaWeight = Optimizers.sgd(learningRate, grad);
+                            //deltaWeight = Optimizers.sgd(learningRate, grad);
+                            deltaWeight = optim.calculateParamDelta(grad);
                             break;
                         case MOMENTUM:
-                            deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, deltaCol));
+                             deltaWeight = optim.calculateParamDelta(grad, inCol, deltaCol); // int[] param hold the Tensor indexes . Tensor index je tuple. E sad da li ce da radi inlajning?
+                           // deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, deltaCol));
                             break;
                         case ADAGRAD:
-                            prevGradSqrSum.add(inCol, deltaCol, grad * grad); // da li ovo treba resetovati na nulu nekad? da lije samo za mini batch mode?
-                            deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSqrSum.get(inCol, deltaCol));
+                            prevGradSqrSum.add(inCol, deltaCol, grad * grad); // da li ovo treba resetovati na nulu nekad? da lije samo za mini batch mode? treba po meni uvek
+                            deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSqrSum.get(inCol, deltaCol));  // prevGradSqrSum takodje budziti negde i sabirati odjenom
                             break;
                         case RMSPROP:
                             final float gama = 0.9f;
@@ -256,18 +294,21 @@ public final class DenseLayer extends AbstractLayer {
 //                        case ADAM:
 //                            throw new NotImplementedException("Adam optimizer is not implemented yet");
                     }
-
-                    deltaWeights.add(inCol, deltaCol, deltaWeight);
-
+*/
+                    deltaWeights.add(inCol, deltaCol, deltaWeight); // add zbog batch moda!
                 }
-
-                float deltaBias = 0;
-                switch (optimizer) {
+                
+                // todo: kako i bias uklopiti u isti sablon? posebna metoda ili bias prebaciti u tensor
+                //float deltaBias = 0;
+                final float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol); 
+            /*    switch (optimizer) {
                     case SGD:
-                        deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaCol));
+                        //deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaCol));
+                        deltaBias = optim.calculateWeightDelta(deltas.get(deltaCol));
                         break;
                     case MOMENTUM:
-                        deltaBias = Optimizers.momentum(learningRate, deltas.get(deltaCol), momentum, prevDeltaBiases[deltaCol]);
+                        //deltaBias = opt2.calculateParamDelta(deltas.get(deltaCol));
+                        deltaBias = Optimizers.momentum(learningRate, deltas.get(deltaCol), momentum, prevDeltaBiases[deltaCol]); //  FIX: ovo ovde treba srediti!
                         break;
                     case ADAGRAD:
                         prevBiasSqrSum.add(deltaCol, deltas.get(deltaCol) * deltas.get(deltaCol));
@@ -287,7 +328,7 @@ public final class DenseLayer extends AbstractLayer {
                         prevDeltaBiasSqrSum.add(deltaCol,
                                 0.9f * prevDeltaBiasSqrSum.get(deltaCol) + 0.1f * deltas.get(deltaCol));
                         break;
-                }
+                }*/
 
                 deltaBiases[deltaCol] += deltaBias;
             }
@@ -302,7 +343,9 @@ public final class DenseLayer extends AbstractLayer {
                             final float grad = deltas.get(deltaCol) * inputs.get(inRow, inCol, inDepth);  // da li je ovde greska treba ih sumitrati sve tri po dubini  // da li ove ulaze treba sabirati??? jer jedna celija ima ulaze iz tri prethodna kanala?
                             gradients.set(inRow, inCol, inDepth, deltaCol, grad);   // da li ovo radi kada je fc sa obicnim input lyerom -  proveri??
 
-                            float deltaWeight = 0;
+                            final float deltaWeight = optim.calculateWeightDelta(grad, inCol, inRow, inDepth, deltaCol); 
+                            
+                        /*    float deltaWeight = 0;
                             switch (optimizer) {
                                 case SGD:
                                     deltaWeight = Optimizers.sgd(learningRate, grad);
@@ -328,14 +371,14 @@ public final class DenseLayer extends AbstractLayer {
                                     prevDeltaWeightSqrSum.add(inCol, inRow, inDepth, deltaCol,
                                             0.9f * prevDeltaWeightSqrSum.get(inCol, inRow, inDepth, deltaCol) + 0.1f * deltaWeight * deltaWeight);
                                     break;
-                            }
+                            }*/
 
                             deltaWeights.add(inCol, inRow, inDepth, deltaCol, deltaWeight);
                         }
                     }
                 }
 
-                float deltaBias = 0;
+                /*
                 switch (optimizer) {
                     case SGD:
                         deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaCol));
@@ -367,7 +410,8 @@ public final class DenseLayer extends AbstractLayer {
                         deltaBias = Optimizers.rmsProp(learningRate, deltas.get(deltaCol), prevBiasSqrSum.get(deltaCol));
                         break;
                 }
-
+*/
+                float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol);                
                 deltaBiases[deltaCol] += deltaBias;
             }
         }

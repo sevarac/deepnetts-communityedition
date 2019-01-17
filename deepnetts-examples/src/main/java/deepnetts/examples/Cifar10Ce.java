@@ -72,13 +72,13 @@ public class Cifar10Ce {
                                         .addMaxPoolingLayer(2, 2, 2)      
                                         .addConvolutionalLayer(3, 3, 12)
                                         .addMaxPoolingLayer(2, 2, 2)       
-                                        .addConvolutionalLayer(3, 3, 24)
-                                        .addMaxPoolingLayer(2, 2, 2)                                    
-                                        .addDenseLayer(30)     
+//                                        .addConvolutionalLayer(3, 3, 24)
+//                                        .addMaxPoolingLayer(2, 2, 2)                                    
+                                     //   .addDenseLayer(30)     
                                         .addDenseLayer(20)     
                                         .addDenseLayer(10)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .withActivationFunction(ActivationType.TANH)
+                                        .activationFunction(ActivationType.TANH)
                                         .lossFunction(LossType.CROSS_ENTROPY)                
                                         .build();
            
@@ -86,7 +86,7 @@ public class Cifar10Ce {
          
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.03f);
+        trainer.setMaxError(1.9f);
         trainer.setMomentum(0.9f); 
         trainer.setOptimizer(OptimizerType.SGD); 
         trainer.train(imageSets[0]);       

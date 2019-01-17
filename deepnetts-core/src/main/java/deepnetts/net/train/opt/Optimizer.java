@@ -1,20 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package deepnetts.net.train.opt;
 
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.util.Tensor;
+import deepnetts.util.DeepNettsException;
 
-/**
- *
- * @author Zoran
- */
-@FunctionalInterface
 public interface Optimizer {
-
-    public void optimize(AbstractLayer layer);
-    //public void optimize(Tensor outputs, Tensor weights, Tensor grads );
+    
+    public float calculateWeightDelta(final float gradient, final int... index);
+    public float calculateBiasDelta(final float gradient, final int idx);
+    
+    //alternatije je da imam rows, cols i sa 4 indeksa to je hardkoriano samo za ovaj lib!!!
+    
+   // public float calculateWeightDelta(final float gradient, final int row, final int col);
+    //public float calculateWeightDelta(final float gradient, final int row, final int col, final int depth, final int fourth);
+    // public float calculateWeightDelta(final float gradient, final int col); za biase
+        
+    public static Optimizer create(OptimizerType type, AbstractLayer layer) {
+        switch (type) {
+            case SGD:
+                return new SgdOptimizer(layer);
+            case MOMENTUM:
+                return new MomentumOptimizer(layer);
+            default:
+                throw new DeepNettsException("Unknown optimizer:" + type);
+        }
+    }    
+    
 }

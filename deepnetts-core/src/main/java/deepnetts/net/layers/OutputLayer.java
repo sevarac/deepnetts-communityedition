@@ -24,11 +24,12 @@ package deepnetts.net.layers;
 import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
+import deepnetts.net.train.opt.Optimizer;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
-import deepnetts.net.layers.activation.ActivationFunction;
 
 /**
  * This class represents output layer with sigmoid output function by default.
@@ -39,8 +40,16 @@ public class OutputLayer extends AbstractLayer {
 
     protected float[] outputErrors;
     protected final String[] labels;
-    protected LossType lossType;
+    protected LossType lossType;    
+    private Optimizer optim;
 
+    /**
+     * Creates an instance of output layer with specified width (number of outputs)
+     * and sigmoid activation function by default.
+     * Outputs are labeled using generic names "Output1, 2, 3..."
+     * 
+     * @param width layer width whic represents number of network outputs
+     */
     public OutputLayer(int width) {
         this.width = width;
         this.height = 1;
@@ -53,9 +62,16 @@ public class OutputLayer extends AbstractLayer {
         }
 
         setActivationType(ActivationType.SIGMOID);
-        //this.activation = ActivationFunction.create(ActivationType.SIGMOID); // done in setter now
     }
 
+    /**
+     * Creates an instance of output layer with specified width (number of outputs)
+     * and specified activation function.
+     * Outputs are labeled using generic names "Output1, 2, 3..."
+     * 
+     * @param width layer width whic represents number of network outputs
+     * @param actType activation function
+     */    
     public OutputLayer(int width, ActivationType actType) {
         this.width = width;
         this.height = 1;
@@ -68,16 +84,21 @@ public class OutputLayer extends AbstractLayer {
         }
 
         setActivationType(actType);
-        //this.activation = ActivationFunction.create(actType); // done in setter now
     }
 
+    /**
+     * Creates an instance of output layer with specified width (number of outputs)
+     * which corresponds to number of labels and sigmoid activation function by default.
+     * Outputs are labeled with strings specified in labels parameter
+     * 
+     * @param labels output's labels
+     */    
     public OutputLayer(String[] labels) {
         this.width = labels.length;
         this.height = 1;
         this.depth = 1;
         this.labels = labels;
         setActivationType(ActivationType.SIGMOID);
-        // this.activation = ActivationFunction.create(ActivationType.SIGMOID); //this.activation = ActivationFunction.create(actType); // done in setter now
     }
 
     public OutputLayer(String[] labels, ActivationType activationFunction) {
@@ -100,6 +121,12 @@ public class OutputLayer extends AbstractLayer {
     public void setLossType(LossType lossType) {
         this.lossType = lossType;
     }
+    
+    @Override
+    public void setOptimizer(OptimizerType optimizer) {
+        super.setOptimizer(optimizer); 
+        optim = Optimizer.create(optimizer, this);
+    }    
 
     @Override
     public void init() {
@@ -171,7 +198,8 @@ public class OutputLayer extends AbstractLayer {
                 deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
-            deltaBiases[deltaCol] += Optimizers.sgd(learningRate, deltas.get(deltaCol));
+            final float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol); 
+            deltaBiases[deltaCol] += deltaBias; //Optimizers.sgd(learningRate, deltas.get(deltaCol));
 //          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }
     }

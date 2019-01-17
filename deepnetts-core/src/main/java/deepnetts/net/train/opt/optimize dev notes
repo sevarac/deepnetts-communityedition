@@ -1,0 +1,96 @@
+
+Ma interfejs da ima vis evarijanti metoda optimize bez i sa argumentima za pociciju! i sve reseno!!!
+
+najbitnije je osloboditi se uslovne switch/if logike u layerima i srediti taj kod
+if logika je tu zastupljena  zbog razlicitih parametara koji se prosledjuju 
+Rsenje: prosledjivati samo gradijent a svaki optimizer nek uzima iz layera sta mu treba? Jel to izvdljivo?
+za prev weight trebaji i index pozicije...
+
+Takodje i dupliranja koda za uslovnu logiku weights i bias
+Da li optimizer moze da radi na Tensor-u? bilo bi verovatno dobro
+
+takodje projektovati tako da moze lak da se inlajnuje
+
+gradient bolje da se racuna u layeru jer tu moze i da mu se doda reguarizacija
+
+---
+
+napraviti optimizer koj ikoristi samo gradient
+SgdOptimizer optimizer = new SgdOptimizer();
+ deltaWeight = optimizer.(grad);
+
+---
+
+kako zadrzati petlje tako da ne moram sve d aprebacujem
+idealno u optimizere prebaciti samo uslovnu logiku a petlje zadrzati
+    optimizerrima prosledjivati samo gradijent  a sve ostalo oni da povuku iz layera
+    mozda mu se mogu prosledjivati indexi?
+
+    morao bih da shvaltim broadcasting
+    indeksi mogu da budu nizovi 2d ili 1d
+    idx[]
+    idx[ROW]
+    idx[COL]
+    idx[DEPTH]
+    idx[4]
+    
+    optimizeru se prosledjuje samo gradijent a on treba da radi sve ostalo
+    
+a kako bi bilo da optimizeru prosledjujemo samo niz float[], a da optimizer zna sta je na kom indexu? Malo je brljavo ali bii moglo i to
+
+
+hoce li svaki layer imati svoj optimizer? Pa najverovatnije
+
+
+
+
+idealno kada bi bilo primenljivo i na fully connected, output i na konvoluvione i max pooling
+
+
+imati u vidu parlelizaciju
+povezivanje na layere razlicitih dimenzija
+
+da izracunavanje bude funkcja koja se prosledu threadovima iz executora
+i da backward bude nesto sto izvrsavaju threadovi
+
+odredi broj threadova
+
+
+petlje za iteriranje - spoljna za paralelizaciju
+podeliti layer na polaili kojiko vec threadova radi
+
+
+imam nekoliko situacija
+    1d na 1d layer
+
+    1d na 2d
+
+    1d na 3d
+
+    3d na 3d
+
+    kako odrediti sa koliko threadova nesto izracunavati u zavisnosti od velicine i vrste layera
+
+    izracunati koliko ima izracunavanja
+    pomnoziti broj neurona u dva layera, oderditi threshold za uvodjenje threada, odnosno min broj izracunavanja za jedna thread
+    to izmeri pomocu JMH-a
+
+    Kako threadovi medjusobom da podele posao?
+    Koje su moguce opcije?
+    podeli layer koji se izracunava (outputae) na pola. Pola izlaza 1 neuron, pola drugi. Idealno ako bi postojeca metoda samo mogla da se proseldi thready na executor pool.
+    To samo ako su potpuno nezavisne
+
+    1. Ako je u pitanju 3d layer da podele kanale
+    2. Potencijalno treba da podrzim  do 256 kanala
+
+    za forward pass
+
+    Za backward pass
+
+    ----------------------
+
+    kako prebaciti na GPU, vektorizacija!!!
+
+    po dimezijama
+    po kanalima
+    po ulznm vektorima

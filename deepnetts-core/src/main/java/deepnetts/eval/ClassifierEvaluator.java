@@ -291,9 +291,9 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
         for (String label : performanceByClass.keySet()) {
             PerformanceMeasure result = performanceByClass.get(label);
-            if (result.get("TotalCorrect") == 0 && result.get("TotalIncorrect") == 0) {
-                continue; // if some of them is negative or nan dont show it
-            }
+//            if (result.get("TotalCorrect") == 0 && result.get("TotalIncorrect") == 0) {
+//                continue; // if some of them is negative or nan dont show it
+//            }
             sb.append(label).append(": ");
             sb.append(result).append(System.lineSeparator());
         }

@@ -38,12 +38,12 @@ public class RunLegoPeople {
         LOG.info("Loading images...");
         
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true);
+        imageSet.loadImages(new File(trainingFile), false);
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
             
-        ImageSet[] imageSets = imageSet.split(0.66, 0.34);
+        ImageSet[] imageSets = imageSet.split(0.80, 0.20);
         
         LOG.info("Done loading images.");             
                 
@@ -71,9 +71,9 @@ public class RunLegoPeople {
         BackpropagationTrainer trainer = legoPeopleNet.getTrainer();
         trainer.setLearningRate(0.01f);
        // trainer.setMomentum(0.1f);
-        trainer.setMaxError(0.06f);
+        trainer.setMaxError(0.03f);
         trainer.setOptimizer(OptimizerType.SGD);
-        trainer.setBatchMode(true).setBatchSize(10);
+     //   trainer.setBatchMode(true).setBatchSize(10);
         trainer.train(imageSets[0]);   
         
         LOG.info("Done training neural network."); 

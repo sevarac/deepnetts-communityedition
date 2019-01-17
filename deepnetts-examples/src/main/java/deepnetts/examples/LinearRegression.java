@@ -21,20 +21,14 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.Tensor;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Minimal example for linear regression using FeedForwardNetwork.
@@ -63,14 +57,14 @@ public class LinearRegression {
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
             
-//            neuralNet.getTrainer()
-//                    .setMaxError(0.0002f)
-//                    .setMaxEpochs(10000)
-//                    .setBatchMode(true)
-//                    .setLearningRate(0.001f);
+            neuralNet.getTrainer()
+                    .setMaxError(0.000002f)
+                    .setMaxEpochs(10000)
+                    .setBatchMode(false)
+                    .setLearningRate(0.001f);
             
             // train network using loaded data set
-            neuralNet.train(dataSet);
+          //  neuralNet.train(dataSet);
                    
             // learned model
             float slope = neuralNet.getLayers().get(1).getWeights().get(0);
@@ -91,14 +85,12 @@ public class LinearRegression {
         double[][] data = new double[100][2];
         
         for(int i=0; i<data.length; i++) {
-            data[i][0] =  Math.random();
+            data[i][0] =  0.5-Math.random();
             nnet.setInput(new Tensor(1, 1, new float[] { (float)data[i][0] }));            
             data[i][1] = nnet.getOutput()[0];
         }        
         
         Plot.scatter(data);   
     }
-    
-    
     
 }

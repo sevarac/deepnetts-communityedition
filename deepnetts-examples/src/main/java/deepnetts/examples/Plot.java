@@ -1,5 +1,10 @@
 package deepnetts.examples;
 
+import deepnetts.data.DataSets;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,6 +67,17 @@ public class Plot {
     public static void scatter(double[][] data) {
             scatter("Scatter Chart", "X", "Y", data);
     }    
+    
+//    public static void scatter(String csvFile) throws FileNotFoundException, IOException {
+//        try (BufferedReader br = new BufferedReader(new FileReader(csvFile)) ) {
+//            String line="";
+//
+//            while(line!=null) {
+//                line = br.readLine();
+//                String[] numStrs = line.split(",");
+//            }
+//        }        
+//    } 
     
     
 }
