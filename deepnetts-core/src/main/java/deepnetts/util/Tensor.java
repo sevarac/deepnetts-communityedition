@@ -638,18 +638,8 @@ public class Tensor implements Serializable {
         return true;
     }
 
-    // add clone using apache clone builder
-    public static Tensor zeros(int cols) {
-        return new Tensor(cols, 0f);
-    }
+// add clone using apache clone builder
 
-    public static Tensor ones(int cols) {
-        return new Tensor(cols, 1.0f);
-    }
-
-//    public static Tensor random(int cols) {
-//        return new Tensor(cols, 1.0f);
-//    }
     public static String valuesAsString(Tensor[] tensors) {
         StringBuilder sb = new StringBuilder();
 
@@ -719,15 +709,6 @@ public class Tensor implements Serializable {
         }
     }    
     
-    public static Tensor random(int rows, int cols) {
-        Tensor tensor = new Tensor(rows, cols);
 
-        for (int i = 0; i < tensor.getRows(); i++) {
-            for (int j = 0; j < tensor.getCols(); j++) {
-                tensor.set(i, j, RandomGenerator.getDefault().nextFloat());
-            }
-        }
-        return tensor;
-    }
 
 }

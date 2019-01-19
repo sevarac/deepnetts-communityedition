@@ -1,6 +1,7 @@
 package deepnetts.net.layers;
 
 import deepnetts.net.loss.LossType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import deepnetts.util.WeightsInit;
@@ -76,6 +77,7 @@ public class SoftmaxOutputLayerTest {
         instance.setLossType(LossType.CROSS_ENTROPY);
         instance.setPrevLayer(prevLayer);
         instance.init();
+        instance.setOptimizer(OptimizerType.SGD);
         instance.setWeights(weights);
 //        instance.setBiases(new float[] {0.1f, 0.2f, 0.3f, 0.11f, 0.12f, 0.13f, 0.21f, 0.22f, 0.23f, 0.24f}); // set bias values
 //        instance.forward(); // derivatives are calculated using outputs | outputs : "[0.51053023, 0.59142923, 0.5264875, 0.5610246, 0.5438069, 0.5863592, 0.5413798, 0.41367948, 0.52289975, 0.4961883]"          

@@ -22,6 +22,7 @@
 package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
@@ -63,6 +64,8 @@ public class SoftmaxOutputLayer extends OutputLayer {
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
+        
+        setOptimizer(OptimizerType.SGD);
     }
 
     /**
@@ -112,12 +115,14 @@ public class SoftmaxOutputLayer extends OutputLayer {
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) { // prev layer is allways FullyConnected. iterate all inputs/weights for the current neuron
                 final float grad = deltas.get(outCol) * inputs.get(inCol); // ovo je tacno samo ako je prethodna fja sigmoidna, pa se izvod af skratio
                 gradients.set(inCol, outCol, grad);
-                final float deltaWeight = Optimizers.sgd(learningRate, grad);
+                //final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, outCol));
+                final float deltaWeight = optim.calculateWeightDelta(grad, inCol, outCol);   
                 deltaWeights.add(inCol, outCol, deltaWeight); //
             }
-
-            deltaBiases[outCol] += Optimizers.sgd(learningRate, deltas.get(outCol));
+            
+            final float deltaBias = optim.calculateBiasDelta(deltas.get(outCol), outCol); 
+            deltaBiases[outCol] += deltaBias;
             //deltaBiases[outCol] += Optimizers.momentum(learningRate, deltas.get(outCol), momentum, prevDeltaBiases[outCol]);
         }
     }

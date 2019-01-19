@@ -1,90 +1,30 @@
 package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import deepnetts.util.WeightsInit;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
- * TODO: tanh and relu activation forward and backward.
+ *Dense layer testswith various activation functions
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class DenseLayerTest {
 
-//
-//    /**
-//     * Test of init method, of class FullyConnectedLayer.
-//     * TODO: test when prev layer is also fc.
-//     * provide some predefined weights2 from some other framework to compare
-//     */
-//    @Test
-//    public void testInitInNetwork() {
-//        System.out.println("initInNetwork");
-//
-//        WeightsInit.initSeed(123);
-//
-//        InputLayer prevLayer = new InputLayer(5, 1);
-//        prevLayer.init();
-//
-//        FullyConnectedLayer instance = new FullyConnectedLayer(10); // also specify weights2 initialization algorithm
-//        instance.setPrevLayer(prevLayer);
-//        instance.init();
-//        // xavier weights2 init 0.28229551858550417, 0.6209434458719868, -0.3120622803406485, 0.13762279226641172, 0.38689773252500836, 0.4748637856568586, 0.2732821523183022, -0.5414868945866499, 0.37474378113053974, 0.09956992497369166, 0.516242609907135, -0.4440918337026123, 0.6011109059633722, -0.5494823873092433, -0.5445215933090334, -0.517661951595734, -0.09554287126707417, 0.47357137428198326, 0.09499970865657659, -0.13092225478120523, -0.3057097143015954, -0.4391870474677929, -0.30303483158040495, -0.048468928779627385, -0.07703208384167015, -0.3650464603601738, 0.1444682027729537, -0.590134249466491, 0.2389367937459569, 0.23288631762525014, -0.5372596814735492, 0.5651694629516103, -0.07984545680771227, 0.24515941530631158, 0.22312843096417012, 0.16289979231408247, 0.09449407548703148, -0.1417058602053337, -0.39322508952613106, -0.5986551040498984, -0.5925390315567799, 0.41793673223025285, 0.30368757161482407, 0.5584233152051302, 0.4122845692026037, 0.01797144260330552, 0.1189976626855681, -0.3437085917638453, -0.2489739173863732, 0.24671434014784865
-//
-//        Tensor actualResult = instance.getWeights();
-//        Tensor expectedResult = new Tensor(5, 10, 1, 1);
-//        expectedResult.setValuesFromString(0.28229551858550417, 0.6209434458719868, -0.3120622803406485, 0.13762279226641172, 0.38689773252500836, 0.4748637856568586, 0.2732821523183022, -0.5414868945866499, 0.37474378113053974, 0.09956992497369166, 0.516242609907135, -0.4440918337026123, 0.6011109059633722, -0.5494823873092433, -0.5445215933090334, -0.517661951595734, -0.09554287126707417, 0.47357137428198326, 0.09499970865657659, -0.13092225478120523, -0.3057097143015954, -0.4391870474677929, -0.30303483158040495, -0.048468928779627385, -0.07703208384167015, -0.3650464603601738, 0.1444682027729537, -0.590134249466491, 0.2389367937459569, 0.23288631762525014, -0.5372596814735492, 0.5651694629516103, -0.07984545680771227, 0.24515941530631158, 0.22312843096417012, 0.16289979231408247, 0.09449407548703148, -0.1417058602053337, -0.39322508952613106, -0.5986551040498984, -0.5925390315567799, 0.41793673223025285, 0.30368757161482407, 0.5584233152051302, 0.4122845692026037, 0.01797144260330552, 0.1189976626855681, -0.3437085917638453, -0.2489739173863732, 0.24671434014784865);
-//
-//        assertEquals(expectedResult, actualResult);
-//    }
-//
-    @Ignore
-    public void testForwardWithLinearWithMock() {
-        // initialize weights2 with specified random seed
-        RandomGenerator.getDefault().initSeed(123);
-
-        // input vector for this layer
-        Tensor input = new Tensor(0.1f, 0.2f, 0.3f, 0.4f, 0.5f);
-        Tensor weights = new Tensor(5, 10); // niz tezina ovde
-        WeightsInit.uniform(weights.getValues(), 5); // "[0.19961303, -0.23501621, 0.43907326, -0.17747784, -0.22066136, 0.06630343, 0.097314, -0.21566293, 0.273578, 0.10945064, 0.33577937, 0.044093937, 0.19323963, -0.3021235, -0.38288906, 0.16261822, 0.26498383, -0.207817, 0.070406556, -0.23022851, 0.36503863, 0.091478825, -0.31402034, -0.25345784, 0.42504954, -0.037393004, -0.38854277, -0.36758634, -0.38503492, -0.33786723, -0.36604232, -0.14479709, -0.06755906, 0.38639867, 0.3348655, 0.15910655, 0.06717491, -0.4455302, -0.09257606, -1.219213E-4, -0.21616945, 0.43006968, -0.31055218, 0.2699433, -0.214278, 0.25471163, -0.03427276, -0.43431506, -0.054469943, -0.23747501]"
-
-        Tensor expectedOutputs = new Tensor(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
-
-        // create prev fc layer with 5 outputs
-        DenseLayer prevLayer = mock(DenseLayer.class); //new FullyConnectedLayer(5);
-        when(prevLayer.getWidth()).thenReturn(5);
-        when(prevLayer.getOutputs()).thenReturn(input);  //prevLayer.setOutputs(input);
-
-        // create instance of layer to test
-        DenseLayer instance = new DenseLayer(10, ActivationType.LINEAR);
-        instance.setPrevLayer(prevLayer);
-        instance.init(); // init weights structure
-        instance.setWeights(weights); // set weights values
-        instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f, 0.13f, 0.21f, 0.22f, 0.23f, 0.24f}); // set bias values
-
-        // do the forward pass
-        instance.forward();
-        // get layer outpputs
-        Tensor actualOutputs = instance.getOutputs();
-
-        assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
-    }
-
     /**
-     * Test of forward pass, of class FullyConnectedLayer using Linear
+     * Test of forward pass, of class DenseLayer using Linear
      * activation function. Test if matrix multiplication and bias addition
      * works correctly output = inputs * weights + bias (where * is matrix
-     * multiplication)
+     * multiplication (dot product))
+     * Doublechecked with octave: 19.01.19.
      */
     @Test
     public void testForwardWithLinearActivation() {
-        // initialize weights2 with specified random seed
+        // initialize weights with specified random seed
         RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
 
         // input vector for this layer
@@ -111,7 +51,10 @@ public class DenseLayerTest {
 
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }
-
+    
+    /**
+    * Doublechecked with octave: 19.01.19.
+    */
     @Test
     public void testForwardWithSigmoidActivation() {
         RandomGenerator.getDefault().initSeed(123); // init default random generator with seed that will be used for weights2 (same effect as line above)
@@ -133,13 +76,17 @@ public class DenseLayerTest {
 
         // run forward pass
         instance.forward();
+        
         // get layer outputs
         Tensor actualOutputs = instance.getOutputs();
         Tensor expectedOutputs = new Tensor(0.51053022f, 0.59142921f, 0.52648754f, 0.56102458f, 0.54380692f, 0.58635918f, 0.54137987f, 0.41367945f, 0.52289978f, 0.4961883f);
-
+//                                  octave: 0.51053      0.59143      0.52649      0.56102      0.54381      0.58636      0.54138      0.41368      0.52290      0.49619
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }
 
+    /**
+     * Doublechecked with octave: 19.01.19.
+     */
     @Test
     public void testForwardWithTanhActivation() {
         RandomGenerator.getDefault().initSeed(123); // init default random generator with seed that will be used for weights2 (same effect as line above)
@@ -164,10 +111,13 @@ public class DenseLayerTest {
         // get layer outputs
         Tensor actualOutputs = instance.getOutputs();
         Tensor expectedOutputs = new Tensor(0.0421022217154f, 0.353883947707f, 0.105653667421f, 0.240515590945f, 0.173892848898f, 0.335430293333f, 0.16439350833f, -0.335288915023f, 0.0914073785089f, -0.0152459102444f);
-
+//                                  octave: 0.042102          0.353884         0.105654         0.240516         0.173893         0.335430         0.164394        -0.335289         0.091407          -0.015246
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }
 
+    /**
+    * Doublechecked: 19.01.19.
+    */    
     @Test
     public void testForwardWithReluActivation() {
         RandomGenerator.getDefault().initSeed(123); // init default random generator with seed that will be used for weights2 (same effect as line above)
@@ -192,17 +142,19 @@ public class DenseLayerTest {
         // get layer outputs
         Tensor actualOutputs = instance.getOutputs();
         Tensor expectedOutputs = new Tensor(0.0421271f, 0.369877f, 0.106049f, 0.245321f, 0.175678f, 0.348935f, 0.165899f, 0.0f, 0.0916632f, 0.0f);
-
+   
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-6f);
     }
 
     /**
      * TODO: Test forward pass when prev layer iz 2d (conv, input or maxpooling)
+     * Also do the backward pass too!!!
      */
-    @Test
-    public void testForwardWith2DPrevLayer() {
-
-    }
+//    @Test
+//    public void testForwardWith2DPrevLayer() {
+//        // stavi da prethodni bude input i konvolucioni
+//        // 
+//    }
 
     /**
      * Test of backward method, of class FullyConnectedLayer using linear
@@ -236,6 +188,7 @@ public class DenseLayerTest {
         instance.setPrevLayer(prevLayer);
         instance.init();
         instance.setWeights(weights1);
+        instance.setOptimizer(OptimizerType.SGD);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
         DenseLayer nextLayer = new DenseLayer(10);
@@ -257,6 +210,8 @@ public class DenseLayerTest {
         Tensor deltaWeights = instance.getDeltaWeights();
         Tensor expDeltaWeights = new Tensor(-0.000236471f, -0.000927142f, -0.00048962f, -0.00291046f, -0.00378909f, -0.000472941f, -0.00185428f, -0.000979239f, -0.00582093f, -0.00757819f, -0.000709412f, -0.00278143f, -0.00146886f, -0.00873139f, -0.0113673f, -0.000945883f, -0.00370857f, -0.00195848f, -0.0116419f, -0.0151564f, -0.00118235f, -0.00463571f, -0.0024481f, -0.0145523f, -0.0189455f);
 
+        // TODO: check biases too
+        
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-7f);
     }
 
@@ -289,6 +244,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.SIGMOID);
         instance.setPrevLayer(prevLayer);
         instance.init();
+        instance.setOptimizer(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
@@ -335,6 +291,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.TANH);
         instance.setPrevLayer(prevLayer);
         instance.init();
+        instance.setOptimizer(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
@@ -380,6 +337,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.RELU);
         instance.setPrevLayer(prevLayer);
         instance.init();
+        instance.setOptimizer(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
@@ -407,8 +365,9 @@ public class DenseLayerTest {
     }
 
     /**
-     * Test of applyWeightChanges method, of class FullyConnectedLayer. in
-     * online modee todo: test batch mode, da li pamti prev weights2, da li
+     * Test of applyWeightChanges method, of class DenseLayer. in
+     * online mode.
+     * todo: test batch mode, da li pamti prev weights2, da li
      * resetuje deltaWeights i deltaBiases na nulu
      */
     @Test

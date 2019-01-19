@@ -3,7 +3,6 @@ package deepnetts.net.loss;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.util.RandomGenerator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,7 +12,6 @@ import static org.junit.Assert.*;
  */
 public class MeanSquaredErrorLossTest {
     
-
     /**
      * Test of addPatternError method, of class MeanSquaredErrorLoss.
      * Test for a single error vector: calculation of error vector and total error
@@ -37,7 +35,7 @@ public class MeanSquaredErrorLossTest {
        
         assertArrayEquals(expResult, result, 1e-8f);
         
-        float expTotalError = 0.0972f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 2
+        float expTotalError = 0.0324f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / (2*3)
         float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);
@@ -66,7 +64,7 @@ public class MeanSquaredErrorLossTest {
        
         assertArrayEquals(expResult, result, 1e-8f);
 
-        float expTotalError = 0.0972f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 2
+        float expTotalError = 0.0324f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 6
         float actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);
@@ -79,7 +77,7 @@ public class MeanSquaredErrorLossTest {
         
         assertArrayEquals(expResult, result, 1e-7f);
         
-        expTotalError = 0.089225f; // ( 0.0972 +  (-0.1*-0.1 + 0.09*0.09 + 0.38*0.38)/2 ) /2
+        expTotalError = 0.02974167f; // ( 0.0324f +  (-0.1*-0.1 + 0.09*0.09 + 0.38*0.38)/2 ) /6
         actualTotalError = instance.getTotal();
         
         assertEquals(expTotalError, actualTotalError, 1e-8f);

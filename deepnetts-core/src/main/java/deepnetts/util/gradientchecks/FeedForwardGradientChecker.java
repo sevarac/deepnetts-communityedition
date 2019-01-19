@@ -21,21 +21,12 @@
  */
 package deepnetts.util.gradientchecks;
 
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
 import deepnetts.net.FeedForwardNetwork;
-import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.AbstractLayer;
-import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.InputLayer;
-import deepnetts.net.loss.LossType;
-import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.Tensor;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Provide feed forward network and data set and it will perform trainng and gradient checking

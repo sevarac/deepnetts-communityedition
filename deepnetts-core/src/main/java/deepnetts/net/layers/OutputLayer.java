@@ -41,7 +41,7 @@ public class OutputLayer extends AbstractLayer {
     protected float[] outputErrors;
     protected final String[] labels;
     protected LossType lossType;    
-    private Optimizer optim;
+    protected Optimizer optim;
 
     /**
      * Creates an instance of output layer with specified width (number of outputs)
@@ -146,6 +146,8 @@ public class OutputLayer extends AbstractLayer {
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
+        
+        setOptimizer(OptimizerType.SGD);
     }
 
     /**
@@ -181,7 +183,8 @@ public class OutputLayer extends AbstractLayer {
 
         for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                final float delta = outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol)); // delta = e*dE/ds
+                //final float delta = outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol)); // delta = e*dE/ds
+                final float delta = outputErrors[deltaCol] * activation.getPrime(outputs.get(deltaCol)); // delta = e*dE/ds
                 deltas.set(deltaCol, delta); 
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
                 deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
@@ -191,10 +194,13 @@ public class OutputLayer extends AbstractLayer {
                final float grad = deltas.get(deltaCol) * inputs.get(inCol);
              //   final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
 //                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 ); // gradient dE/dw + regularization l2
-                 
-                final float deltaWeight = Optimizers.sgd(learningRate, grad);
-                //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
+                  
                 gradients.set(inCol, deltaCol, grad);
+                              
+                //final float deltaWeight = Optimizers.sgd(learningRate, grad);
+                //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
+
+                final float deltaWeight = optim.calculateWeightDelta(grad, inCol, deltaCol);   
                 deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 

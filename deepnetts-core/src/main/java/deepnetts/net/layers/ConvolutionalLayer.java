@@ -40,7 +40,7 @@ import deepnetts.net.layers.activation.ActivationFunction;
  *
  * @author zoran
  */
-public class ConvolutionalLayer extends AbstractLayer {
+public final class ConvolutionalLayer extends AbstractLayer {
 
     Tensor[] filters;           // each filter corresponds to a single channel. Each filter can be 3D, where 3rd dimension coreesponds to depth in previous layer. TODO: the depth pf th efilter should be tunable
     Tensor[] deltaWeights;      //ovo za sada ovako dok proradi. Posle mozda ubaciti jos jednu dimenziju u matricu - niz za kanale. i treba da overriduje polje jer su weights u filterima za sve prethdne kanale
@@ -187,10 +187,13 @@ public class ConvolutionalLayer extends AbstractLayer {
      * For more about convolution see http://www.songho.ca/dsp/convolution/convolution.html
      */
     @Override
-    public void forward() {
-        
-        // paralelieze this external loop - channels
+    public void forward() {        
         for (int ch = 0; ch < this.depth; ch++) {
+            forwardChannel(ch);
+        }
+    }
+    
+    private void forwardChannel(int ch) {
             int outR = 0, outC = 0; // reset indexes for current output's row and col
  
             for (int inR = 0; inR < inputs.getRows(); inR += stride) { // iterate all input rows
@@ -216,14 +219,16 @@ public class ConvolutionalLayer extends AbstractLayer {
                     }
                     
                     // apply activation function
-                    final float out = ActivationFunctions.calc(activationType, outputs.get(outR, outC, ch));
+                    //final float out = ActivationFunctions.calc(activationType, outputs.get(outR, outC, ch));
+                    final float out = activation.getValue(outputs.get(outR, outC, ch));
                     outputs.set(outR, outC, ch, out);
                     outC++; // move to next col in out layer after each filter position
                 }
                 outR++; // every time input goes to next row, output does too
-            }
-        }
+            }        
     }
+    
+    
 
     /**
      * Backward pass for convolutional layer tweaks the weights in filters.

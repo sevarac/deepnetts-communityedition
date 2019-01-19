@@ -217,7 +217,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        public Builder activationFunction(ActivationType activationType) {
+        public Builder hiddenActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;
