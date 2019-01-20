@@ -24,7 +24,6 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
-import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.Evaluators;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
@@ -68,7 +67,7 @@ public class IrisClassificationCE2MomentumTest {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-        trainer.setMaxError(0.3f);
+        trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.01f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);

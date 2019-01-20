@@ -22,12 +22,40 @@ public class Tensors {
     public static Tensor random(int rows, int cols) {
         Tensor tensor = new Tensor(rows, cols);
 
-        for (int i = 0; i < tensor.getRows(); i++) {
-            for (int j = 0; j < tensor.getCols(); j++) {
-                tensor.set(i, j, RandomGenerator.getDefault().nextFloat());
+        for (int r = 0; r < tensor.getRows(); r++) {
+            for (int c = 0; c < tensor.getCols(); c++) {
+                tensor.set(r, c, RandomGenerator.getDefault().nextFloat());
             }
         }
         return tensor;
     }
+    
+    public static Tensor random(int rows, int cols, int depth) {
+        Tensor tensor = new Tensor(rows, cols, depth);
+
+        for (int z = 0; z < tensor.getDepth(); z++) {
+            for (int r = 0; r < tensor.getRows(); r++) {
+                for (int c = 0; c < tensor.getCols(); c++) {
+                    tensor.set(r, c, z, RandomGenerator.getDefault().nextFloat());
+                }
+            }
+        }
+        return tensor;
+    }    
+    
+    public static Tensor random(int rows, int cols, int depth, int fourthDim) {
+        Tensor tensor = new Tensor(rows, cols, depth, fourthDim);
+
+        for (int f = 0; f < tensor.getFourthDim(); f++) {
+            for (int z = 0; z < tensor.getDepth(); z++) {
+                for (int r = 0; r < tensor.getRows(); r++) {
+                    for (int c = 0; c < tensor.getCols(); c++) {
+                        tensor.set(r, c, z, f, RandomGenerator.getDefault().nextFloat());
+                    }
+                }
+            }
+        }
+        return tensor;
+    }      
     
 }

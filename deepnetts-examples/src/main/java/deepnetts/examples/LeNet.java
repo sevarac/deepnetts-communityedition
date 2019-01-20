@@ -66,7 +66,7 @@ public class LeNet {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 10000); //50000
+        imageSet.loadImages(new File(trainingFile), false, 1000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -86,7 +86,7 @@ public class LeNet {
                 .addConvolutionalLayer(5, 120)
                 .addDenseLayer(84)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .activationFunction(ActivationType.TANH)
+                .hiddenActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();

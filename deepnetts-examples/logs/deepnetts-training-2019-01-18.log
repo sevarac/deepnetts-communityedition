@@ -1,0 +1,2163 @@
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:14ms, TrainError:0.90769976, TrainErrorChange:0.90769976, ValidationError:0.6420441, Accuracy: 0.8666666
+Epoch:2, Time:4ms, TrainError:0.6628189, TrainErrorChange:-0.24488086, ValidationError:0.5030495, Accuracy: 0.8666666
+Epoch:3, Time:1ms, TrainError:0.548038, TrainErrorChange:-0.1147809, ValidationError:0.42496175, Accuracy: 0.9111111
+Epoch:4, Time:1ms, TrainError:0.46912545, TrainErrorChange:-0.078912556, ValidationError:0.37511247, Accuracy: 0.9111111
+Epoch:5, Time:1ms, TrainError:0.4159874, TrainErrorChange:-0.053138047, ValidationError:0.3448456, Accuracy: 0.9111111
+Epoch:6, Time:1ms, TrainError:0.38075334, TrainErrorChange:-0.035234064, ValidationError:0.3235965, Accuracy: 0.9111111
+Epoch:7, Time:1ms, TrainError:0.35307422, TrainErrorChange:-0.027679116, ValidationError:0.30673945, Accuracy: 0.9111111
+Epoch:8, Time:1ms, TrainError:0.32961416, TrainErrorChange:-0.02346006, ValidationError:0.2924808, Accuracy: 0.9111111
+Epoch:9, Time:0ms, TrainError:0.30910242, TrainErrorChange:-0.020511746, ValidationError:0.27996045, Accuracy: 0.9111111
+Epoch:10, Time:1ms, TrainError:0.29088423, TrainErrorChange:-0.01821819, ValidationError:0.26872545, Accuracy: 0.9111111
+
+TRAINING COMPLETED
+Total Training Time: 47ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 1.0
+Precision: 1.0
+F1Score: 1.0
+Recall: 1.0
+
+Loading images...
+Loaded 400 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:26564ms, TrainError:1.4192787, TrainErrorChange:1.4192787, Accuracy: 0.94749993
+Epoch:2, Time:26043ms, TrainError:0.9294181, TrainErrorChange:-0.48986065, Accuracy: 0.965
+Epoch:3, Time:26709ms, TrainError:0.7388701, TrainErrorChange:-0.190548, Accuracy: 0.966875
+Loading images...
+Loaded 62 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1247ms, TrainError:0.67631096, TrainErrorChange:0.67631096, Accuracy: 0.6935484
+Epoch:2, Time:1080ms, TrainError:0.6485059, TrainErrorChange:-0.02780503, Accuracy: 0.6935484
+Epoch:3, Time:1090ms, TrainError:0.64081055, TrainErrorChange:-0.007695377, Accuracy: 0.6935484
+Epoch:4, Time:1057ms, TrainError:0.63302463, TrainErrorChange:-0.0077859163, Accuracy: 0.6935484
+Epoch:5, Time:1130ms, TrainError:0.6226405, TrainErrorChange:-0.010384142, Accuracy: 0.6935484
+Epoch:6, Time:1068ms, TrainError:0.60405767, TrainErrorChange:-0.01858282, Accuracy: 0.6935484
+Epoch:7, Time:1236ms, TrainError:0.5627722, TrainErrorChange:-0.041285455, Accuracy: 0.6935484
+Epoch:8, Time:1184ms, TrainError:0.469617, TrainErrorChange:-0.093155205, Accuracy: 0.6935484
+Epoch:9, Time:1529ms, TrainError:0.30730468, TrainErrorChange:-0.16231233, Accuracy: 0.6935484
+Epoch:10, Time:1045ms, TrainError:0.27009162, TrainErrorChange:-0.037213057, Accuracy: 0.6935484
+Epoch:11, Time:1066ms, TrainError:0.2901829, TrainErrorChange:0.020091265, Accuracy: 0.6935484
+Epoch:12, Time:1066ms, TrainError:0.13378412, TrainErrorChange:-0.15639877, Accuracy: 0.6935484
+
+TRAINING COMPLETED
+Total Training Time: 21090ms
+------------------------------------------------------------------------
+Loading images...
+Loaded 62 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2391ms, TrainError:0.6370811, TrainErrorChange:0.6370811, Accuracy: 0.6935484
+Epoch:2, Time:2166ms, TrainError:0.6144141, TrainErrorChange:-0.02266699, Accuracy: 0.6935484
+Epoch:3, Time:2157ms, TrainError:0.5073488, TrainErrorChange:-0.10706532, Accuracy: 0.6935484
+Loading images...
+Loaded 62 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2339ms, TrainError:0.6757883, TrainErrorChange:0.6757883, Accuracy: 0.6935484
+Epoch:2, Time:2165ms, TrainError:0.63918453, TrainErrorChange:-0.03660375, Accuracy: 0.6935484
+Epoch:3, Time:2170ms, TrainError:0.6227626, TrainErrorChange:-0.016421914, Accuracy: 0.6935484
+Epoch:4, Time:2167ms, TrainError:0.5905075, TrainErrorChange:-0.032255113, Accuracy: 0.6935484
+Epoch:5, Time:2166ms, TrainError:0.5043627, TrainErrorChange:-0.086144805, Accuracy: 0.6935484
+Epoch:6, Time:2163ms, TrainError:0.345575, TrainErrorChange:-0.1587877, Accuracy: 0.6935484
+Epoch:7, Time:2144ms, TrainError:0.3655935, TrainErrorChange:0.020018488, Accuracy: 0.6935484
+Epoch:8, Time:2147ms, TrainError:1.0309739, TrainErrorChange:0.6653804, Accuracy: 0.6935484
+Epoch:9, Time:2186ms, TrainError:0.6900732, TrainErrorChange:-0.34090072, Accuracy: 0.6935484
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:3ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+Epoch:6, Time:1ms, TrainError:0.24040928, TrainErrorChange:-0.030995458, ValidationError:0.20640673, Accuracy: 0.9111111
+Epoch:7, Time:1ms, TrainError:0.21796203, TrainErrorChange:-0.022447258, ValidationError:0.19263174, Accuracy: 0.9111111
+Epoch:8, Time:1ms, TrainError:0.20053607, TrainErrorChange:-0.017425954, ValidationError:0.18224744, Accuracy: 0.9111111
+Epoch:9, Time:1ms, TrainError:0.18635578, TrainErrorChange:-0.014180288, ValidationError:0.1736092, Accuracy: 0.9111111
+Epoch:10, Time:1ms, TrainError:0.17462896, TrainErrorChange:-0.011726826, ValidationError:0.16586886, Accuracy: 0.9111111
+Epoch:11, Time:1ms, TrainError:0.16505463, TrainErrorChange:-0.009574324, ValidationError:0.15862317, Accuracy: 0.9111111
+Epoch:12, Time:1ms, TrainError:0.15754884, TrainErrorChange:-0.0075057894, ValidationError:0.15169726, Accuracy: 0.9555556
+Epoch:13, Time:2ms, TrainError:0.15207963, TrainErrorChange:-0.005469218, ValidationError:0.14501303, Accuracy: 0.9555556
+Epoch:14, Time:1ms, TrainError:0.14855963, TrainErrorChange:-0.003519997, ValidationError:0.13853057, Accuracy: 0.9555556
+Epoch:15, Time:1ms, TrainError:0.14671887, TrainErrorChange:-0.0018407553, ValidationError:0.13226774, Accuracy: 0.9555556
+Epoch:16, Time:1ms, TrainError:0.14592566, TrainErrorChange:-7.932186E-4, ValidationError:0.1263603, Accuracy: 0.9555556
+Epoch:17, Time:1ms, TrainError:0.14512178, TrainErrorChange:-8.0387294E-4, ValidationError:0.12107303, Accuracy: 0.9555556
+Epoch:18, Time:1ms, TrainError:0.14324513, TrainErrorChange:-0.0018766522, ValidationError:0.116745435, Accuracy: 1.0
+Epoch:19, Time:2ms, TrainError:0.1401573, TrainErrorChange:-0.0030878335, ValidationError:0.113757685, Accuracy: 1.0
+Epoch:20, Time:1ms, TrainError:0.13702242, TrainErrorChange:-0.0031348765, ValidationError:0.11246498, Accuracy: 1.0
+Epoch:21, Time:1ms, TrainError:0.13527198, TrainErrorChange:-0.0017504394, ValidationError:0.11302272, Accuracy: 0.9555556
+Epoch:22, Time:1ms, TrainError:0.1353975, TrainErrorChange:1.2551248E-4, ValidationError:0.11554453, Accuracy: 0.9555556
+Epoch:23, Time:1ms, TrainError:0.13726, TrainErrorChange:0.001862511, ValidationError:0.12035636, Accuracy: 0.9555556
+Epoch:24, Time:1ms, TrainError:0.14072551, TrainErrorChange:0.0034655035, ValidationError:0.12779374, Accuracy: 0.9555556
+Epoch:25, Time:1ms, TrainError:0.14557855, TrainErrorChange:0.00485304, ValidationError:0.13781627, Accuracy: 0.9111111
+Epoch:26, Time:1ms, TrainError:0.15133697, TrainErrorChange:0.0057584196, ValidationError:0.14970616, Accuracy: 0.9111111
+Epoch:27, Time:1ms, TrainError:0.15721631, TrainErrorChange:0.0058793426, ValidationError:0.16260736, Accuracy: 0.9111111
+Epoch:28, Time:1ms, TrainError:0.16237056, TrainErrorChange:0.005154252, ValidationError:0.17649491, Accuracy: 0.9111111
+Epoch:29, Time:1ms, TrainError:0.16627714, TrainErrorChange:0.003906578, ValidationError:0.19184032, Accuracy: 0.9111111
+Epoch:30, Time:13ms, TrainError:0.16883585, TrainErrorChange:0.0025587082, ValidationError:0.20850049, Accuracy: 0.9111111
+Epoch:31, Time:1ms, TrainError:0.17017213, TrainErrorChange:0.0013362765, ValidationError:0.2255257, Accuracy: 0.9111111
+Epoch:32, Time:1ms, TrainError:0.17045437, TrainErrorChange:2.822429E-4, ValidationError:0.24162754, Accuracy: 0.9111111
+Epoch:33, Time:0ms, TrainError:0.16978973, TrainErrorChange:-6.646365E-4, ValidationError:0.25563005, Accuracy: 0.9111111
+Epoch:34, Time:0ms, TrainError:0.16823018, TrainErrorChange:-0.0015595555, ValidationError:0.26680928, Accuracy: 0.9111111
+Epoch:35, Time:1ms, TrainError:0.16588157, TrainErrorChange:-0.0023486018, ValidationError:0.27510124, Accuracy: 0.9111111
+Epoch:36, Time:1ms, TrainError:0.16297285, TrainErrorChange:-0.0029087216, ValidationError:0.28100047, Accuracy: 0.9111111
+Epoch:37, Time:1ms, TrainError:0.15978807, TrainErrorChange:-0.0031847805, ValidationError:0.2851763, Accuracy: 0.9111111
+Epoch:38, Time:1ms, TrainError:0.15654118, TrainErrorChange:-0.0032468885, ValidationError:0.2881463, Accuracy: 0.9111111
+Epoch:39, Time:1ms, TrainError:0.15332496, TrainErrorChange:-0.003216222, ValidationError:0.29020235, Accuracy: 0.9111111
+Epoch:40, Time:1ms, TrainError:0.15014929, TrainErrorChange:-0.0031756759, ValidationError:0.29149055, Accuracy: 0.9111111
+Epoch:41, Time:1ms, TrainError:0.14699824, TrainErrorChange:-0.0031510442, ValidationError:0.29209417, Accuracy: 0.9111111
+Epoch:42, Time:1ms, TrainError:0.1438604, TrainErrorChange:-0.0031378418, ValidationError:0.29208273, Accuracy: 0.9111111
+Epoch:43, Time:0ms, TrainError:0.14073534, TrainErrorChange:-0.0031250566, ValidationError:0.29152086, Accuracy: 0.9111111
+Epoch:44, Time:0ms, TrainError:0.13763, TrainErrorChange:-0.0031053424, ValidationError:0.29047155, Accuracy: 0.9111111
+Epoch:45, Time:0ms, TrainError:0.1345548, TrainErrorChange:-0.0030751973, ValidationError:0.28899446, Accuracy: 0.9111111
+Epoch:46, Time:0ms, TrainError:0.13152044, TrainErrorChange:-0.0030343682, ValidationError:0.28714478, Accuracy: 0.9111111
+Epoch:47, Time:1ms, TrainError:0.1285378, TrainErrorChange:-0.0029826313, ValidationError:0.2849744, Accuracy: 0.9111111
+Epoch:48, Time:1ms, TrainError:0.12561655, TrainErrorChange:-0.0029212534, ValidationError:0.282528, Accuracy: 0.9111111
+Epoch:49, Time:0ms, TrainError:0.12276447, TrainErrorChange:-0.0028520823, ValidationError:0.2798479, Accuracy: 0.9111111
+Epoch:50, Time:1ms, TrainError:0.11998734, TrainErrorChange:-0.0027771294, ValidationError:0.27696964, Accuracy: 0.9111111
+Epoch:51, Time:1ms, TrainError:0.117290944, TrainErrorChange:-0.002696395, ValidationError:0.27392706, Accuracy: 0.9111111
+Epoch:52, Time:1ms, TrainError:0.11467808, TrainErrorChange:-0.0026128665, ValidationError:0.2707482, Accuracy: 0.9111111
+Epoch:53, Time:0ms, TrainError:0.11215094, TrainErrorChange:-0.00252714, ValidationError:0.26745838, Accuracy: 0.9111111
+Epoch:54, Time:0ms, TrainError:0.109711066, TrainErrorChange:-0.0024398714, ValidationError:0.264083, Accuracy: 0.9111111
+Epoch:55, Time:0ms, TrainError:0.10735941, TrainErrorChange:-0.0023516566, ValidationError:0.26064202, Accuracy: 0.9111111
+Epoch:56, Time:1ms, TrainError:0.10509591, TrainErrorChange:-0.0022635013, ValidationError:0.2571563, Accuracy: 0.9111111
+Epoch:57, Time:1ms, TrainError:0.10291971, TrainErrorChange:-0.0021761954, ValidationError:0.2536454, Accuracy: 0.9111111
+Epoch:58, Time:1ms, TrainError:0.10083115, TrainErrorChange:-0.0020885617, ValidationError:0.2501269, Accuracy: 0.9111111
+Epoch:59, Time:0ms, TrainError:0.09882864, TrainErrorChange:-0.0020025074, ValidationError:0.2466183, Accuracy: 0.9111111
+Epoch:60, Time:1ms, TrainError:0.096911535, TrainErrorChange:-0.0019171089, ValidationError:0.2431356, Accuracy: 0.9111111
+Epoch:61, Time:2ms, TrainError:0.095077895, TrainErrorChange:-0.00183364, ValidationError:0.23969306, Accuracy: 0.9111111
+Epoch:62, Time:0ms, TrainError:0.09332654, TrainErrorChange:-0.0017513558, ValidationError:0.23630391, Accuracy: 0.9111111
+Epoch:63, Time:0ms, TrainError:0.09165475, TrainErrorChange:-0.0016717911, ValidationError:0.23298107, Accuracy: 0.9111111
+Epoch:64, Time:0ms, TrainError:0.090060055, TrainErrorChange:-0.0015946925, ValidationError:0.22973013, Accuracy: 0.9111111
+Epoch:65, Time:1ms, TrainError:0.088539705, TrainErrorChange:-0.0015203506, ValidationError:0.22656155, Accuracy: 0.9111111
+Epoch:66, Time:1ms, TrainError:0.087090455, TrainErrorChange:-0.0014492497, ValidationError:0.22347862, Accuracy: 0.9111111
+Epoch:67, Time:0ms, TrainError:0.085708514, TrainErrorChange:-0.0013819411, ValidationError:0.22048424, Accuracy: 0.9111111
+Epoch:68, Time:1ms, TrainError:0.084390424, TrainErrorChange:-0.0013180897, ValidationError:0.21758156, Accuracy: 0.9111111
+Epoch:69, Time:0ms, TrainError:0.08313274, TrainErrorChange:-0.0012576878, ValidationError:0.21477157, Accuracy: 0.9111111
+Epoch:70, Time:0ms, TrainError:0.08193171, TrainErrorChange:-0.0012010261, ValidationError:0.21205299, Accuracy: 0.9111111
+Epoch:71, Time:1ms, TrainError:0.08078393, TrainErrorChange:-0.0011477768, ValidationError:0.20942576, Accuracy: 0.9111111
+Epoch:72, Time:0ms, TrainError:0.07968581, TrainErrorChange:-0.0010981262, ValidationError:0.20688799, Accuracy: 0.9111111
+Epoch:73, Time:0ms, TrainError:0.07863432, TrainErrorChange:-0.0010514855, ValidationError:0.20443769, Accuracy: 0.9111111
+Epoch:74, Time:0ms, TrainError:0.07762638, TrainErrorChange:-0.0010079443, ValidationError:0.2020738, Accuracy: 0.9111111
+Epoch:75, Time:0ms, TrainError:0.07665931, TrainErrorChange:-9.6707046E-4, ValidationError:0.19979478, Accuracy: 0.9111111
+Epoch:76, Time:1ms, TrainError:0.075730264, TrainErrorChange:-9.290427E-4, ValidationError:0.19759813, Accuracy: 0.9111111
+Epoch:77, Time:0ms, TrainError:0.0748371, TrainErrorChange:-8.931607E-4, ValidationError:0.195482, Accuracy: 0.9111111
+Epoch:78, Time:0ms, TrainError:0.07397761, TrainErrorChange:-8.594915E-4, ValidationError:0.19344492, Accuracy: 0.9111111
+Epoch:79, Time:1ms, TrainError:0.07314943, TrainErrorChange:-8.281842E-4, ValidationError:0.19148631, Accuracy: 0.9111111
+Epoch:80, Time:0ms, TrainError:0.07235102, TrainErrorChange:-7.984042E-4, ValidationError:0.18960533, Accuracy: 0.9111111
+Epoch:81, Time:0ms, TrainError:0.071580626, TrainErrorChange:-7.703975E-4, ValidationError:0.18779859, Accuracy: 0.9111111
+Epoch:82, Time:0ms, TrainError:0.07083665, TrainErrorChange:-7.439777E-4, ValidationError:0.18606836, Accuracy: 0.9111111
+Epoch:83, Time:1ms, TrainError:0.07011761, TrainErrorChange:-7.1904063E-4, ValidationError:0.18441325, Accuracy: 0.9111111
+Epoch:84, Time:0ms, TrainError:0.06942248, TrainErrorChange:-6.9512427E-4, ValidationError:0.18283261, Accuracy: 0.9111111
+Epoch:85, Time:0ms, TrainError:0.0687499, TrainErrorChange:-6.7258626E-4, ValidationError:0.1813249, Accuracy: 0.9111111
+Epoch:86, Time:1ms, TrainError:0.06809866, TrainErrorChange:-6.5124035E-4, ValidationError:0.17989011, Accuracy: 0.9111111
+Epoch:87, Time:1ms, TrainError:0.06746787, TrainErrorChange:-6.307885E-4, ValidationError:0.178529, Accuracy: 0.9111111
+Epoch:88, Time:1ms, TrainError:0.06685663, TrainErrorChange:-6.112382E-4, ValidationError:0.17724024, Accuracy: 0.9111111
+Epoch:89, Time:0ms, TrainError:0.06626418, TrainErrorChange:-5.924478E-4, ValidationError:0.17602523, Accuracy: 0.9111111
+Epoch:90, Time:1ms, TrainError:0.0656896, TrainErrorChange:-5.745813E-4, ValidationError:0.17488243, Accuracy: 0.9111111
+Epoch:91, Time:0ms, TrainError:0.06513233, TrainErrorChange:-5.572736E-4, ValidationError:0.17381018, Accuracy: 0.9111111
+Epoch:92, Time:1ms, TrainError:0.06459128, TrainErrorChange:-5.4104626E-4, ValidationError:0.1728092, Accuracy: 0.9111111
+Epoch:93, Time:0ms, TrainError:0.0640661, TrainErrorChange:-5.25184E-4, ValidationError:0.17188065, Accuracy: 0.9111111
+Epoch:94, Time:1ms, TrainError:0.06355655, TrainErrorChange:-5.095452E-4, ValidationError:0.17101844, Accuracy: 0.9111111
+Epoch:95, Time:0ms, TrainError:0.06306115, TrainErrorChange:-4.95404E-4, ValidationError:0.17022556, Accuracy: 0.9111111
+Epoch:96, Time:0ms, TrainError:0.06258021, TrainErrorChange:-4.8093498E-4, ValidationError:0.16949981, Accuracy: 0.9111111
+Epoch:97, Time:0ms, TrainError:0.062112637, TrainErrorChange:-4.675761E-4, ValidationError:0.16884097, Accuracy: 0.9111111
+Epoch:98, Time:0ms, TrainError:0.06165818, TrainErrorChange:-4.544556E-4, ValidationError:0.1682456, Accuracy: 0.9111111
+Epoch:99, Time:0ms, TrainError:0.061216302, TrainErrorChange:-4.4187903E-4, ValidationError:0.16771379, Accuracy: 0.9111111
+Epoch:100, Time:0ms, TrainError:0.0607866, TrainErrorChange:-4.2970106E-4, ValidationError:0.1672425, Accuracy: 0.9111111
+Epoch:101, Time:0ms, TrainError:0.060368363, TrainErrorChange:-4.1823834E-4, ValidationError:0.16683039, Accuracy: 0.9111111
+Epoch:102, Time:0ms, TrainError:0.05996132, TrainErrorChange:-4.0704384E-4, ValidationError:0.1664773, Accuracy: 0.9111111
+Epoch:103, Time:0ms, TrainError:0.05956531, TrainErrorChange:-3.9600953E-4, ValidationError:0.16617806, Accuracy: 0.9111111
+Epoch:104, Time:1ms, TrainError:0.059179448, TrainErrorChange:-3.8586184E-4, ValidationError:0.16593449, Accuracy: 0.9111111
+Epoch:105, Time:0ms, TrainError:0.058803663, TrainErrorChange:-3.7578493E-4, ValidationError:0.1657402, Accuracy: 0.9111111
+Epoch:106, Time:1ms, TrainError:0.058437183, TrainErrorChange:-3.6647916E-4, ValidationError:0.16559726, Accuracy: 0.9111111
+Epoch:107, Time:0ms, TrainError:0.058080062, TrainErrorChange:-3.5712123E-4, ValidationError:0.16550072, Accuracy: 0.9111111
+Epoch:108, Time:0ms, TrainError:0.05773163, TrainErrorChange:-3.4843385E-4, ValidationError:0.16544981, Accuracy: 0.9111111
+Epoch:109, Time:1ms, TrainError:0.05739193, TrainErrorChange:-3.3969805E-4, ValidationError:0.16544251, Accuracy: 0.9111111
+Epoch:110, Time:0ms, TrainError:0.057060327, TrainErrorChange:-3.31603E-4, ValidationError:0.16547523, Accuracy: 0.9111111
+Epoch:111, Time:1ms, TrainError:0.05673649, TrainErrorChange:-3.2383576E-4, ValidationError:0.16554783, Accuracy: 0.9111111
+Epoch:112, Time:0ms, TrainError:0.056420404, TrainErrorChange:-3.1608716E-4, ValidationError:0.16565749, Accuracy: 0.9111111
+Epoch:113, Time:0ms, TrainError:0.056111388, TrainErrorChange:-3.0901656E-4, ValidationError:0.16580182, Accuracy: 0.9111111
+Epoch:114, Time:1ms, TrainError:0.05580946, TrainErrorChange:-3.0192733E-4, ValidationError:0.16597939, Accuracy: 0.9111111
+Epoch:115, Time:0ms, TrainError:0.05551431, TrainErrorChange:-2.9515103E-4, ValidationError:0.16618782, Accuracy: 0.9111111
+Epoch:116, Time:1ms, TrainError:0.055225506, TrainErrorChange:-2.8880313E-4, ValidationError:0.1664266, Accuracy: 0.9111111
+Epoch:117, Time:0ms, TrainError:0.054943144, TrainErrorChange:-2.823621E-4, ValidationError:0.16669297, Accuracy: 0.9111111
+Epoch:118, Time:1ms, TrainError:0.0546668, TrainErrorChange:-2.7634576E-4, ValidationError:0.16698581, Accuracy: 0.9111111
+Epoch:119, Time:0ms, TrainError:0.054396227, TrainErrorChange:-2.7057156E-4, ValidationError:0.16730155, Accuracy: 0.9111111
+Epoch:120, Time:0ms, TrainError:0.054131422, TrainErrorChange:-2.648048E-4, ValidationError:0.16764227, Accuracy: 0.9111111
+Epoch:121, Time:0ms, TrainError:0.053871922, TrainErrorChange:-2.595E-4, ValidationError:0.16800393, Accuracy: 0.9111111
+Epoch:122, Time:0ms, TrainError:0.05361782, TrainErrorChange:-2.5410205E-4, ValidationError:0.1683848, Accuracy: 0.9111111
+Epoch:123, Time:0ms, TrainError:0.053368855, TrainErrorChange:-2.4896488E-4, ValidationError:0.16878422, Accuracy: 0.9111111
+Epoch:124, Time:0ms, TrainError:0.05312478, TrainErrorChange:-2.4407357E-4, ValidationError:0.16920094, Accuracy: 0.9111111
+Epoch:125, Time:0ms, TrainError:0.052885585, TrainErrorChange:-2.3919716E-4, ValidationError:0.16963576, Accuracy: 0.9111111
+Epoch:126, Time:0ms, TrainError:0.05265103, TrainErrorChange:-2.3455545E-4, ValidationError:0.1700838, Accuracy: 0.9111111
+Epoch:127, Time:1ms, TrainError:0.052421078, TrainErrorChange:-2.29951E-4, ValidationError:0.170548, Accuracy: 0.9111111
+Epoch:128, Time:0ms, TrainError:0.052195683, TrainErrorChange:-2.2539496E-4, ValidationError:0.17102332, Accuracy: 0.9111111
+Epoch:129, Time:0ms, TrainError:0.051974382, TrainErrorChange:-2.2130087E-4, ValidationError:0.17151104, Accuracy: 0.9111111
+Epoch:130, Time:0ms, TrainError:0.0517573, TrainErrorChange:-2.1708384E-4, ValidationError:0.17200965, Accuracy: 0.9111111
+Epoch:131, Time:1ms, TrainError:0.05154425, TrainErrorChange:-2.1304935E-4, ValidationError:0.17252032, Accuracy: 0.9111111
+Epoch:132, Time:0ms, TrainError:0.051335286, TrainErrorChange:-2.0896271E-4, ValidationError:0.17303966, Accuracy: 0.9111111
+Epoch:133, Time:0ms, TrainError:0.051130272, TrainErrorChange:-2.050139E-4, ValidationError:0.17356685, Accuracy: 0.9111111
+Epoch:134, Time:0ms, TrainError:0.050928872, TrainErrorChange:-2.0140037E-4, ValidationError:0.17410356, Accuracy: 0.9111111
+Epoch:135, Time:0ms, TrainError:0.050731223, TrainErrorChange:-1.97649E-4, ValidationError:0.17464726, Accuracy: 0.9111111
+Epoch:136, Time:0ms, TrainError:0.05053722, TrainErrorChange:-1.9400194E-4, ValidationError:0.17519827, Accuracy: 0.9111111
+Epoch:137, Time:0ms, TrainError:0.05034669, TrainErrorChange:-1.9052997E-4, ValidationError:0.175756, Accuracy: 0.9111111
+Epoch:138, Time:0ms, TrainError:0.050159488, TrainErrorChange:-1.8720329E-4, ValidationError:0.17631958, Accuracy: 0.9111111
+Epoch:139, Time:1ms, TrainError:0.04997592, TrainErrorChange:-1.835674E-4, ValidationError:0.1768881, Accuracy: 0.9111111
+Epoch:140, Time:0ms, TrainError:0.049795285, TrainErrorChange:-1.806356E-4, ValidationError:0.17746207, Accuracy: 0.9111111
+Epoch:141, Time:0ms, TrainError:0.04961809, TrainErrorChange:-1.7719343E-4, ValidationError:0.17804185, Accuracy: 0.9111111
+Epoch:142, Time:0ms, TrainError:0.049443893, TrainErrorChange:-1.741983E-4, ValidationError:0.1786243, Accuracy: 0.9111111
+Epoch:143, Time:1ms, TrainError:0.049272813, TrainErrorChange:-1.7108023E-4, ValidationError:0.17921175, Accuracy: 0.9111111
+Epoch:144, Time:0ms, TrainError:0.049104623, TrainErrorChange:-1.681894E-4, ValidationError:0.17980339, Accuracy: 0.9111111
+Epoch:145, Time:1ms, TrainError:0.048939403, TrainErrorChange:-1.6522035E-4, ValidationError:0.18039815, Accuracy: 0.9111111
+Epoch:146, Time:0ms, TrainError:0.04877713, TrainErrorChange:-1.6227365E-4, ValidationError:0.18099588, Accuracy: 0.9111111
+Epoch:147, Time:0ms, TrainError:0.048617505, TrainErrorChange:-1.5962496E-4, ValidationError:0.18159756, Accuracy: 0.9111111
+Epoch:148, Time:1ms, TrainError:0.048460543, TrainErrorChange:-1.5696138E-4, ValidationError:0.18220189, Accuracy: 0.9111111
+Epoch:149, Time:0ms, TrainError:0.048306327, TrainErrorChange:-1.5421584E-4, ValidationError:0.18280926, Accuracy: 0.9111111
+Epoch:150, Time:0ms, TrainError:0.048154667, TrainErrorChange:-1.516603E-4, ValidationError:0.18341944, Accuracy: 0.9111111
+Epoch:151, Time:0ms, TrainError:0.04800556, TrainErrorChange:-1.4910847E-4, ValidationError:0.18403088, Accuracy: 0.9111111
+Epoch:152, Time:0ms, TrainError:0.047858953, TrainErrorChange:-1.4660507E-4, ValidationError:0.18464534, Accuracy: 0.9111111
+Epoch:153, Time:0ms, TrainError:0.047714643, TrainErrorChange:-1.443103E-4, ValidationError:0.18526192, Accuracy: 0.9111111
+Epoch:154, Time:0ms, TrainError:0.04757274, TrainErrorChange:-1.4190376E-4, ValidationError:0.18588153, Accuracy: 0.9111111
+Epoch:155, Time:0ms, TrainError:0.047433127, TrainErrorChange:-1.396127E-4, ValidationError:0.1865025, Accuracy: 0.9111111
+Epoch:156, Time:1ms, TrainError:0.04729573, TrainErrorChange:-1.3739616E-4, ValidationError:0.18712462, Accuracy: 0.9111111
+Epoch:157, Time:0ms, TrainError:0.04716053, TrainErrorChange:-1.3520196E-4, ValidationError:0.18774934, Accuracy: 0.9111111
+Epoch:158, Time:0ms, TrainError:0.04702741, TrainErrorChange:-1.3311952E-4, ValidationError:0.18837744, Accuracy: 0.9111111
+Epoch:159, Time:1ms, TrainError:0.046896458, TrainErrorChange:-1.309514E-4, ValidationError:0.1890059, Accuracy: 0.9111111
+Epoch:160, Time:0ms, TrainError:0.046767477, TrainErrorChange:-1.2898073E-4, ValidationError:0.1896355, Accuracy: 0.9111111
+Epoch:161, Time:0ms, TrainError:0.046640344, TrainErrorChange:-1.2713298E-4, ValidationError:0.19026777, Accuracy: 0.9111111
+Epoch:162, Time:1ms, TrainError:0.046515275, TrainErrorChange:-1.2506917E-4, ValidationError:0.19090231, Accuracy: 0.9111111
+Epoch:163, Time:0ms, TrainError:0.04639198, TrainErrorChange:-1.2329593E-4, ValidationError:0.1915383, Accuracy: 0.9111111
+Epoch:164, Time:0ms, TrainError:0.046270587, TrainErrorChange:-1.2139231E-4, ValidationError:0.19217539, Accuracy: 0.9111111
+Epoch:165, Time:0ms, TrainError:0.046150956, TrainErrorChange:-1.1963025E-4, ValidationError:0.19281435, Accuracy: 0.9111111
+Epoch:166, Time:0ms, TrainError:0.04603298, TrainErrorChange:-1.1797622E-4, ValidationError:0.1934541, Accuracy: 0.9111111
+Epoch:167, Time:0ms, TrainError:0.045916736, TrainErrorChange:-1.1624396E-4, ValidationError:0.19409598, Accuracy: 0.9111111
+Epoch:168, Time:0ms, TrainError:0.04580212, TrainErrorChange:-1.1461601E-4, ValidationError:0.1947393, Accuracy: 0.9111111
+Epoch:169, Time:1ms, TrainError:0.045688972, TrainErrorChange:-1.1314824E-4, ValidationError:0.19538423, Accuracy: 0.9111111
+Epoch:170, Time:0ms, TrainError:0.045577563, TrainErrorChange:-1.1140853E-4, ValidationError:0.1960302, Accuracy: 0.9111111
+Epoch:171, Time:1ms, TrainError:0.04546753, TrainErrorChange:-1.100339E-4, ValidationError:0.19667865, Accuracy: 0.9111111
+Epoch:172, Time:0ms, TrainError:0.045358997, TrainErrorChange:-1.0853261E-4, ValidationError:0.19732754, Accuracy: 0.9111111
+Epoch:173, Time:1ms, TrainError:0.045251872, TrainErrorChange:-1.0712445E-4, ValidationError:0.19797795, Accuracy: 0.9111111
+Epoch:174, Time:0ms, TrainError:0.04514611, TrainErrorChange:-1.0576099E-4, ValidationError:0.1986304, Accuracy: 0.9111111
+Epoch:175, Time:0ms, TrainError:0.045041736, TrainErrorChange:-1.0437518E-4, ValidationError:0.19928342, Accuracy: 0.9111111
+Epoch:176, Time:1ms, TrainError:0.04493869, TrainErrorChange:-1.03045255E-4, ValidationError:0.1999391, Accuracy: 0.9111111
+Epoch:177, Time:0ms, TrainError:0.044836883, TrainErrorChange:-1.0180846E-4, ValidationError:0.20059428, Accuracy: 0.9111111
+Epoch:178, Time:0ms, TrainError:0.044736225, TrainErrorChange:-1.00657344E-4, ValidationError:0.20125209, Accuracy: 0.9111111
+Epoch:179, Time:1ms, TrainError:0.0446368, TrainErrorChange:-9.942427E-5, ValidationError:0.20191057, Accuracy: 0.9111111
+Epoch:180, Time:0ms, TrainError:0.044538546, TrainErrorChange:-9.825453E-5, ValidationError:0.20257095, Accuracy: 0.9111111
+Epoch:181, Time:0ms, TrainError:0.044441465, TrainErrorChange:-9.7081065E-5, ValidationError:0.20323211, Accuracy: 0.9111111
+Epoch:182, Time:1ms, TrainError:0.04434549, TrainErrorChange:-9.5974654E-5, ValidationError:0.20389433, Accuracy: 0.9111111
+Epoch:183, Time:0ms, TrainError:0.044250485, TrainErrorChange:-9.500608E-5, ValidationError:0.20455763, Accuracy: 0.9111111
+Epoch:184, Time:0ms, TrainError:0.04415656, TrainErrorChange:-9.3925744E-5, ValidationError:0.20522346, Accuracy: 0.9111111
+Epoch:185, Time:1ms, TrainError:0.04406359, TrainErrorChange:-9.2968345E-5, ValidationError:0.20588985, Accuracy: 0.9111111
+Epoch:186, Time:0ms, TrainError:0.043971643, TrainErrorChange:-9.1947615E-5, ValidationError:0.20655636, Accuracy: 0.9111111
+Epoch:187, Time:0ms, TrainError:0.04388074, TrainErrorChange:-9.0904534E-5, ValidationError:0.20722376, Accuracy: 0.9111111
+Epoch:188, Time:1ms, TrainError:0.0437907, TrainErrorChange:-9.003654E-5, ValidationError:0.20789437, Accuracy: 0.9111111
+Epoch:189, Time:0ms, TrainError:0.043701433, TrainErrorChange:-8.926913E-5, ValidationError:0.20856453, Accuracy: 0.9111111
+Epoch:190, Time:0ms, TrainError:0.04361308, TrainErrorChange:-8.835271E-5, ValidationError:0.20923623, Accuracy: 0.9111111
+Epoch:191, Time:1ms, TrainError:0.04352559, TrainErrorChange:-8.748844E-5, ValidationError:0.20991021, Accuracy: 0.9111111
+Epoch:192, Time:0ms, TrainError:0.04343901, TrainErrorChange:-8.65832E-5, ValidationError:0.21058467, Accuracy: 0.9111111
+Epoch:193, Time:1ms, TrainError:0.043353062, TrainErrorChange:-8.594617E-5, ValidationError:0.21126057, Accuracy: 0.9111111
+Epoch:194, Time:0ms, TrainError:0.04326797, TrainErrorChange:-8.509308E-5, ValidationError:0.2119361, Accuracy: 0.9111111
+Epoch:195, Time:0ms, TrainError:0.043183602, TrainErrorChange:-8.436665E-5, ValidationError:0.21261463, Accuracy: 0.9111111
+Epoch:196, Time:1ms, TrainError:0.043099985, TrainErrorChange:-8.3617866E-5, ValidationError:0.2132929, Accuracy: 0.9111111
+Epoch:197, Time:0ms, TrainError:0.043017067, TrainErrorChange:-8.291751E-5, ValidationError:0.21397366, Accuracy: 0.9111111
+Epoch:198, Time:1ms, TrainError:0.0429348, TrainErrorChange:-8.2265586E-5, ValidationError:0.2146555, Accuracy: 0.9111111
+Epoch:199, Time:0ms, TrainError:0.042853255, TrainErrorChange:-8.1546605E-5, ValidationError:0.21533807, Accuracy: 0.9111111
+Epoch:200, Time:1ms, TrainError:0.042772356, TrainErrorChange:-8.0898404E-5, ValidationError:0.21602273, Accuracy: 0.9111111
+Epoch:201, Time:0ms, TrainError:0.04269198, TrainErrorChange:-8.037686E-5, ValidationError:0.21670741, Accuracy: 0.9111111
+Epoch:202, Time:0ms, TrainError:0.042612225, TrainErrorChange:-7.975474E-5, ValidationError:0.2173949, Accuracy: 0.9111111
+Epoch:203, Time:0ms, TrainError:0.04253318, TrainErrorChange:-7.904321E-5, ValidationError:0.21808203, Accuracy: 0.9111111
+Epoch:204, Time:1ms, TrainError:0.042454574, TrainErrorChange:-7.860735E-5, ValidationError:0.21877314, Accuracy: 0.9111111
+Epoch:205, Time:0ms, TrainError:0.042376645, TrainErrorChange:-7.792935E-5, ValidationError:0.21946412, Accuracy: 0.9111111
+Epoch:206, Time:1ms, TrainError:0.042299192, TrainErrorChange:-7.745251E-5, ValidationError:0.22015615, Accuracy: 0.9111111
+Epoch:207, Time:1ms, TrainError:0.042222206, TrainErrorChange:-7.698685E-5, ValidationError:0.22085117, Accuracy: 0.9111111
+Epoch:208, Time:0ms, TrainError:0.042145815, TrainErrorChange:-7.63908E-5, ValidationError:0.2215459, Accuracy: 0.9111111
+Epoch:209, Time:1ms, TrainError:0.042069923, TrainErrorChange:-7.5891614E-5, ValidationError:0.22224522, Accuracy: 0.9111111
+Epoch:210, Time:0ms, TrainError:0.04199459, TrainErrorChange:-7.533282E-5, ValidationError:0.2229452, Accuracy: 0.9111111
+Epoch:211, Time:0ms, TrainError:0.041919686, TrainErrorChange:-7.490441E-5, ValidationError:0.22364633, Accuracy: 0.9111111
+Epoch:212, Time:0ms, TrainError:0.04184517, TrainErrorChange:-7.451698E-5, ValidationError:0.22435005, Accuracy: 0.9111111
+Epoch:213, Time:0ms, TrainError:0.041771173, TrainErrorChange:-7.399544E-5, ValidationError:0.22505493, Accuracy: 0.9111111
+Epoch:214, Time:1ms, TrainError:0.041697536, TrainErrorChange:-7.363781E-5, ValidationError:0.22576357, Accuracy: 0.9111111
+Epoch:215, Time:0ms, TrainError:0.041624382, TrainErrorChange:-7.3153526E-5, ValidationError:0.22647353, Accuracy: 0.9111111
+Epoch:216, Time:0ms, TrainError:0.041551646, TrainErrorChange:-7.273629E-5, ValidationError:0.22718559, Accuracy: 0.9111111
+Epoch:217, Time:0ms, TrainError:0.041479334, TrainErrorChange:-7.231161E-5, ValidationError:0.22790076, Accuracy: 0.9111111
+Epoch:218, Time:0ms, TrainError:0.041407414, TrainErrorChange:-7.1920455E-5, ValidationError:0.22861952, Accuracy: 0.9111111
+Epoch:219, Time:0ms, TrainError:0.041335844, TrainErrorChange:-7.157028E-5, ValidationError:0.22933893, Accuracy: 0.9111111
+Epoch:220, Time:0ms, TrainError:0.041264664, TrainErrorChange:-7.117912E-5, ValidationError:0.23006202, Accuracy: 0.9111111
+Epoch:221, Time:1ms, TrainError:0.041193858, TrainErrorChange:-7.080659E-5, ValidationError:0.2307882, Accuracy: 0.9111111
+Epoch:222, Time:1ms, TrainError:0.041123398, TrainErrorChange:-7.046014E-5, ValidationError:0.23151742, Accuracy: 0.9111111
+Epoch:223, Time:1ms, TrainError:0.04105323, TrainErrorChange:-7.016584E-5, ValidationError:0.23225047, Accuracy: 0.9111111
+Epoch:224, Time:0ms, TrainError:0.040983595, TrainErrorChange:-6.963685E-5, ValidationError:0.23298654, Accuracy: 0.9111111
+Epoch:225, Time:1ms, TrainError:0.040914156, TrainErrorChange:-6.943941E-5, ValidationError:0.23372635, Accuracy: 0.9111111
+Epoch:226, Time:1ms, TrainError:0.040845133, TrainErrorChange:-6.902218E-5, ValidationError:0.23446909, Accuracy: 0.9111111
+Epoch:227, Time:0ms, TrainError:0.04077637, TrainErrorChange:-6.876513E-5, ValidationError:0.23521714, Accuracy: 0.9111111
+Epoch:228, Time:0ms, TrainError:0.04070785, TrainErrorChange:-6.8519264E-5, ValidationError:0.2359685, Accuracy: 0.9111111
+Epoch:229, Time:1ms, TrainError:0.040639788, TrainErrorChange:-6.8061054E-5, ValidationError:0.23672423, Accuracy: 0.9111111
+Epoch:230, Time:1ms, TrainError:0.0405721, TrainErrorChange:-6.7688525E-5, ValidationError:0.23748295, Accuracy: 0.9111111
+Epoch:231, Time:0ms, TrainError:0.04050449, TrainErrorChange:-6.761029E-5, ValidationError:0.23824878, Accuracy: 0.9111111
+Epoch:232, Time:0ms, TrainError:0.0404373, TrainErrorChange:-6.7189336E-5, ValidationError:0.23901908, Accuracy: 0.9111111
+Epoch:233, Time:0ms, TrainError:0.040370446, TrainErrorChange:-6.685406E-5, ValidationError:0.23979348, Accuracy: 0.9111111
+Epoch:234, Time:1ms, TrainError:0.040303793, TrainErrorChange:-6.6652894E-5, ValidationError:0.24057388, Accuracy: 0.9111111
+Epoch:235, Time:0ms, TrainError:0.04023745, TrainErrorChange:-6.6343695E-5, ValidationError:0.24135956, Accuracy: 0.9111111
+Epoch:236, Time:0ms, TrainError:0.040171497, TrainErrorChange:-6.595254E-5, ValidationError:0.2421512, Accuracy: 0.9111111
+Epoch:237, Time:0ms, TrainError:0.04010574, TrainErrorChange:-6.57551E-5, ValidationError:0.24294946, Accuracy: 0.9111111
+Epoch:238, Time:0ms, TrainError:0.040040236, TrainErrorChange:-6.5505505E-5, ValidationError:0.24375255, Accuracy: 0.9111111
+Epoch:239, Time:1ms, TrainError:0.039974965, TrainErrorChange:-6.527081E-5, ValidationError:0.24456264, Accuracy: 0.9111111
+Epoch:240, Time:0ms, TrainError:0.03991009, TrainErrorChange:-6.487593E-5, ValidationError:0.2453806, Accuracy: 0.9111111
+Epoch:241, Time:0ms, TrainError:0.039845444, TrainErrorChange:-6.464496E-5, ValidationError:0.2462032, Accuracy: 0.9111111
+Epoch:242, Time:0ms, TrainError:0.039781034, TrainErrorChange:-6.441027E-5, ValidationError:0.24703464, Accuracy: 0.9111111
+Epoch:243, Time:0ms, TrainError:0.03971695, TrainErrorChange:-6.4082444E-5, ValidationError:0.24787216, Accuracy: 0.9111111
+Epoch:244, Time:0ms, TrainError:0.039652985, TrainErrorChange:-6.396696E-5, ValidationError:0.24872018, Accuracy: 0.9111111
+Epoch:245, Time:1ms, TrainError:0.039589483, TrainErrorChange:-6.35013E-5, ValidationError:0.24957366, Accuracy: 0.9111111
+Epoch:246, Time:0ms, TrainError:0.03952614, TrainErrorChange:-6.3344836E-5, ValidationError:0.2504373, Accuracy: 0.9111111
+Epoch:247, Time:1ms, TrainError:0.039463054, TrainErrorChange:-6.3084066E-5, ValidationError:0.25130975, Accuracy: 0.9111111
+Epoch:248, Time:0ms, TrainError:0.039400328, TrainErrorChange:-6.272644E-5, ValidationError:0.2521892, Accuracy: 0.9111111
+Epoch:249, Time:0ms, TrainError:0.03933771, TrainErrorChange:-6.2618405E-5, ValidationError:0.25307882, Accuracy: 0.9111111
+Epoch:250, Time:1ms, TrainError:0.039275464, TrainErrorChange:-6.2245876E-5, ValidationError:0.25397936, Accuracy: 0.9111111
+Epoch:251, Time:0ms, TrainError:0.03921344, TrainErrorChange:-6.202236E-5, ValidationError:0.2548898, Accuracy: 0.9111111
+Epoch:252, Time:0ms, TrainError:0.039151635, TrainErrorChange:-6.180629E-5, ValidationError:0.2558089, Accuracy: 0.9111111
+Epoch:253, Time:1ms, TrainError:0.039090224, TrainErrorChange:-6.141141E-5, ValidationError:0.2567394, Accuracy: 0.9111111
+Epoch:254, Time:0ms, TrainError:0.039029013, TrainErrorChange:-6.1210245E-5, ValidationError:0.25768286, Accuracy: 0.9111111
+Epoch:255, Time:1ms, TrainError:0.0389681, TrainErrorChange:-6.091222E-5, ValidationError:0.25863615, Accuracy: 0.9111111
+Epoch:256, Time:1ms, TrainError:0.03890739, TrainErrorChange:-6.0711056E-5, ValidationError:0.25960186, Accuracy: 0.9111111
+Epoch:257, Time:0ms, TrainError:0.03884705, TrainErrorChange:-6.0338527E-5, ValidationError:0.26057968, Accuracy: 0.9111111
+Epoch:258, Time:0ms, TrainError:0.038786907, TrainErrorChange:-6.0144812E-5, ValidationError:0.2615712, Accuracy: 0.9111111
+Epoch:259, Time:0ms, TrainError:0.03872705, TrainErrorChange:-5.9857965E-5, ValidationError:0.26257455, Accuracy: 0.9111111
+Epoch:260, Time:1ms, TrainError:0.038667463, TrainErrorChange:-5.958602E-5, ValidationError:0.26359126, Accuracy: 0.9111111
+Epoch:261, Time:0ms, TrainError:0.038608212, TrainErrorChange:-5.9250742E-5, ValidationError:0.26462194, Accuracy: 0.9111111
+Epoch:262, Time:0ms, TrainError:0.038549226, TrainErrorChange:-5.8986247E-5, ValidationError:0.26566938, Accuracy: 0.9111111
+Epoch:263, Time:0ms, TrainError:0.038490605, TrainErrorChange:-5.8621168E-5, ValidationError:0.26673058, Accuracy: 0.9111111
+Epoch:264, Time:1ms, TrainError:0.038432263, TrainErrorChange:-5.834177E-5, ValidationError:0.2678076, Accuracy: 0.9111111
+Epoch:265, Time:0ms, TrainError:0.038374096, TrainErrorChange:-5.8166683E-5, ValidationError:0.2689015, Accuracy: 0.9111111
+Epoch:266, Time:0ms, TrainError:0.03831637, TrainErrorChange:-5.77271E-5, ValidationError:0.27001145, Accuracy: 0.9111111
+Epoch:267, Time:1ms, TrainError:0.038259007, TrainErrorChange:-5.736202E-5, ValidationError:0.27113783, Accuracy: 0.9111111
+Epoch:268, Time:0ms, TrainError:0.038201883, TrainErrorChange:-5.71236E-5, ValidationError:0.27228114, Accuracy: 0.9111111
+Epoch:269, Time:0ms, TrainError:0.0381451, TrainErrorChange:-5.67846E-5, ValidationError:0.27344424, Accuracy: 0.9111111
+Epoch:270, Time:1ms, TrainError:0.038088392, TrainErrorChange:-5.670637E-5, ValidationError:0.2746281, Accuracy: 0.9111111
+Epoch:271, Time:1ms, TrainError:0.0380324, TrainErrorChange:-5.5991113E-5, ValidationError:0.2758323, Accuracy: 0.9111111
+Epoch:272, Time:0ms, TrainError:0.037976693, TrainErrorChange:-5.570799E-5, ValidationError:0.2770534, Accuracy: 0.9111111
+Epoch:273, Time:0ms, TrainError:0.03792126, TrainErrorChange:-5.543232E-5, ValidationError:0.27829885, Accuracy: 0.9111111
+Epoch:274, Time:0ms, TrainError:0.037866313, TrainErrorChange:-5.4948032E-5, ValidationError:0.279565, Accuracy: 0.9111111
+Epoch:275, Time:1ms, TrainError:0.037811548, TrainErrorChange:-5.4765493E-5, ValidationError:0.28085455, Accuracy: 0.9111111
+Epoch:276, Time:0ms, TrainError:0.03775724, TrainErrorChange:-5.4307282E-5, ValidationError:0.28217003, Accuracy: 0.9111111
+Epoch:277, Time:0ms, TrainError:0.03770346, TrainErrorChange:-5.3782016E-5, ValidationError:0.28350654, Accuracy: 0.9111111
+Epoch:278, Time:0ms, TrainError:0.037649956, TrainErrorChange:-5.350262E-5, ValidationError:0.28487238, Accuracy: 0.9111111
+Epoch:279, Time:1ms, TrainError:0.037596926, TrainErrorChange:-5.3029507E-5, ValidationError:0.28626493, Accuracy: 0.9111111
+Epoch:280, Time:0ms, TrainError:0.037544467, TrainErrorChange:-5.2459538E-5, ValidationError:0.28768507, Accuracy: 0.9111111
+Epoch:281, Time:0ms, TrainError:0.037492275, TrainErrorChange:-5.2191317E-5, ValidationError:0.2891364, Accuracy: 0.9111111
+Epoch:282, Time:1ms, TrainError:0.03744068, TrainErrorChange:-5.159527E-5, ValidationError:0.2906155, Accuracy: 0.9111111
+Epoch:283, Time:0ms, TrainError:0.0373895, TrainErrorChange:-5.1181763E-5, ValidationError:0.29213127, Accuracy: 0.9111111
+Epoch:284, Time:1ms, TrainError:0.037339196, TrainErrorChange:-5.0302595E-5, ValidationError:0.29367882, Accuracy: 0.9111111
+Epoch:285, Time:0ms, TrainError:0.03728893, TrainErrorChange:-5.0265342E-5, ValidationError:0.29526564, Accuracy: 0.9111111
+Epoch:286, Time:1ms, TrainError:0.03723942, TrainErrorChange:-4.9509108E-5, ValidationError:0.29689214, Accuracy: 0.9111111
+Epoch:287, Time:0ms, TrainError:0.037190754, TrainErrorChange:-4.8667192E-5, ValidationError:0.2985539, Accuracy: 0.9111111
+Epoch:288, Time:0ms, TrainError:0.037142575, TrainErrorChange:-4.817918E-5, ValidationError:0.30026162, Accuracy: 0.9111111
+Epoch:289, Time:1ms, TrainError:0.03709495, TrainErrorChange:-4.762411E-5, ValidationError:0.3020182, Accuracy: 0.9111111
+Epoch:290, Time:0ms, TrainError:0.037048254, TrainErrorChange:-4.6696514E-5, ValidationError:0.3038208, Accuracy: 0.9111111
+Epoch:291, Time:0ms, TrainError:0.037002232, TrainErrorChange:-4.6022236E-5, ValidationError:0.3056787, Accuracy: 0.9111111
+Epoch:292, Time:0ms, TrainError:0.036957003, TrainErrorChange:-4.522875E-5, ValidationError:0.30759317, Accuracy: 0.9111111
+Epoch:293, Time:0ms, TrainError:0.036912784, TrainErrorChange:-4.4219196E-5, ValidationError:0.30956757, Accuracy: 0.9111111
+Epoch:294, Time:1ms, TrainError:0.03686951, TrainErrorChange:-4.3272972E-5, ValidationError:0.3116128, Accuracy: 0.9111111
+Epoch:295, Time:0ms, TrainError:0.036827274, TrainErrorChange:-4.223734E-5, ValidationError:0.3137311, Accuracy: 0.9111111
+Epoch:296, Time:0ms, TrainError:0.036786206, TrainErrorChange:-4.10676E-5, ValidationError:0.31593427, Accuracy: 0.9111111
+Epoch:297, Time:0ms, TrainError:0.036746327, TrainErrorChange:-3.9879233E-5, ValidationError:0.31822768, Accuracy: 0.9111111
+Epoch:298, Time:0ms, TrainError:0.03670796, TrainErrorChange:-3.8366765E-5, ValidationError:0.32062712, Accuracy: 0.9111111
+Epoch:299, Time:0ms, TrainError:0.03667131, TrainErrorChange:-3.6649406E-5, ValidationError:0.32314375, Accuracy: 0.9111111
+Epoch:300, Time:0ms, TrainError:0.036636543, TrainErrorChange:-3.4768134E-5, ValidationError:0.3257933, Accuracy: 0.9111111
+Epoch:301, Time:0ms, TrainError:0.036603764, TrainErrorChange:-3.277883E-5, ValidationError:0.32860765, Accuracy: 0.9111111
+Epoch:302, Time:1ms, TrainError:0.036573403, TrainErrorChange:-3.0361116E-5, ValidationError:0.33161938, Accuracy: 0.9111111
+Epoch:303, Time:0ms, TrainError:0.036546305, TrainErrorChange:-2.7097762E-5, ValidationError:0.3348634, Accuracy: 0.9111111
+Epoch:304, Time:0ms, TrainError:0.03652279, TrainErrorChange:-2.3514032E-5, ValidationError:0.33841026, Accuracy: 0.9111111
+Epoch:305, Time:0ms, TrainError:0.036503702, TrainErrorChange:-1.9088387E-5, ValidationError:0.34235162, Accuracy: 0.9111111
+Epoch:306, Time:0ms, TrainError:0.0364906, TrainErrorChange:-1.3101846E-5, ValidationError:0.3468397, Accuracy: 0.9111111
+Epoch:307, Time:1ms, TrainError:0.036485888, TrainErrorChange:-4.7124922E-6, ValidationError:0.3521494, Accuracy: 0.9111111
+Epoch:308, Time:0ms, TrainError:0.03649369, TrainErrorChange:7.800758E-6, ValidationError:0.35879174, Accuracy: 0.9111111
+Epoch:309, Time:1ms, TrainError:0.03652229, TrainErrorChange:2.8602779E-5, ValidationError:0.3679513, Accuracy: 0.9111111
+Epoch:310, Time:0ms, TrainError:0.036594443, TrainErrorChange:7.215142E-5, ValidationError:0.3830535, Accuracy: 0.9111111
+Epoch:311, Time:0ms, TrainError:0.036817484, TrainErrorChange:2.2304058E-4, ValidationError:0.41924486, Accuracy: 0.9111111
+Epoch:312, Time:0ms, TrainError:0.039392624, TrainErrorChange:0.0025751404, ValidationError:0.63578045, Accuracy: 0.9111111
+Epoch:313, Time:0ms, TrainError:0.15364476, TrainErrorChange:0.114252135, ValidationError:0.6611717, Accuracy: 0.9111111
+Epoch:314, Time:1ms, TrainError:0.13733119, TrainErrorChange:-0.016313568, ValidationError:0.4047194, Accuracy: 0.9111111
+Epoch:315, Time:0ms, TrainError:0.04969547, TrainErrorChange:-0.08763572, ValidationError:0.39815527, Accuracy: 0.9111111
+Epoch:316, Time:1ms, TrainError:0.040988524, TrainErrorChange:-0.008706946, ValidationError:0.36885104, Accuracy: 0.9111111
+Epoch:317, Time:1ms, TrainError:0.03632978, TrainErrorChange:-0.0046587437, ValidationError:0.30893105, Accuracy: 0.9111111
+Epoch:318, Time:0ms, TrainError:0.03408669, TrainErrorChange:-0.0022430904, ValidationError:0.30159712, Accuracy: 0.9111111
+Epoch:319, Time:0ms, TrainError:0.033868145, TrainErrorChange:-2.1854416E-4, ValidationError:0.303381, Accuracy: 0.9111111
+Epoch:320, Time:1ms, TrainError:0.03393046, TrainErrorChange:6.2316656E-5, ValidationError:0.30512714, Accuracy: 0.9111111
+Epoch:321, Time:0ms, TrainError:0.03398163, TrainErrorChange:5.1166862E-5, ValidationError:0.3069359, Accuracy: 0.9111111
+Epoch:322, Time:0ms, TrainError:0.03402326, TrainErrorChange:4.163012E-5, ValidationError:0.30879322, Accuracy: 0.9111111
+Epoch:323, Time:0ms, TrainError:0.0340552, TrainErrorChange:3.194064E-5, ValidationError:0.3106983, Accuracy: 0.9111111
+Epoch:324, Time:1ms, TrainError:0.034078024, TrainErrorChange:2.2824854E-5, ValidationError:0.31265196, Accuracy: 0.9111111
+Epoch:325, Time:0ms, TrainError:0.034093007, TrainErrorChange:1.4983118E-5, ValidationError:0.31464842, Accuracy: 0.9111111
+Epoch:326, Time:1ms, TrainError:0.03410101, TrainErrorChange:8.001924E-6, ValidationError:0.31669602, Accuracy: 0.9111111
+Epoch:327, Time:0ms, TrainError:0.034103155, TrainErrorChange:2.1457672E-6, ValidationError:0.31879085, Accuracy: 0.9111111
+Epoch:328, Time:1ms, TrainError:0.034100115, TrainErrorChange:-3.0398369E-6, ValidationError:0.32093844, Accuracy: 0.9111111
+Epoch:329, Time:0ms, TrainError:0.03409277, TrainErrorChange:-7.3462725E-6, ValidationError:0.323146, Accuracy: 0.9111111
+Epoch:330, Time:1ms, TrainError:0.03408206, TrainErrorChange:-1.071021E-5, ValidationError:0.32541406, Accuracy: 0.9111111
+Epoch:331, Time:0ms, TrainError:0.034068294, TrainErrorChange:-1.3764948E-5, ValidationError:0.3277538, Accuracy: 0.9111111
+Epoch:332, Time:0ms, TrainError:0.034052387, TrainErrorChange:-1.590699E-5, ValidationError:0.33016545, Accuracy: 0.9111111
+Epoch:333, Time:0ms, TrainError:0.034034394, TrainErrorChange:-1.7993152E-5, ValidationError:0.3326573, Accuracy: 0.9111111
+Epoch:334, Time:0ms, TrainError:0.034014944, TrainErrorChange:-1.944974E-5, ValidationError:0.3352444, Accuracy: 0.9111111
+Epoch:335, Time:0ms, TrainError:0.033994637, TrainErrorChange:-2.0306557E-5, ValidationError:0.33793437, Accuracy: 0.9111111
+Epoch:336, Time:1ms, TrainError:0.03397369, TrainErrorChange:-2.0947307E-5, ValidationError:0.3407377, Accuracy: 0.9111111
+Epoch:337, Time:0ms, TrainError:0.033952497, TrainErrorChange:-2.1193177E-5, ValidationError:0.34367564, Accuracy: 0.9111111
+Epoch:338, Time:0ms, TrainError:0.0339316, TrainErrorChange:-2.0895153E-5, ValidationError:0.3467671, Accuracy: 0.9111111
+Epoch:339, Time:1ms, TrainError:0.0339113, TrainErrorChange:-2.0302832E-5, ValidationError:0.35003296, Accuracy: 0.9111111
+Epoch:340, Time:0ms, TrainError:0.033891995, TrainErrorChange:-1.9304454E-5, ValidationError:0.35351953, Accuracy: 0.9111111
+Epoch:341, Time:1ms, TrainError:0.033874415, TrainErrorChange:-1.7579645E-5, ValidationError:0.35726258, Accuracy: 0.9111111
+Epoch:342, Time:0ms, TrainError:0.03385905, TrainErrorChange:-1.5363097E-5, ValidationError:0.3613381, Accuracy: 0.9111111
+Epoch:343, Time:1ms, TrainError:0.033846978, TrainErrorChange:-1.2073666E-5, ValidationError:0.3658374, Accuracy: 0.9111111
+Epoch:344, Time:0ms, TrainError:0.03383912, TrainErrorChange:-7.856637E-6, ValidationError:0.37091616, Accuracy: 0.9111111
+Epoch:345, Time:1ms, TrainError:0.03383707, TrainErrorChange:-2.052635E-6, ValidationError:0.37685108, Accuracy: 0.9111111
+Epoch:346, Time:0ms, TrainError:0.03384357, TrainErrorChange:6.5006316E-6, ValidationError:0.38414308, Accuracy: 0.9111111
+Epoch:347, Time:0ms, TrainError:0.03386311, TrainErrorChange:1.9539148E-5, ValidationError:0.39394063, Accuracy: 0.9111111
+Epoch:348, Time:0ms, TrainError:0.03390645, TrainErrorChange:4.3340027E-5, ValidationError:0.40948126, Accuracy: 0.9111111
+Epoch:349, Time:0ms, TrainError:0.034020044, TrainErrorChange:1.1359528E-4, ValidationError:0.44505545, Accuracy: 0.9111111
+Epoch:350, Time:1ms, TrainError:0.03569619, TrainErrorChange:0.0016761459, ValidationError:0.6679446, Accuracy: 0.9111111
+Epoch:351, Time:0ms, TrainError:0.15509494, TrainErrorChange:0.11939874, ValidationError:0.7477344, Accuracy: 0.9111111
+Epoch:352, Time:1ms, TrainError:0.14914273, TrainErrorChange:-0.0059522092, ValidationError:0.39162302, Accuracy: 0.9111111
+Epoch:353, Time:0ms, TrainError:0.045156907, TrainErrorChange:-0.103985816, ValidationError:0.39222744, Accuracy: 0.9111111
+Epoch:354, Time:0ms, TrainError:0.03612617, TrainErrorChange:-0.009030737, ValidationError:0.39208657, Accuracy: 0.9111111
+Epoch:355, Time:0ms, TrainError:0.033309385, TrainErrorChange:-0.0028167851, ValidationError:0.35547146, Accuracy: 0.9111111
+Epoch:356, Time:0ms, TrainError:0.032097533, TrainErrorChange:-0.0012118518, ValidationError:0.33372256, Accuracy: 0.9111111
+Epoch:357, Time:1ms, TrainError:0.031552546, TrainErrorChange:-5.449876E-4, ValidationError:0.33492786, Accuracy: 0.9111111
+Epoch:358, Time:0ms, TrainError:0.03160251, TrainErrorChange:4.9963593E-5, ValidationError:0.33756414, Accuracy: 0.9111111
+Epoch:359, Time:0ms, TrainError:0.031665783, TrainErrorChange:6.3274056E-5, ValidationError:0.34028092, Accuracy: 0.9111111
+Epoch:360, Time:0ms, TrainError:0.03170938, TrainErrorChange:4.3597072E-5, ValidationError:0.3430374, Accuracy: 0.9111111
+Epoch:361, Time:0ms, TrainError:0.031737037, TrainErrorChange:2.7656555E-5, ValidationError:0.3458215, Accuracy: 0.9111111
+Epoch:362, Time:0ms, TrainError:0.031752314, TrainErrorChange:1.5277416E-5, ValidationError:0.3486362, Accuracy: 0.9111111
+Epoch:363, Time:1ms, TrainError:0.031757448, TrainErrorChange:5.13345E-6, ValidationError:0.35149276, Accuracy: 0.9111111
+Epoch:364, Time:0ms, TrainError:0.031754818, TrainErrorChange:-2.630055E-6, ValidationError:0.35440302, Accuracy: 0.9111111
+Epoch:365, Time:0ms, TrainError:0.031746663, TrainErrorChange:-8.1546605E-6, ValidationError:0.35737297, Accuracy: 0.9111111
+Epoch:366, Time:0ms, TrainError:0.03173373, TrainErrorChange:-1.2934208E-5, ValidationError:0.3604267, Accuracy: 0.9111111
+Epoch:367, Time:0ms, TrainError:0.031717572, TrainErrorChange:-1.6156584E-5, ValidationError:0.36358494, Accuracy: 0.9111111
+Epoch:368, Time:0ms, TrainError:0.031699114, TrainErrorChange:-1.8458813E-5, ValidationError:0.366851, Accuracy: 0.9111111
+Epoch:369, Time:1ms, TrainError:0.031678718, TrainErrorChange:-2.0395964E-5, ValidationError:0.37026557, Accuracy: 0.9111111
+Epoch:370, Time:0ms, TrainError:0.031657718, TrainErrorChange:-2.0999461E-5, ValidationError:0.3738567, Accuracy: 0.9111111
+Epoch:371, Time:1ms, TrainError:0.031637136, TrainErrorChange:-2.0582229E-5, ValidationError:0.37764984, Accuracy: 0.9111111
+Epoch:372, Time:0ms, TrainError:0.0316165, TrainErrorChange:-2.0634383E-5, ValidationError:0.38169926, Accuracy: 0.9111111
+Epoch:373, Time:1ms, TrainError:0.031597722, TrainErrorChange:-1.8779188E-5, ValidationError:0.38606963, Accuracy: 0.9111111
+Epoch:374, Time:0ms, TrainError:0.03158097, TrainErrorChange:-1.675263E-5, ValidationError:0.39083907, Accuracy: 0.9111111
+Epoch:375, Time:0ms, TrainError:0.031567387, TrainErrorChange:-1.3582408E-5, ValidationError:0.39616144, Accuracy: 0.9111111
+Epoch:376, Time:0ms, TrainError:0.031557936, TrainErrorChange:-9.4510615E-6, ValidationError:0.40224236, Accuracy: 0.9111111
+Epoch:377, Time:1ms, TrainError:0.031553943, TrainErrorChange:-3.993511E-6, ValidationError:0.40947995, Accuracy: 0.9111111
+Epoch:378, Time:0ms, TrainError:0.031557683, TrainErrorChange:3.7401915E-6, ValidationError:0.41866034, Accuracy: 0.9111111
+Epoch:379, Time:0ms, TrainError:0.03157093, TrainErrorChange:1.3247132E-5, ValidationError:0.43174773, Accuracy: 0.9111111
+Epoch:380, Time:1ms, TrainError:0.0315955, TrainErrorChange:2.456829E-5, ValidationError:0.4554628, Accuracy: 0.9111111
+Epoch:381, Time:0ms, TrainError:0.031718463, TrainErrorChange:1.2296438E-4, ValidationError:0.53616256, Accuracy: 0.9111111
+Epoch:382, Time:0ms, TrainError:0.07871722, TrainErrorChange:0.046998754, ValidationError:0.97204745, Accuracy: 0.9111111
+Epoch:383, Time:1ms, TrainError:0.25211537, TrainErrorChange:0.17339815, ValidationError:0.3822586, Accuracy: 0.9111111
+Epoch:384, Time:0ms, TrainError:0.04057836, TrainErrorChange:-0.211537, ValidationError:0.33806488, Accuracy: 0.9111111
+Epoch:385, Time:0ms, TrainError:0.029209938, TrainErrorChange:-0.011368424, ValidationError:0.3482227, Accuracy: 0.9111111
+
+TRAINING COMPLETED
+Total Training Time: 316ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 1.0
+Precision: 1.0
+F1Score: 1.0
+Recall: 1.0
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:3ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+
+TRAINING COMPLETED
+Total Training Time: 19ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 0.98518515
+Precision: 0.98333335
+F1Score: 0.9769602
+Recall: 0.97222227
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:11ms, TrainError:0.21820727, TrainErrorChange:0.21820727, Accuracy: 0.5555556
+Epoch:2, Time:2ms, TrainError:0.23001681, TrainErrorChange:0.011809543, Accuracy: 0.5555556
+Epoch:3, Time:2ms, TrainError:0.17495225, TrainErrorChange:-0.05506456, Accuracy: 0.5555555
+Epoch:4, Time:2ms, TrainError:0.1392134, TrainErrorChange:-0.035738856, Accuracy: 0.5555556
+Epoch:5, Time:1ms, TrainError:0.1129493, TrainErrorChange:-0.026264101, Accuracy: 0.5644445
+Epoch:6, Time:1ms, TrainError:0.08742775, TrainErrorChange:-0.025521547, Accuracy: 0.74222225
+Epoch:7, Time:2ms, TrainError:0.07033093, TrainErrorChange:-0.017096817, Accuracy: 0.76888895
+Epoch:8, Time:2ms, TrainError:0.059589576, TrainErrorChange:-0.010741357, Accuracy: 0.77777785
+Epoch:9, Time:2ms, TrainError:0.051896222, TrainErrorChange:-0.007693354, Accuracy: 0.77777785
+Epoch:10, Time:1ms, TrainError:0.045874663, TrainErrorChange:-0.0060215592, Accuracy: 0.7822223
+Epoch:11, Time:1ms, TrainError:0.041250505, TrainErrorChange:-0.004624158, Accuracy: 0.7955556
+Epoch:12, Time:1ms, TrainError:0.03800574, TrainErrorChange:-0.003244765, Accuracy: 0.8
+Epoch:13, Time:1ms, TrainError:0.035951704, TrainErrorChange:-0.0020540357, Accuracy: 0.8044445
+Epoch:14, Time:19ms, TrainError:0.034669302, TrainErrorChange:-0.0012824014, Accuracy: 0.8044445
+Epoch:15, Time:1ms, TrainError:0.033664152, TrainErrorChange:-0.0010051504, Accuracy: 0.8044445
+Epoch:16, Time:1ms, TrainError:0.032612715, TrainErrorChange:-0.0010514371, Accuracy: 0.8088889
+Epoch:17, Time:2ms, TrainError:0.03142148, TrainErrorChange:-0.0011912361, Accuracy: 0.81333333
+Epoch:18, Time:1ms, TrainError:0.030107994, TrainErrorChange:-0.0013134852, Accuracy: 0.81333333
+Epoch:19, Time:2ms, TrainError:0.028705062, TrainErrorChange:-0.0014029313, Accuracy: 0.82222223
+
+TRAINING COMPLETED
+Total Training Time: 78ms
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:4ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:2ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:2ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+Epoch:6, Time:2ms, TrainError:0.24040928, TrainErrorChange:-0.030995458, ValidationError:0.20640673, Accuracy: 0.9111111
+Epoch:7, Time:1ms, TrainError:0.21796203, TrainErrorChange:-0.022447258, ValidationError:0.19263174, Accuracy: 0.9111111
+Epoch:8, Time:1ms, TrainError:0.20053607, TrainErrorChange:-0.017425954, ValidationError:0.18224744, Accuracy: 0.9111111
+Epoch:9, Time:1ms, TrainError:0.18635578, TrainErrorChange:-0.014180288, ValidationError:0.1736092, Accuracy: 0.9111111
+Epoch:10, Time:1ms, TrainError:0.17462896, TrainErrorChange:-0.011726826, ValidationError:0.16586886, Accuracy: 0.9111111
+Epoch:11, Time:2ms, TrainError:0.16505463, TrainErrorChange:-0.009574324, ValidationError:0.15862317, Accuracy: 0.9111111
+Epoch:12, Time:2ms, TrainError:0.15754884, TrainErrorChange:-0.0075057894, ValidationError:0.15169726, Accuracy: 0.9555556
+Epoch:13, Time:1ms, TrainError:0.15207963, TrainErrorChange:-0.005469218, ValidationError:0.14501303, Accuracy: 0.9555556
+Epoch:14, Time:1ms, TrainError:0.14855963, TrainErrorChange:-0.003519997, ValidationError:0.13853057, Accuracy: 0.9555556
+Epoch:15, Time:1ms, TrainError:0.14671887, TrainErrorChange:-0.0018407553, ValidationError:0.13226774, Accuracy: 0.9555556
+Epoch:16, Time:1ms, TrainError:0.14592566, TrainErrorChange:-7.932186E-4, ValidationError:0.1263603, Accuracy: 0.9555556
+Epoch:17, Time:1ms, TrainError:0.14512178, TrainErrorChange:-8.0387294E-4, ValidationError:0.12107303, Accuracy: 0.9555556
+Epoch:18, Time:1ms, TrainError:0.14324513, TrainErrorChange:-0.0018766522, ValidationError:0.116745435, Accuracy: 1.0
+Epoch:19, Time:1ms, TrainError:0.1401573, TrainErrorChange:-0.0030878335, ValidationError:0.113757685, Accuracy: 1.0
+Epoch:20, Time:1ms, TrainError:0.13702242, TrainErrorChange:-0.0031348765, ValidationError:0.11246498, Accuracy: 1.0
+Epoch:21, Time:1ms, TrainError:0.13527198, TrainErrorChange:-0.0017504394, ValidationError:0.11302272, Accuracy: 0.9555556
+Epoch:22, Time:1ms, TrainError:0.1353975, TrainErrorChange:1.2551248E-4, ValidationError:0.11554453, Accuracy: 0.9555556
+Epoch:23, Time:1ms, TrainError:0.13726, TrainErrorChange:0.001862511, ValidationError:0.12035636, Accuracy: 0.9555556
+Epoch:24, Time:1ms, TrainError:0.14072551, TrainErrorChange:0.0034655035, ValidationError:0.12779374, Accuracy: 0.9555556
+Epoch:25, Time:1ms, TrainError:0.14557855, TrainErrorChange:0.00485304, ValidationError:0.13781627, Accuracy: 0.9111111
+Epoch:26, Time:1ms, TrainError:0.15133697, TrainErrorChange:0.0057584196, ValidationError:0.14970616, Accuracy: 0.9111111
+Epoch:27, Time:1ms, TrainError:0.15721631, TrainErrorChange:0.0058793426, ValidationError:0.16260736, Accuracy: 0.9111111
+Epoch:28, Time:1ms, TrainError:0.16237056, TrainErrorChange:0.005154252, ValidationError:0.17649491, Accuracy: 0.9111111
+Epoch:29, Time:1ms, TrainError:0.16627714, TrainErrorChange:0.003906578, ValidationError:0.19184032, Accuracy: 0.9111111
+Epoch:30, Time:1ms, TrainError:0.16883585, TrainErrorChange:0.0025587082, ValidationError:0.20850049, Accuracy: 0.9111111
+Epoch:31, Time:16ms, TrainError:0.17017213, TrainErrorChange:0.0013362765, ValidationError:0.2255257, Accuracy: 0.9111111
+Epoch:32, Time:1ms, TrainError:0.17045437, TrainErrorChange:2.822429E-4, ValidationError:0.24162754, Accuracy: 0.9111111
+Epoch:33, Time:1ms, TrainError:0.16978973, TrainErrorChange:-6.646365E-4, ValidationError:0.25563005, Accuracy: 0.9111111
+Epoch:34, Time:1ms, TrainError:0.16823018, TrainErrorChange:-0.0015595555, ValidationError:0.26680928, Accuracy: 0.9111111
+Epoch:35, Time:1ms, TrainError:0.16588157, TrainErrorChange:-0.0023486018, ValidationError:0.27510124, Accuracy: 0.9111111
+Epoch:36, Time:1ms, TrainError:0.16297285, TrainErrorChange:-0.0029087216, ValidationError:0.28100047, Accuracy: 0.9111111
+Epoch:37, Time:0ms, TrainError:0.15978807, TrainErrorChange:-0.0031847805, ValidationError:0.2851763, Accuracy: 0.9111111
+Epoch:38, Time:1ms, TrainError:0.15654118, TrainErrorChange:-0.0032468885, ValidationError:0.2881463, Accuracy: 0.9111111
+Epoch:39, Time:1ms, TrainError:0.15332496, TrainErrorChange:-0.003216222, ValidationError:0.29020235, Accuracy: 0.9111111
+Epoch:40, Time:1ms, TrainError:0.15014929, TrainErrorChange:-0.0031756759, ValidationError:0.29149055, Accuracy: 0.9111111
+Epoch:41, Time:1ms, TrainError:0.14699824, TrainErrorChange:-0.0031510442, ValidationError:0.29209417, Accuracy: 0.9111111
+Epoch:42, Time:1ms, TrainError:0.1438604, TrainErrorChange:-0.0031378418, ValidationError:0.29208273, Accuracy: 0.9111111
+Epoch:43, Time:1ms, TrainError:0.14073534, TrainErrorChange:-0.0031250566, ValidationError:0.29152086, Accuracy: 0.9111111
+Epoch:44, Time:1ms, TrainError:0.13763, TrainErrorChange:-0.0031053424, ValidationError:0.29047155, Accuracy: 0.9111111
+Epoch:45, Time:1ms, TrainError:0.1345548, TrainErrorChange:-0.0030751973, ValidationError:0.28899446, Accuracy: 0.9111111
+Epoch:46, Time:1ms, TrainError:0.13152044, TrainErrorChange:-0.0030343682, ValidationError:0.28714478, Accuracy: 0.9111111
+Epoch:47, Time:0ms, TrainError:0.1285378, TrainErrorChange:-0.0029826313, ValidationError:0.2849744, Accuracy: 0.9111111
+Epoch:48, Time:1ms, TrainError:0.12561655, TrainErrorChange:-0.0029212534, ValidationError:0.282528, Accuracy: 0.9111111
+Epoch:49, Time:1ms, TrainError:0.12276447, TrainErrorChange:-0.0028520823, ValidationError:0.2798479, Accuracy: 0.9111111
+Epoch:50, Time:1ms, TrainError:0.11998734, TrainErrorChange:-0.0027771294, ValidationError:0.27696964, Accuracy: 0.9111111
+Epoch:51, Time:0ms, TrainError:0.117290944, TrainErrorChange:-0.002696395, ValidationError:0.27392706, Accuracy: 0.9111111
+Epoch:52, Time:1ms, TrainError:0.11467808, TrainErrorChange:-0.0026128665, ValidationError:0.2707482, Accuracy: 0.9111111
+Epoch:53, Time:1ms, TrainError:0.11215094, TrainErrorChange:-0.00252714, ValidationError:0.26745838, Accuracy: 0.9111111
+Epoch:54, Time:1ms, TrainError:0.109711066, TrainErrorChange:-0.0024398714, ValidationError:0.264083, Accuracy: 0.9111111
+Epoch:55, Time:1ms, TrainError:0.10735941, TrainErrorChange:-0.0023516566, ValidationError:0.26064202, Accuracy: 0.9111111
+Epoch:56, Time:1ms, TrainError:0.10509591, TrainErrorChange:-0.0022635013, ValidationError:0.2571563, Accuracy: 0.9111111
+Epoch:57, Time:1ms, TrainError:0.10291971, TrainErrorChange:-0.0021761954, ValidationError:0.2536454, Accuracy: 0.9111111
+Epoch:58, Time:1ms, TrainError:0.10083115, TrainErrorChange:-0.0020885617, ValidationError:0.2501269, Accuracy: 0.9111111
+Epoch:59, Time:0ms, TrainError:0.09882864, TrainErrorChange:-0.0020025074, ValidationError:0.2466183, Accuracy: 0.9111111
+Epoch:60, Time:0ms, TrainError:0.096911535, TrainErrorChange:-0.0019171089, ValidationError:0.2431356, Accuracy: 0.9111111
+Epoch:61, Time:1ms, TrainError:0.095077895, TrainErrorChange:-0.00183364, ValidationError:0.23969306, Accuracy: 0.9111111
+Epoch:62, Time:1ms, TrainError:0.09332654, TrainErrorChange:-0.0017513558, ValidationError:0.23630391, Accuracy: 0.9111111
+Epoch:63, Time:0ms, TrainError:0.09165475, TrainErrorChange:-0.0016717911, ValidationError:0.23298107, Accuracy: 0.9111111
+Epoch:64, Time:0ms, TrainError:0.090060055, TrainErrorChange:-0.0015946925, ValidationError:0.22973013, Accuracy: 0.9111111
+Epoch:65, Time:0ms, TrainError:0.088539705, TrainErrorChange:-0.0015203506, ValidationError:0.22656155, Accuracy: 0.9111111
+Epoch:66, Time:1ms, TrainError:0.087090455, TrainErrorChange:-0.0014492497, ValidationError:0.22347862, Accuracy: 0.9111111
+Epoch:67, Time:0ms, TrainError:0.085708514, TrainErrorChange:-0.0013819411, ValidationError:0.22048424, Accuracy: 0.9111111
+Epoch:68, Time:0ms, TrainError:0.084390424, TrainErrorChange:-0.0013180897, ValidationError:0.21758156, Accuracy: 0.9111111
+Epoch:69, Time:1ms, TrainError:0.08313274, TrainErrorChange:-0.0012576878, ValidationError:0.21477157, Accuracy: 0.9111111
+Epoch:70, Time:0ms, TrainError:0.08193171, TrainErrorChange:-0.0012010261, ValidationError:0.21205299, Accuracy: 0.9111111
+Epoch:71, Time:0ms, TrainError:0.08078393, TrainErrorChange:-0.0011477768, ValidationError:0.20942576, Accuracy: 0.9111111
+Epoch:72, Time:0ms, TrainError:0.07968581, TrainErrorChange:-0.0010981262, ValidationError:0.20688799, Accuracy: 0.9111111
+Epoch:73, Time:1ms, TrainError:0.07863432, TrainErrorChange:-0.0010514855, ValidationError:0.20443769, Accuracy: 0.9111111
+Epoch:74, Time:0ms, TrainError:0.07762638, TrainErrorChange:-0.0010079443, ValidationError:0.2020738, Accuracy: 0.9111111
+Epoch:75, Time:1ms, TrainError:0.07665931, TrainErrorChange:-9.6707046E-4, ValidationError:0.19979478, Accuracy: 0.9111111
+Epoch:76, Time:0ms, TrainError:0.075730264, TrainErrorChange:-9.290427E-4, ValidationError:0.19759813, Accuracy: 0.9111111
+Epoch:77, Time:0ms, TrainError:0.0748371, TrainErrorChange:-8.931607E-4, ValidationError:0.195482, Accuracy: 0.9111111
+Epoch:78, Time:1ms, TrainError:0.07397761, TrainErrorChange:-8.594915E-4, ValidationError:0.19344492, Accuracy: 0.9111111
+Epoch:79, Time:1ms, TrainError:0.07314943, TrainErrorChange:-8.281842E-4, ValidationError:0.19148631, Accuracy: 0.9111111
+Epoch:80, Time:0ms, TrainError:0.07235102, TrainErrorChange:-7.984042E-4, ValidationError:0.18960533, Accuracy: 0.9111111
+Epoch:81, Time:0ms, TrainError:0.071580626, TrainErrorChange:-7.703975E-4, ValidationError:0.18779859, Accuracy: 0.9111111
+Epoch:82, Time:0ms, TrainError:0.07083665, TrainErrorChange:-7.439777E-4, ValidationError:0.18606836, Accuracy: 0.9111111
+Epoch:83, Time:1ms, TrainError:0.07011761, TrainErrorChange:-7.1904063E-4, ValidationError:0.18441325, Accuracy: 0.9111111
+Epoch:84, Time:1ms, TrainError:0.06942248, TrainErrorChange:-6.9512427E-4, ValidationError:0.18283261, Accuracy: 0.9111111
+Epoch:85, Time:0ms, TrainError:0.0687499, TrainErrorChange:-6.7258626E-4, ValidationError:0.1813249, Accuracy: 0.9111111
+Epoch:86, Time:1ms, TrainError:0.06809866, TrainErrorChange:-6.5124035E-4, ValidationError:0.17989011, Accuracy: 0.9111111
+Epoch:87, Time:0ms, TrainError:0.06746787, TrainErrorChange:-6.307885E-4, ValidationError:0.178529, Accuracy: 0.9111111
+Epoch:88, Time:0ms, TrainError:0.06685663, TrainErrorChange:-6.112382E-4, ValidationError:0.17724024, Accuracy: 0.9111111
+Epoch:89, Time:1ms, TrainError:0.06626418, TrainErrorChange:-5.924478E-4, ValidationError:0.17602523, Accuracy: 0.9111111
+Epoch:90, Time:0ms, TrainError:0.0656896, TrainErrorChange:-5.745813E-4, ValidationError:0.17488243, Accuracy: 0.9111111
+Epoch:91, Time:1ms, TrainError:0.06513233, TrainErrorChange:-5.572736E-4, ValidationError:0.17381018, Accuracy: 0.9111111
+Epoch:92, Time:0ms, TrainError:0.06459128, TrainErrorChange:-5.4104626E-4, ValidationError:0.1728092, Accuracy: 0.9111111
+Epoch:93, Time:1ms, TrainError:0.0640661, TrainErrorChange:-5.25184E-4, ValidationError:0.17188065, Accuracy: 0.9111111
+Epoch:94, Time:0ms, TrainError:0.06355655, TrainErrorChange:-5.095452E-4, ValidationError:0.17101844, Accuracy: 0.9111111
+Epoch:95, Time:0ms, TrainError:0.06306115, TrainErrorChange:-4.95404E-4, ValidationError:0.17022556, Accuracy: 0.9111111
+Epoch:96, Time:0ms, TrainError:0.06258021, TrainErrorChange:-4.8093498E-4, ValidationError:0.16949981, Accuracy: 0.9111111
+Epoch:97, Time:1ms, TrainError:0.062112637, TrainErrorChange:-4.675761E-4, ValidationError:0.16884097, Accuracy: 0.9111111
+Epoch:98, Time:0ms, TrainError:0.06165818, TrainErrorChange:-4.544556E-4, ValidationError:0.1682456, Accuracy: 0.9111111
+Epoch:99, Time:1ms, TrainError:0.061216302, TrainErrorChange:-4.4187903E-4, ValidationError:0.16771379, Accuracy: 0.9111111
+Epoch:100, Time:0ms, TrainError:0.0607866, TrainErrorChange:-4.2970106E-4, ValidationError:0.1672425, Accuracy: 0.9111111
+Epoch:101, Time:0ms, TrainError:0.060368363, TrainErrorChange:-4.1823834E-4, ValidationError:0.16683039, Accuracy: 0.9111111
+Epoch:102, Time:0ms, TrainError:0.05996132, TrainErrorChange:-4.0704384E-4, ValidationError:0.1664773, Accuracy: 0.9111111
+Epoch:103, Time:0ms, TrainError:0.05956531, TrainErrorChange:-3.9600953E-4, ValidationError:0.16617806, Accuracy: 0.9111111
+Epoch:104, Time:0ms, TrainError:0.059179448, TrainErrorChange:-3.8586184E-4, ValidationError:0.16593449, Accuracy: 0.9111111
+Epoch:105, Time:0ms, TrainError:0.058803663, TrainErrorChange:-3.7578493E-4, ValidationError:0.1657402, Accuracy: 0.9111111
+Epoch:106, Time:0ms, TrainError:0.058437183, TrainErrorChange:-3.6647916E-4, ValidationError:0.16559726, Accuracy: 0.9111111
+Epoch:107, Time:0ms, TrainError:0.058080062, TrainErrorChange:-3.5712123E-4, ValidationError:0.16550072, Accuracy: 0.9111111
+Epoch:108, Time:1ms, TrainError:0.05773163, TrainErrorChange:-3.4843385E-4, ValidationError:0.16544981, Accuracy: 0.9111111
+Epoch:109, Time:0ms, TrainError:0.05739193, TrainErrorChange:-3.3969805E-4, ValidationError:0.16544251, Accuracy: 0.9111111
+Epoch:110, Time:1ms, TrainError:0.057060327, TrainErrorChange:-3.31603E-4, ValidationError:0.16547523, Accuracy: 0.9111111
+Epoch:111, Time:1ms, TrainError:0.05673649, TrainErrorChange:-3.2383576E-4, ValidationError:0.16554783, Accuracy: 0.9111111
+Epoch:112, Time:0ms, TrainError:0.056420404, TrainErrorChange:-3.1608716E-4, ValidationError:0.16565749, Accuracy: 0.9111111
+Epoch:113, Time:1ms, TrainError:0.056111388, TrainErrorChange:-3.0901656E-4, ValidationError:0.16580182, Accuracy: 0.9111111
+Epoch:114, Time:0ms, TrainError:0.05580946, TrainErrorChange:-3.0192733E-4, ValidationError:0.16597939, Accuracy: 0.9111111
+Epoch:115, Time:1ms, TrainError:0.05551431, TrainErrorChange:-2.9515103E-4, ValidationError:0.16618782, Accuracy: 0.9111111
+Epoch:116, Time:0ms, TrainError:0.055225506, TrainErrorChange:-2.8880313E-4, ValidationError:0.1664266, Accuracy: 0.9111111
+Epoch:117, Time:0ms, TrainError:0.054943144, TrainErrorChange:-2.823621E-4, ValidationError:0.16669297, Accuracy: 0.9111111
+Epoch:118, Time:0ms, TrainError:0.0546668, TrainErrorChange:-2.7634576E-4, ValidationError:0.16698581, Accuracy: 0.9111111
+Epoch:119, Time:1ms, TrainError:0.054396227, TrainErrorChange:-2.7057156E-4, ValidationError:0.16730155, Accuracy: 0.9111111
+Epoch:120, Time:0ms, TrainError:0.054131422, TrainErrorChange:-2.648048E-4, ValidationError:0.16764227, Accuracy: 0.9111111
+Epoch:121, Time:0ms, TrainError:0.053871922, TrainErrorChange:-2.595E-4, ValidationError:0.16800393, Accuracy: 0.9111111
+Epoch:122, Time:0ms, TrainError:0.05361782, TrainErrorChange:-2.5410205E-4, ValidationError:0.1683848, Accuracy: 0.9111111
+Epoch:123, Time:0ms, TrainError:0.053368855, TrainErrorChange:-2.4896488E-4, ValidationError:0.16878422, Accuracy: 0.9111111
+Epoch:124, Time:1ms, TrainError:0.05312478, TrainErrorChange:-2.4407357E-4, ValidationError:0.16920094, Accuracy: 0.9111111
+Epoch:125, Time:0ms, TrainError:0.052885585, TrainErrorChange:-2.3919716E-4, ValidationError:0.16963576, Accuracy: 0.9111111
+Epoch:126, Time:1ms, TrainError:0.05265103, TrainErrorChange:-2.3455545E-4, ValidationError:0.1700838, Accuracy: 0.9111111
+Epoch:127, Time:0ms, TrainError:0.052421078, TrainErrorChange:-2.29951E-4, ValidationError:0.170548, Accuracy: 0.9111111
+Epoch:128, Time:1ms, TrainError:0.052195683, TrainErrorChange:-2.2539496E-4, ValidationError:0.17102332, Accuracy: 0.9111111
+Epoch:129, Time:0ms, TrainError:0.051974382, TrainErrorChange:-2.2130087E-4, ValidationError:0.17151104, Accuracy: 0.9111111
+Epoch:130, Time:0ms, TrainError:0.0517573, TrainErrorChange:-2.1708384E-4, ValidationError:0.17200965, Accuracy: 0.9111111
+Epoch:131, Time:0ms, TrainError:0.05154425, TrainErrorChange:-2.1304935E-4, ValidationError:0.17252032, Accuracy: 0.9111111
+Epoch:132, Time:0ms, TrainError:0.051335286, TrainErrorChange:-2.0896271E-4, ValidationError:0.17303966, Accuracy: 0.9111111
+Epoch:133, Time:0ms, TrainError:0.051130272, TrainErrorChange:-2.050139E-4, ValidationError:0.17356685, Accuracy: 0.9111111
+Epoch:134, Time:0ms, TrainError:0.050928872, TrainErrorChange:-2.0140037E-4, ValidationError:0.17410356, Accuracy: 0.9111111
+Epoch:135, Time:0ms, TrainError:0.050731223, TrainErrorChange:-1.97649E-4, ValidationError:0.17464726, Accuracy: 0.9111111
+Epoch:136, Time:0ms, TrainError:0.05053722, TrainErrorChange:-1.9400194E-4, ValidationError:0.17519827, Accuracy: 0.9111111
+Epoch:137, Time:0ms, TrainError:0.05034669, TrainErrorChange:-1.9052997E-4, ValidationError:0.175756, Accuracy: 0.9111111
+Epoch:138, Time:0ms, TrainError:0.050159488, TrainErrorChange:-1.8720329E-4, ValidationError:0.17631958, Accuracy: 0.9111111
+Epoch:139, Time:1ms, TrainError:0.04997592, TrainErrorChange:-1.835674E-4, ValidationError:0.1768881, Accuracy: 0.9111111
+Epoch:140, Time:0ms, TrainError:0.049795285, TrainErrorChange:-1.806356E-4, ValidationError:0.17746207, Accuracy: 0.9111111
+Epoch:141, Time:0ms, TrainError:0.04961809, TrainErrorChange:-1.7719343E-4, ValidationError:0.17804185, Accuracy: 0.9111111
+Epoch:142, Time:0ms, TrainError:0.049443893, TrainErrorChange:-1.741983E-4, ValidationError:0.1786243, Accuracy: 0.9111111
+Epoch:143, Time:0ms, TrainError:0.049272813, TrainErrorChange:-1.7108023E-4, ValidationError:0.17921175, Accuracy: 0.9111111
+Epoch:144, Time:0ms, TrainError:0.049104623, TrainErrorChange:-1.681894E-4, ValidationError:0.17980339, Accuracy: 0.9111111
+Epoch:145, Time:0ms, TrainError:0.048939403, TrainErrorChange:-1.6522035E-4, ValidationError:0.18039815, Accuracy: 0.9111111
+Epoch:146, Time:1ms, TrainError:0.04877713, TrainErrorChange:-1.6227365E-4, ValidationError:0.18099588, Accuracy: 0.9111111
+Epoch:147, Time:0ms, TrainError:0.048617505, TrainErrorChange:-1.5962496E-4, ValidationError:0.18159756, Accuracy: 0.9111111
+Epoch:148, Time:0ms, TrainError:0.048460543, TrainErrorChange:-1.5696138E-4, ValidationError:0.18220189, Accuracy: 0.9111111
+Epoch:149, Time:1ms, TrainError:0.048306327, TrainErrorChange:-1.5421584E-4, ValidationError:0.18280926, Accuracy: 0.9111111
+Epoch:150, Time:0ms, TrainError:0.048154667, TrainErrorChange:-1.516603E-4, ValidationError:0.18341944, Accuracy: 0.9111111
+Epoch:151, Time:0ms, TrainError:0.04800556, TrainErrorChange:-1.4910847E-4, ValidationError:0.18403088, Accuracy: 0.9111111
+Epoch:152, Time:1ms, TrainError:0.047858953, TrainErrorChange:-1.4660507E-4, ValidationError:0.18464534, Accuracy: 0.9111111
+Epoch:153, Time:0ms, TrainError:0.047714643, TrainErrorChange:-1.443103E-4, ValidationError:0.18526192, Accuracy: 0.9111111
+Epoch:154, Time:0ms, TrainError:0.04757274, TrainErrorChange:-1.4190376E-4, ValidationError:0.18588153, Accuracy: 0.9111111
+Epoch:155, Time:0ms, TrainError:0.047433127, TrainErrorChange:-1.396127E-4, ValidationError:0.1865025, Accuracy: 0.9111111
+Epoch:156, Time:0ms, TrainError:0.04729573, TrainErrorChange:-1.3739616E-4, ValidationError:0.18712462, Accuracy: 0.9111111
+Epoch:157, Time:0ms, TrainError:0.04716053, TrainErrorChange:-1.3520196E-4, ValidationError:0.18774934, Accuracy: 0.9111111
+Epoch:158, Time:0ms, TrainError:0.04702741, TrainErrorChange:-1.3311952E-4, ValidationError:0.18837744, Accuracy: 0.9111111
+Epoch:159, Time:0ms, TrainError:0.046896458, TrainErrorChange:-1.309514E-4, ValidationError:0.1890059, Accuracy: 0.9111111
+Epoch:160, Time:1ms, TrainError:0.046767477, TrainErrorChange:-1.2898073E-4, ValidationError:0.1896355, Accuracy: 0.9111111
+Epoch:161, Time:0ms, TrainError:0.046640344, TrainErrorChange:-1.2713298E-4, ValidationError:0.19026777, Accuracy: 0.9111111
+Epoch:162, Time:0ms, TrainError:0.046515275, TrainErrorChange:-1.2506917E-4, ValidationError:0.19090231, Accuracy: 0.9111111
+Epoch:163, Time:0ms, TrainError:0.04639198, TrainErrorChange:-1.2329593E-4, ValidationError:0.1915383, Accuracy: 0.9111111
+Epoch:164, Time:0ms, TrainError:0.046270587, TrainErrorChange:-1.2139231E-4, ValidationError:0.19217539, Accuracy: 0.9111111
+Epoch:165, Time:1ms, TrainError:0.046150956, TrainErrorChange:-1.1963025E-4, ValidationError:0.19281435, Accuracy: 0.9111111
+Epoch:166, Time:0ms, TrainError:0.04603298, TrainErrorChange:-1.1797622E-4, ValidationError:0.1934541, Accuracy: 0.9111111
+Epoch:167, Time:1ms, TrainError:0.045916736, TrainErrorChange:-1.1624396E-4, ValidationError:0.19409598, Accuracy: 0.9111111
+Epoch:168, Time:0ms, TrainError:0.04580212, TrainErrorChange:-1.1461601E-4, ValidationError:0.1947393, Accuracy: 0.9111111
+Epoch:169, Time:1ms, TrainError:0.045688972, TrainErrorChange:-1.1314824E-4, ValidationError:0.19538423, Accuracy: 0.9111111
+Epoch:170, Time:0ms, TrainError:0.045577563, TrainErrorChange:-1.1140853E-4, ValidationError:0.1960302, Accuracy: 0.9111111
+Epoch:171, Time:0ms, TrainError:0.04546753, TrainErrorChange:-1.100339E-4, ValidationError:0.19667865, Accuracy: 0.9111111
+Epoch:172, Time:0ms, TrainError:0.045358997, TrainErrorChange:-1.0853261E-4, ValidationError:0.19732754, Accuracy: 0.9111111
+Epoch:173, Time:0ms, TrainError:0.045251872, TrainErrorChange:-1.0712445E-4, ValidationError:0.19797795, Accuracy: 0.9111111
+Epoch:174, Time:1ms, TrainError:0.04514611, TrainErrorChange:-1.0576099E-4, ValidationError:0.1986304, Accuracy: 0.9111111
+Epoch:175, Time:0ms, TrainError:0.045041736, TrainErrorChange:-1.0437518E-4, ValidationError:0.19928342, Accuracy: 0.9111111
+Epoch:176, Time:0ms, TrainError:0.04493869, TrainErrorChange:-1.03045255E-4, ValidationError:0.1999391, Accuracy: 0.9111111
+Epoch:177, Time:1ms, TrainError:0.044836883, TrainErrorChange:-1.0180846E-4, ValidationError:0.20059428, Accuracy: 0.9111111
+Epoch:178, Time:0ms, TrainError:0.044736225, TrainErrorChange:-1.00657344E-4, ValidationError:0.20125209, Accuracy: 0.9111111
+Epoch:179, Time:1ms, TrainError:0.0446368, TrainErrorChange:-9.942427E-5, ValidationError:0.20191057, Accuracy: 0.9111111
+Epoch:180, Time:0ms, TrainError:0.044538546, TrainErrorChange:-9.825453E-5, ValidationError:0.20257095, Accuracy: 0.9111111
+Epoch:181, Time:1ms, TrainError:0.044441465, TrainErrorChange:-9.7081065E-5, ValidationError:0.20323211, Accuracy: 0.9111111
+Epoch:182, Time:0ms, TrainError:0.04434549, TrainErrorChange:-9.5974654E-5, ValidationError:0.20389433, Accuracy: 0.9111111
+Epoch:183, Time:0ms, TrainError:0.044250485, TrainErrorChange:-9.500608E-5, ValidationError:0.20455763, Accuracy: 0.9111111
+Epoch:184, Time:0ms, TrainError:0.04415656, TrainErrorChange:-9.3925744E-5, ValidationError:0.20522346, Accuracy: 0.9111111
+Epoch:185, Time:0ms, TrainError:0.04406359, TrainErrorChange:-9.2968345E-5, ValidationError:0.20588985, Accuracy: 0.9111111
+Epoch:186, Time:1ms, TrainError:0.043971643, TrainErrorChange:-9.1947615E-5, ValidationError:0.20655636, Accuracy: 0.9111111
+Epoch:187, Time:0ms, TrainError:0.04388074, TrainErrorChange:-9.0904534E-5, ValidationError:0.20722376, Accuracy: 0.9111111
+Epoch:188, Time:0ms, TrainError:0.0437907, TrainErrorChange:-9.003654E-5, ValidationError:0.20789437, Accuracy: 0.9111111
+Epoch:189, Time:0ms, TrainError:0.043701433, TrainErrorChange:-8.926913E-5, ValidationError:0.20856453, Accuracy: 0.9111111
+Epoch:190, Time:1ms, TrainError:0.04361308, TrainErrorChange:-8.835271E-5, ValidationError:0.20923623, Accuracy: 0.9111111
+Epoch:191, Time:1ms, TrainError:0.04352559, TrainErrorChange:-8.748844E-5, ValidationError:0.20991021, Accuracy: 0.9111111
+Epoch:192, Time:1ms, TrainError:0.04343901, TrainErrorChange:-8.65832E-5, ValidationError:0.21058467, Accuracy: 0.9111111
+Epoch:193, Time:0ms, TrainError:0.043353062, TrainErrorChange:-8.594617E-5, ValidationError:0.21126057, Accuracy: 0.9111111
+Epoch:194, Time:0ms, TrainError:0.04326797, TrainErrorChange:-8.509308E-5, ValidationError:0.2119361, Accuracy: 0.9111111
+Epoch:195, Time:2ms, TrainError:0.043183602, TrainErrorChange:-8.436665E-5, ValidationError:0.21261463, Accuracy: 0.9111111
+Epoch:196, Time:1ms, TrainError:0.043099985, TrainErrorChange:-8.3617866E-5, ValidationError:0.2132929, Accuracy: 0.9111111
+Epoch:197, Time:1ms, TrainError:0.043017067, TrainErrorChange:-8.291751E-5, ValidationError:0.21397366, Accuracy: 0.9111111
+Epoch:198, Time:1ms, TrainError:0.0429348, TrainErrorChange:-8.2265586E-5, ValidationError:0.2146555, Accuracy: 0.9111111
+Epoch:199, Time:0ms, TrainError:0.042853255, TrainErrorChange:-8.1546605E-5, ValidationError:0.21533807, Accuracy: 0.9111111
+Epoch:200, Time:0ms, TrainError:0.042772356, TrainErrorChange:-8.0898404E-5, ValidationError:0.21602273, Accuracy: 0.9111111
+Epoch:201, Time:0ms, TrainError:0.04269198, TrainErrorChange:-8.037686E-5, ValidationError:0.21670741, Accuracy: 0.9111111
+Epoch:202, Time:1ms, TrainError:0.042612225, TrainErrorChange:-7.975474E-5, ValidationError:0.2173949, Accuracy: 0.9111111
+Epoch:203, Time:0ms, TrainError:0.04253318, TrainErrorChange:-7.904321E-5, ValidationError:0.21808203, Accuracy: 0.9111111
+Epoch:204, Time:1ms, TrainError:0.042454574, TrainErrorChange:-7.860735E-5, ValidationError:0.21877314, Accuracy: 0.9111111
+Epoch:205, Time:1ms, TrainError:0.042376645, TrainErrorChange:-7.792935E-5, ValidationError:0.21946412, Accuracy: 0.9111111
+Epoch:206, Time:0ms, TrainError:0.042299192, TrainErrorChange:-7.745251E-5, ValidationError:0.22015615, Accuracy: 0.9111111
+Epoch:207, Time:0ms, TrainError:0.042222206, TrainErrorChange:-7.698685E-5, ValidationError:0.22085117, Accuracy: 0.9111111
+Epoch:208, Time:0ms, TrainError:0.042145815, TrainErrorChange:-7.63908E-5, ValidationError:0.2215459, Accuracy: 0.9111111
+Epoch:209, Time:1ms, TrainError:0.042069923, TrainErrorChange:-7.5891614E-5, ValidationError:0.22224522, Accuracy: 0.9111111
+Epoch:210, Time:0ms, TrainError:0.04199459, TrainErrorChange:-7.533282E-5, ValidationError:0.2229452, Accuracy: 0.9111111
+Epoch:211, Time:1ms, TrainError:0.041919686, TrainErrorChange:-7.490441E-5, ValidationError:0.22364633, Accuracy: 0.9111111
+Epoch:212, Time:0ms, TrainError:0.04184517, TrainErrorChange:-7.451698E-5, ValidationError:0.22435005, Accuracy: 0.9111111
+Epoch:213, Time:0ms, TrainError:0.041771173, TrainErrorChange:-7.399544E-5, ValidationError:0.22505493, Accuracy: 0.9111111
+Epoch:214, Time:1ms, TrainError:0.041697536, TrainErrorChange:-7.363781E-5, ValidationError:0.22576357, Accuracy: 0.9111111
+Epoch:215, Time:0ms, TrainError:0.041624382, TrainErrorChange:-7.3153526E-5, ValidationError:0.22647353, Accuracy: 0.9111111
+Epoch:216, Time:0ms, TrainError:0.041551646, TrainErrorChange:-7.273629E-5, ValidationError:0.22718559, Accuracy: 0.9111111
+Epoch:217, Time:1ms, TrainError:0.041479334, TrainErrorChange:-7.231161E-5, ValidationError:0.22790076, Accuracy: 0.9111111
+Epoch:218, Time:0ms, TrainError:0.041407414, TrainErrorChange:-7.1920455E-5, ValidationError:0.22861952, Accuracy: 0.9111111
+Epoch:219, Time:0ms, TrainError:0.041335844, TrainErrorChange:-7.157028E-5, ValidationError:0.22933893, Accuracy: 0.9111111
+Epoch:220, Time:1ms, TrainError:0.041264664, TrainErrorChange:-7.117912E-5, ValidationError:0.23006202, Accuracy: 0.9111111
+Epoch:221, Time:0ms, TrainError:0.041193858, TrainErrorChange:-7.080659E-5, ValidationError:0.2307882, Accuracy: 0.9111111
+Epoch:222, Time:1ms, TrainError:0.041123398, TrainErrorChange:-7.046014E-5, ValidationError:0.23151742, Accuracy: 0.9111111
+Epoch:223, Time:1ms, TrainError:0.04105323, TrainErrorChange:-7.016584E-5, ValidationError:0.23225047, Accuracy: 0.9111111
+Epoch:224, Time:1ms, TrainError:0.040983595, TrainErrorChange:-6.963685E-5, ValidationError:0.23298654, Accuracy: 0.9111111
+Epoch:225, Time:1ms, TrainError:0.040914156, TrainErrorChange:-6.943941E-5, ValidationError:0.23372635, Accuracy: 0.9111111
+Epoch:226, Time:1ms, TrainError:0.040845133, TrainErrorChange:-6.902218E-5, ValidationError:0.23446909, Accuracy: 0.9111111
+Epoch:227, Time:0ms, TrainError:0.04077637, TrainErrorChange:-6.876513E-5, ValidationError:0.23521714, Accuracy: 0.9111111
+Epoch:228, Time:1ms, TrainError:0.04070785, TrainErrorChange:-6.8519264E-5, ValidationError:0.2359685, Accuracy: 0.9111111
+Epoch:229, Time:1ms, TrainError:0.040639788, TrainErrorChange:-6.8061054E-5, ValidationError:0.23672423, Accuracy: 0.9111111
+Epoch:230, Time:1ms, TrainError:0.0405721, TrainErrorChange:-6.7688525E-5, ValidationError:0.23748295, Accuracy: 0.9111111
+Epoch:231, Time:1ms, TrainError:0.04050449, TrainErrorChange:-6.761029E-5, ValidationError:0.23824878, Accuracy: 0.9111111
+Epoch:232, Time:0ms, TrainError:0.0404373, TrainErrorChange:-6.7189336E-5, ValidationError:0.23901908, Accuracy: 0.9111111
+Epoch:233, Time:0ms, TrainError:0.040370446, TrainErrorChange:-6.685406E-5, ValidationError:0.23979348, Accuracy: 0.9111111
+Epoch:234, Time:1ms, TrainError:0.040303793, TrainErrorChange:-6.6652894E-5, ValidationError:0.24057388, Accuracy: 0.9111111
+Epoch:235, Time:0ms, TrainError:0.04023745, TrainErrorChange:-6.6343695E-5, ValidationError:0.24135956, Accuracy: 0.9111111
+Epoch:236, Time:0ms, TrainError:0.040171497, TrainErrorChange:-6.595254E-5, ValidationError:0.2421512, Accuracy: 0.9111111
+Epoch:237, Time:1ms, TrainError:0.04010574, TrainErrorChange:-6.57551E-5, ValidationError:0.24294946, Accuracy: 0.9111111
+Epoch:238, Time:0ms, TrainError:0.040040236, TrainErrorChange:-6.5505505E-5, ValidationError:0.24375255, Accuracy: 0.9111111
+Epoch:239, Time:1ms, TrainError:0.039974965, TrainErrorChange:-6.527081E-5, ValidationError:0.24456264, Accuracy: 0.9111111
+Epoch:240, Time:0ms, TrainError:0.03991009, TrainErrorChange:-6.487593E-5, ValidationError:0.2453806, Accuracy: 0.9111111
+Epoch:241, Time:1ms, TrainError:0.039845444, TrainErrorChange:-6.464496E-5, ValidationError:0.2462032, Accuracy: 0.9111111
+Epoch:242, Time:1ms, TrainError:0.039781034, TrainErrorChange:-6.441027E-5, ValidationError:0.24703464, Accuracy: 0.9111111
+Epoch:243, Time:0ms, TrainError:0.03971695, TrainErrorChange:-6.4082444E-5, ValidationError:0.24787216, Accuracy: 0.9111111
+Epoch:244, Time:1ms, TrainError:0.039652985, TrainErrorChange:-6.396696E-5, ValidationError:0.24872018, Accuracy: 0.9111111
+Epoch:245, Time:0ms, TrainError:0.039589483, TrainErrorChange:-6.35013E-5, ValidationError:0.24957366, Accuracy: 0.9111111
+Epoch:246, Time:0ms, TrainError:0.03952614, TrainErrorChange:-6.3344836E-5, ValidationError:0.2504373, Accuracy: 0.9111111
+Epoch:247, Time:0ms, TrainError:0.039463054, TrainErrorChange:-6.3084066E-5, ValidationError:0.25130975, Accuracy: 0.9111111
+Epoch:248, Time:1ms, TrainError:0.039400328, TrainErrorChange:-6.272644E-5, ValidationError:0.2521892, Accuracy: 0.9111111
+Epoch:249, Time:0ms, TrainError:0.03933771, TrainErrorChange:-6.2618405E-5, ValidationError:0.25307882, Accuracy: 0.9111111
+Epoch:250, Time:1ms, TrainError:0.039275464, TrainErrorChange:-6.2245876E-5, ValidationError:0.25397936, Accuracy: 0.9111111
+Epoch:251, Time:0ms, TrainError:0.03921344, TrainErrorChange:-6.202236E-5, ValidationError:0.2548898, Accuracy: 0.9111111
+Epoch:252, Time:1ms, TrainError:0.039151635, TrainErrorChange:-6.180629E-5, ValidationError:0.2558089, Accuracy: 0.9111111
+Epoch:253, Time:0ms, TrainError:0.039090224, TrainErrorChange:-6.141141E-5, ValidationError:0.2567394, Accuracy: 0.9111111
+Epoch:254, Time:0ms, TrainError:0.039029013, TrainErrorChange:-6.1210245E-5, ValidationError:0.25768286, Accuracy: 0.9111111
+Epoch:255, Time:0ms, TrainError:0.0389681, TrainErrorChange:-6.091222E-5, ValidationError:0.25863615, Accuracy: 0.9111111
+Epoch:256, Time:1ms, TrainError:0.03890739, TrainErrorChange:-6.0711056E-5, ValidationError:0.25960186, Accuracy: 0.9111111
+Epoch:257, Time:1ms, TrainError:0.03884705, TrainErrorChange:-6.0338527E-5, ValidationError:0.26057968, Accuracy: 0.9111111
+Epoch:258, Time:0ms, TrainError:0.038786907, TrainErrorChange:-6.0144812E-5, ValidationError:0.2615712, Accuracy: 0.9111111
+Epoch:259, Time:0ms, TrainError:0.03872705, TrainErrorChange:-5.9857965E-5, ValidationError:0.26257455, Accuracy: 0.9111111
+Epoch:260, Time:0ms, TrainError:0.038667463, TrainErrorChange:-5.958602E-5, ValidationError:0.26359126, Accuracy: 0.9111111
+Epoch:261, Time:1ms, TrainError:0.038608212, TrainErrorChange:-5.9250742E-5, ValidationError:0.26462194, Accuracy: 0.9111111
+Epoch:262, Time:0ms, TrainError:0.038549226, TrainErrorChange:-5.8986247E-5, ValidationError:0.26566938, Accuracy: 0.9111111
+Epoch:263, Time:1ms, TrainError:0.038490605, TrainErrorChange:-5.8621168E-5, ValidationError:0.26673058, Accuracy: 0.9111111
+Epoch:264, Time:0ms, TrainError:0.038432263, TrainErrorChange:-5.834177E-5, ValidationError:0.2678076, Accuracy: 0.9111111
+Epoch:265, Time:0ms, TrainError:0.038374096, TrainErrorChange:-5.8166683E-5, ValidationError:0.2689015, Accuracy: 0.9111111
+Epoch:266, Time:1ms, TrainError:0.03831637, TrainErrorChange:-5.77271E-5, ValidationError:0.27001145, Accuracy: 0.9111111
+Epoch:267, Time:0ms, TrainError:0.038259007, TrainErrorChange:-5.736202E-5, ValidationError:0.27113783, Accuracy: 0.9111111
+Epoch:268, Time:0ms, TrainError:0.038201883, TrainErrorChange:-5.71236E-5, ValidationError:0.27228114, Accuracy: 0.9111111
+Epoch:269, Time:0ms, TrainError:0.0381451, TrainErrorChange:-5.67846E-5, ValidationError:0.27344424, Accuracy: 0.9111111
+Epoch:270, Time:1ms, TrainError:0.038088392, TrainErrorChange:-5.670637E-5, ValidationError:0.2746281, Accuracy: 0.9111111
+Epoch:271, Time:0ms, TrainError:0.0380324, TrainErrorChange:-5.5991113E-5, ValidationError:0.2758323, Accuracy: 0.9111111
+Epoch:272, Time:1ms, TrainError:0.037976693, TrainErrorChange:-5.570799E-5, ValidationError:0.2770534, Accuracy: 0.9111111
+Epoch:273, Time:1ms, TrainError:0.03792126, TrainErrorChange:-5.543232E-5, ValidationError:0.27829885, Accuracy: 0.9111111
+Epoch:274, Time:0ms, TrainError:0.037866313, TrainErrorChange:-5.4948032E-5, ValidationError:0.279565, Accuracy: 0.9111111
+Epoch:275, Time:1ms, TrainError:0.037811548, TrainErrorChange:-5.4765493E-5, ValidationError:0.28085455, Accuracy: 0.9111111
+Epoch:276, Time:0ms, TrainError:0.03775724, TrainErrorChange:-5.4307282E-5, ValidationError:0.28217003, Accuracy: 0.9111111
+Epoch:277, Time:0ms, TrainError:0.03770346, TrainErrorChange:-5.3782016E-5, ValidationError:0.28350654, Accuracy: 0.9111111
+Epoch:278, Time:0ms, TrainError:0.037649956, TrainErrorChange:-5.350262E-5, ValidationError:0.28487238, Accuracy: 0.9111111
+Epoch:279, Time:0ms, TrainError:0.037596926, TrainErrorChange:-5.3029507E-5, ValidationError:0.28626493, Accuracy: 0.9111111
+Epoch:280, Time:0ms, TrainError:0.037544467, TrainErrorChange:-5.2459538E-5, ValidationError:0.28768507, Accuracy: 0.9111111
+Epoch:281, Time:1ms, TrainError:0.037492275, TrainErrorChange:-5.2191317E-5, ValidationError:0.2891364, Accuracy: 0.9111111
+Epoch:282, Time:0ms, TrainError:0.03744068, TrainErrorChange:-5.159527E-5, ValidationError:0.2906155, Accuracy: 0.9111111
+Epoch:283, Time:0ms, TrainError:0.0373895, TrainErrorChange:-5.1181763E-5, ValidationError:0.29213127, Accuracy: 0.9111111
+Epoch:284, Time:1ms, TrainError:0.037339196, TrainErrorChange:-5.0302595E-5, ValidationError:0.29367882, Accuracy: 0.9111111
+Epoch:285, Time:0ms, TrainError:0.03728893, TrainErrorChange:-5.0265342E-5, ValidationError:0.29526564, Accuracy: 0.9111111
+Epoch:286, Time:1ms, TrainError:0.03723942, TrainErrorChange:-4.9509108E-5, ValidationError:0.29689214, Accuracy: 0.9111111
+Epoch:287, Time:1ms, TrainError:0.037190754, TrainErrorChange:-4.8667192E-5, ValidationError:0.2985539, Accuracy: 0.9111111
+Epoch:288, Time:0ms, TrainError:0.037142575, TrainErrorChange:-4.817918E-5, ValidationError:0.30026162, Accuracy: 0.9111111
+Epoch:289, Time:0ms, TrainError:0.03709495, TrainErrorChange:-4.762411E-5, ValidationError:0.3020182, Accuracy: 0.9111111
+Epoch:290, Time:1ms, TrainError:0.037048254, TrainErrorChange:-4.6696514E-5, ValidationError:0.3038208, Accuracy: 0.9111111
+Epoch:291, Time:0ms, TrainError:0.037002232, TrainErrorChange:-4.6022236E-5, ValidationError:0.3056787, Accuracy: 0.9111111
+Epoch:292, Time:0ms, TrainError:0.036957003, TrainErrorChange:-4.522875E-5, ValidationError:0.30759317, Accuracy: 0.9111111
+Epoch:293, Time:1ms, TrainError:0.036912784, TrainErrorChange:-4.4219196E-5, ValidationError:0.30956757, Accuracy: 0.9111111
+Epoch:294, Time:0ms, TrainError:0.03686951, TrainErrorChange:-4.3272972E-5, ValidationError:0.3116128, Accuracy: 0.9111111
+Epoch:295, Time:0ms, TrainError:0.036827274, TrainErrorChange:-4.223734E-5, ValidationError:0.3137311, Accuracy: 0.9111111
+Epoch:296, Time:1ms, TrainError:0.036786206, TrainErrorChange:-4.10676E-5, ValidationError:0.31593427, Accuracy: 0.9111111
+Epoch:297, Time:0ms, TrainError:0.036746327, TrainErrorChange:-3.9879233E-5, ValidationError:0.31822768, Accuracy: 0.9111111
+Epoch:298, Time:0ms, TrainError:0.03670796, TrainErrorChange:-3.8366765E-5, ValidationError:0.32062712, Accuracy: 0.9111111
+Epoch:299, Time:0ms, TrainError:0.03667131, TrainErrorChange:-3.6649406E-5, ValidationError:0.32314375, Accuracy: 0.9111111
+Epoch:300, Time:0ms, TrainError:0.036636543, TrainErrorChange:-3.4768134E-5, ValidationError:0.3257933, Accuracy: 0.9111111
+Epoch:301, Time:1ms, TrainError:0.036603764, TrainErrorChange:-3.277883E-5, ValidationError:0.32860765, Accuracy: 0.9111111
+Epoch:302, Time:0ms, TrainError:0.036573403, TrainErrorChange:-3.0361116E-5, ValidationError:0.33161938, Accuracy: 0.9111111
+Epoch:303, Time:0ms, TrainError:0.036546305, TrainErrorChange:-2.7097762E-5, ValidationError:0.3348634, Accuracy: 0.9111111
+Epoch:304, Time:0ms, TrainError:0.03652279, TrainErrorChange:-2.3514032E-5, ValidationError:0.33841026, Accuracy: 0.9111111
+Epoch:305, Time:0ms, TrainError:0.036503702, TrainErrorChange:-1.9088387E-5, ValidationError:0.34235162, Accuracy: 0.9111111
+Epoch:306, Time:1ms, TrainError:0.0364906, TrainErrorChange:-1.3101846E-5, ValidationError:0.3468397, Accuracy: 0.9111111
+Epoch:307, Time:0ms, TrainError:0.036485888, TrainErrorChange:-4.7124922E-6, ValidationError:0.3521494, Accuracy: 0.9111111
+Epoch:308, Time:0ms, TrainError:0.03649369, TrainErrorChange:7.800758E-6, ValidationError:0.35879174, Accuracy: 0.9111111
+Epoch:309, Time:1ms, TrainError:0.03652229, TrainErrorChange:2.8602779E-5, ValidationError:0.3679513, Accuracy: 0.9111111
+Epoch:310, Time:0ms, TrainError:0.036594443, TrainErrorChange:7.215142E-5, ValidationError:0.3830535, Accuracy: 0.9111111
+Epoch:311, Time:0ms, TrainError:0.036817484, TrainErrorChange:2.2304058E-4, ValidationError:0.41924486, Accuracy: 0.9111111
+Epoch:312, Time:1ms, TrainError:0.039392624, TrainErrorChange:0.0025751404, ValidationError:0.63578045, Accuracy: 0.9111111
+Epoch:313, Time:0ms, TrainError:0.15364476, TrainErrorChange:0.114252135, ValidationError:0.6611717, Accuracy: 0.9111111
+Epoch:314, Time:0ms, TrainError:0.13733119, TrainErrorChange:-0.016313568, ValidationError:0.4047194, Accuracy: 0.9111111
+Epoch:315, Time:0ms, TrainError:0.04969547, TrainErrorChange:-0.08763572, ValidationError:0.39815527, Accuracy: 0.9111111
+Epoch:316, Time:1ms, TrainError:0.040988524, TrainErrorChange:-0.008706946, ValidationError:0.36885104, Accuracy: 0.9111111
+Epoch:317, Time:0ms, TrainError:0.03632978, TrainErrorChange:-0.0046587437, ValidationError:0.30893105, Accuracy: 0.9111111
+Epoch:318, Time:1ms, TrainError:0.03408669, TrainErrorChange:-0.0022430904, ValidationError:0.30159712, Accuracy: 0.9111111
+Epoch:319, Time:0ms, TrainError:0.033868145, TrainErrorChange:-2.1854416E-4, ValidationError:0.303381, Accuracy: 0.9111111
+Epoch:320, Time:1ms, TrainError:0.03393046, TrainErrorChange:6.2316656E-5, ValidationError:0.30512714, Accuracy: 0.9111111
+Epoch:321, Time:0ms, TrainError:0.03398163, TrainErrorChange:5.1166862E-5, ValidationError:0.3069359, Accuracy: 0.9111111
+Epoch:322, Time:1ms, TrainError:0.03402326, TrainErrorChange:4.163012E-5, ValidationError:0.30879322, Accuracy: 0.9111111
+Epoch:323, Time:0ms, TrainError:0.0340552, TrainErrorChange:3.194064E-5, ValidationError:0.3106983, Accuracy: 0.9111111
+Epoch:324, Time:0ms, TrainError:0.034078024, TrainErrorChange:2.2824854E-5, ValidationError:0.31265196, Accuracy: 0.9111111
+Epoch:325, Time:1ms, TrainError:0.034093007, TrainErrorChange:1.4983118E-5, ValidationError:0.31464842, Accuracy: 0.9111111
+Epoch:326, Time:1ms, TrainError:0.03410101, TrainErrorChange:8.001924E-6, ValidationError:0.31669602, Accuracy: 0.9111111
+Epoch:327, Time:1ms, TrainError:0.034103155, TrainErrorChange:2.1457672E-6, ValidationError:0.31879085, Accuracy: 0.9111111
+Epoch:328, Time:0ms, TrainError:0.034100115, TrainErrorChange:-3.0398369E-6, ValidationError:0.32093844, Accuracy: 0.9111111
+Epoch:329, Time:0ms, TrainError:0.03409277, TrainErrorChange:-7.3462725E-6, ValidationError:0.323146, Accuracy: 0.9111111
+Epoch:330, Time:0ms, TrainError:0.03408206, TrainErrorChange:-1.071021E-5, ValidationError:0.32541406, Accuracy: 0.9111111
+Epoch:331, Time:0ms, TrainError:0.034068294, TrainErrorChange:-1.3764948E-5, ValidationError:0.3277538, Accuracy: 0.9111111
+Epoch:332, Time:1ms, TrainError:0.034052387, TrainErrorChange:-1.590699E-5, ValidationError:0.33016545, Accuracy: 0.9111111
+Epoch:333, Time:0ms, TrainError:0.034034394, TrainErrorChange:-1.7993152E-5, ValidationError:0.3326573, Accuracy: 0.9111111
+Epoch:334, Time:1ms, TrainError:0.034014944, TrainErrorChange:-1.944974E-5, ValidationError:0.3352444, Accuracy: 0.9111111
+Epoch:335, Time:1ms, TrainError:0.033994637, TrainErrorChange:-2.0306557E-5, ValidationError:0.33793437, Accuracy: 0.9111111
+Epoch:336, Time:0ms, TrainError:0.03397369, TrainErrorChange:-2.0947307E-5, ValidationError:0.3407377, Accuracy: 0.9111111
+Epoch:337, Time:0ms, TrainError:0.033952497, TrainErrorChange:-2.1193177E-5, ValidationError:0.34367564, Accuracy: 0.9111111
+Epoch:338, Time:0ms, TrainError:0.0339316, TrainErrorChange:-2.0895153E-5, ValidationError:0.3467671, Accuracy: 0.9111111
+Epoch:339, Time:1ms, TrainError:0.0339113, TrainErrorChange:-2.0302832E-5, ValidationError:0.35003296, Accuracy: 0.9111111
+Epoch:340, Time:0ms, TrainError:0.033891995, TrainErrorChange:-1.9304454E-5, ValidationError:0.35351953, Accuracy: 0.9111111
+Epoch:341, Time:1ms, TrainError:0.033874415, TrainErrorChange:-1.7579645E-5, ValidationError:0.35726258, Accuracy: 0.9111111
+Epoch:342, Time:0ms, TrainError:0.03385905, TrainErrorChange:-1.5363097E-5, ValidationError:0.3613381, Accuracy: 0.9111111
+Epoch:343, Time:1ms, TrainError:0.033846978, TrainErrorChange:-1.2073666E-5, ValidationError:0.3658374, Accuracy: 0.9111111
+Epoch:344, Time:0ms, TrainError:0.03383912, TrainErrorChange:-7.856637E-6, ValidationError:0.37091616, Accuracy: 0.9111111
+Epoch:345, Time:1ms, TrainError:0.03383707, TrainErrorChange:-2.052635E-6, ValidationError:0.37685108, Accuracy: 0.9111111
+Epoch:346, Time:0ms, TrainError:0.03384357, TrainErrorChange:6.5006316E-6, ValidationError:0.38414308, Accuracy: 0.9111111
+Epoch:347, Time:1ms, TrainError:0.03386311, TrainErrorChange:1.9539148E-5, ValidationError:0.39394063, Accuracy: 0.9111111
+Epoch:348, Time:0ms, TrainError:0.03390645, TrainErrorChange:4.3340027E-5, ValidationError:0.40948126, Accuracy: 0.9111111
+Epoch:349, Time:0ms, TrainError:0.034020044, TrainErrorChange:1.1359528E-4, ValidationError:0.44505545, Accuracy: 0.9111111
+Epoch:350, Time:0ms, TrainError:0.03569619, TrainErrorChange:0.0016761459, ValidationError:0.6679446, Accuracy: 0.9111111
+Epoch:351, Time:0ms, TrainError:0.15509494, TrainErrorChange:0.11939874, ValidationError:0.7477344, Accuracy: 0.9111111
+Epoch:352, Time:0ms, TrainError:0.14914273, TrainErrorChange:-0.0059522092, ValidationError:0.39162302, Accuracy: 0.9111111
+Epoch:353, Time:1ms, TrainError:0.045156907, TrainErrorChange:-0.103985816, ValidationError:0.39222744, Accuracy: 0.9111111
+Epoch:354, Time:0ms, TrainError:0.03612617, TrainErrorChange:-0.009030737, ValidationError:0.39208657, Accuracy: 0.9111111
+Epoch:355, Time:0ms, TrainError:0.033309385, TrainErrorChange:-0.0028167851, ValidationError:0.35547146, Accuracy: 0.9111111
+Epoch:356, Time:0ms, TrainError:0.032097533, TrainErrorChange:-0.0012118518, ValidationError:0.33372256, Accuracy: 0.9111111
+Epoch:357, Time:0ms, TrainError:0.031552546, TrainErrorChange:-5.449876E-4, ValidationError:0.33492786, Accuracy: 0.9111111
+Epoch:358, Time:0ms, TrainError:0.03160251, TrainErrorChange:4.9963593E-5, ValidationError:0.33756414, Accuracy: 0.9111111
+Epoch:359, Time:0ms, TrainError:0.031665783, TrainErrorChange:6.3274056E-5, ValidationError:0.34028092, Accuracy: 0.9111111
+Epoch:360, Time:0ms, TrainError:0.03170938, TrainErrorChange:4.3597072E-5, ValidationError:0.3430374, Accuracy: 0.9111111
+Epoch:361, Time:0ms, TrainError:0.031737037, TrainErrorChange:2.7656555E-5, ValidationError:0.3458215, Accuracy: 0.9111111
+Epoch:362, Time:1ms, TrainError:0.031752314, TrainErrorChange:1.5277416E-5, ValidationError:0.3486362, Accuracy: 0.9111111
+Epoch:363, Time:0ms, TrainError:0.031757448, TrainErrorChange:5.13345E-6, ValidationError:0.35149276, Accuracy: 0.9111111
+Epoch:364, Time:1ms, TrainError:0.031754818, TrainErrorChange:-2.630055E-6, ValidationError:0.35440302, Accuracy: 0.9111111
+Epoch:365, Time:0ms, TrainError:0.031746663, TrainErrorChange:-8.1546605E-6, ValidationError:0.35737297, Accuracy: 0.9111111
+Epoch:366, Time:1ms, TrainError:0.03173373, TrainErrorChange:-1.2934208E-5, ValidationError:0.3604267, Accuracy: 0.9111111
+Epoch:367, Time:0ms, TrainError:0.031717572, TrainErrorChange:-1.6156584E-5, ValidationError:0.36358494, Accuracy: 0.9111111
+Epoch:368, Time:2ms, TrainError:0.031699114, TrainErrorChange:-1.8458813E-5, ValidationError:0.366851, Accuracy: 0.9111111
+Epoch:369, Time:0ms, TrainError:0.031678718, TrainErrorChange:-2.0395964E-5, ValidationError:0.37026557, Accuracy: 0.9111111
+Epoch:370, Time:1ms, TrainError:0.031657718, TrainErrorChange:-2.0999461E-5, ValidationError:0.3738567, Accuracy: 0.9111111
+Epoch:371, Time:0ms, TrainError:0.031637136, TrainErrorChange:-2.0582229E-5, ValidationError:0.37764984, Accuracy: 0.9111111
+Epoch:372, Time:0ms, TrainError:0.0316165, TrainErrorChange:-2.0634383E-5, ValidationError:0.38169926, Accuracy: 0.9111111
+Epoch:373, Time:1ms, TrainError:0.031597722, TrainErrorChange:-1.8779188E-5, ValidationError:0.38606963, Accuracy: 0.9111111
+Epoch:374, Time:0ms, TrainError:0.03158097, TrainErrorChange:-1.675263E-5, ValidationError:0.39083907, Accuracy: 0.9111111
+Epoch:375, Time:0ms, TrainError:0.031567387, TrainErrorChange:-1.3582408E-5, ValidationError:0.39616144, Accuracy: 0.9111111
+Epoch:376, Time:1ms, TrainError:0.031557936, TrainErrorChange:-9.4510615E-6, ValidationError:0.40224236, Accuracy: 0.9111111
+Epoch:377, Time:0ms, TrainError:0.031553943, TrainErrorChange:-3.993511E-6, ValidationError:0.40947995, Accuracy: 0.9111111
+Epoch:378, Time:0ms, TrainError:0.031557683, TrainErrorChange:3.7401915E-6, ValidationError:0.41866034, Accuracy: 0.9111111
+Epoch:379, Time:0ms, TrainError:0.03157093, TrainErrorChange:1.3247132E-5, ValidationError:0.43174773, Accuracy: 0.9111111
+Epoch:380, Time:0ms, TrainError:0.0315955, TrainErrorChange:2.456829E-5, ValidationError:0.4554628, Accuracy: 0.9111111
+Epoch:381, Time:1ms, TrainError:0.031718463, TrainErrorChange:1.2296438E-4, ValidationError:0.53616256, Accuracy: 0.9111111
+Epoch:382, Time:0ms, TrainError:0.07871722, TrainErrorChange:0.046998754, ValidationError:0.97204745, Accuracy: 0.9111111
+Epoch:383, Time:1ms, TrainError:0.25211537, TrainErrorChange:0.17339815, ValidationError:0.3822586, Accuracy: 0.9111111
+Epoch:384, Time:0ms, TrainError:0.04057836, TrainErrorChange:-0.211537, ValidationError:0.33806488, Accuracy: 0.9111111
+Epoch:385, Time:0ms, TrainError:0.029209938, TrainErrorChange:-0.011368424, ValidationError:0.3482227, Accuracy: 0.9111111
+
+TRAINING COMPLETED
+Total Training Time: 334ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 1.0
+Precision: 1.0
+F1Score: 1.0
+Recall: 1.0
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:5ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+
+TRAINING COMPLETED
+Total Training Time: 22ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 0.98518515
+Precision: 0.98333335
+F1Score: 0.9769602
+Recall: 0.97222227
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:9ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:5ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+
+TRAINING COMPLETED
+Total Training Time: 30ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 0.98518515
+Precision: 0.98333335
+F1Score: 0.9769602
+Recall: 0.97222227
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1062ms, TrainError:1.9078565, TrainErrorChange:1.9078565, Accuracy: 0.9215385
+Epoch:2, Time:871ms, TrainError:1.1363132, TrainErrorChange:-0.77154326, Accuracy: 0.955077
+Epoch:3, Time:875ms, TrainError:0.7721927, TrainErrorChange:-0.36412048, Accuracy: 0.97046155
+Epoch:4, Time:866ms, TrainError:0.5808538, TrainErrorChange:-0.1913389, Accuracy: 0.97784615
+Epoch:5, Time:867ms, TrainError:0.45965543, TrainErrorChange:-0.121198386, Accuracy: 0.9827692
+Epoch:6, Time:871ms, TrainError:0.37275478, TrainErrorChange:-0.08690065, Accuracy: 0.9873847
+Epoch:7, Time:874ms, TrainError:0.30462185, TrainErrorChange:-0.06813294, Accuracy: 0.9913846
+Epoch:8, Time:875ms, TrainError:0.24904016, TrainErrorChange:-0.05558169, Accuracy: 0.99446154
+Epoch:9, Time:873ms, TrainError:0.20402001, TrainErrorChange:-0.04502015, Accuracy: 0.9966153
+Epoch:10, Time:872ms, TrainError:0.1683275, TrainErrorChange:-0.035692513, Accuracy: 0.9966153
+Epoch:11, Time:871ms, TrainError:0.14005719, TrainErrorChange:-0.028270304, Accuracy: 0.99753845
+Epoch:12, Time:871ms, TrainError:0.1174028, TrainErrorChange:-0.022654392, Accuracy: 0.99753845
+Epoch:13, Time:878ms, TrainError:0.099040024, TrainErrorChange:-0.018362775, Accuracy: 0.99846154
+Epoch:14, Time:866ms, TrainError:0.08406679, TrainErrorChange:-0.014973231, Accuracy: 0.99907696
+Epoch:15, Time:867ms, TrainError:0.071847096, TrainErrorChange:-0.012219697, Accuracy: 0.9996923
+Epoch:16, Time:869ms, TrainError:0.061886203, TrainErrorChange:-0.009960894, Accuracy: 0.9996923
+Epoch:17, Time:869ms, TrainError:0.053776164, TrainErrorChange:-0.008110039, Accuracy: 0.9996923
+Epoch:18, Time:865ms, TrainError:0.04717252, TrainErrorChange:-0.0066036433, Accuracy: 0.9996923
+Epoch:19, Time:874ms, TrainError:0.041780837, TrainErrorChange:-0.0053916834, Accuracy: 1.0
+Epoch:20, Time:866ms, TrainError:0.037348747, TrainErrorChange:-0.0044320896, Accuracy: 1.0
+Epoch:21, Time:1056ms, TrainError:0.03366857, TrainErrorChange:-0.003680177, Accuracy: 1.0
+Epoch:22, Time:880ms, TrainError:0.03057823, TrainErrorChange:-0.0030903406, Accuracy: 1.0
+Epoch:23, Time:876ms, TrainError:0.02795429, TrainErrorChange:-0.00262394, Accuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 35239ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.97085714
+Precision: 0.85805035
+F1Score: 0.8540996
+Recall: 0.8534187
+
+By Class
+Class 0:
+TrueNegative: 317.0
+Accuracy: 0.9885714
+FalsePositive: 3.0
+FalseNegative: 1.0
+Precision: 0.90625
+F1Score: 0.9354838
+TruePositive: 29.0
+Recall: 0.96666664
+
+----------------
+Class 1:
+TrueNegative: 305.0
+Accuracy: 0.98
+FalsePositive: 6.0
+FalseNegative: 1.0
+Precision: 0.8636364
+F1Score: 0.9156627
+TruePositive: 38.0
+Recall: 0.974359
+
+----------------
+Class 2:
+TrueNegative: 313.0
+Accuracy: 0.9714286
+FalsePositive: 4.0
+FalseNegative: 6.0
+Precision: 0.87096775
+F1Score: 0.84374994
+TruePositive: 27.0
+Recall: 0.8181818
+
+----------------
+Class 3:
+TrueNegative: 317.0
+Accuracy: 0.9742857
+FalsePositive: 2.0
+FalseNegative: 7.0
+Precision: 0.9230769
+F1Score: 0.8421053
+TruePositive: 24.0
+Recall: 0.7741935
+
+----------------
+Class 4:
+TrueNegative: 307.0
+Accuracy: 0.9742857
+FalsePositive: 5.0
+FalseNegative: 4.0
+Precision: 0.8717949
+F1Score: 0.88311684
+TruePositive: 34.0
+Recall: 0.8947368
+
+----------------
+Class 5:
+TrueNegative: 309.0
+Accuracy: 0.9685714
+FalsePositive: 6.0
+FalseNegative: 5.0
+Precision: 0.8333333
+F1Score: 0.8450704
+TruePositive: 30.0
+Recall: 0.85714287
+
+----------------
+Class 6:
+TrueNegative: 311.0
+Accuracy: 0.9657143
+FalsePositive: 4.0
+FalseNegative: 8.0
+Precision: 0.87096775
+F1Score: 0.8181818
+TruePositive: 27.0
+Recall: 0.7714286
+
+----------------
+Class 7:
+TrueNegative: 308.0
+Accuracy: 0.9657143
+FalsePositive: 6.0
+FalseNegative: 6.0
+Precision: 0.8333333
+F1Score: 0.8333333
+TruePositive: 30.0
+Recall: 0.8333333
+
+----------------
+Class 8:
+TrueNegative: 309.0
+Accuracy: 0.9685714
+FalsePositive: 5.0
+FalseNegative: 6.0
+Precision: 0.85714287
+F1Score: 0.8450704
+TruePositive: 30.0
+Recall: 0.8333333
+
+----------------
+Class 9:
+TrueNegative: 303.0
+Accuracy: 0.9514286
+FalsePositive: 10.0
+FalseNegative: 7.0
+Precision: 0.75
+F1Score: 0.77922076
+TruePositive: 30.0
+Recall: 0.8108108
+
+----------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:9088ms, TrainError:0.749835, TrainErrorChange:0.749835, Accuracy: 0.9804615
+Epoch:2, Time:8719ms, TrainError:0.3257248, TrainErrorChange:-0.4241102, Accuracy: 0.9867078
+Epoch:3, Time:8719ms, TrainError:0.24608515, TrainErrorChange:-0.07963966, Accuracy: 0.9897846
+Epoch:4, Time:8689ms, TrainError:0.19980128, TrainErrorChange:-0.04628387, Accuracy: 0.9920923
+Epoch:5, Time:8983ms, TrainError:0.1676628, TrainErrorChange:-0.03213848, Accuracy: 0.9929231
+Epoch:6, Time:8695ms, TrainError:0.14211926, TrainErrorChange:-0.02554354, Accuracy: 0.9939383
+Epoch:7, Time:8719ms, TrainError:0.120521694, TrainErrorChange:-0.021597564, Accuracy: 0.9949846
+Epoch:8, Time:8663ms, TrainError:0.101763174, TrainErrorChange:-0.01875852, Accuracy: 0.996123
+Epoch:9, Time:8721ms, TrainError:0.085343644, TrainErrorChange:-0.01641953, Accuracy: 0.99673843
+Epoch:10, Time:8667ms, TrainError:0.07076949, TrainErrorChange:-0.014574155, Accuracy: 0.99741536
+Epoch:11, Time:8711ms, TrainError:0.05855355, TrainErrorChange:-0.012215938, Accuracy: 0.99787694
+Epoch:12, Time:8689ms, TrainError:0.04841625, TrainErrorChange:-0.010137301, Accuracy: 0.9982154
+Epoch:13, Time:8680ms, TrainError:0.04072668, TrainErrorChange:-0.007689569, Accuracy: 0.99849236
+Epoch:14, Time:8688ms, TrainError:0.034479745, TrainErrorChange:-0.0062469356, Accuracy: 0.9988001
+Epoch:15, Time:8697ms, TrainError:0.02912168, TrainErrorChange:-0.0053580645, Accuracy: 0.99898463
+
+TRAINING COMPLETED
+Total Training Time: 228371ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.98520005
+Precision: 0.9246832
+F1Score: 0.9243288
+Recall: 0.9243865
+
+By Class
+Class 0:
+TrueNegative: 3125.0
+Accuracy: 0.99457145
+FalsePositive: 13.0
+FalseNegative: 6.0
+Precision: 0.96476966
+F1Score: 0.97400826
+TruePositive: 356.0
+Recall: 0.98342544
+
+----------------
+Class 1:
+TrueNegative: 3097.0
+Accuracy: 0.99457145
+FalsePositive: 9.0
+FalseNegative: 10.0
+Precision: 0.97709924
+F1Score: 0.9758577
+TruePositive: 384.0
+Recall: 0.97461927
+
+----------------
+Class 2:
+TrueNegative: 3121.0
+Accuracy: 0.9811429
+FalsePositive: 29.0
+FalseNegative: 37.0
+Precision: 0.9152047
+F1Score: 0.9046243
+TruePositive: 313.0
+Recall: 0.89428574
+
+----------------
+Class 3:
+TrueNegative: 3105.0
+Accuracy: 0.9811429
+FalsePositive: 44.0
+FalseNegative: 22.0
+Precision: 0.8820375
+F1Score: 0.90883976
+TruePositive: 329.0
+Recall: 0.93732196
+
+----------------
+Class 4:
+TrueNegative: 3111.0
+Accuracy: 0.9837143
+FalsePositive: 29.0
+FalseNegative: 28.0
+Precision: 0.9196676
+F1Score: 0.9209431
+TruePositive: 332.0
+Recall: 0.9222222
+
+----------------
+Class 5:
+TrueNegative: 3149.0
+Accuracy: 0.98228574
+FalsePositive: 35.0
+FalseNegative: 27.0
+Precision: 0.8919753
+F1Score: 0.903125
+TruePositive: 289.0
+Recall: 0.914557
+
+----------------
+Class 6:
+TrueNegative: 3138.0
+Accuracy: 0.9908571
+FalsePositive: 12.0
+FalseNegative: 20.0
+Precision: 0.9649123
+F1Score: 0.9537573
+TruePositive: 330.0
+Recall: 0.94285715
+
+----------------
+Class 7:
+TrueNegative: 3110.0
+Accuracy: 0.9854286
+FalsePositive: 22.0
+FalseNegative: 29.0
+Precision: 0.9390582
+F1Score: 0.93004113
+TruePositive: 339.0
+Recall: 0.9211956
+
+----------------
+Class 8:
+TrueNegative: 3144.0
+Accuracy: 0.9768571
+FalsePositive: 32.0
+FalseNegative: 49.0
+Precision: 0.8957655
+F1Score: 0.87163234
+TruePositive: 275.0
+Recall: 0.84876543
+
+----------------
+Class 9:
+TrueNegative: 3141.0
+Accuracy: 0.98142856
+FalsePositive: 34.0
+FalseNegative: 31.0
+Precision: 0.89634144
+F1Score: 0.90045947
+TruePositive: 294.0
+Recall: 0.9046154
+
+----------------
+Loading images...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Mini Batch:1 Batch Loss:2.4147618
+Mini Batch:2 Batch Loss:2.4235773
+Mini Batch:3 Batch Loss:2.4174275
+Mini Batch:4 Batch Loss:2.4369488
+Mini Batch:5 Batch Loss:2.4368725
+Mini Batch:6 Batch Loss:2.4469423
+Mini Batch:7 Batch Loss:2.4344633
+Mini Batch:8 Batch Loss:2.4218583
+Mini Batch:9 Batch Loss:2.4225903
+Mini Batch:10 Batch Loss:2.4181256
+Mini Batch:11 Batch Loss:2.413596
+Mini Batch:12 Batch Loss:2.4094326
+Mini Batch:13 Batch Loss:2.4079545
+Mini Batch:14 Batch Loss:2.4049146
+Mini Batch:15 Batch Loss:2.401386
+Mini Batch:16 Batch Loss:2.398734
+Mini Batch:17 Batch Loss:2.3959012
+Mini Batch:18 Batch Loss:2.3912094
+Mini Batch:19 Batch Loss:2.3887222
+Mini Batch:20 Batch Loss:2.3863113
+Mini Batch:21 Batch Loss:2.3842692
+Mini Batch:22 Batch Loss:2.3807666
+Mini Batch:23 Batch Loss:2.3784237
+Mini Batch:24 Batch Loss:2.3753145
+Mini Batch:25 Batch Loss:2.3726788
+Mini Batch:26 Batch Loss:2.369969
+Mini Batch:27 Batch Loss:2.3682916
+Mini Batch:28 Batch Loss:2.3660583
+Mini Batch:29 Batch Loss:2.3633127
+Mini Batch:30 Batch Loss:2.3603292
+Mini Batch:31 Batch Loss:2.3584018
+Mini Batch:32 Batch Loss:2.3568466
+Mini Batch:33 Batch Loss:2.3545728
+Mini Batch:34 Batch Loss:2.3525317
+Mini Batch:35 Batch Loss:2.3516095
+Mini Batch:36 Batch Loss:2.350657
+Mini Batch:37 Batch Loss:2.348525
+Mini Batch:38 Batch Loss:2.346043
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Mini Batch:1 Batch Loss:2.4772754
+Mini Batch:2 Batch Loss:2.488061
+Mini Batch:3 Batch Loss:2.4895198
+Mini Batch:4 Batch Loss:2.4666514
+Mini Batch:5 Batch Loss:2.4566314
+Mini Batch:6 Batch Loss:2.441742
+Mini Batch:7 Batch Loss:2.4373462
+Mini Batch:8 Batch Loss:2.447497
+Mini Batch:9 Batch Loss:2.4347181
+Mini Batch:10 Batch Loss:2.4349377
+Epoch:1, Time:46590ms, TrainError:2.4336362, TrainErrorChange:2.4336362, Accuracy: 0.82030773
+Mini Batch:1 Batch Loss:2.387795
+Mini Batch:2 Batch Loss:2.3982484
+Mini Batch:3 Batch Loss:2.400094
+Mini Batch:4 Batch Loss:2.3831468
+Mini Batch:5 Batch Loss:2.3776777
+Mini Batch:6 Batch Loss:2.3669665
+Mini Batch:7 Batch Loss:2.3646245
+Mini Batch:8 Batch Loss:2.3712733
+Mini Batch:9 Batch Loss:2.3628144
+Mini Batch:10 Batch Loss:2.3638787
+Epoch:2, Time:46087ms, TrainError:2.362866, TrainErrorChange:-0.07077026, Accuracy: 0.8206154
+Mini Batch:1 Batch Loss:2.3285706
+Mini Batch:2 Batch Loss:2.3383777
+Mini Batch:3 Batch Loss:2.3418138
+Mini Batch:4 Batch Loss:2.3301432
+Mini Batch:5 Batch Loss:2.3278253
+Mini Batch:6 Batch Loss:2.320462
+Mini Batch:7 Batch Loss:2.3193977
+Mini Batch:8 Batch Loss:2.3230858
+Mini Batch:9 Batch Loss:2.3175707
+Mini Batch:10 Batch Loss:2.3190322
+Epoch:3, Time:46253ms, TrainError:2.318204, TrainErrorChange:-0.044662, Accuracy: 0.8218462
+Mini Batch:1 Batch Loss:2.288041
+Mini Batch:2 Batch Loss:2.2969043
+Mini Batch:3 Batch Loss:2.3019974
+Mini Batch:4 Batch Loss:2.2945595
+Mini Batch:5 Batch Loss:2.2944088
+Mini Batch:6 Batch Loss:2.289602
+Mini Batch:7 Batch Loss:2.2893522
+Mini Batch:8 Batch Loss:2.290673
+Mini Batch:9 Batch Loss:2.2872171
+Mini Batch:10 Batch Loss:2.2888534
+Epoch:4, Time:46542ms, TrainError:2.2881324, TrainErrorChange:-0.030071497, Accuracy: 0.8332308
+Mini Batch:1 Batch Loss:2.2587934
+Mini Batch:2 Batch Loss:2.2667527
+Mini Batch:3 Batch Loss:2.273306
+Mini Batch:4 Batch Loss:2.2691185
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:8ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:5ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+
+TRAINING COMPLETED
+Total Training Time: 23ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 0.98518515
+Precision: 0.98333335
+F1Score: 0.9769602
+Recall: 0.97222227
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:7ms, TrainError:0.82269007, TrainErrorChange:0.82269007, ValidationError:0.46097535, Accuracy: 0.8666666
+Epoch:2, Time:3ms, TrainError:0.48935848, TrainErrorChange:-0.33333158, ValidationError:0.34389925, Accuracy: 0.9111111
+Epoch:3, Time:1ms, TrainError:0.3811181, TrainErrorChange:-0.108240396, ValidationError:0.29553038, Accuracy: 0.9555556
+Epoch:4, Time:1ms, TrainError:0.31643108, TrainErrorChange:-0.06468701, ValidationError:0.25617594, Accuracy: 0.9555556
+Epoch:5, Time:1ms, TrainError:0.27140474, TrainErrorChange:-0.045026332, ValidationError:0.22642279, Accuracy: 0.9555556
+Epoch:6, Time:1ms, TrainError:0.24040928, TrainErrorChange:-0.030995458, ValidationError:0.20640673, Accuracy: 0.9111111
+Epoch:7, Time:1ms, TrainError:0.21796203, TrainErrorChange:-0.022447258, ValidationError:0.19263174, Accuracy: 0.9111111
+Epoch:8, Time:2ms, TrainError:0.20053607, TrainErrorChange:-0.017425954, ValidationError:0.18224744, Accuracy: 0.9111111
+Epoch:9, Time:1ms, TrainError:0.18635578, TrainErrorChange:-0.014180288, ValidationError:0.1736092, Accuracy: 0.9111111
+Epoch:10, Time:1ms, TrainError:0.17462896, TrainErrorChange:-0.011726826, ValidationError:0.16586886, Accuracy: 0.9111111
+Epoch:11, Time:1ms, TrainError:0.16505463, TrainErrorChange:-0.009574324, ValidationError:0.15862317, Accuracy: 0.9111111
+Epoch:12, Time:1ms, TrainError:0.15754884, TrainErrorChange:-0.0075057894, ValidationError:0.15169726, Accuracy: 0.9555556
+Epoch:13, Time:1ms, TrainError:0.15207963, TrainErrorChange:-0.005469218, ValidationError:0.14501303, Accuracy: 0.9555556
+Epoch:14, Time:2ms, TrainError:0.14855963, TrainErrorChange:-0.003519997, ValidationError:0.13853057, Accuracy: 0.9555556
+Epoch:15, Time:1ms, TrainError:0.14671887, TrainErrorChange:-0.0018407553, ValidationError:0.13226774, Accuracy: 0.9555556
+Epoch:16, Time:1ms, TrainError:0.14592566, TrainErrorChange:-7.932186E-4, ValidationError:0.1263603, Accuracy: 0.9555556
+Epoch:17, Time:1ms, TrainError:0.14512178, TrainErrorChange:-8.0387294E-4, ValidationError:0.12107303, Accuracy: 0.9555556
+Epoch:18, Time:1ms, TrainError:0.14324513, TrainErrorChange:-0.0018766522, ValidationError:0.116745435, Accuracy: 1.0
+Epoch:19, Time:1ms, TrainError:0.1401573, TrainErrorChange:-0.0030878335, ValidationError:0.113757685, Accuracy: 1.0
+Epoch:20, Time:1ms, TrainError:0.13702242, TrainErrorChange:-0.0031348765, ValidationError:0.11246498, Accuracy: 1.0
+Epoch:21, Time:1ms, TrainError:0.13527198, TrainErrorChange:-0.0017504394, ValidationError:0.11302272, Accuracy: 0.9555556
+Epoch:22, Time:1ms, TrainError:0.1353975, TrainErrorChange:1.2551248E-4, ValidationError:0.11554453, Accuracy: 0.9555556
+Epoch:23, Time:1ms, TrainError:0.13726, TrainErrorChange:0.001862511, ValidationError:0.12035636, Accuracy: 0.9555556
+Epoch:24, Time:1ms, TrainError:0.14072551, TrainErrorChange:0.0034655035, ValidationError:0.12779374, Accuracy: 0.9555556
+Epoch:25, Time:1ms, TrainError:0.14557855, TrainErrorChange:0.00485304, ValidationError:0.13781627, Accuracy: 0.9111111
+Epoch:26, Time:1ms, TrainError:0.15133697, TrainErrorChange:0.0057584196, ValidationError:0.14970616, Accuracy: 0.9111111
+Epoch:27, Time:1ms, TrainError:0.15721631, TrainErrorChange:0.0058793426, ValidationError:0.16260736, Accuracy: 0.9111111
+Epoch:28, Time:1ms, TrainError:0.16237056, TrainErrorChange:0.005154252, ValidationError:0.17649491, Accuracy: 0.9111111
+Epoch:29, Time:1ms, TrainError:0.16627714, TrainErrorChange:0.003906578, ValidationError:0.19184032, Accuracy: 0.9111111
+Epoch:30, Time:1ms, TrainError:0.16883585, TrainErrorChange:0.0025587082, ValidationError:0.20850049, Accuracy: 0.9111111
+Epoch:31, Time:17ms, TrainError:0.17017213, TrainErrorChange:0.0013362765, ValidationError:0.2255257, Accuracy: 0.9111111
+Epoch:32, Time:0ms, TrainError:0.17045437, TrainErrorChange:2.822429E-4, ValidationError:0.24162754, Accuracy: 0.9111111
+Epoch:33, Time:1ms, TrainError:0.16978973, TrainErrorChange:-6.646365E-4, ValidationError:0.25563005, Accuracy: 0.9111111
+Epoch:34, Time:1ms, TrainError:0.16823018, TrainErrorChange:-0.0015595555, ValidationError:0.26680928, Accuracy: 0.9111111
+Epoch:35, Time:1ms, TrainError:0.16588157, TrainErrorChange:-0.0023486018, ValidationError:0.27510124, Accuracy: 0.9111111
+Epoch:36, Time:0ms, TrainError:0.16297285, TrainErrorChange:-0.0029087216, ValidationError:0.28100047, Accuracy: 0.9111111
+Epoch:37, Time:0ms, TrainError:0.15978807, TrainErrorChange:-0.0031847805, ValidationError:0.2851763, Accuracy: 0.9111111
+Epoch:38, Time:0ms, TrainError:0.15654118, TrainErrorChange:-0.0032468885, ValidationError:0.2881463, Accuracy: 0.9111111
+Epoch:39, Time:0ms, TrainError:0.15332496, TrainErrorChange:-0.003216222, ValidationError:0.29020235, Accuracy: 0.9111111
+Epoch:40, Time:1ms, TrainError:0.15014929, TrainErrorChange:-0.0031756759, ValidationError:0.29149055, Accuracy: 0.9111111
+Epoch:41, Time:1ms, TrainError:0.14699824, TrainErrorChange:-0.0031510442, ValidationError:0.29209417, Accuracy: 0.9111111
+Epoch:42, Time:1ms, TrainError:0.1438604, TrainErrorChange:-0.0031378418, ValidationError:0.29208273, Accuracy: 0.9111111
+Epoch:43, Time:0ms, TrainError:0.14073534, TrainErrorChange:-0.0031250566, ValidationError:0.29152086, Accuracy: 0.9111111
+Epoch:44, Time:0ms, TrainError:0.13763, TrainErrorChange:-0.0031053424, ValidationError:0.29047155, Accuracy: 0.9111111
+Epoch:45, Time:1ms, TrainError:0.1345548, TrainErrorChange:-0.0030751973, ValidationError:0.28899446, Accuracy: 0.9111111
+Epoch:46, Time:1ms, TrainError:0.13152044, TrainErrorChange:-0.0030343682, ValidationError:0.28714478, Accuracy: 0.9111111
+Epoch:47, Time:1ms, TrainError:0.1285378, TrainErrorChange:-0.0029826313, ValidationError:0.2849744, Accuracy: 0.9111111
+Epoch:48, Time:0ms, TrainError:0.12561655, TrainErrorChange:-0.0029212534, ValidationError:0.282528, Accuracy: 0.9111111
+Epoch:49, Time:0ms, TrainError:0.12276447, TrainErrorChange:-0.0028520823, ValidationError:0.2798479, Accuracy: 0.9111111
+Epoch:50, Time:1ms, TrainError:0.11998734, TrainErrorChange:-0.0027771294, ValidationError:0.27696964, Accuracy: 0.9111111
+Epoch:51, Time:1ms, TrainError:0.117290944, TrainErrorChange:-0.002696395, ValidationError:0.27392706, Accuracy: 0.9111111
+Epoch:52, Time:1ms, TrainError:0.11467808, TrainErrorChange:-0.0026128665, ValidationError:0.2707482, Accuracy: 0.9111111
+Epoch:53, Time:1ms, TrainError:0.11215094, TrainErrorChange:-0.00252714, ValidationError:0.26745838, Accuracy: 0.9111111
+Epoch:54, Time:0ms, TrainError:0.109711066, TrainErrorChange:-0.0024398714, ValidationError:0.264083, Accuracy: 0.9111111
+Epoch:55, Time:0ms, TrainError:0.10735941, TrainErrorChange:-0.0023516566, ValidationError:0.26064202, Accuracy: 0.9111111
+Epoch:56, Time:0ms, TrainError:0.10509591, TrainErrorChange:-0.0022635013, ValidationError:0.2571563, Accuracy: 0.9111111
+Epoch:57, Time:0ms, TrainError:0.10291971, TrainErrorChange:-0.0021761954, ValidationError:0.2536454, Accuracy: 0.9111111
+Epoch:58, Time:1ms, TrainError:0.10083115, TrainErrorChange:-0.0020885617, ValidationError:0.2501269, Accuracy: 0.9111111
+Epoch:59, Time:0ms, TrainError:0.09882864, TrainErrorChange:-0.0020025074, ValidationError:0.2466183, Accuracy: 0.9111111
+Epoch:60, Time:1ms, TrainError:0.096911535, TrainErrorChange:-0.0019171089, ValidationError:0.2431356, Accuracy: 0.9111111
+Epoch:61, Time:0ms, TrainError:0.095077895, TrainErrorChange:-0.00183364, ValidationError:0.23969306, Accuracy: 0.9111111
+Epoch:62, Time:0ms, TrainError:0.09332654, TrainErrorChange:-0.0017513558, ValidationError:0.23630391, Accuracy: 0.9111111
+Epoch:63, Time:1ms, TrainError:0.09165475, TrainErrorChange:-0.0016717911, ValidationError:0.23298107, Accuracy: 0.9111111
+Epoch:64, Time:2ms, TrainError:0.090060055, TrainErrorChange:-0.0015946925, ValidationError:0.22973013, Accuracy: 0.9111111
+Epoch:65, Time:0ms, TrainError:0.088539705, TrainErrorChange:-0.0015203506, ValidationError:0.22656155, Accuracy: 0.9111111
+Epoch:66, Time:0ms, TrainError:0.087090455, TrainErrorChange:-0.0014492497, ValidationError:0.22347862, Accuracy: 0.9111111
+Epoch:67, Time:0ms, TrainError:0.085708514, TrainErrorChange:-0.0013819411, ValidationError:0.22048424, Accuracy: 0.9111111
+Epoch:68, Time:0ms, TrainError:0.084390424, TrainErrorChange:-0.0013180897, ValidationError:0.21758156, Accuracy: 0.9111111
+Epoch:69, Time:0ms, TrainError:0.08313274, TrainErrorChange:-0.0012576878, ValidationError:0.21477157, Accuracy: 0.9111111
+Epoch:70, Time:1ms, TrainError:0.08193171, TrainErrorChange:-0.0012010261, ValidationError:0.21205299, Accuracy: 0.9111111
+Epoch:71, Time:0ms, TrainError:0.08078393, TrainErrorChange:-0.0011477768, ValidationError:0.20942576, Accuracy: 0.9111111
+Epoch:72, Time:0ms, TrainError:0.07968581, TrainErrorChange:-0.0010981262, ValidationError:0.20688799, Accuracy: 0.9111111
+Epoch:73, Time:0ms, TrainError:0.07863432, TrainErrorChange:-0.0010514855, ValidationError:0.20443769, Accuracy: 0.9111111
+Epoch:74, Time:1ms, TrainError:0.07762638, TrainErrorChange:-0.0010079443, ValidationError:0.2020738, Accuracy: 0.9111111
+Epoch:75, Time:0ms, TrainError:0.07665931, TrainErrorChange:-9.6707046E-4, ValidationError:0.19979478, Accuracy: 0.9111111
+Epoch:76, Time:0ms, TrainError:0.075730264, TrainErrorChange:-9.290427E-4, ValidationError:0.19759813, Accuracy: 0.9111111
+Epoch:77, Time:1ms, TrainError:0.0748371, TrainErrorChange:-8.931607E-4, ValidationError:0.195482, Accuracy: 0.9111111
+Epoch:78, Time:0ms, TrainError:0.07397761, TrainErrorChange:-8.594915E-4, ValidationError:0.19344492, Accuracy: 0.9111111
+Epoch:79, Time:0ms, TrainError:0.07314943, TrainErrorChange:-8.281842E-4, ValidationError:0.19148631, Accuracy: 0.9111111
+Epoch:80, Time:1ms, TrainError:0.07235102, TrainErrorChange:-7.984042E-4, ValidationError:0.18960533, Accuracy: 0.9111111
+Epoch:81, Time:0ms, TrainError:0.071580626, TrainErrorChange:-7.703975E-4, ValidationError:0.18779859, Accuracy: 0.9111111
+Epoch:82, Time:0ms, TrainError:0.07083665, TrainErrorChange:-7.439777E-4, ValidationError:0.18606836, Accuracy: 0.9111111
+Epoch:83, Time:1ms, TrainError:0.07011761, TrainErrorChange:-7.1904063E-4, ValidationError:0.18441325, Accuracy: 0.9111111
+Epoch:84, Time:1ms, TrainError:0.06942248, TrainErrorChange:-6.9512427E-4, ValidationError:0.18283261, Accuracy: 0.9111111
+Epoch:85, Time:0ms, TrainError:0.0687499, TrainErrorChange:-6.7258626E-4, ValidationError:0.1813249, Accuracy: 0.9111111
+Epoch:86, Time:0ms, TrainError:0.06809866, TrainErrorChange:-6.5124035E-4, ValidationError:0.17989011, Accuracy: 0.9111111
+Epoch:87, Time:0ms, TrainError:0.06746787, TrainErrorChange:-6.307885E-4, ValidationError:0.178529, Accuracy: 0.9111111
+Epoch:88, Time:0ms, TrainError:0.06685663, TrainErrorChange:-6.112382E-4, ValidationError:0.17724024, Accuracy: 0.9111111
+Epoch:89, Time:0ms, TrainError:0.06626418, TrainErrorChange:-5.924478E-4, ValidationError:0.17602523, Accuracy: 0.9111111
+Epoch:90, Time:0ms, TrainError:0.0656896, TrainErrorChange:-5.745813E-4, ValidationError:0.17488243, Accuracy: 0.9111111
+Epoch:91, Time:0ms, TrainError:0.06513233, TrainErrorChange:-5.572736E-4, ValidationError:0.17381018, Accuracy: 0.9111111
+Epoch:92, Time:0ms, TrainError:0.06459128, TrainErrorChange:-5.4104626E-4, ValidationError:0.1728092, Accuracy: 0.9111111
+Epoch:93, Time:0ms, TrainError:0.0640661, TrainErrorChange:-5.25184E-4, ValidationError:0.17188065, Accuracy: 0.9111111
+Epoch:94, Time:1ms, TrainError:0.06355655, TrainErrorChange:-5.095452E-4, ValidationError:0.17101844, Accuracy: 0.9111111
+Epoch:95, Time:0ms, TrainError:0.06306115, TrainErrorChange:-4.95404E-4, ValidationError:0.17022556, Accuracy: 0.9111111
+Epoch:96, Time:0ms, TrainError:0.06258021, TrainErrorChange:-4.8093498E-4, ValidationError:0.16949981, Accuracy: 0.9111111
+Epoch:97, Time:0ms, TrainError:0.062112637, TrainErrorChange:-4.675761E-4, ValidationError:0.16884097, Accuracy: 0.9111111
+Epoch:98, Time:0ms, TrainError:0.06165818, TrainErrorChange:-4.544556E-4, ValidationError:0.1682456, Accuracy: 0.9111111
+Epoch:99, Time:1ms, TrainError:0.061216302, TrainErrorChange:-4.4187903E-4, ValidationError:0.16771379, Accuracy: 0.9111111
+Epoch:100, Time:0ms, TrainError:0.0607866, TrainErrorChange:-4.2970106E-4, ValidationError:0.1672425, Accuracy: 0.9111111
+Epoch:101, Time:1ms, TrainError:0.060368363, TrainErrorChange:-4.1823834E-4, ValidationError:0.16683039, Accuracy: 0.9111111
+Epoch:102, Time:0ms, TrainError:0.05996132, TrainErrorChange:-4.0704384E-4, ValidationError:0.1664773, Accuracy: 0.9111111
+Epoch:103, Time:1ms, TrainError:0.05956531, TrainErrorChange:-3.9600953E-4, ValidationError:0.16617806, Accuracy: 0.9111111
+Epoch:104, Time:0ms, TrainError:0.059179448, TrainErrorChange:-3.8586184E-4, ValidationError:0.16593449, Accuracy: 0.9111111
+Epoch:105, Time:1ms, TrainError:0.058803663, TrainErrorChange:-3.7578493E-4, ValidationError:0.1657402, Accuracy: 0.9111111
+Epoch:106, Time:0ms, TrainError:0.058437183, TrainErrorChange:-3.6647916E-4, ValidationError:0.16559726, Accuracy: 0.9111111
+Epoch:107, Time:0ms, TrainError:0.058080062, TrainErrorChange:-3.5712123E-4, ValidationError:0.16550072, Accuracy: 0.9111111
+Epoch:108, Time:0ms, TrainError:0.05773163, TrainErrorChange:-3.4843385E-4, ValidationError:0.16544981, Accuracy: 0.9111111
+Epoch:109, Time:1ms, TrainError:0.05739193, TrainErrorChange:-3.3969805E-4, ValidationError:0.16544251, Accuracy: 0.9111111
+Epoch:110, Time:0ms, TrainError:0.057060327, TrainErrorChange:-3.31603E-4, ValidationError:0.16547523, Accuracy: 0.9111111
+Epoch:111, Time:0ms, TrainError:0.05673649, TrainErrorChange:-3.2383576E-4, ValidationError:0.16554783, Accuracy: 0.9111111
+Epoch:112, Time:0ms, TrainError:0.056420404, TrainErrorChange:-3.1608716E-4, ValidationError:0.16565749, Accuracy: 0.9111111
+Epoch:113, Time:0ms, TrainError:0.056111388, TrainErrorChange:-3.0901656E-4, ValidationError:0.16580182, Accuracy: 0.9111111
+Epoch:114, Time:1ms, TrainError:0.05580946, TrainErrorChange:-3.0192733E-4, ValidationError:0.16597939, Accuracy: 0.9111111
+Epoch:115, Time:0ms, TrainError:0.05551431, TrainErrorChange:-2.9515103E-4, ValidationError:0.16618782, Accuracy: 0.9111111
+Epoch:116, Time:0ms, TrainError:0.055225506, TrainErrorChange:-2.8880313E-4, ValidationError:0.1664266, Accuracy: 0.9111111
+Epoch:117, Time:1ms, TrainError:0.054943144, TrainErrorChange:-2.823621E-4, ValidationError:0.16669297, Accuracy: 0.9111111
+Epoch:118, Time:0ms, TrainError:0.0546668, TrainErrorChange:-2.7634576E-4, ValidationError:0.16698581, Accuracy: 0.9111111
+Epoch:119, Time:0ms, TrainError:0.054396227, TrainErrorChange:-2.7057156E-4, ValidationError:0.16730155, Accuracy: 0.9111111
+Epoch:120, Time:0ms, TrainError:0.054131422, TrainErrorChange:-2.648048E-4, ValidationError:0.16764227, Accuracy: 0.9111111
+Epoch:121, Time:0ms, TrainError:0.053871922, TrainErrorChange:-2.595E-4, ValidationError:0.16800393, Accuracy: 0.9111111
+Epoch:122, Time:1ms, TrainError:0.05361782, TrainErrorChange:-2.5410205E-4, ValidationError:0.1683848, Accuracy: 0.9111111
+Epoch:123, Time:0ms, TrainError:0.053368855, TrainErrorChange:-2.4896488E-4, ValidationError:0.16878422, Accuracy: 0.9111111
+Epoch:124, Time:0ms, TrainError:0.05312478, TrainErrorChange:-2.4407357E-4, ValidationError:0.16920094, Accuracy: 0.9111111
+Epoch:125, Time:0ms, TrainError:0.052885585, TrainErrorChange:-2.3919716E-4, ValidationError:0.16963576, Accuracy: 0.9111111
+Epoch:126, Time:0ms, TrainError:0.05265103, TrainErrorChange:-2.3455545E-4, ValidationError:0.1700838, Accuracy: 0.9111111
+Epoch:127, Time:0ms, TrainError:0.052421078, TrainErrorChange:-2.29951E-4, ValidationError:0.170548, Accuracy: 0.9111111
+Epoch:128, Time:0ms, TrainError:0.052195683, TrainErrorChange:-2.2539496E-4, ValidationError:0.17102332, Accuracy: 0.9111111
+Epoch:129, Time:1ms, TrainError:0.051974382, TrainErrorChange:-2.2130087E-4, ValidationError:0.17151104, Accuracy: 0.9111111
+Epoch:130, Time:0ms, TrainError:0.0517573, TrainErrorChange:-2.1708384E-4, ValidationError:0.17200965, Accuracy: 0.9111111
+Epoch:131, Time:0ms, TrainError:0.05154425, TrainErrorChange:-2.1304935E-4, ValidationError:0.17252032, Accuracy: 0.9111111
+Epoch:132, Time:0ms, TrainError:0.051335286, TrainErrorChange:-2.0896271E-4, ValidationError:0.17303966, Accuracy: 0.9111111
+Epoch:133, Time:0ms, TrainError:0.051130272, TrainErrorChange:-2.050139E-4, ValidationError:0.17356685, Accuracy: 0.9111111
+Epoch:134, Time:0ms, TrainError:0.050928872, TrainErrorChange:-2.0140037E-4, ValidationError:0.17410356, Accuracy: 0.9111111
+Epoch:135, Time:0ms, TrainError:0.050731223, TrainErrorChange:-1.97649E-4, ValidationError:0.17464726, Accuracy: 0.9111111
+Epoch:136, Time:0ms, TrainError:0.05053722, TrainErrorChange:-1.9400194E-4, ValidationError:0.17519827, Accuracy: 0.9111111
+Epoch:137, Time:0ms, TrainError:0.05034669, TrainErrorChange:-1.9052997E-4, ValidationError:0.175756, Accuracy: 0.9111111
+Epoch:138, Time:0ms, TrainError:0.050159488, TrainErrorChange:-1.8720329E-4, ValidationError:0.17631958, Accuracy: 0.9111111
+Epoch:139, Time:0ms, TrainError:0.04997592, TrainErrorChange:-1.835674E-4, ValidationError:0.1768881, Accuracy: 0.9111111
+Epoch:140, Time:1ms, TrainError:0.049795285, TrainErrorChange:-1.806356E-4, ValidationError:0.17746207, Accuracy: 0.9111111
+Epoch:141, Time:0ms, TrainError:0.04961809, TrainErrorChange:-1.7719343E-4, ValidationError:0.17804185, Accuracy: 0.9111111
+Epoch:142, Time:1ms, TrainError:0.049443893, TrainErrorChange:-1.741983E-4, ValidationError:0.1786243, Accuracy: 0.9111111
+Epoch:143, Time:0ms, TrainError:0.049272813, TrainErrorChange:-1.7108023E-4, ValidationError:0.17921175, Accuracy: 0.9111111
+Epoch:144, Time:1ms, TrainError:0.049104623, TrainErrorChange:-1.681894E-4, ValidationError:0.17980339, Accuracy: 0.9111111
+Epoch:145, Time:0ms, TrainError:0.048939403, TrainErrorChange:-1.6522035E-4, ValidationError:0.18039815, Accuracy: 0.9111111
+Epoch:146, Time:0ms, TrainError:0.04877713, TrainErrorChange:-1.6227365E-4, ValidationError:0.18099588, Accuracy: 0.9111111
+Epoch:147, Time:1ms, TrainError:0.048617505, TrainErrorChange:-1.5962496E-4, ValidationError:0.18159756, Accuracy: 0.9111111
+Epoch:148, Time:0ms, TrainError:0.048460543, TrainErrorChange:-1.5696138E-4, ValidationError:0.18220189, Accuracy: 0.9111111
+Epoch:149, Time:0ms, TrainError:0.048306327, TrainErrorChange:-1.5421584E-4, ValidationError:0.18280926, Accuracy: 0.9111111
+Epoch:150, Time:0ms, TrainError:0.048154667, TrainErrorChange:-1.516603E-4, ValidationError:0.18341944, Accuracy: 0.9111111
+Epoch:151, Time:0ms, TrainError:0.04800556, TrainErrorChange:-1.4910847E-4, ValidationError:0.18403088, Accuracy: 0.9111111
+Epoch:152, Time:0ms, TrainError:0.047858953, TrainErrorChange:-1.4660507E-4, ValidationError:0.18464534, Accuracy: 0.9111111
+Epoch:153, Time:0ms, TrainError:0.047714643, TrainErrorChange:-1.443103E-4, ValidationError:0.18526192, Accuracy: 0.9111111
+Epoch:154, Time:0ms, TrainError:0.04757274, TrainErrorChange:-1.4190376E-4, ValidationError:0.18588153, Accuracy: 0.9111111
+Epoch:155, Time:0ms, TrainError:0.047433127, TrainErrorChange:-1.396127E-4, ValidationError:0.1865025, Accuracy: 0.9111111
+Epoch:156, Time:0ms, TrainError:0.04729573, TrainErrorChange:-1.3739616E-4, ValidationError:0.18712462, Accuracy: 0.9111111
+Epoch:157, Time:0ms, TrainError:0.04716053, TrainErrorChange:-1.3520196E-4, ValidationError:0.18774934, Accuracy: 0.9111111
+Epoch:158, Time:0ms, TrainError:0.04702741, TrainErrorChange:-1.3311952E-4, ValidationError:0.18837744, Accuracy: 0.9111111
+Epoch:159, Time:0ms, TrainError:0.046896458, TrainErrorChange:-1.309514E-4, ValidationError:0.1890059, Accuracy: 0.9111111
+Epoch:160, Time:1ms, TrainError:0.046767477, TrainErrorChange:-1.2898073E-4, ValidationError:0.1896355, Accuracy: 0.9111111
+Epoch:161, Time:0ms, TrainError:0.046640344, TrainErrorChange:-1.2713298E-4, ValidationError:0.19026777, Accuracy: 0.9111111
+Epoch:162, Time:0ms, TrainError:0.046515275, TrainErrorChange:-1.2506917E-4, ValidationError:0.19090231, Accuracy: 0.9111111
+Epoch:163, Time:1ms, TrainError:0.04639198, TrainErrorChange:-1.2329593E-4, ValidationError:0.1915383, Accuracy: 0.9111111
+Epoch:164, Time:0ms, TrainError:0.046270587, TrainErrorChange:-1.2139231E-4, ValidationError:0.19217539, Accuracy: 0.9111111
+Epoch:165, Time:1ms, TrainError:0.046150956, TrainErrorChange:-1.1963025E-4, ValidationError:0.19281435, Accuracy: 0.9111111
+Epoch:166, Time:0ms, TrainError:0.04603298, TrainErrorChange:-1.1797622E-4, ValidationError:0.1934541, Accuracy: 0.9111111
+Epoch:167, Time:0ms, TrainError:0.045916736, TrainErrorChange:-1.1624396E-4, ValidationError:0.19409598, Accuracy: 0.9111111
+Epoch:168, Time:0ms, TrainError:0.04580212, TrainErrorChange:-1.1461601E-4, ValidationError:0.1947393, Accuracy: 0.9111111
+Epoch:169, Time:0ms, TrainError:0.045688972, TrainErrorChange:-1.1314824E-4, ValidationError:0.19538423, Accuracy: 0.9111111
+Epoch:170, Time:1ms, TrainError:0.045577563, TrainErrorChange:-1.1140853E-4, ValidationError:0.1960302, Accuracy: 0.9111111
+Epoch:171, Time:0ms, TrainError:0.04546753, TrainErrorChange:-1.100339E-4, ValidationError:0.19667865, Accuracy: 0.9111111
+Epoch:172, Time:1ms, TrainError:0.045358997, TrainErrorChange:-1.0853261E-4, ValidationError:0.19732754, Accuracy: 0.9111111
+Epoch:173, Time:0ms, TrainError:0.045251872, TrainErrorChange:-1.0712445E-4, ValidationError:0.19797795, Accuracy: 0.9111111
+Epoch:174, Time:0ms, TrainError:0.04514611, TrainErrorChange:-1.0576099E-4, ValidationError:0.1986304, Accuracy: 0.9111111
+Epoch:175, Time:1ms, TrainError:0.045041736, TrainErrorChange:-1.0437518E-4, ValidationError:0.19928342, Accuracy: 0.9111111
+Epoch:176, Time:0ms, TrainError:0.04493869, TrainErrorChange:-1.03045255E-4, ValidationError:0.1999391, Accuracy: 0.9111111
+Epoch:177, Time:0ms, TrainError:0.044836883, TrainErrorChange:-1.0180846E-4, ValidationError:0.20059428, Accuracy: 0.9111111
+Epoch:178, Time:1ms, TrainError:0.044736225, TrainErrorChange:-1.00657344E-4, ValidationError:0.20125209, Accuracy: 0.9111111
+Epoch:179, Time:0ms, TrainError:0.0446368, TrainErrorChange:-9.942427E-5, ValidationError:0.20191057, Accuracy: 0.9111111
+Epoch:180, Time:0ms, TrainError:0.044538546, TrainErrorChange:-9.825453E-5, ValidationError:0.20257095, Accuracy: 0.9111111
+Epoch:181, Time:1ms, TrainError:0.044441465, TrainErrorChange:-9.7081065E-5, ValidationError:0.20323211, Accuracy: 0.9111111
+Epoch:182, Time:0ms, TrainError:0.04434549, TrainErrorChange:-9.5974654E-5, ValidationError:0.20389433, Accuracy: 0.9111111
+Epoch:183, Time:1ms, TrainError:0.044250485, TrainErrorChange:-9.500608E-5, ValidationError:0.20455763, Accuracy: 0.9111111
+Epoch:184, Time:0ms, TrainError:0.04415656, TrainErrorChange:-9.3925744E-5, ValidationError:0.20522346, Accuracy: 0.9111111
+Epoch:185, Time:0ms, TrainError:0.04406359, TrainErrorChange:-9.2968345E-5, ValidationError:0.20588985, Accuracy: 0.9111111
+Epoch:186, Time:0ms, TrainError:0.043971643, TrainErrorChange:-9.1947615E-5, ValidationError:0.20655636, Accuracy: 0.9111111
+Epoch:187, Time:0ms, TrainError:0.04388074, TrainErrorChange:-9.0904534E-5, ValidationError:0.20722376, Accuracy: 0.9111111
+Epoch:188, Time:1ms, TrainError:0.0437907, TrainErrorChange:-9.003654E-5, ValidationError:0.20789437, Accuracy: 0.9111111
+Epoch:189, Time:0ms, TrainError:0.043701433, TrainErrorChange:-8.926913E-5, ValidationError:0.20856453, Accuracy: 0.9111111
+Epoch:190, Time:0ms, TrainError:0.04361308, TrainErrorChange:-8.835271E-5, ValidationError:0.20923623, Accuracy: 0.9111111
+Epoch:191, Time:1ms, TrainError:0.04352559, TrainErrorChange:-8.748844E-5, ValidationError:0.20991021, Accuracy: 0.9111111
+Epoch:192, Time:0ms, TrainError:0.04343901, TrainErrorChange:-8.65832E-5, ValidationError:0.21058467, Accuracy: 0.9111111
+Epoch:193, Time:1ms, TrainError:0.043353062, TrainErrorChange:-8.594617E-5, ValidationError:0.21126057, Accuracy: 0.9111111
+Epoch:194, Time:1ms, TrainError:0.04326797, TrainErrorChange:-8.509308E-5, ValidationError:0.2119361, Accuracy: 0.9111111
+Epoch:195, Time:0ms, TrainError:0.043183602, TrainErrorChange:-8.436665E-5, ValidationError:0.21261463, Accuracy: 0.9111111
+Epoch:196, Time:0ms, TrainError:0.043099985, TrainErrorChange:-8.3617866E-5, ValidationError:0.2132929, Accuracy: 0.9111111
+Epoch:197, Time:1ms, TrainError:0.043017067, TrainErrorChange:-8.291751E-5, ValidationError:0.21397366, Accuracy: 0.9111111
+Epoch:198, Time:0ms, TrainError:0.0429348, TrainErrorChange:-8.2265586E-5, ValidationError:0.2146555, Accuracy: 0.9111111
+Epoch:199, Time:1ms, TrainError:0.042853255, TrainErrorChange:-8.1546605E-5, ValidationError:0.21533807, Accuracy: 0.9111111
+Epoch:200, Time:1ms, TrainError:0.042772356, TrainErrorChange:-8.0898404E-5, ValidationError:0.21602273, Accuracy: 0.9111111
+Epoch:201, Time:0ms, TrainError:0.04269198, TrainErrorChange:-8.037686E-5, ValidationError:0.21670741, Accuracy: 0.9111111
+Epoch:202, Time:1ms, TrainError:0.042612225, TrainErrorChange:-7.975474E-5, ValidationError:0.2173949, Accuracy: 0.9111111
+Epoch:203, Time:1ms, TrainError:0.04253318, TrainErrorChange:-7.904321E-5, ValidationError:0.21808203, Accuracy: 0.9111111
+Epoch:204, Time:1ms, TrainError:0.042454574, TrainErrorChange:-7.860735E-5, ValidationError:0.21877314, Accuracy: 0.9111111
+Epoch:205, Time:0ms, TrainError:0.042376645, TrainErrorChange:-7.792935E-5, ValidationError:0.21946412, Accuracy: 0.9111111
+Epoch:206, Time:1ms, TrainError:0.042299192, TrainErrorChange:-7.745251E-5, ValidationError:0.22015615, Accuracy: 0.9111111
+Epoch:207, Time:1ms, TrainError:0.042222206, TrainErrorChange:-7.698685E-5, ValidationError:0.22085117, Accuracy: 0.9111111
+Epoch:208, Time:0ms, TrainError:0.042145815, TrainErrorChange:-7.63908E-5, ValidationError:0.2215459, Accuracy: 0.9111111
+Epoch:209, Time:1ms, TrainError:0.042069923, TrainErrorChange:-7.5891614E-5, ValidationError:0.22224522, Accuracy: 0.9111111
+Epoch:210, Time:0ms, TrainError:0.04199459, TrainErrorChange:-7.533282E-5, ValidationError:0.2229452, Accuracy: 0.9111111
+Epoch:211, Time:1ms, TrainError:0.041919686, TrainErrorChange:-7.490441E-5, ValidationError:0.22364633, Accuracy: 0.9111111
+Epoch:212, Time:0ms, TrainError:0.04184517, TrainErrorChange:-7.451698E-5, ValidationError:0.22435005, Accuracy: 0.9111111
+Epoch:213, Time:0ms, TrainError:0.041771173, TrainErrorChange:-7.399544E-5, ValidationError:0.22505493, Accuracy: 0.9111111
+Epoch:214, Time:0ms, TrainError:0.041697536, TrainErrorChange:-7.363781E-5, ValidationError:0.22576357, Accuracy: 0.9111111
+Epoch:215, Time:0ms, TrainError:0.041624382, TrainErrorChange:-7.3153526E-5, ValidationError:0.22647353, Accuracy: 0.9111111
+Epoch:216, Time:3ms, TrainError:0.041551646, TrainErrorChange:-7.273629E-5, ValidationError:0.22718559, Accuracy: 0.9111111
+Epoch:217, Time:1ms, TrainError:0.041479334, TrainErrorChange:-7.231161E-5, ValidationError:0.22790076, Accuracy: 0.9111111
+Epoch:218, Time:0ms, TrainError:0.041407414, TrainErrorChange:-7.1920455E-5, ValidationError:0.22861952, Accuracy: 0.9111111
+Epoch:219, Time:0ms, TrainError:0.041335844, TrainErrorChange:-7.157028E-5, ValidationError:0.22933893, Accuracy: 0.9111111
+Epoch:220, Time:0ms, TrainError:0.041264664, TrainErrorChange:-7.117912E-5, ValidationError:0.23006202, Accuracy: 0.9111111
+Epoch:221, Time:1ms, TrainError:0.041193858, TrainErrorChange:-7.080659E-5, ValidationError:0.2307882, Accuracy: 0.9111111
+Epoch:222, Time:1ms, TrainError:0.041123398, TrainErrorChange:-7.046014E-5, ValidationError:0.23151742, Accuracy: 0.9111111
+Epoch:223, Time:1ms, TrainError:0.04105323, TrainErrorChange:-7.016584E-5, ValidationError:0.23225047, Accuracy: 0.9111111
+Epoch:224, Time:0ms, TrainError:0.040983595, TrainErrorChange:-6.963685E-5, ValidationError:0.23298654, Accuracy: 0.9111111
+Epoch:225, Time:1ms, TrainError:0.040914156, TrainErrorChange:-6.943941E-5, ValidationError:0.23372635, Accuracy: 0.9111111
+Epoch:226, Time:0ms, TrainError:0.040845133, TrainErrorChange:-6.902218E-5, ValidationError:0.23446909, Accuracy: 0.9111111
+Epoch:227, Time:1ms, TrainError:0.04077637, TrainErrorChange:-6.876513E-5, ValidationError:0.23521714, Accuracy: 0.9111111
+Epoch:228, Time:0ms, TrainError:0.04070785, TrainErrorChange:-6.8519264E-5, ValidationError:0.2359685, Accuracy: 0.9111111
+Epoch:229, Time:0ms, TrainError:0.040639788, TrainErrorChange:-6.8061054E-5, ValidationError:0.23672423, Accuracy: 0.9111111
+Epoch:230, Time:0ms, TrainError:0.0405721, TrainErrorChange:-6.7688525E-5, ValidationError:0.23748295, Accuracy: 0.9111111
+Epoch:231, Time:0ms, TrainError:0.04050449, TrainErrorChange:-6.761029E-5, ValidationError:0.23824878, Accuracy: 0.9111111
+Epoch:232, Time:0ms, TrainError:0.0404373, TrainErrorChange:-6.7189336E-5, ValidationError:0.23901908, Accuracy: 0.9111111
+Epoch:233, Time:0ms, TrainError:0.040370446, TrainErrorChange:-6.685406E-5, ValidationError:0.23979348, Accuracy: 0.9111111
+Epoch:234, Time:0ms, TrainError:0.040303793, TrainErrorChange:-6.6652894E-5, ValidationError:0.24057388, Accuracy: 0.9111111
+Epoch:235, Time:0ms, TrainError:0.04023745, TrainErrorChange:-6.6343695E-5, ValidationError:0.24135956, Accuracy: 0.9111111
+Epoch:236, Time:1ms, TrainError:0.040171497, TrainErrorChange:-6.595254E-5, ValidationError:0.2421512, Accuracy: 0.9111111
+Epoch:237, Time:0ms, TrainError:0.04010574, TrainErrorChange:-6.57551E-5, ValidationError:0.24294946, Accuracy: 0.9111111
+Epoch:238, Time:1ms, TrainError:0.040040236, TrainErrorChange:-6.5505505E-5, ValidationError:0.24375255, Accuracy: 0.9111111
+Epoch:239, Time:0ms, TrainError:0.039974965, TrainErrorChange:-6.527081E-5, ValidationError:0.24456264, Accuracy: 0.9111111
+Epoch:240, Time:0ms, TrainError:0.03991009, TrainErrorChange:-6.487593E-5, ValidationError:0.2453806, Accuracy: 0.9111111
+Epoch:241, Time:0ms, TrainError:0.039845444, TrainErrorChange:-6.464496E-5, ValidationError:0.2462032, Accuracy: 0.9111111
+Epoch:242, Time:0ms, TrainError:0.039781034, TrainErrorChange:-6.441027E-5, ValidationError:0.24703464, Accuracy: 0.9111111
+Epoch:243, Time:0ms, TrainError:0.03971695, TrainErrorChange:-6.4082444E-5, ValidationError:0.24787216, Accuracy: 0.9111111
+Epoch:244, Time:0ms, TrainError:0.039652985, TrainErrorChange:-6.396696E-5, ValidationError:0.24872018, Accuracy: 0.9111111
+Epoch:245, Time:0ms, TrainError:0.039589483, TrainErrorChange:-6.35013E-5, ValidationError:0.24957366, Accuracy: 0.9111111
+Epoch:246, Time:0ms, TrainError:0.03952614, TrainErrorChange:-6.3344836E-5, ValidationError:0.2504373, Accuracy: 0.9111111
+Epoch:247, Time:0ms, TrainError:0.039463054, TrainErrorChange:-6.3084066E-5, ValidationError:0.25130975, Accuracy: 0.9111111
+Epoch:248, Time:1ms, TrainError:0.039400328, TrainErrorChange:-6.272644E-5, ValidationError:0.2521892, Accuracy: 0.9111111
+Epoch:249, Time:0ms, TrainError:0.03933771, TrainErrorChange:-6.2618405E-5, ValidationError:0.25307882, Accuracy: 0.9111111
+Epoch:250, Time:1ms, TrainError:0.039275464, TrainErrorChange:-6.2245876E-5, ValidationError:0.25397936, Accuracy: 0.9111111
+Epoch:251, Time:0ms, TrainError:0.03921344, TrainErrorChange:-6.202236E-5, ValidationError:0.2548898, Accuracy: 0.9111111
+Epoch:252, Time:0ms, TrainError:0.039151635, TrainErrorChange:-6.180629E-5, ValidationError:0.2558089, Accuracy: 0.9111111
+Epoch:253, Time:1ms, TrainError:0.039090224, TrainErrorChange:-6.141141E-5, ValidationError:0.2567394, Accuracy: 0.9111111
+Epoch:254, Time:1ms, TrainError:0.039029013, TrainErrorChange:-6.1210245E-5, ValidationError:0.25768286, Accuracy: 0.9111111
+Epoch:255, Time:0ms, TrainError:0.0389681, TrainErrorChange:-6.091222E-5, ValidationError:0.25863615, Accuracy: 0.9111111
+Epoch:256, Time:0ms, TrainError:0.03890739, TrainErrorChange:-6.0711056E-5, ValidationError:0.25960186, Accuracy: 0.9111111
+Epoch:257, Time:1ms, TrainError:0.03884705, TrainErrorChange:-6.0338527E-5, ValidationError:0.26057968, Accuracy: 0.9111111
+Epoch:258, Time:0ms, TrainError:0.038786907, TrainErrorChange:-6.0144812E-5, ValidationError:0.2615712, Accuracy: 0.9111111
+Epoch:259, Time:1ms, TrainError:0.03872705, TrainErrorChange:-5.9857965E-5, ValidationError:0.26257455, Accuracy: 0.9111111
+Epoch:260, Time:0ms, TrainError:0.038667463, TrainErrorChange:-5.958602E-5, ValidationError:0.26359126, Accuracy: 0.9111111
+Epoch:261, Time:0ms, TrainError:0.038608212, TrainErrorChange:-5.9250742E-5, ValidationError:0.26462194, Accuracy: 0.9111111
+Epoch:262, Time:1ms, TrainError:0.038549226, TrainErrorChange:-5.8986247E-5, ValidationError:0.26566938, Accuracy: 0.9111111
+Epoch:263, Time:1ms, TrainError:0.038490605, TrainErrorChange:-5.8621168E-5, ValidationError:0.26673058, Accuracy: 0.9111111
+Epoch:264, Time:0ms, TrainError:0.038432263, TrainErrorChange:-5.834177E-5, ValidationError:0.2678076, Accuracy: 0.9111111
+Epoch:265, Time:1ms, TrainError:0.038374096, TrainErrorChange:-5.8166683E-5, ValidationError:0.2689015, Accuracy: 0.9111111
+Epoch:266, Time:0ms, TrainError:0.03831637, TrainErrorChange:-5.77271E-5, ValidationError:0.27001145, Accuracy: 0.9111111
+Epoch:267, Time:0ms, TrainError:0.038259007, TrainErrorChange:-5.736202E-5, ValidationError:0.27113783, Accuracy: 0.9111111
+Epoch:268, Time:1ms, TrainError:0.038201883, TrainErrorChange:-5.71236E-5, ValidationError:0.27228114, Accuracy: 0.9111111
+Epoch:269, Time:2ms, TrainError:0.0381451, TrainErrorChange:-5.67846E-5, ValidationError:0.27344424, Accuracy: 0.9111111
+Epoch:270, Time:0ms, TrainError:0.038088392, TrainErrorChange:-5.670637E-5, ValidationError:0.2746281, Accuracy: 0.9111111
+Epoch:271, Time:0ms, TrainError:0.0380324, TrainErrorChange:-5.5991113E-5, ValidationError:0.2758323, Accuracy: 0.9111111
+Epoch:272, Time:0ms, TrainError:0.037976693, TrainErrorChange:-5.570799E-5, ValidationError:0.2770534, Accuracy: 0.9111111
+Epoch:273, Time:1ms, TrainError:0.03792126, TrainErrorChange:-5.543232E-5, ValidationError:0.27829885, Accuracy: 0.9111111
+Epoch:274, Time:0ms, TrainError:0.037866313, TrainErrorChange:-5.4948032E-5, ValidationError:0.279565, Accuracy: 0.9111111
+Epoch:275, Time:0ms, TrainError:0.037811548, TrainErrorChange:-5.4765493E-5, ValidationError:0.28085455, Accuracy: 0.9111111
+Epoch:276, Time:1ms, TrainError:0.03775724, TrainErrorChange:-5.4307282E-5, ValidationError:0.28217003, Accuracy: 0.9111111
+Epoch:277, Time:0ms, TrainError:0.03770346, TrainErrorChange:-5.3782016E-5, ValidationError:0.28350654, Accuracy: 0.9111111
+Epoch:278, Time:0ms, TrainError:0.037649956, TrainErrorChange:-5.350262E-5, ValidationError:0.28487238, Accuracy: 0.9111111
+Epoch:279, Time:0ms, TrainError:0.037596926, TrainErrorChange:-5.3029507E-5, ValidationError:0.28626493, Accuracy: 0.9111111
+Epoch:280, Time:0ms, TrainError:0.037544467, TrainErrorChange:-5.2459538E-5, ValidationError:0.28768507, Accuracy: 0.9111111
+Epoch:281, Time:1ms, TrainError:0.037492275, TrainErrorChange:-5.2191317E-5, ValidationError:0.2891364, Accuracy: 0.9111111
+Epoch:282, Time:0ms, TrainError:0.03744068, TrainErrorChange:-5.159527E-5, ValidationError:0.2906155, Accuracy: 0.9111111
+Epoch:283, Time:0ms, TrainError:0.0373895, TrainErrorChange:-5.1181763E-5, ValidationError:0.29213127, Accuracy: 0.9111111
+Epoch:284, Time:1ms, TrainError:0.037339196, TrainErrorChange:-5.0302595E-5, ValidationError:0.29367882, Accuracy: 0.9111111
+Epoch:285, Time:0ms, TrainError:0.03728893, TrainErrorChange:-5.0265342E-5, ValidationError:0.29526564, Accuracy: 0.9111111
+Epoch:286, Time:0ms, TrainError:0.03723942, TrainErrorChange:-4.9509108E-5, ValidationError:0.29689214, Accuracy: 0.9111111
+Epoch:287, Time:0ms, TrainError:0.037190754, TrainErrorChange:-4.8667192E-5, ValidationError:0.2985539, Accuracy: 0.9111111
+Epoch:288, Time:0ms, TrainError:0.037142575, TrainErrorChange:-4.817918E-5, ValidationError:0.30026162, Accuracy: 0.9111111
+Epoch:289, Time:0ms, TrainError:0.03709495, TrainErrorChange:-4.762411E-5, ValidationError:0.3020182, Accuracy: 0.9111111
+Epoch:290, Time:0ms, TrainError:0.037048254, TrainErrorChange:-4.6696514E-5, ValidationError:0.3038208, Accuracy: 0.9111111
+Epoch:291, Time:1ms, TrainError:0.037002232, TrainErrorChange:-4.6022236E-5, ValidationError:0.3056787, Accuracy: 0.9111111
+Epoch:292, Time:0ms, TrainError:0.036957003, TrainErrorChange:-4.522875E-5, ValidationError:0.30759317, Accuracy: 0.9111111
+Epoch:293, Time:0ms, TrainError:0.036912784, TrainErrorChange:-4.4219196E-5, ValidationError:0.30956757, Accuracy: 0.9111111
+Epoch:294, Time:1ms, TrainError:0.03686951, TrainErrorChange:-4.3272972E-5, ValidationError:0.3116128, Accuracy: 0.9111111
+Epoch:295, Time:0ms, TrainError:0.036827274, TrainErrorChange:-4.223734E-5, ValidationError:0.3137311, Accuracy: 0.9111111
+Epoch:296, Time:1ms, TrainError:0.036786206, TrainErrorChange:-4.10676E-5, ValidationError:0.31593427, Accuracy: 0.9111111
+Epoch:297, Time:0ms, TrainError:0.036746327, TrainErrorChange:-3.9879233E-5, ValidationError:0.31822768, Accuracy: 0.9111111
+Epoch:298, Time:1ms, TrainError:0.03670796, TrainErrorChange:-3.8366765E-5, ValidationError:0.32062712, Accuracy: 0.9111111
+Epoch:299, Time:0ms, TrainError:0.03667131, TrainErrorChange:-3.6649406E-5, ValidationError:0.32314375, Accuracy: 0.9111111
+Epoch:300, Time:1ms, TrainError:0.036636543, TrainErrorChange:-3.4768134E-5, ValidationError:0.3257933, Accuracy: 0.9111111
+Epoch:301, Time:0ms, TrainError:0.036603764, TrainErrorChange:-3.277883E-5, ValidationError:0.32860765, Accuracy: 0.9111111
+Epoch:302, Time:1ms, TrainError:0.036573403, TrainErrorChange:-3.0361116E-5, ValidationError:0.33161938, Accuracy: 0.9111111
+Epoch:303, Time:0ms, TrainError:0.036546305, TrainErrorChange:-2.7097762E-5, ValidationError:0.3348634, Accuracy: 0.9111111
+Epoch:304, Time:0ms, TrainError:0.03652279, TrainErrorChange:-2.3514032E-5, ValidationError:0.33841026, Accuracy: 0.9111111
+Epoch:305, Time:1ms, TrainError:0.036503702, TrainErrorChange:-1.9088387E-5, ValidationError:0.34235162, Accuracy: 0.9111111
+Epoch:306, Time:0ms, TrainError:0.0364906, TrainErrorChange:-1.3101846E-5, ValidationError:0.3468397, Accuracy: 0.9111111
+Epoch:307, Time:0ms, TrainError:0.036485888, TrainErrorChange:-4.7124922E-6, ValidationError:0.3521494, Accuracy: 0.9111111
+Epoch:308, Time:1ms, TrainError:0.03649369, TrainErrorChange:7.800758E-6, ValidationError:0.35879174, Accuracy: 0.9111111
+Epoch:309, Time:0ms, TrainError:0.03652229, TrainErrorChange:2.8602779E-5, ValidationError:0.3679513, Accuracy: 0.9111111
+Epoch:310, Time:0ms, TrainError:0.036594443, TrainErrorChange:7.215142E-5, ValidationError:0.3830535, Accuracy: 0.9111111
+Epoch:311, Time:0ms, TrainError:0.036817484, TrainErrorChange:2.2304058E-4, ValidationError:0.41924486, Accuracy: 0.9111111
+Epoch:312, Time:0ms, TrainError:0.039392624, TrainErrorChange:0.0025751404, ValidationError:0.63578045, Accuracy: 0.9111111
+Epoch:313, Time:1ms, TrainError:0.15364476, TrainErrorChange:0.114252135, ValidationError:0.6611717, Accuracy: 0.9111111
+Epoch:314, Time:0ms, TrainError:0.13733119, TrainErrorChange:-0.016313568, ValidationError:0.4047194, Accuracy: 0.9111111
+Epoch:315, Time:0ms, TrainError:0.04969547, TrainErrorChange:-0.08763572, ValidationError:0.39815527, Accuracy: 0.9111111
+Epoch:316, Time:0ms, TrainError:0.040988524, TrainErrorChange:-0.008706946, ValidationError:0.36885104, Accuracy: 0.9111111
+Epoch:317, Time:0ms, TrainError:0.03632978, TrainErrorChange:-0.0046587437, ValidationError:0.30893105, Accuracy: 0.9111111
+Epoch:318, Time:0ms, TrainError:0.03408669, TrainErrorChange:-0.0022430904, ValidationError:0.30159712, Accuracy: 0.9111111
+Epoch:319, Time:0ms, TrainError:0.033868145, TrainErrorChange:-2.1854416E-4, ValidationError:0.303381, Accuracy: 0.9111111
+Epoch:320, Time:0ms, TrainError:0.03393046, TrainErrorChange:6.2316656E-5, ValidationError:0.30512714, Accuracy: 0.9111111
+Epoch:321, Time:0ms, TrainError:0.03398163, TrainErrorChange:5.1166862E-5, ValidationError:0.3069359, Accuracy: 0.9111111
+Epoch:322, Time:0ms, TrainError:0.03402326, TrainErrorChange:4.163012E-5, ValidationError:0.30879322, Accuracy: 0.9111111
+Epoch:323, Time:1ms, TrainError:0.0340552, TrainErrorChange:3.194064E-5, ValidationError:0.3106983, Accuracy: 0.9111111
+Epoch:324, Time:0ms, TrainError:0.034078024, TrainErrorChange:2.2824854E-5, ValidationError:0.31265196, Accuracy: 0.9111111
+Epoch:325, Time:1ms, TrainError:0.034093007, TrainErrorChange:1.4983118E-5, ValidationError:0.31464842, Accuracy: 0.9111111
+Epoch:326, Time:0ms, TrainError:0.03410101, TrainErrorChange:8.001924E-6, ValidationError:0.31669602, Accuracy: 0.9111111
+Epoch:327, Time:1ms, TrainError:0.034103155, TrainErrorChange:2.1457672E-6, ValidationError:0.31879085, Accuracy: 0.9111111
+Epoch:328, Time:0ms, TrainError:0.034100115, TrainErrorChange:-3.0398369E-6, ValidationError:0.32093844, Accuracy: 0.9111111
+Epoch:329, Time:1ms, TrainError:0.03409277, TrainErrorChange:-7.3462725E-6, ValidationError:0.323146, Accuracy: 0.9111111
+Epoch:330, Time:0ms, TrainError:0.03408206, TrainErrorChange:-1.071021E-5, ValidationError:0.32541406, Accuracy: 0.9111111
+Epoch:331, Time:0ms, TrainError:0.034068294, TrainErrorChange:-1.3764948E-5, ValidationError:0.3277538, Accuracy: 0.9111111
+Epoch:332, Time:1ms, TrainError:0.034052387, TrainErrorChange:-1.590699E-5, ValidationError:0.33016545, Accuracy: 0.9111111
+Epoch:333, Time:1ms, TrainError:0.034034394, TrainErrorChange:-1.7993152E-5, ValidationError:0.3326573, Accuracy: 0.9111111
+Epoch:334, Time:0ms, TrainError:0.034014944, TrainErrorChange:-1.944974E-5, ValidationError:0.3352444, Accuracy: 0.9111111
+Epoch:335, Time:1ms, TrainError:0.033994637, TrainErrorChange:-2.0306557E-5, ValidationError:0.33793437, Accuracy: 0.9111111
+Epoch:336, Time:1ms, TrainError:0.03397369, TrainErrorChange:-2.0947307E-5, ValidationError:0.3407377, Accuracy: 0.9111111
+Epoch:337, Time:0ms, TrainError:0.033952497, TrainErrorChange:-2.1193177E-5, ValidationError:0.34367564, Accuracy: 0.9111111
+Epoch:338, Time:0ms, TrainError:0.0339316, TrainErrorChange:-2.0895153E-5, ValidationError:0.3467671, Accuracy: 0.9111111
+Epoch:339, Time:0ms, TrainError:0.0339113, TrainErrorChange:-2.0302832E-5, ValidationError:0.35003296, Accuracy: 0.9111111
+Epoch:340, Time:0ms, TrainError:0.033891995, TrainErrorChange:-1.9304454E-5, ValidationError:0.35351953, Accuracy: 0.9111111
+Epoch:341, Time:1ms, TrainError:0.033874415, TrainErrorChange:-1.7579645E-5, ValidationError:0.35726258, Accuracy: 0.9111111
+Epoch:342, Time:0ms, TrainError:0.03385905, TrainErrorChange:-1.5363097E-5, ValidationError:0.3613381, Accuracy: 0.9111111
+Epoch:343, Time:1ms, TrainError:0.033846978, TrainErrorChange:-1.2073666E-5, ValidationError:0.3658374, Accuracy: 0.9111111
+Epoch:344, Time:0ms, TrainError:0.03383912, TrainErrorChange:-7.856637E-6, ValidationError:0.37091616, Accuracy: 0.9111111
+Epoch:345, Time:1ms, TrainError:0.03383707, TrainErrorChange:-2.052635E-6, ValidationError:0.37685108, Accuracy: 0.9111111
+Epoch:346, Time:0ms, TrainError:0.03384357, TrainErrorChange:6.5006316E-6, ValidationError:0.38414308, Accuracy: 0.9111111
+Epoch:347, Time:0ms, TrainError:0.03386311, TrainErrorChange:1.9539148E-5, ValidationError:0.39394063, Accuracy: 0.9111111
+Epoch:348, Time:1ms, TrainError:0.03390645, TrainErrorChange:4.3340027E-5, ValidationError:0.40948126, Accuracy: 0.9111111
+Epoch:349, Time:0ms, TrainError:0.034020044, TrainErrorChange:1.1359528E-4, ValidationError:0.44505545, Accuracy: 0.9111111
+Epoch:350, Time:0ms, TrainError:0.03569619, TrainErrorChange:0.0016761459, ValidationError:0.6679446, Accuracy: 0.9111111
+Epoch:351, Time:0ms, TrainError:0.15509494, TrainErrorChange:0.11939874, ValidationError:0.7477344, Accuracy: 0.9111111
+Epoch:352, Time:0ms, TrainError:0.14914273, TrainErrorChange:-0.0059522092, ValidationError:0.39162302, Accuracy: 0.9111111
+Epoch:353, Time:1ms, TrainError:0.045156907, TrainErrorChange:-0.103985816, ValidationError:0.39222744, Accuracy: 0.9111111
+Epoch:354, Time:0ms, TrainError:0.03612617, TrainErrorChange:-0.009030737, ValidationError:0.39208657, Accuracy: 0.9111111
+Epoch:355, Time:0ms, TrainError:0.033309385, TrainErrorChange:-0.0028167851, ValidationError:0.35547146, Accuracy: 0.9111111
+Epoch:356, Time:0ms, TrainError:0.032097533, TrainErrorChange:-0.0012118518, ValidationError:0.33372256, Accuracy: 0.9111111
+Epoch:357, Time:0ms, TrainError:0.031552546, TrainErrorChange:-5.449876E-4, ValidationError:0.33492786, Accuracy: 0.9111111
+Epoch:358, Time:1ms, TrainError:0.03160251, TrainErrorChange:4.9963593E-5, ValidationError:0.33756414, Accuracy: 0.9111111
+Epoch:359, Time:0ms, TrainError:0.031665783, TrainErrorChange:6.3274056E-5, ValidationError:0.34028092, Accuracy: 0.9111111
+Epoch:360, Time:0ms, TrainError:0.03170938, TrainErrorChange:4.3597072E-5, ValidationError:0.3430374, Accuracy: 0.9111111
+Epoch:361, Time:0ms, TrainError:0.031737037, TrainErrorChange:2.7656555E-5, ValidationError:0.3458215, Accuracy: 0.9111111
+Epoch:362, Time:0ms, TrainError:0.031752314, TrainErrorChange:1.5277416E-5, ValidationError:0.3486362, Accuracy: 0.9111111
+Epoch:363, Time:1ms, TrainError:0.031757448, TrainErrorChange:5.13345E-6, ValidationError:0.35149276, Accuracy: 0.9111111
+Epoch:364, Time:0ms, TrainError:0.031754818, TrainErrorChange:-2.630055E-6, ValidationError:0.35440302, Accuracy: 0.9111111
+Epoch:365, Time:1ms, TrainError:0.031746663, TrainErrorChange:-8.1546605E-6, ValidationError:0.35737297, Accuracy: 0.9111111
+Epoch:366, Time:0ms, TrainError:0.03173373, TrainErrorChange:-1.2934208E-5, ValidationError:0.3604267, Accuracy: 0.9111111
+Epoch:367, Time:0ms, TrainError:0.031717572, TrainErrorChange:-1.6156584E-5, ValidationError:0.36358494, Accuracy: 0.9111111
+Epoch:368, Time:0ms, TrainError:0.031699114, TrainErrorChange:-1.8458813E-5, ValidationError:0.366851, Accuracy: 0.9111111
+Epoch:369, Time:0ms, TrainError:0.031678718, TrainErrorChange:-2.0395964E-5, ValidationError:0.37026557, Accuracy: 0.9111111
+Epoch:370, Time:0ms, TrainError:0.031657718, TrainErrorChange:-2.0999461E-5, ValidationError:0.3738567, Accuracy: 0.9111111
+Epoch:371, Time:0ms, TrainError:0.031637136, TrainErrorChange:-2.0582229E-5, ValidationError:0.37764984, Accuracy: 0.9111111
+Epoch:372, Time:0ms, TrainError:0.0316165, TrainErrorChange:-2.0634383E-5, ValidationError:0.38169926, Accuracy: 0.9111111
+Epoch:373, Time:0ms, TrainError:0.031597722, TrainErrorChange:-1.8779188E-5, ValidationError:0.38606963, Accuracy: 0.9111111
+Epoch:374, Time:0ms, TrainError:0.03158097, TrainErrorChange:-1.675263E-5, ValidationError:0.39083907, Accuracy: 0.9111111
+Epoch:375, Time:1ms, TrainError:0.031567387, TrainErrorChange:-1.3582408E-5, ValidationError:0.39616144, Accuracy: 0.9111111
+Epoch:376, Time:0ms, TrainError:0.031557936, TrainErrorChange:-9.4510615E-6, ValidationError:0.40224236, Accuracy: 0.9111111
+Epoch:377, Time:0ms, TrainError:0.031553943, TrainErrorChange:-3.993511E-6, ValidationError:0.40947995, Accuracy: 0.9111111
+Epoch:378, Time:0ms, TrainError:0.031557683, TrainErrorChange:3.7401915E-6, ValidationError:0.41866034, Accuracy: 0.9111111
+Epoch:379, Time:0ms, TrainError:0.03157093, TrainErrorChange:1.3247132E-5, ValidationError:0.43174773, Accuracy: 0.9111111
+Epoch:380, Time:1ms, TrainError:0.0315955, TrainErrorChange:2.456829E-5, ValidationError:0.4554628, Accuracy: 0.9111111
+Epoch:381, Time:0ms, TrainError:0.031718463, TrainErrorChange:1.2296438E-4, ValidationError:0.53616256, Accuracy: 0.9111111
+Epoch:382, Time:1ms, TrainError:0.07871722, TrainErrorChange:0.046998754, ValidationError:0.97204745, Accuracy: 0.9111111
+Epoch:383, Time:0ms, TrainError:0.25211537, TrainErrorChange:0.17339815, ValidationError:0.3822586, Accuracy: 0.9111111
+Epoch:384, Time:1ms, TrainError:0.04057836, TrainErrorChange:-0.211537, ValidationError:0.33806488, Accuracy: 0.9111111
+Epoch:385, Time:0ms, TrainError:0.029209938, TrainErrorChange:-0.011368424, ValidationError:0.3482227, Accuracy: 0.9111111
+
+TRAINING COMPLETED
+Total Training Time: 312ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+Accuracy: 1.0
+Precision: 1.0
+F1Score: 1.0
+Recall: 1.0
+
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:12ms, TrainError:0.21820727, TrainErrorChange:0.21820727, Accuracy: 0.5555556
+Epoch:2, Time:2ms, TrainError:0.23001681, TrainErrorChange:0.011809543, Accuracy: 0.5555556
+Epoch:3, Time:2ms, TrainError:0.17495225, TrainErrorChange:-0.05506456, Accuracy: 0.5555555
+Epoch:4, Time:4ms, TrainError:0.1392134, TrainErrorChange:-0.035738856, Accuracy: 0.5555556
+Epoch:5, Time:2ms, TrainError:0.1129493, TrainErrorChange:-0.026264101, Accuracy: 0.5644445
+Epoch:6, Time:1ms, TrainError:0.08742775, TrainErrorChange:-0.025521547, Accuracy: 0.74222225
+Epoch:7, Time:2ms, TrainError:0.07033093, TrainErrorChange:-0.017096817, Accuracy: 0.76888895
+Epoch:8, Time:1ms, TrainError:0.059589576, TrainErrorChange:-0.010741357, Accuracy: 0.77777785
+Epoch:9, Time:2ms, TrainError:0.051896222, TrainErrorChange:-0.007693354, Accuracy: 0.77777785
+Epoch:10, Time:2ms, TrainError:0.045874663, TrainErrorChange:-0.0060215592, Accuracy: 0.7822223
+Epoch:11, Time:2ms, TrainError:0.041250505, TrainErrorChange:-0.004624158, Accuracy: 0.7955556
+Epoch:12, Time:2ms, TrainError:0.03800574, TrainErrorChange:-0.003244765, Accuracy: 0.8
+Epoch:13, Time:1ms, TrainError:0.035951704, TrainErrorChange:-0.0020540357, Accuracy: 0.8044445
+Epoch:14, Time:2ms, TrainError:0.034669302, TrainErrorChange:-0.0012824014, Accuracy: 0.8044445
+Epoch:15, Time:1ms, TrainError:0.033664152, TrainErrorChange:-0.0010051504, Accuracy: 0.8044445
+Epoch:16, Time:2ms, TrainError:0.032612715, TrainErrorChange:-0.0010514371, Accuracy: 0.8088889
+Epoch:17, Time:1ms, TrainError:0.03142148, TrainErrorChange:-0.0011912361, Accuracy: 0.81333333
+Epoch:18, Time:13ms, TrainError:0.030107994, TrainErrorChange:-0.0013134852, Accuracy: 0.81333333
+Epoch:19, Time:1ms, TrainError:0.028705062, TrainErrorChange:-0.0014029313, Accuracy: 0.82222223
+
+TRAINING COMPLETED
+Total Training Time: 85ms
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:9417ms, TrainError:0.749835, TrainErrorChange:0.749835, Accuracy: 0.9804615
+Epoch:2, Time:9095ms, TrainError:0.3257248, TrainErrorChange:-0.4241102, Accuracy: 0.9867078
+Epoch:3, Time:8745ms, TrainError:0.24608515, TrainErrorChange:-0.07963966, Accuracy: 0.9897846
+Epoch:4, Time:8707ms, TrainError:0.19980128, TrainErrorChange:-0.04628387, Accuracy: 0.9920923
+Epoch:5, Time:8644ms, TrainError:0.1676628, TrainErrorChange:-0.03213848, Accuracy: 0.9929231
+Epoch:6, Time:8971ms, TrainError:0.14211926, TrainErrorChange:-0.02554354, Accuracy: 0.9939383
+Epoch:7, Time:9047ms, TrainError:0.120521694, TrainErrorChange:-0.021597564, Accuracy: 0.9949846
+Epoch:8, Time:8584ms, TrainError:0.101763174, TrainErrorChange:-0.01875852, Accuracy: 0.996123
+Epoch:9, Time:8572ms, TrainError:0.085343644, TrainErrorChange:-0.01641953, Accuracy: 0.99673843
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:982ms, TrainError:2.1435082, TrainErrorChange:2.1435082, Accuracy: 0.9252308
+Epoch:2, Time:782ms, TrainError:1.4278629, TrainErrorChange:-0.7156453, Accuracy: 0.9452308
+Epoch:3, Time:789ms, TrainError:0.8594598, TrainErrorChange:-0.56840307, Accuracy: 0.9639999
+Epoch:4, Time:781ms, TrainError:0.59475064, TrainErrorChange:-0.26470917, Accuracy: 0.9729231
+Epoch:5, Time:769ms, TrainError:0.45326248, TrainErrorChange:-0.14148816, Accuracy: 0.98061544
+Epoch:6, Time:762ms, TrainError:0.3592471, TrainErrorChange:-0.09401539, Accuracy: 0.98492306
+Epoch:7, Time:769ms, TrainError:0.2887994, TrainErrorChange:-0.07044768, Accuracy: 0.98769236
+Epoch:8, Time:755ms, TrainError:0.23482114, TrainErrorChange:-0.053978264, Accuracy: 0.9889231
+Epoch:9, Time:758ms, TrainError:0.18699428, TrainErrorChange:-0.047826856, Accuracy: 0.9919999
+Epoch:10, Time:759ms, TrainError:0.14586262, TrainErrorChange:-0.04113166, Accuracy: 0.9947691
+Epoch:11, Time:751ms, TrainError:0.112729624, TrainErrorChange:-0.033133, Accuracy: 0.9953847
+Epoch:12, Time:752ms, TrainError:0.086249314, TrainErrorChange:-0.02648031, Accuracy: 0.9953847
+Epoch:13, Time:747ms, TrainError:0.06701251, TrainErrorChange:-0.019236803, Accuracy: 0.996
+Epoch:14, Time:755ms, TrainError:0.053182844, TrainErrorChange:-0.013829667, Accuracy: 0.9966155
+Epoch:15, Time:749ms, TrainError:0.043730088, TrainErrorChange:-0.0094527565, Accuracy: 0.9972308
+Epoch:16, Time:762ms, TrainError:0.036708508, TrainErrorChange:-0.00702158, Accuracy: 0.99753845
+Epoch:17, Time:789ms, TrainError:0.03139598, TrainErrorChange:-0.0053125285, Accuracy: 0.99784625
+Epoch:18, Time:755ms, TrainError:0.027323928, TrainErrorChange:-0.0040720515, Accuracy: 0.99784625
+
+TRAINING COMPLETED
+Total Training Time: 21354ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9702857
+Precision: 0.8638617
+F1Score: 0.85424346
+Recall: 0.8519966
+
+By Class
+Class 0:
+TrueNegative: 316.0
+Accuracy: 0.98571426
+FalsePositive: 4.0
+FalseNegative: 1.0
+Precision: 0.8787879
+F1Score: 0.9206349
+TruePositive: 29.0
+Recall: 0.96666664
+
+----------------
+Class 1:
+TrueNegative: 307.0
+Accuracy: 0.9771429
+FalsePositive: 4.0
+FalseNegative: 4.0
+Precision: 0.8974359
+F1Score: 0.8974359
+TruePositive: 35.0
+Recall: 0.8974359
+
+----------------
+Class 2:
+TrueNegative: 315.0
+Accuracy: 0.9742857
+FalsePositive: 2.0
+FalseNegative: 7.0
+Precision: 0.9285714
+F1Score: 0.852459
+TruePositive: 26.0
+Recall: 0.7878788
+
+----------------
+Class 3:
+TrueNegative: 316.0
+Accuracy: 0.9771429
+FalsePositive: 3.0
+FalseNegative: 5.0
+Precision: 0.8965517
+F1Score: 0.8666666
+TruePositive: 26.0
+Recall: 0.83870965
+
+----------------
+Class 4:
+TrueNegative: 308.0
+Accuracy: 0.9742857
+FalsePositive: 4.0
+FalseNegative: 5.0
+Precision: 0.8918919
+F1Score: 0.88
+TruePositive: 33.0
+Recall: 0.8684211
+
+----------------
+Class 5:
+TrueNegative: 312.0
+Accuracy: 0.9771429
+FalsePositive: 3.0
+FalseNegative: 5.0
+Precision: 0.90909094
+F1Score: 0.88235295
+TruePositive: 30.0
+Recall: 0.85714287
+
+----------------
+Class 6:
+TrueNegative: 315.0
+Accuracy: 0.9771429
+FalsePositive: 0.0
+FalseNegative: 8.0
+Precision: 1.0
+F1Score: 0.87096775
+TruePositive: 27.0
+Recall: 0.7714286
+
+----------------
+Class 7:
+TrueNegative: 307.0
+Accuracy: 0.9628571
+FalsePositive: 7.0
+FalseNegative: 6.0
+Precision: 0.8108108
+F1Score: 0.8219178
+TruePositive: 30.0
+Recall: 0.8333333
+
+----------------
+Class 8:
+TrueNegative: 301.0
+Accuracy: 0.94857144
+FalsePositive: 13.0
+FalseNegative: 5.0
+Precision: 0.70454544
+F1Score: 0.775
+TruePositive: 31.0
+Recall: 0.8611111
+
+----------------
+Class 9:
+TrueNegative: 301.0
+Accuracy: 0.94857144
+FalsePositive: 12.0
+FalseNegative: 6.0
+Precision: 0.7209302
+F1Score: 0.77500004
+TruePositive: 31.0
+Recall: 0.8378378
+
+----------------
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:5086ms, TrainError:2.3409946, TrainErrorChange:2.3409946, Accuracy: 0.8216667
+Epoch:2, Time:13378ms, TrainError:2.3274627, TrainErrorChange:-0.013531923, Accuracy: 0.8216667
+Epoch:3, Time:13542ms, TrainError:2.327464, TrainErrorChange:1.4305115E-6, Accuracy: 0.8216667
+Epoch:4, Time:13541ms, TrainError:2.327464, TrainErrorChange:0.0, Accuracy: 0.8216667
+Epoch:5, Time:13945ms, TrainError:2.327464, TrainErrorChange:0.0, Accuracy: 0.8216667
+Epoch:6, Time:13577ms, TrainError:2.327464, TrainErrorChange:0.0, Accuracy: 0.8216667
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2882ms, TrainError:2.3270187, TrainErrorChange:2.3270187, Accuracy: 0.8373333
+Epoch:2, Time:2700ms, TrainError:2.211765, TrainErrorChange:-0.11525369, Accuracy: 0.85099995
+Epoch:3, Time:2610ms, TrainError:2.181044, TrainErrorChange:-0.03072095, Accuracy: 0.859
+Epoch:4, Time:2587ms, TrainError:2.160243, TrainErrorChange:-0.020801067, Accuracy: 0.84800005
+Epoch:5, Time:2564ms, TrainError:2.2497637, TrainErrorChange:0.08952069, Accuracy: 0.8473333
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1110ms, TrainError:2.1435082, TrainErrorChange:2.1435082, Accuracy: 0.9252308
+Epoch:2, Time:795ms, TrainError:1.4278629, TrainErrorChange:-0.7156453, Accuracy: 0.9452308
+Epoch:3, Time:767ms, TrainError:0.8594598, TrainErrorChange:-0.56840307, Accuracy: 0.9639999
+Epoch:4, Time:753ms, TrainError:0.59475064, TrainErrorChange:-0.26470917, Accuracy: 0.9729231
+Epoch:5, Time:759ms, TrainError:0.45326248, TrainErrorChange:-0.14148816, Accuracy: 0.98061544
+Epoch:6, Time:748ms, TrainError:0.3592471, TrainErrorChange:-0.09401539, Accuracy: 0.98492306
+Epoch:7, Time:760ms, TrainError:0.2887994, TrainErrorChange:-0.07044768, Accuracy: 0.98769236
+Epoch:8, Time:763ms, TrainError:0.23482114, TrainErrorChange:-0.053978264, Accuracy: 0.9889231
+Epoch:9, Time:1026ms, TrainError:0.18699428, TrainErrorChange:-0.047826856, Accuracy: 0.9919999
+Epoch:10, Time:749ms, TrainError:0.14586262, TrainErrorChange:-0.04113166, Accuracy: 0.9947691
+Epoch:11, Time:866ms, TrainError:0.112729624, TrainErrorChange:-0.033133, Accuracy: 0.9953847
+Epoch:12, Time:790ms, TrainError:0.086249314, TrainErrorChange:-0.02648031, Accuracy: 0.9953847
+Epoch:13, Time:783ms, TrainError:0.06701251, TrainErrorChange:-0.019236803, Accuracy: 0.996
+Epoch:14, Time:765ms, TrainError:0.053182844, TrainErrorChange:-0.013829667, Accuracy: 0.9966155
+Epoch:15, Time:762ms, TrainError:0.043730088, TrainErrorChange:-0.0094527565, Accuracy: 0.9972308
+Epoch:16, Time:777ms, TrainError:0.036708508, TrainErrorChange:-0.00702158, Accuracy: 0.99753845
+Epoch:17, Time:762ms, TrainError:0.03139598, TrainErrorChange:-0.0053125285, Accuracy: 0.99784625
+Epoch:18, Time:746ms, TrainError:0.027323928, TrainErrorChange:-0.0040720515, Accuracy: 0.99784625
+
+TRAINING COMPLETED
+Total Training Time: 22335ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9702857
+Precision: 0.8638617
+F1Score: 0.85424346
+Recall: 0.8519966
+
+By Class
+Class 0:
+TrueNegative: 316.0
+Accuracy: 0.98571426
+FalsePositive: 4.0
+FalseNegative: 1.0
+Precision: 0.8787879
+F1Score: 0.9206349
+TruePositive: 29.0
+Recall: 0.96666664
+
+----------------
+Class 1:
+TrueNegative: 307.0
+Accuracy: 0.9771429
+FalsePositive: 4.0
+FalseNegative: 4.0
+Precision: 0.8974359
+F1Score: 0.8974359
+TruePositive: 35.0
+Recall: 0.8974359
+
+----------------
+Class 2:
+TrueNegative: 315.0
+Accuracy: 0.9742857
+FalsePositive: 2.0
+FalseNegative: 7.0
+Precision: 0.9285714
+F1Score: 0.852459
+TruePositive: 26.0
+Recall: 0.7878788
+
+----------------
+Class 3:
+TrueNegative: 316.0
+Accuracy: 0.9771429
+FalsePositive: 3.0
+FalseNegative: 5.0
+Precision: 0.8965517
+F1Score: 0.8666666
+TruePositive: 26.0
+Recall: 0.83870965
+
+----------------
+Class 4:
+TrueNegative: 308.0
+Accuracy: 0.9742857
+FalsePositive: 4.0
+FalseNegative: 5.0
+Precision: 0.8918919
+F1Score: 0.88
+TruePositive: 33.0
+Recall: 0.8684211
+
+----------------
+Class 5:
+TrueNegative: 312.0
+Accuracy: 0.9771429
+FalsePositive: 3.0
+FalseNegative: 5.0
+Precision: 0.90909094
+F1Score: 0.88235295
+TruePositive: 30.0
+Recall: 0.85714287
+
+----------------
+Class 6:
+TrueNegative: 315.0
+Accuracy: 0.9771429
+FalsePositive: 0.0
+FalseNegative: 8.0
+Precision: 1.0
+F1Score: 0.87096775
+TruePositive: 27.0
+Recall: 0.7714286
+
+----------------
+Class 7:
+TrueNegative: 307.0
+Accuracy: 0.9628571
+FalsePositive: 7.0
+FalseNegative: 6.0
+Precision: 0.8108108
+F1Score: 0.8219178
+TruePositive: 30.0
+Recall: 0.8333333
+
+----------------
+Class 8:
+TrueNegative: 301.0
+Accuracy: 0.94857144
+FalsePositive: 13.0
+FalseNegative: 5.0
+Precision: 0.70454544
+F1Score: 0.775
+TruePositive: 31.0
+Recall: 0.8611111
+
+----------------
+Class 9:
+TrueNegative: 301.0
+Accuracy: 0.94857144
+FalsePositive: 12.0
+FalseNegative: 6.0
+Precision: 0.7209302
+F1Score: 0.77500004
+TruePositive: 31.0
+Recall: 0.8378378
+
+----------------

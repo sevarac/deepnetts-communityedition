@@ -79,7 +79,7 @@ public class AlexNet {
                 .addDenseLayer(256)
                 .addDenseLayer(256)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .activationFunction(ActivationType.RELU)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
 

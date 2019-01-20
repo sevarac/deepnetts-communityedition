@@ -88,7 +88,7 @@ public class MnistAdaGrad {
                 .addDenseLayer(30)
                 .addDenseLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .activationFunction(ActivationType.RELU)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();

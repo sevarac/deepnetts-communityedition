@@ -83,7 +83,7 @@ public class MnistAdaDelta {
                 .addMaxPoolingLayer(2, 2)
                 .addDenseLayer(30)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .activationFunction(ActivationType.RELU)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();

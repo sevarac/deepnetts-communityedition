@@ -45,7 +45,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class Mnist11TestLoss {
+public class Mnist1_MoreChannelsAndThreads {
 
     int imageWidth = 28;
     int imageHeight = 28;
@@ -79,14 +79,16 @@ public class Mnist11TestLoss {
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight)
-                .addConvolutionalLayer(3, 3, ActivationType.TANH)
+                .addConvolutionalLayer(3, 3, 66)
                 .addMaxPoolingLayer(2, 2)
-                .addConvolutionalLayer(3, 3, ActivationType.TANH)
-                .addMaxPoolingLayer(2, 2)
+                .addConvolutionalLayer(3, 3, 9)
+                .addMaxPoolingLayer(2, 2)                
+                .addConvolutionalLayer(3, 3, 18)
+                .addMaxPoolingLayer(2, 2)                                
                 .addDenseLayer(30)
                 .addDenseLayer(20)
-                .addOutputLayer(labelsCount, ActivationType.TANH)
-                .activationFunction(ActivationType.TANH)
+                .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
@@ -96,12 +98,12 @@ public class Mnist11TestLoss {
         // create a trainer and train network
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
-             //   .setMomentum(0.7f)
-                .setMaxError(0.02f)
-                .setBatchMode(true)
-                .setBatchSize(32)
+                .setMomentum(0.9f)
+                .setMaxError(0.03f)
+                .setBatchMode(false)
+          //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.SGD);
-        trainer.train(imageSets[0], imageSets[1]);
+        trainer.train(imageSets[0]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
@@ -124,6 +126,6 @@ public class Mnist11TestLoss {
     }
 
     public static void main(String[] args) throws IOException {
-        (new Mnist11TestLoss()).run();
+        (new Mnist1_MoreChannelsAndThreads()).run();
     }
 }

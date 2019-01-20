@@ -21,7 +21,14 @@
     
 package deepnetts.net.layers;
 
+import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.Tensor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CyclicBarrier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents Max Pooling layer in convolutional neural network.
@@ -51,6 +58,8 @@ public final class MaxPoolingLayer extends AbstractLayer {
      * Remember idx of max output for each filter position. [channel][row][col][2]
      */
     int maxIdx[][][][]; 
+    
+    private List<Callable<Void>> forwardTasks;
        
 
     /**
@@ -82,6 +91,16 @@ public final class MaxPoolingLayer extends AbstractLayer {
         
         // used in fprop to save idx position of max value
         maxIdx = new int[depth][height][width][2]; // svakoj poziciji filtera odgovara jedna [row, col] celija u outputu idx 0 je col, idx 1 je row
+        
+        
+        forwardTasks = new ArrayList<>();
+        float perChannel = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
+        CyclicBarrier cb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+        for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {            
+            ForwardCallable task = new ForwardCallable((int)perChannel * i, (int)perChannel * (i+1), cb);
+            forwardTasks.add(task);
+        }  
+          
     }
     
     
@@ -89,10 +108,17 @@ public final class MaxPoolingLayer extends AbstractLayer {
      * Max pooling forward pass outputs the max value for each filter position.
      */
     @Override
-    public void forward() {                
-        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
-            forwardChannel(ch);
+    public void forward() {          
+        try {
+            DeepNettsThreadPool.getInstance().run(forwardTasks);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
+
+//        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
+//            forwardChannel(ch);
+//        }
     }
     
     private void forwardChannel(int ch) {
@@ -225,7 +251,28 @@ public final class MaxPoolingLayer extends AbstractLayer {
         return stride;
     }
 
+  private class ForwardCallable implements Callable<Void> {
 
+        final int fromCh, toCh;
+        CyclicBarrier cb;
+        
+        public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
+            this.fromCh= fromCh;
+            this.toCh = toCh;
+            this.cb=cb;
+        }
+        
+        @Override
+        public Void call() throws Exception {
+            
+           for (int ch = fromCh; ch < toCh; ch++) {  
+               forwardChannel(ch);
+           }
+           
+            cb.await();
+            return null;
+        }
+    }    
     
     
     

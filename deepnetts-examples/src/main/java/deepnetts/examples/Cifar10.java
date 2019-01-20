@@ -37,7 +37,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Cifar10Ce {
+public class Cifar10 {
             
     int imageWidth = 32;
     int imageHeight = 32;
@@ -78,7 +78,7 @@ public class Cifar10Ce {
                                         .addDenseLayer(20)     
                                         .addDenseLayer(10)     
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                                        .activationFunction(ActivationType.TANH)
+                                        .hiddenActivationFunction(ActivationType.TANH)
                                         .lossFunction(LossType.CROSS_ENTROPY)                
                                         .build();
            
@@ -88,7 +88,7 @@ public class Cifar10Ce {
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(1.9f);
         trainer.setMomentum(0.9f); 
-        trainer.setOptimizer(OptimizerType.SGD); 
+        trainer.setOptimizer(OptimizerType.MOMENTUM); 
         trainer.train(imageSets[0]);       
         
         // Test trained network
@@ -109,6 +109,6 @@ public class Cifar10Ce {
     }
         
     public static void main(String[] args) throws DeepNettsException, IOException {                                
-            (new Cifar10Ce()).run();                
+            (new Cifar10()).run();                
     }
 }

@@ -172,9 +172,7 @@ public final class DenseLayer extends AbstractLayer {
                     for (int inRow = 0; inRow < inputs.getRows(); inRow++) {      // iterate current channel by height (rows)
                         for (int inCol = 0; inCol < inputs.getCols(); inCol++) {   // iterate current feature map by width (cols)
                             outputs.add(outCol, inputs.get(inRow, inCol, inDepth) * weights.get(inCol, inRow, inDepth, outCol)); // add to weighted sum of all inputs (TODO: ako je svaki sa svima to bi mozda moglo da bude i jednostavno i da se prodje u jednom loopu a ugnjezdeni loopovi bi se lakse paralelizovali)
-                            // posto se inCol najbrze vrti  trebalo bi da bude poslednja dimenzija u tensoru  weights.get(outCol, inDepth, inRow, inCol)
                             // a spoljna dimenzija se moze paralelizovati  (pola niza radi jedan thread drugu polovinu drugi)- optimizuj celinu!
-                            // glavno pitanje je kako to uraditi pa da se omoguci laka implementacija broadcastinga i paralelizacija sa threadovima i GPU-om
                             // napravi implementaciju koja ce da zakuca 4d tensor
                             //  cilj je da imam samo jednu granu dfa nema ovog if, nego da radi broadcasting zapravo, ali zakucan na 4 dimenzije
                         }

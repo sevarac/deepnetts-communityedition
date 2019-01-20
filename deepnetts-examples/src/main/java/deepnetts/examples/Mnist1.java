@@ -80,11 +80,11 @@ public class Mnist1 {
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight)
                 .addConvolutionalLayer(3, 3)
-                .addMaxPoolingLayer(2, 2)
+                .addMaxPoolingLayer(2, 2)             
                 .addDenseLayer(30)
                 .addDenseLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .activationFunction(ActivationType.TANH)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
@@ -94,7 +94,7 @@ public class Mnist1 {
         // create a trainer and train network
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
-                .setMomentum(0.7f)
+                .setMomentum(0.9f)
                 .setMaxError(0.03f)
                 .setBatchMode(false)
           //      .setBatchSize(32)

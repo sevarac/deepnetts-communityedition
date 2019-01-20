@@ -4,13 +4,18 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
+import deepnetts.util.Tensors;
 import deepnetts.util.WeightsInit;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *Dense layer testswith various activation functions
+ * Dense layer tests with various activation functions
  *
+ * TODO:
+ *  check backward pass for all functions - nisu potvrdjene
+ *  testForwardWith2DPrevLayer i backward takodje
+ * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class DenseLayerTest {
@@ -20,6 +25,7 @@ public class DenseLayerTest {
      * activation function. Test if matrix multiplication and bias addition
      * works correctly output = inputs * weights + bias (where * is matrix
      * multiplication (dot product))
+     * 
      * Doublechecked with octave: 19.01.19.
      */
     @Test
@@ -149,12 +155,40 @@ public class DenseLayerTest {
     /**
      * TODO: Test forward pass when prev layer iz 2d (conv, input or maxpooling)
      * Also do the backward pass too!!!
+     * single channel and multichannel
      */
-//    @Test
-//    public void testForwardWith2DPrevLayer() {
-//        // stavi da prethodni bude input i konvolucioni
-//        // 
-//    }
+    @Test
+    public void testForwardWith2DPrevLayer() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:6, height:5
+        Tensor input = Tensors.random(5, 6);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985, 0.7160485, 0.16221565, 0.071917, 0.6818127, 0.79626095, 0.26765352, 0.57871693, 0.24259669, 0.9081256, 0.60227644, 0.14891458, 0.21662551, 0.97521985, 0.45819336, 0.065595984, 0.089025974, 0.06951785, 0.12225294]
+                
+        // create prev fc layer with 5 outputs
+        InputLayer prevLayer = new InputLayer(6, 5);
+        prevLayer.setOutputs(input);
+
+        // create instance of layer to test
+        DenseLayer instance = new DenseLayer(3, ActivationType.LINEAR);
+        instance.setPrevLayer(prevLayer);
+        instance.init(); // init weights structure
+        
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(6, 5, 1, 3); // weights matrix
+        WeightsInit.uniform(weights.getValues(), 30); // [0.08700773, -0.1261257, -0.05958288, 0.019011587, 0.13065946, -0.086479805, 0.059783965, -0.08001147, 0.11973542, -0.03077972, -0.12680945, -0.121246435, -0.09300153, 0.12155071, -0.08123821, -0.072162874, -0.11189317, -0.01955235, -0.16916932, 0.08706197, 0.093593776, -0.17618799, 0.034794286, -0.11849884, -0.005317986, 0.17574981, -0.13752298, 0.16149274, -0.04386726, 0.12807351, -0.1084949, 0.094712555, 0.18135735, -0.15707424, -0.14666796, -0.004710719, 0.13971764, -0.118836865, -0.15412953, 0.16847828, 0.16428724, 0.041923404, 0.17552084, 0.07887018, 0.08473942, -0.15281743, 0.10283908, -0.0095382035, 0.016931072, -0.109875076, 0.16141623, 0.022519812, -0.001744315, 0.12911996, 0.021034986, -0.1454502, -0.03890319, 0.0614596, -0.019833565, 0.15311953, -0.11624675, -0.004301235, -0.06000057, -0.010145903, -0.13161933, 0.012890458, 0.08763227, 0.13346127, -0.054347247, 0.119847685, -0.12520094, 0.084012836, 0.141213, 0.10111937, -0.08274984, 0.05949387, -0.112766534, 0.05380723, -0.060682796, -0.079103805, -0.09945219, -0.18068045, 0.14984074, -0.12388769, -0.1157157, 0.102354616, 0.085460335, 0.1065059, 0.021020621, -0.068727516]
+                
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f, 0.2f, 0.3f}); // set bias values
+
+        // do the forward pass
+        instance.forward();
+        // get layer outpputs
+        Tensor actualOutputs = instance.getOutputs();   // [-0.19114527, 0.43481547, 0.14612433]
+        Tensor expectedOutputs = new Tensor(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
+
+        assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
+    }
 
     /**
      * Test of backward method, of class FullyConnectedLayer using linear

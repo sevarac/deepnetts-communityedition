@@ -30,6 +30,12 @@ import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
 import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.util.DeepNettsThreadPool;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CyclicBarrier;
+import java.util.logging.Level;
 
 /**
  * This class implements convolutional layer. It performs convolution operation
@@ -80,6 +86,9 @@ public final class ConvolutionalLayer extends AbstractLayer {
     
     int fCenterX; //  padding = (kernel-1)/2
     int fCenterY;    
+    
+    private List<Callable<Void>> forwardTasks;    
+    private List<Callable<Void>> backwardTasks;    
     
     
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
@@ -175,6 +184,19 @@ public final class ConvolutionalLayer extends AbstractLayer {
         prevDeltaBiases = new float[depth];
         prevBiasSqrSum = new Tensor(depth);  
   //      WeightsInit.randomize(biases);        // sometimes the init to 0
+  
+        forwardTasks = new ArrayList<>();
+        backwardTasks = new ArrayList<>();
+        float perChannel = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
+        CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+        CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+        for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {            
+            ForwardCallable ftask = new ForwardCallable((int)perChannel * i, (int)perChannel * (i+1), fcb);
+            BackwardCallable btask = new BackwardCallable((int)perChannel * i, (int)perChannel * (i+1), bcb);
+            forwardTasks.add(ftask);
+            backwardTasks.add(btask);
+        }  
+  
     }
 
     /**
@@ -188,9 +210,16 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void forward() {        
-        for (int ch = 0; ch < this.depth; ch++) {
-            forwardChannel(ch);
+        try {
+            DeepNettsThreadPool.getInstance().run(forwardTasks);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
+//        for (int ch = 0; ch < this.depth; ch++) {
+//            forwardChannel(ch);
+//        }
+                
     }
     
     private void forwardChannel(int ch) {
@@ -290,13 +319,28 @@ public final class ConvolutionalLayer extends AbstractLayer {
         } // end channel iterator        
     }
 
+    int[][][][] maxIdx;
+    
     private void backwardFromMaxPooling() {
         final MaxPoolingLayer nextPoolLayer = (MaxPoolingLayer) nextLayer;
-        final int[][][][] maxIdx = nextPoolLayer.maxIdx; // uzmi index neurona koji je poslao max output na tekucu poziciju filtera
-
+        maxIdx = nextPoolLayer.maxIdx; // uzmi index neurona koji je poslao max output na tekucu poziciju filtera
+        // proveri da li ovo da radim za svaki poseban kanal
         deltas.fill(0); // reset all deltas
 
-        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale u ovom lejeru (to su automatski i kanali u sledem max pooling lejeru)
+        // paralelizuj kanale!!!
+        try {
+            DeepNettsThreadPool.getInstance().run(backwardTasks);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+//        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale u ovom lejeru (to su automatski i kanali u sledem max pooling lejeru)
+//            backwardChannel(ch);
+//        } // end channel iterator    
+    }
+    
+     private void backwardChannel(int ch) {
             // 1. Propagate deltas from next layer for max outputs from this layer
             for (int dr = 0; dr < nextLayer.deltas.getRows(); dr++) { // sledeci lejer delte po visini
                 for (int dc = 0; dc < nextLayer.deltas.getCols(); dc++) { // sledeci lejer delte po sirini
@@ -310,9 +354,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 }
             } // end propagate deltas
             
-            calculateDeltaWeights(ch);            
-        } // end channel iterator    
-    }
+            calculateDeltaWeights(ch);              
+     }
 
     private void backwardFromConvolutional() {
         ConvolutionalLayer nextConvLayer = (ConvolutionalLayer) nextLayer;
@@ -500,5 +543,51 @@ public final class ConvolutionalLayer extends AbstractLayer {
     public Tensor[] getFilterDeltaWeights() {
         return deltaWeights;
     }
+    
+  private class ForwardCallable implements Callable<Void> {
+
+        final int fromCh, toCh;
+        CyclicBarrier cb;
+        
+        public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
+            this.fromCh= fromCh;
+            this.toCh = toCh;
+            this.cb=cb;
+        }
+        
+        @Override
+        public Void call() throws Exception {
+            
+           for (int ch = fromCh; ch < toCh; ch++) {  
+               forwardChannel(ch);
+           }
+           
+            cb.await();
+            return null;
+        }
+    }    
+  
+    private class BackwardCallable implements Callable<Void> {
+
+        final int fromCh, toCh;
+        CyclicBarrier cb;
+        
+        public BackwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
+            this.fromCh= fromCh;
+            this.toCh = toCh;
+            this.cb=cb;
+        }
+        
+        @Override
+        public Void call() throws Exception {
+            
+           for (int ch = fromCh; ch < toCh; ch++) {  
+               backwardChannel(ch);
+           }
+           
+            cb.await();
+            return null;
+        }
+    }      
       
 }
