@@ -121,26 +121,6 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        /**
-         * Adds output layer with specified width and soft max activation
-         * function
-         *
-         * @param width layer width
-         * @return builder instance
-         */
-        public Builder addOutputLayer(int width) { // ActivationType.SOFTMAX
-            OutputLayer outputLayer = null;
-            if (width == 1) {
-                outputLayer = new OutputLayer(width);
-            } else {
-                outputLayer = new SoftmaxOutputLayer(width);
-            }
-            neuralNet.setOutputLayer(outputLayer);
-            neuralNet.addLayer(outputLayer);
-
-            return this;
-        }
-
         public Builder addOutputLayer(int width, Class<? extends OutputLayer> clazz) { // ActivationType.SOFTMAX
             try {
                 OutputLayer outputLayer = clazz.getDeclaredConstructor(Integer.TYPE).newInstance(width);

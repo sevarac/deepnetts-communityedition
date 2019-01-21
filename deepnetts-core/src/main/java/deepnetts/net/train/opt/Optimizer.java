@@ -5,8 +5,8 @@ import deepnetts.util.DeepNettsException;
 
 public interface Optimizer {
     
-    public float calculateWeightDelta(final float gradient, final int... index);
-    public float calculateBiasDelta(final float gradient, final int idx);
+    public float calculateDeltaWeight(final float gradient, final int... index);
+    public float calculateDeltaBias(final float gradient, final int idx);
     
     //alternatije je da imam rows, cols i sa 4 indeksa to je hardkoriano samo za ovaj lib!!!
     

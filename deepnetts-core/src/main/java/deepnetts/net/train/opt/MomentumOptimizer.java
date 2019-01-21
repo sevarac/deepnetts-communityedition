@@ -22,7 +22,7 @@ public final class MomentumOptimizer implements Optimizer, Serializable {
     }
     
     @Override
-    public float calculateWeightDelta(final float grad, final int... idxs) { // momentum with idxs
+    public float calculateDeltaWeight(final float grad, final int... idxs) { // momentum with idxs
         return -learningRate * grad + momentum * prevDeltaWeights.get(idxs[ROW_IDX], idxs[COL_IDX]);
     }
     
@@ -47,7 +47,7 @@ public final class MomentumOptimizer implements Optimizer, Serializable {
     }
 
     @Override
-    public float calculateBiasDelta(float gradient, int idx) {
+    public float calculateDeltaBias(float gradient, int idx) {
          return -learningRate * gradient + momentum * prevDeltaBiases[idx];  // ovde prev biases
     }
 

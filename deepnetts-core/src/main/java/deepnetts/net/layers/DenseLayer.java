@@ -127,12 +127,12 @@ public final class DenseLayer extends AbstractLayer {
             else
                WeightsInit.randomize(biases);
 
-        setOptimizer(OptimizerType.SGD);        
+        setOptimizerType(OptimizerType.SGD);        
     }
 
     @Override
-    public void setOptimizer(OptimizerType optimizer) {
-        super.setOptimizer(optimizer); 
+    public void setOptimizerType(OptimizerType optimizer) {
+        super.setOptimizerType(optimizer); 
         optim = Optimizer.create(optimizer, this);
     }
     
@@ -213,7 +213,7 @@ public final class DenseLayer extends AbstractLayer {
 
                     gradients.set(inCol, deltaCol, grad);
 
-                    final float deltaWeight = optim.calculateWeightDelta(grad, inCol, deltaCol); 
+                    final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol); 
                     // OPTIMIZER TREBA DA ima referencu na layer i da sam uzima sta mu treba. Ili da sam optimizer kod sebe skladisti stukrure podataka potrebne za konkretan algoritam
                     // napravi interfejs optimizer, konkretna implementacija d aima referencu na lejer, i da sadrzi sve strukture podataka koje su potrebne za konkretan optimizer
                     // idealno da radi nad matricama a ne nad pojedinacnim vrednostima. Da li se onda moze generalizovati?
@@ -276,7 +276,7 @@ public final class DenseLayer extends AbstractLayer {
                 
                 // todo: kako i bias uklopiti u isti sablon? posebna metoda ili bias prebaciti u tensor
                 //float deltaBias = 0;
-                final float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol); 
+                final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol); 
             /*    switch (optimizer) {
                     case SGD:
                         //deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaCol));
@@ -319,7 +319,7 @@ public final class DenseLayer extends AbstractLayer {
                             final float grad = deltas.get(deltaCol) * inputs.get(inRow, inCol, inDepth);  // da li je ovde greska treba ih sumitrati sve tri po dubini  // da li ove ulaze treba sabirati??? jer jedna celija ima ulaze iz tri prethodna kanala?
                             gradients.set(inRow, inCol, inDepth, deltaCol, grad);   // da li ovo radi kada je fc sa obicnim input lyerom -  proveri??
 
-                            final float deltaWeight = optim.calculateWeightDelta(grad, inCol, inRow, inDepth, deltaCol); 
+                            final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, inRow, inDepth, deltaCol); 
                             
                         /*    float deltaWeight = 0;
                             switch (optimizer) {
@@ -387,7 +387,7 @@ public final class DenseLayer extends AbstractLayer {
                         break;
                 }
 */
-                float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol);                
+                float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);                
                 deltaBiases[deltaCol] += deltaBias;
             }
         }

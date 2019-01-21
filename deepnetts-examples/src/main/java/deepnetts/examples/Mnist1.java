@@ -66,7 +66,7 @@ public class Mnist1 {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 1000); //50000
+        imageSet.loadImages(new File(trainingFile), false, 10000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
@@ -98,7 +98,7 @@ public class Mnist1 {
                 .setMaxError(0.03f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
-                .setOptimizer(OptimizerType.SGD);
+                .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 
         // Test trained network
@@ -124,4 +124,6 @@ public class Mnist1 {
     public static void main(String[] args) throws IOException {
         (new Mnist1()).run();
     }
+    
+    
 }

@@ -429,7 +429,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                             final float grad = deltas.get(deltaRow, deltaCol, ch) * input;
 
                             float deltaWeight = 0;
-                            switch (optimizer) {
+                            switch (optimizerType) {
                                 case SGD:
                                     deltaWeight = Optimizers.sgd(learningRate, grad);
                                     break;
@@ -447,7 +447,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                     } 
                 }
                float deltaBias=0;
-                switch (optimizer) {
+                switch (optimizerType) {
                     case SGD:
                         deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
                         break;

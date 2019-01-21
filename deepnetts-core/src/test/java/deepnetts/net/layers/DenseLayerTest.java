@@ -331,7 +331,7 @@ public class DenseLayerTest {
         instance.setPrevLayer(prevLayer);
         instance.init();
         instance.setWeights(weights1);
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
         DenseLayer nextLayer = new DenseLayer(10);
@@ -387,7 +387,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.SIGMOID);
         instance.setPrevLayer(prevLayer);
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
@@ -434,7 +434,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.TANH);
         instance.setPrevLayer(prevLayer);
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 
@@ -480,7 +480,7 @@ public class DenseLayerTest {
         DenseLayer instance = new DenseLayer(5, ActivationType.RELU);
         instance.setPrevLayer(prevLayer);
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights1);
         instance.setBiases(new float[]{0.1f, 0.2f, 0.3f, 0.11f, 0.12f}); // set bias values
 

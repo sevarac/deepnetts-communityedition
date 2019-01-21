@@ -102,7 +102,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
      */
     protected ActivationType activationType;
 
-    protected OptimizerType optimizer = OptimizerType.SGD;
+    protected OptimizerType optimizerType = OptimizerType.SGD;
 
     // TODO: use method reference for activation and optimization function
     protected boolean batchMode = false;
@@ -283,12 +283,12 @@ public abstract class AbstractLayer implements Layer, Serializable {
         return momentum;
     }
 
-    public OptimizerType getOptimizer() {
-        return optimizer;
+    public OptimizerType getOptimizerType() {
+        return optimizerType;
     }
 
-    public void setOptimizer(OptimizerType optimizer) {
-        this.optimizer = optimizer;
+    public void setOptimizerType(OptimizerType optimizerType) {
+        this.optimizerType = optimizerType;
     }
 
     public ActivationType getActivationType() {

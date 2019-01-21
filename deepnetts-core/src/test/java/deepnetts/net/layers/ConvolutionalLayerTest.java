@@ -342,7 +342,7 @@ public class ConvolutionalLayerTest {
     
     
     @Test
-    public void testBackwardFromFullyConnectedToSingleChannel() {
+    public void testBackwardFromDenseToSingleChannel() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,
@@ -365,7 +365,7 @@ public class ConvolutionalLayerTest {
 
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 1);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.biases = biases;
@@ -418,7 +418,7 @@ public class ConvolutionalLayerTest {
     }    
     
     @Test
-    public void testBackwardFromFullyConnectedToTwoChannels() {
+    public void testBackwardFromDenseToTwoChannels() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(6, 6, 1);
         Tensor input = new Tensor(6, 6,
@@ -444,7 +444,7 @@ public class ConvolutionalLayerTest {
 
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 2);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter1;
         instance.filters[1] = filter2;
@@ -545,7 +545,7 @@ public class ConvolutionalLayerTest {
 
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 1);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.biases = biases;
@@ -611,6 +611,7 @@ public class ConvolutionalLayerTest {
                              0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f
                 });
 
+        // TODO: use different filters for two channels
         Tensor filter = new Tensor(3, 3,
                 new float[]{
                               0.1f,   0.2f,  0.3f,
@@ -618,11 +619,11 @@ public class ConvolutionalLayerTest {
                               0.4f,   0.5f,  0.21f
                             });
 
-        float[] biases = new float[]{0.0f, 0.0f};
+        float[] biases = new float[]{0.0f, 0.0f};   // TODO: us enon  zero biases
 
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 2);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.filters[1] = filter;
@@ -720,7 +721,7 @@ public class ConvolutionalLayerTest {
          
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 1);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.biases = biases;
@@ -728,7 +729,7 @@ public class ConvolutionalLayerTest {
         ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 1);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.setActivationType(ActivationType.LINEAR);
         nextLayer.init();
         nextLayer.filters[0] = filter;
         nextLayer.biases = biases;        
@@ -800,7 +801,7 @@ public class ConvolutionalLayerTest {
          
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 2);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.filters[1] = filter;
@@ -809,7 +810,7 @@ public class ConvolutionalLayerTest {
         ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 1);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.setActivationType(ActivationType.LINEAR);
         nextLayer.init();
         nextLayer.filters[0] = filter2;
         nextLayer.biases = biases;        
@@ -879,7 +880,7 @@ public class ConvolutionalLayerTest {
          
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 1);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.biases = biases;
@@ -887,7 +888,7 @@ public class ConvolutionalLayerTest {
         ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.setActivationType(ActivationType.LINEAR);
         nextLayer.init();
         nextLayer.filters[0] = filter;
         nextLayer.filters[1] = filter;
@@ -968,7 +969,7 @@ public class ConvolutionalLayerTest {
          
         ConvolutionalLayer instance = new ConvolutionalLayer(3, 3, 2);
         instance.setPrevLayer(inputLayer);
-        instance.activationType = ActivationType.LINEAR;
+        instance.setActivationType(ActivationType.LINEAR);
         instance.init();
         instance.filters[0] = filter;
         instance.biases = biases;
@@ -976,7 +977,7 @@ public class ConvolutionalLayerTest {
         ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.activationType = ActivationType.LINEAR;
+        nextLayer.setActivationType(ActivationType.LINEAR);
         nextLayer.init();
         nextLayer.filters[0] = filter2;
         nextLayer.filters[1] = filter2;

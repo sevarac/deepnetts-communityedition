@@ -23,7 +23,9 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.Tensor;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -86,6 +90,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * Loads example images with labels from specified file.
      * 
      * TODO: First load entire image index, then load and preprocess image in multithreaded way
+     * TODO2: load images in batches
      * 
      * @param imageIdxFile Plain text file that contains space delimited image file paths and labels
      * @param absPaths True if file contains absolute paths for images, false otherwise
@@ -99,7 +104,9 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         
         String imgFileName=null;
         String label=null;
-        
+        final String[] fColumnNames=columnNames;
+        // TODO: napravi ovo asinhrono da ucitava i preprocesira u posebnim threadovima, u perspektivi u batchovima, ne sve odjendnom
+        // ucitaj prvo indeks slika a onda ucitavanje i preprocrsiranje slika parelelizuj da jedan thread radi ucitavanje a drugi preprocsiranje onoga sto je ucitano
         try(BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;        
             // we can also catch and log FileNotFoundException, IOException in this loop
@@ -119,14 +126,27 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                     //parentPath
                 }
                 
-                // todo: load and preprocess image pixels in separate thread in batches of 10 images
-                ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(oneHotEncode(label, columnNames));
-                
+                // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
+                final BufferedImage image = ImageIO.read(new File(imgFileName));
+                final String flabel = label;
+                DeepNettsThreadPool.getInstance().run(() -> {
+                    try {
+                        final ExampleImage exImg = new ExampleImage(image, flabel);
+                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                                add(exImg);  
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 // make sure all images are the same size
 //                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
                 
-                add(exImg);  
+                                
+                });
+                // ovo baci u poseban thread
+
+                
+
             }
             
             if (isEmpty()) throw new DeepNettsException("Zero images loaded!");           
@@ -163,6 +183,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         
         String imgFileName=null;
         String label=null;
+        final String[] fColumnNames=columnNames;
         // ako je numOfImages manji od broja slika u fajlu logovati
           try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
 
@@ -178,15 +199,23 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 if (!absPaths) imgFileName = parentPath + File.separator + imgFileName;
                 label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
                 
-                ExampleImage exImg = new ExampleImage(new File(imgFileName), label);
-                exImg.setTargetOutput(oneHotEncode(label, columnNames));
-
+                // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
+                final BufferedImage image = ImageIO.read(new File(imgFileName));
+                final String flabel = label;
+                DeepNettsThreadPool.getInstance().run(() -> {
+                    try {
+                        final ExampleImage exImg = new ExampleImage(image, flabel);
+                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                                add(exImg);  
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 // make sure all images are the same size
-//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) {
-//                    throw new DeepNettsException("Bad image size!");
-//                }
-
-                add(exImg);
+//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
+                
+                                
+                });
             }
 
             if (isEmpty()) {

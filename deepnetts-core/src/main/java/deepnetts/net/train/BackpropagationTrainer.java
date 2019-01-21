@@ -222,7 +222,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             layer.setRegularization(regL2);
             layer.setBatchMode(batchMode);
             layer.setBatchSize(batchSize);
-            layer.setOptimizer(optimizer);
+            layer.setOptimizerType(optimizer);
         }
 
         lossFunction = neuralNet.getLossFunction();

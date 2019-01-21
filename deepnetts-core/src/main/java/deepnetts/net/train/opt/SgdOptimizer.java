@@ -17,12 +17,12 @@ public final class SgdOptimizer implements Optimizer, Serializable  {
     }
     
     @Override
-    public float calculateWeightDelta(final float gradient, final int... index) { // obican SGD
+    public float calculateDeltaWeight(final float gradient, final int... index) { // obican SGD
         return -learningRate * gradient;
     }
 
     @Override
-    public float calculateBiasDelta(float gradient, int idx) {
+    public float calculateDeltaBias(float gradient, int idx) {
         return -learningRate * gradient;
     }
 

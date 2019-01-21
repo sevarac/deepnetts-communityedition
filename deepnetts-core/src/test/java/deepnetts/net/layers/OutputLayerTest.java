@@ -16,10 +16,11 @@ import static org.junit.Assert.*;
 public class OutputLayerTest {
     
     /**
-     * Tests forward pass using default sigmoid activation function.
+     * Tests forward pass using sigmoid activation function. 
+     * Doublechecked with octave: 21.01.19.
      */
     @Test
-    public void testForward() {
+    public void testForwardSigmoid() {
         
         RandomGenerator.getDefault().initSeed(123);         // initialize weights using specified random seed
         Tensor input = new Tensor(0.1f, 0.2f, 0.3f, 0.4f, 0.5f); // input vector for this layer (output for previous layer)
@@ -27,7 +28,7 @@ public class OutputLayerTest {
         WeightsInit.uniform(weights.getValues(), 5); // "[0.19961303, -0.23501621, 0.43907326, -0.17747784, -0.22066136, 0.06630343, 0.097314, -0.21566293, 0.273578, 0.10945064, 0.33577937, 0.044093937, 0.19323963, -0.3021235, -0.38288906, 0.16261822, 0.26498383, -0.207817, 0.070406556, -0.23022851, 0.36503863, 0.091478825, -0.31402034, -0.25345784, 0.42504954, -0.037393004, -0.38854277, -0.36758634, -0.38503492, -0.33786723, -0.36604232, -0.14479709, -0.06755906, 0.38639867, 0.3348655, 0.15910655, 0.06717491, -0.4455302, -0.09257606, -1.219213E-4, -0.21616945, 0.43006968, -0.31055218, 0.2699433, -0.214278, 0.25471163, -0.03427276, -0.43431506, -0.054469943, -0.23747501]" 
 
        Tensor expectedOutputs = new Tensor( 0.51053022f, 0.59142921f, 0.52648754f, 0.56102458f, 0.54380692f, 0.58635918f, 0.54137987f, 0.41367945f, 0.52289978f, 0.4961883f );
-         
+                              // octave:    0.51053      0.59143      0.52649      0.56102      0.54381      0.58636      0.54138      0.41368      0.52290      0.49619
         // create prev fc layer with 5 outputs
         DenseLayer prevLayer = new DenseLayer(5);        
         prevLayer.setOutputs(input); // and set its ouput that will be used as input for next layer
@@ -48,6 +49,9 @@ public class OutputLayerTest {
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }
 
+    /**
+     * Doublechecked with octave: 21.01.19.
+     */
     @Test
     public void testForwardWithLinearActivation() {        
         // initialize weights with specified random seed
@@ -78,6 +82,9 @@ public class OutputLayerTest {
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }    
     
+    /**
+     * Doublechecked with octave: 21.01.19.
+     */
     @Test
     public void testForwardWithTanhActivation() {
         
@@ -103,7 +110,7 @@ public class OutputLayerTest {
         // get layer outpputs
         Tensor actualOutputs = instance.getOutputs();
         Tensor expectedOutputs = new Tensor( 0.0421022217154f,  0.353883947707f,  0.105653667421f,  0.240515590945f,  0.173892848898f,  0.335430293333f,  0.16439350833f,  -0.335288915023f,  0.0914073785089f,  -0.0152459102444f);
-        
+                               // octave:    0.042102           0.353884          0.105654          0.240516          0.173893          0.335430          0.164394         -0.335289          0.091407           -0.015246
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }    
     
@@ -128,7 +135,7 @@ public class OutputLayerTest {
         instance.setLossType(LossType.MEAN_SQUARED_ERROR);
         instance.setPrevLayer(prevLayer);               
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights);
         instance.setBiases(new float[] {0.1f, 0.2f, 0.3f, 0.11f, 0.12f, 0.13f, 0.21f, 0.22f, 0.23f, 0.24f}); // set bias values
         instance.forward(); // derivatives are calculated using outputs | outputs : "[0.51053023, 0.59142923, 0.5264875, 0.5610246, 0.5438069, 0.5863592, 0.5413798, 0.41367948, 0.52289975, 0.4961883]"          
@@ -166,7 +173,7 @@ public class OutputLayerTest {
         instance.setLossType(LossType.MEAN_SQUARED_ERROR);
         instance.setPrevLayer(prevLayer);               
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights);
         instance.setBiases(new float[] {0.1f, 0.2f, 0.3f, 0.11f, 0.12f, 0.13f, 0.21f, 0.22f, 0.23f, 0.24f}); // set bias values
         instance.forward(); // derivatives are calculated using outputs | outputs : "[0.51053023, 0.59142923, 0.5264875, 0.5610246, 0.5438069, 0.5863592, 0.5413798, 0.41367948, 0.52289975, 0.4961883]"          
@@ -205,7 +212,7 @@ public class OutputLayerTest {
         instance.setLossType(LossType.MEAN_SQUARED_ERROR);
         instance.setPrevLayer(prevLayer);               
         instance.init();
-        instance.setOptimizer(OptimizerType.SGD);
+        instance.setOptimizerType(OptimizerType.SGD);
         instance.setWeights(weights);
         instance.setBiases(new float[] {0.1f, 0.2f, 0.3f, 0.11f, 0.12f, 0.13f, 0.21f, 0.22f, 0.23f, 0.24f}); // set bias values
         instance.forward(); // derivatives are calculated using outputs | outputs : "[0.51053023, 0.59142923, 0.5264875, 0.5610246, 0.5438069, 0.5863592, 0.5413798, 0.41367948, 0.52289975, 0.4961883]"          

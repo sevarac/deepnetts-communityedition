@@ -427,6 +427,10 @@ public class Tensor implements Serializable {
     public final int getDimensions() {
         return dimensions;
     }
+    
+    public final int size() {
+        return values.length;
+    }
 
     @Override
     public String toString() {

@@ -28,6 +28,10 @@ public class DeepNettsThreadPool {
     public void run(Collection<Callable<Void>> tasks) throws InterruptedException {
         es.invokeAll(tasks);
     }
+    
+    public void run(Runnable task) {
+        es.submit(task);
+    }
 
     final public int getThreadCount() {
         return threadCount;

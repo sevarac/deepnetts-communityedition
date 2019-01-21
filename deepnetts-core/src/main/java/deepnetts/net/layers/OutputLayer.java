@@ -25,7 +25,6 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.opt.Optimizer;
 import deepnetts.net.train.opt.OptimizerType;
-import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
@@ -122,8 +121,8 @@ public class OutputLayer extends AbstractLayer {
     }
     
     @Override
-    public void setOptimizer(OptimizerType optimizer) {
-        super.setOptimizer(optimizer); 
+    public void setOptimizerType(OptimizerType optimizer) {
+        super.setOptimizerType(optimizer); 
         optim = Optimizer.create(optimizer, this);
     }    
 
@@ -146,7 +145,7 @@ public class OutputLayer extends AbstractLayer {
         prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
         
-        setOptimizer(OptimizerType.SGD);
+        setOptimizerType(OptimizerType.SGD);
     }
 
     /**
@@ -182,12 +181,11 @@ public class OutputLayer extends AbstractLayer {
 
         for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                //final float delta = outputErrors[deltaCol] * ActivationFunctions.prime(activationType, outputs.get(deltaCol)); // delta = e*dE/ds
                 final float delta = outputErrors[deltaCol] * activation.getPrime(outputs.get(deltaCol)); // delta = e*dE/ds
                 deltas.set(deltaCol, delta); 
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
                 deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
-            } // jel treba ovde neki else ? jel postoji taj slucaj? Cross entropy sa softmax j eposeban layer...
+            } // ... Cross entropy sa softmax je poseban layer
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                final float grad = deltas.get(deltaCol) * inputs.get(inCol);
@@ -199,11 +197,11 @@ public class OutputLayer extends AbstractLayer {
                 //final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
 
-                final float deltaWeight = optim.calculateWeightDelta(grad, inCol, deltaCol);   
+                final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol);   
                 deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
-            final float deltaBias = optim.calculateBiasDelta(deltas.get(deltaCol), deltaCol); 
+            final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol); 
             deltaBiases[deltaCol] += deltaBias; //Optimizers.sgd(learningRate, deltas.get(deltaCol));
 //          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }

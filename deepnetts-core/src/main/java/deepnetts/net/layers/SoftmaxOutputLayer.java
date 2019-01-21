@@ -65,7 +65,7 @@ public class SoftmaxOutputLayer extends OutputLayer {
         prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
         
-        setOptimizer(OptimizerType.SGD);
+        setOptimizerType(OptimizerType.SGD);
     }
 
     /**
@@ -117,11 +117,11 @@ public class SoftmaxOutputLayer extends OutputLayer {
                 gradients.set(inCol, outCol, grad);
                 //final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, outCol));
-                final float deltaWeight = optim.calculateWeightDelta(grad, inCol, outCol);   
+                final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, outCol);   
                 deltaWeights.add(inCol, outCol, deltaWeight); //
             }
             
-            final float deltaBias = optim.calculateBiasDelta(deltas.get(outCol), outCol); 
+            final float deltaBias = optim.calculateDeltaBias(deltas.get(outCol), outCol); 
             deltaBiases[outCol] += deltaBias;
             //deltaBiases[outCol] += Optimizers.momentum(learningRate, deltas.get(outCol), momentum, prevDeltaBiases[outCol]);
         }
