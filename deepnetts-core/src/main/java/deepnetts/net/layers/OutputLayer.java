@@ -21,7 +21,6 @@
  */
 package deepnetts.net.layers;
 
-import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.opt.Optimizer;

@@ -21,7 +21,6 @@
     
 package deepnetts.net.layers;
 
-import deepnetts.net.layers.activation.ActivationFunctions;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.train.opt.Optimizers;
@@ -210,15 +209,15 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void forward() {        
-        try {
-            DeepNettsThreadPool.getInstance().run(forwardTasks);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           
-//        for (int ch = 0; ch < this.depth; ch++) {
-//            forwardChannel(ch);
+//        try {
+//            DeepNettsThreadPool.getInstance().run(forwardTasks);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+           
+        for (int ch = 0; ch < this.depth; ch++) {
+            forwardChannel(ch);
+        }
                 
     }
     
@@ -304,7 +303,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
             // 1. Propagate deltas from the next FC layer
             for (int row = 0; row < this.height; row++) {
                 for (int col = 0; col < this.width; col++) {
-                    final float actDerivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // dy/ds
+                    //final float actDerivative = ActivationFunctions.prime(activationType, outputs.get(row, col, ch)); // dy/ds
+                    final float actDerivative = activation.getPrime(outputs.get(row, col, ch)); // dy/ds
                     for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer delte po sirini/kolone posto je fully connected
                         final float delta = nextLayer.deltas.get(ndC) * nextLayer.weights.get(col, row, ch, ndC) * actDerivative; // TODO: mnoziti sumu na kraju samo jednom optimizacija -mozda 
                         deltas.add(row, col, ch, delta);
@@ -328,16 +328,16 @@ public final class ConvolutionalLayer extends AbstractLayer {
         deltas.fill(0); // reset all deltas
 
         // paralelizuj kanale!!!
-        try {
-            DeepNettsThreadPool.getInstance().run(backwardTasks);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            DeepNettsThreadPool.getInstance().run(backwardTasks);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         
-//        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale u ovom lejeru (to su automatski i kanali u sledem max pooling lejeru)
-//            backwardChannel(ch);
-//        } // end channel iterator    
+        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale u ovom lejeru (to su automatski i kanali u sledem max pooling lejeru jer imaju isti broj kanala)
+            backwardChannel(ch);
+        } // end channel iterator    
     }
     
      private void backwardChannel(int ch) {
@@ -349,7 +349,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                     final int maxR = maxIdx[ch][dr][dc][0];                    
                     final int maxC = maxIdx[ch][dr][dc][1];
                     
-                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(maxR, maxC, ch));
+                    final float derivative = activation.getPrime(outputs.get(maxR, maxC, ch));
                     deltas.set(maxR, maxC, ch, nextLayerDelta * derivative);
                 }
             } // end propagate deltas
@@ -379,7 +379,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
                                     if (row < 0 || row >= outputs.getRows() || col < 0 || col >= outputs.getCols()) continue;
                                   
-                                    final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
+                                   // final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
+                                    final float derivative = activation.getPrime(outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.     
                                     //   ... ovde treba razjasniti kako se mnozi sa weightsomm? da li ih treba sabirati
                                     deltas.add(row, col, fz, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);
                                 }
@@ -391,7 +392,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
             
             for (int ch = 0; ch < this.depth; ch++) {  
             // 2. calculate delta weights for this layer (this is same for all types of next layers)
-                calculateDeltaWeights(ch); // split these into fork joins too            
+                calculateDeltaWeights(ch);         
             }
     }
 
@@ -404,7 +405,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
     private void calculateDeltaWeights(int ch) {
         if (!batchMode) {
             deltaWeights[ch].fill(0); // reset all delta weights for the current channel - these are 4d matrices
-            deltaBiases[ch] = 0; // da li b ovo trebalo da bude 2d niz? verovatno ne
+            deltaBiases[ch] = 0;
         }
         
         final float divisor = width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi

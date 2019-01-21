@@ -109,16 +109,16 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     @Override
     public void forward() {          
-        try {
-            DeepNettsThreadPool.getInstance().run(forwardTasks);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            DeepNettsThreadPool.getInstance().run(forwardTasks);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
            
 
-//        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
-//            forwardChannel(ch);
-//        }
+        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
+            forwardChannel(ch);
+        }
     }
     
     private void forwardChannel(int ch) {

@@ -8,6 +8,7 @@ import deepnetts.util.Tensors;
 import deepnetts.util.WeightsInit;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  * Dense layer tests with various activation functions
@@ -153,43 +154,151 @@ public class DenseLayerTest {
     }
 
     /**
-     * TODO: Test forward pass when prev layer iz 2d (conv, input or maxpooling)
-     * Also do the backward pass too!!!
-     * single channel and multichannel
+     * Test forward pass when prev layer iz 2d (conv, input or maxpooling)
+     * TODO: Also do the backward pass too!!!
+     * TODO: test with 2 input channels
      */
     @Test
-    public void testForwardWith2DPrevLayer() {
+    public void testForward2DInputSingleOutput() {
         // initialize weights with specified random seed
         RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
 
-        // input vector for this layer  width:6, height:5
-        Tensor input = Tensors.random(5, 6);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985, 0.7160485, 0.16221565, 0.071917, 0.6818127, 0.79626095, 0.26765352, 0.57871693, 0.24259669, 0.9081256, 0.60227644, 0.14891458, 0.21662551, 0.97521985, 0.45819336, 0.065595984, 0.089025974, 0.06951785, 0.12225294]
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(3, 4);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985]
                 
         // create prev fc layer with 5 outputs
-        InputLayer prevLayer = new InputLayer(6, 5);
+        InputLayer prevLayer = new InputLayer(4, 3);
         prevLayer.setOutputs(input);
 
         // create instance of layer to test
-        DenseLayer instance = new DenseLayer(3, ActivationType.LINEAR);
+        DenseLayer instance = new DenseLayer(1, ActivationType.LINEAR);
         instance.setPrevLayer(prevLayer);
         instance.init(); // init weights structure
         
+        // trebao bh prvo da ga testiram sa jednim izlaznim neuronom
         // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
-        Tensor weights = new Tensor(6, 5, 1, 3); // weights matrix
-        WeightsInit.uniform(weights.getValues(), 30); // [0.08700773, -0.1261257, -0.05958288, 0.019011587, 0.13065946, -0.086479805, 0.059783965, -0.08001147, 0.11973542, -0.03077972, -0.12680945, -0.121246435, -0.09300153, 0.12155071, -0.08123821, -0.072162874, -0.11189317, -0.01955235, -0.16916932, 0.08706197, 0.093593776, -0.17618799, 0.034794286, -0.11849884, -0.005317986, 0.17574981, -0.13752298, 0.16149274, -0.04386726, 0.12807351, -0.1084949, 0.094712555, 0.18135735, -0.15707424, -0.14666796, -0.004710719, 0.13971764, -0.118836865, -0.15412953, 0.16847828, 0.16428724, 0.041923404, 0.17552084, 0.07887018, 0.08473942, -0.15281743, 0.10283908, -0.0095382035, 0.016931072, -0.109875076, 0.16141623, 0.022519812, -0.001744315, 0.12911996, 0.021034986, -0.1454502, -0.03890319, 0.0614596, -0.019833565, 0.15311953, -0.11624675, -0.004301235, -0.06000057, -0.010145903, -0.13161933, 0.012890458, 0.08763227, 0.13346127, -0.054347247, 0.119847685, -0.12520094, 0.084012836, 0.141213, 0.10111937, -0.08274984, 0.05949387, -0.112766534, 0.05380723, -0.060682796, -0.079103805, -0.09945219, -0.18068045, 0.14984074, -0.12388769, -0.1157157, 0.102354616, 0.085460335, 0.1065059, 0.021020621, -0.068727516]
+        Tensor weights = new Tensor(4, 3, 1, 1); // weights matrix  
+        WeightsInit.uniform(weights.getValues(), 12); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
                 
         instance.setWeights(weights); // set weight values
-        instance.setBiases(new float[]{0.1f, 0.2f, 0.3f}); // set bias values
+        instance.setBiases(new float[]{0.1f}); // set bias values
 
         // do the forward pass
         instance.forward();
         // get layer outpputs
-        Tensor actualOutputs = instance.getOutputs();   // [-0.19114527, 0.43481547, 0.14612433]
-        Tensor expectedOutputs = new Tensor(0.04212712f, 0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
+        Tensor actualOutputs = instance.getOutputs();   // [-0.2886533504537852]
+        Tensor expectedOutputs = new Tensor(-0.28865337f);
 
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }
+    
+    /**
+     * 2d input, 2 neurons in dense later
+     * TODO: Also do the backward pass too!!!
+     * TODO: test with 2 input channels
+     */
+    @Test
+    public void testForward2DInputTwoOutputs() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
 
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(3, 4);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985]
+                
+        // create prev fc layer with 5 outputs
+        InputLayer prevLayer = new InputLayer(4, 3);
+        prevLayer.setOutputs(input);
+
+        // create instance of layer to test
+        DenseLayer instance = new DenseLayer(2, ActivationType.LINEAR);
+        instance.setPrevLayer(prevLayer);
+        instance.init(); // init weights structure
+        
+        // trebao bh prvo da ga testiram sa jednim izlaznim neuronom
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(4, 3, 1, 2); // weights matrix  
+        WeightsInit.uniform(weights.getValues(), 12); // [-0.059757575, -7.870793E-5, -0.13953678, 0.27760875, -0.20046058, 0.17424765, -0.13831584, 0.16441566, -0.02212295, -0.28034917, -0.035160214, -0.15328945, -0.16662017, -0.01334855, 0.06594038, -0.20663363, -0.26935822, -0.034936756, 0.109059215, -0.22400141, 0.10629755, 0.20143756, -0.24522439, -0.19821966]
+                
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f, 0.2f}); // set bias values
+
+        // do the forward pass
+        instance.forward();
+        // get layer outpputs
+        Tensor actualOutputs = instance.getOutputs();   // [-0.23064378, -0.14301854]
+        Tensor expectedOutputs = new Tensor(-0.23064378f, -0.14301854f);
+
+        assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
+    }    
+
+    @Test
+    public void testForward3DInputSingleOutput() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(3, 4, 2);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985, 0.7160485, 0.16221565, 0.071917, 0.6818127, 0.79626095, 0.26765352, 0.57871693, 0.24259669, 0.9081256, 0.60227644, 0.14891458, 0.21662551]
+                
+        // create prev fc layer with 5 outputs
+        InputLayer prevLayer = new InputLayer(4, 3, 2);
+        prevLayer.setOutputs(input);
+
+        // create instance of layer to test
+        DenseLayer instance = new DenseLayer(1, ActivationType.LINEAR);
+        instance.setPrevLayer(prevLayer);
+        instance.init(); // init weights structure
+        
+        // trebao bh prvo da ga testiram sa jednim izlaznim neuronom
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(4, 3, 2, 1); // weights matrix  
+        WeightsInit.uniform(weights.getValues(), 24); // [-0.108392015, -0.11781825, -0.009438843, 0.04662688, -0.14611204, -0.19046502, -0.024704024, 0.077116504, -0.1583929, 0.07516374, 0.14243786, -0.17339982, -0.14016245, 0.18240763, -0.040653482, -0.025770023, 0.17933364, 0.07912485, -0.034144267, 0.07201438, 0.13413312, 0.052575663, 0.06653626, 0.03049782]
+                
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f}); // set bias values
+
+        // do the forward pass
+        instance.forward();
+        // get layer outpputs
+        Tensor actualOutputs = instance.getOutputs();   // [-0.14187025]
+        Tensor expectedOutputs = new Tensor(-0.14187025f); // octave kaze -0.1418702484744394
+
+        assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
+    }    
+    
+    @Test
+    public void testForward3DInputTwoOutputs() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(3, 4, 2);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985, 0.7160485, 0.16221565, 0.071917, 0.6818127, 0.79626095, 0.26765352, 0.57871693, 0.24259669, 0.9081256, 0.60227644, 0.14891458, 0.21662551]
+                
+        // create prev fc layer with 5 outputs
+        InputLayer prevLayer = new InputLayer(4, 3, 2);
+        prevLayer.setOutputs(input);
+
+        // create instance of layer to test
+        DenseLayer instance = new DenseLayer(2, ActivationType.LINEAR);
+        instance.setPrevLayer(prevLayer);
+        instance.init(); // init weights structure
+        
+        // trebao bh prvo da ga testiram sa jednim izlaznim neuronom
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(4, 3, 2, 2); // weights matrix  
+        WeightsInit.uniform(weights.getValues(), 48); // [-0.032339804, 0.07949282, -0.08974095, -0.024059728, -0.13662373, -0.090818, -0.13522792, 0.032500148, 0.09538056, -0.029679954, 0.06930688, 0.09398733, 0.12744209, 0.09383395, 0.09409064, -0.051186137, 0.0041013956, 0.0826029, 0.027157366, 0.03552276, -0.078440405, -0.042539023, -0.056820266, -0.095608585, 0.056304574, 0.067483634, -0.020708613, -0.020137347, 0.13437173, -0.018618405, 0.06507628, -0.07393739, -0.04758586, -0.062255293, 0.13229671, -0.03867311, -0.0042365193, -0.060115047, -0.07344663, -0.08496776, 0.056355953, -0.012163326, -0.08099257, 0.1287122, -0.11224161, 0.08320823, 0.019138098, 0.0032341331]
+                
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f, 0.2f}); // set bias values
+
+        // do the forward pass
+        instance.forward();
+        // get layer outpputs
+        Tensor actualOutputs = instance.getOutputs();   // [0.15495503f, 0.2643498f]
+        Tensor expectedOutputs = new Tensor(0.15495503f, 0.2643498f); // octave kaze -0.1549549936880784, 0.2643497903952628  
+
+        assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
+    }        
+    
     /**
      * Test of backward method, of class FullyConnectedLayer using linear
      * activation function. Checks if deltas are calculated correctly.

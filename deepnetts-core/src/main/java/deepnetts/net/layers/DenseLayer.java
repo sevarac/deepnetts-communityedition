@@ -138,12 +138,10 @@ public final class DenseLayer extends AbstractLayer {
     
 
     
-
     // TODO: idalno bi bilo da ova metoda ima samo jednu granu bez obzira na dimenzije prethodnog lejera,
     // to se verovatno postize broadcastingom po prethodnom lejeru sa dimenzijama 1
-    // problem j eindeksiranje tezina u zavisnosti od broja dimenzija
-    // resenje je da outCol u weights bude prva dimenzija u get metodi!
     // prouci formule u https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html
+    // Doublechecked and tested with octave : 21.01.19.
     @Override
     public void forward() {
         // pokusaj generalizacije da ima samo jednu granu bez obzira na dimenzije prethodnog lejera
@@ -165,16 +163,15 @@ public final class DenseLayer extends AbstractLayer {
             // outputs.apply(activation::getValue);
         } // if previous layer is MaxPooling, Convolutional or input layer (2D or 3D) - TODO: posto je povezanost svi sa svima ovo mozda moze i kao 1d na 1d niz, verovatno je efikasnije
         else if ((prevLayer instanceof MaxPoolingLayer) || (prevLayer instanceof ConvolutionalLayer) || (prevLayer instanceof InputLayer)) { // povezi sve na sve
-            // prethodni loop se svodi na ovaj pri cemu su inRow i inDepth 1
+            // prethodni loop se svodi na ovaj pri cemu su inRow=1 i inDepth=1  i to zapravo deluje kao broadcasting!
+            // napravi implementaciju koja ce da zakuca 4d tensor
+            //  cilj je da imam samo jednu granu dfa nema ovog if, nego da radi broadcasting zapravo, ali zakucan na 4 dimenzije            
             outputs.copyFrom(biases);                                             // first use (add) biases to all outputs
             for (int outCol = 0; outCol < outputs.getCols(); outCol++) {          // for all neurons/outputs in this layer
                 for (int inDepth = 0; inDepth < inputs.getDepth(); inDepth++) {   // iterate depth from prev/input layer
                     for (int inRow = 0; inRow < inputs.getRows(); inRow++) {      // iterate current channel by height (rows)
                         for (int inCol = 0; inCol < inputs.getCols(); inCol++) {   // iterate current feature map by width (cols)
                             outputs.add(outCol, inputs.get(inRow, inCol, inDepth) * weights.get(inCol, inRow, inDepth, outCol)); // add to weighted sum of all inputs (TODO: ako je svaki sa svima to bi mozda moglo da bude i jednostavno i da se prodje u jednom loopu a ugnjezdeni loopovi bi se lakse paralelizovali)
-                            // a spoljna dimenzija se moze paralelizovati  (pola niza radi jedan thread drugu polovinu drugi)- optimizuj celinu!
-                            // napravi implementaciju koja ce da zakuca 4d tensor
-                            //  cilj je da imam samo jednu granu dfa nema ovog if, nego da radi broadcasting zapravo, ali zakucan na 4 dimenzije
                         }
                     }
                 }
@@ -184,9 +181,7 @@ public final class DenseLayer extends AbstractLayer {
              //outputs.apply(activation::getValue);
         }
     }
-
     
-    //SgdOptimizer2 opt2 = new SgdOptimizer2(this); //ali kad ce mu biti setovan i learning rate, kad krene priprema za trening
     @Override
     public void backward() {
         if (!batchMode) { // if online mode reset deltaWeights and deltaBiases to zeros

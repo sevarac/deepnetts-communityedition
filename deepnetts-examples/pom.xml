@@ -47,5 +47,7 @@ For JitWatch
 -XX:+TraceClassLoading
 -XX:+RangeCheckElimination
 
+XX:+PrintAssembly
+
 </description>
 </project>
