@@ -215,13 +215,13 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             return this;
         }
 
-        public Builder withActivationFunction(ActivationType activationType) {
+        public Builder hiddenActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;
         }
 
-        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
+        public Builder lossFunction(Class<? extends LossFunction> clazz) {
             try {
                 LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(neuralNet);
                 neuralNet.setLossFunction(loss);
@@ -232,7 +232,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             return this;
         }
 
-        public Builder withLossFunction(LossType lossType) {
+        public Builder lossFunction(LossType lossType) {
             LossFunction loss = null;
             switch (lossType) {
                 case MEAN_SQUARED_ERROR:
@@ -255,7 +255,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
             return this;
         }
 
-        public Builder withRandomSeed(long seed) {
+        public Builder randomSeed(long seed) {
             RandomGenerator.getDefault().initSeed(seed);
             return this;
         }
@@ -283,7 +283,7 @@ public class ConvolutionalNetwork extends NeuralNetwork implements Serializable 
 
             // if loss is not set use default loss function
             if (neuralNet.getLossFunction() == null) {
-                Builder.this.withLossFunction(defaultLossFunction);
+                Builder.this.lossFunction(defaultLossFunction);
             }
 
             return neuralNet;

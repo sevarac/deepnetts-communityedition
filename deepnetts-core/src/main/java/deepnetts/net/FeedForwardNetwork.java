@@ -187,7 +187,7 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @param clazz
          * @return
          */
-        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
+        public Builder lossFunction(Class<? extends LossFunction> clazz) {
             try {
                 LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(network);
                 network.setLossFunction(loss);
@@ -198,7 +198,7 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
-        public Builder withLossFunction(LossType lossType) {
+        public Builder lossFunction(LossType lossType) {
             LossFunction loss = null;
             switch (lossType) {
                 case MEAN_SQUARED_ERROR:

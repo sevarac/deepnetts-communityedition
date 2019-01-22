@@ -6,7 +6,7 @@
         <artifactId>DeepNetts</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>deepnetts-core</artifactId>
+    <artifactId>deepnetts-core-ce</artifactId>
     <packaging>jar</packaging>
     <dependencies>        
         <dependency>

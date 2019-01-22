@@ -282,10 +282,10 @@ public class FileIO {
 
                         if (activation.equals(ActivationType.SIGMOID.toString())) {
                             builder.addOutputLayer(width, OutputLayer.class);
-                            builder.withLossFunction(MeanSquaredErrorLoss.class);
+                            builder.lossFunction(MeanSquaredErrorLoss.class);
                         } else if (activation.equals(ActivationType.SOFTMAX.toString())) {
                             builder.addOutputLayer(width, SoftmaxOutputLayer.class);
-                            builder.withLossFunction(CrossEntropyLoss.class);
+                            builder.lossFunction(CrossEntropyLoss.class);
                         }
                 break;
             }
@@ -293,7 +293,7 @@ public class FileIO {
 
         // set loss function
         String lossFunction = jsonObj.getString("lossFunction");
-        builder.withLossFunction(LossType.valueOf(lossFunction));
+        builder.lossFunction(LossType.valueOf(lossFunction));
 
         ConvolutionalNetwork neuralNet = builder.build();
 
@@ -344,7 +344,7 @@ public class FileIO {
 
         // set loss function
         String lossFunction = jsonObj.getString("lossFunction");
-        builder.withLossFunction(LossType.valueOf(lossFunction));
+        builder.lossFunction(LossType.valueOf(lossFunction));
 
         FeedForwardNetwork neuralNet = builder.build();
 
