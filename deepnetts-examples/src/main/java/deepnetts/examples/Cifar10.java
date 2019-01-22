@@ -86,9 +86,9 @@ public class Cifar10 {
          
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(1.9f);
+        trainer.setMaxError(0.1f);
         trainer.setMomentum(0.9f); 
-        trainer.setOptimizer(OptimizerType.MOMENTUM); 
+        trainer.setOptimizer(OptimizerType.SGD); 
         trainer.train(imageSets[0]);       
         
         // Test trained network
