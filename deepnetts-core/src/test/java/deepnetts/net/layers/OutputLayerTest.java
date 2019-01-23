@@ -116,6 +116,7 @@ public class OutputLayerTest {
     
     /**
      * These values are for backward pass for MSE loss function.
+     * Doublechecked with octave: 22.01.19.
      */
     @Test
     public void testBackwardSigmoidMseLoss() {
@@ -282,7 +283,9 @@ Octave delta weights:
         assertArrayEquals(expDeltaBiases, deltaBiases, 1e-7f);
     }    
     
-    
+    /**
+     *  Doublechecked with octave: 23.01.19.
+     */
     @Test
     public void testApplyWeightChanges() {
         OutputLayer instance = new OutputLayer(10);
@@ -293,7 +296,7 @@ Octave delta weights:
 
         WeightsInit.initSeed(123);
         WeightsInit.uniform(weights.getValues(), 5);    
-        Tensor biases = new Tensor(10); // 
+        Tensor biases = new Tensor(10);
         WeightsInit.randomize(weights.getValues()); //  [-0.2885946, -0.023120344, 0.114212096, -0.35789996, -0.46654212, -0.060512245, 0.18889612, -0.38798183, 0.18411279, 0.34890008, -0.4247411, -0.3433265, 0.44680566, -0.09958029, -0.063123405, 0.43927592, 0.19381553, -0.083636045, 0.17639846, 0.32855767, 0.12878358, 0.1629799, 0.07470411, -0.46918643, -0.11202836, 0.2753712, -0.31087178, -0.08334535, -0.47327846, -0.3146028, -0.46844327, 0.112583816, 0.33040798, -0.10281438, 0.24008608, 0.32558167, 0.44147235, 0.32505035, 0.32593954, -0.17731398, 0.014207661, 0.28614485, 0.09407586, 0.123054445, -0.27172554, -0.14735949, -0.19683117, -0.33119786, 0.19504476, 0.23377019]
         WeightsInit.randomize(biases.getValues()); //   [-0.07173675, -0.06975782, 0.46547735, -0.06449604, 0.22543085, -0.25612664, -0.16484225, -0.21565866, 0.45828927, -0.13396758]
         instance.setWeights(weights);
@@ -306,7 +309,7 @@ Octave delta weights:
         instance.applyWeightChanges();        
         Tensor expectedWeights = new Tensor(-0.30327034f, -0.23136496f, -0.1402145f, -0.65223693f, -0.27131938f, -0.10264724f, -0.09167038f,  0.0578903f,  -0.20470357f,  0.63714188f, -0.35844476f, -0.33212315f, 0.4615165f,   0.13870019f, -0.40853286f,  0.27610147f,  0.2458809f,   0.2741896f, -0.06043624f,  0.49228281f, -0.09033686f,  0.49088883f, -0.00958961f, -0.81646843f, -0.44407541f,  0.02067602f,  0.02200854f, -0.30582535f, -0.67090463f, -0.62103487f, -0.52198958f, -0.35070544f,  0.56883705f,  0.15350276f, -0.24242462f,  0.42086977f, 0.11694991f,  0.31048643f,  0.80725021f, -0.55393618f,  0.45647371f,  0.16600942f, 0.44481963f, -0.17407107f, -0.01234454f,  0.34930807f, -0.6269967f,  -0.73286462f, 0.18214393f,  0.61640269f);        
         Tensor expectedBiases = new Tensor(-0.39718491f, -0.49185896f, 0.9268741f, 0.38542312f, 0.34024281f, 0.22455698f, 0.05115265f, 0.01640982f, 0.03978152f, 0.14766884f);
-                
+
         assertArrayEquals(weights.getValues(), expectedWeights.getValues(), 1e-7f);
         assertArrayEquals(biases.getValues(), expectedBiases.getValues(), 1e-7f);  
     }
