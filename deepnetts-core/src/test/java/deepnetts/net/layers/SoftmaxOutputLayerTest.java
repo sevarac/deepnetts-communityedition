@@ -38,18 +38,19 @@ public class SoftmaxOutputLayerTest {
         instance.setPrevLayer(prevLayer);        
         instance.init(); // init weights structure
         instance.setWeights(weights); // set weights values
-        instance.setBiases(new float[] {0.0f, 0.0f, 0.0f}); // set zero bias values
+        instance.setBiases(new float[] {0.0f, 0.0f, 0.0f}); // set zero bias values use non zero biases
 
         // do the forward pass
         instance.forward();    
         
-        // weighted sums      0.154060, -0.149083,   -0.034566 // octave 
-        // calculated values  0.15406,  -0.14908276, -0.03456554
+        // weighted sums       0.15406000600  -0.14908277400  -0.03456554920 // octave 
+        // calculated values   0.15406, -0.14908276, -0.03456554   max_ws=0.15406
         // e^ws 1.166560878 0.861497814 0.966025024
         // sum(e^ws) = 2.994083716 
-        // output = 0.389621997 0.287733375 0.322644627
+        // output = 0.389621997 0.287733375  0.322644627
+        //          0.389622001 0.2877333728 0.3226446256
                 
-        Tensor actualOutputs = instance.getOutputs();   // "[0.042127118, 0.36987683, 0.10604945, 0.24532129, 0.17567813, 0.34893453, 0.16589889, -0.3487752, 0.09166323, -0.015247092]"
+        Tensor actualOutputs = instance.getOutputs();  
         Tensor expectedOutputs = new Tensor( 0.389621997f, 0.287733375f, 0.322644627f);
 
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);

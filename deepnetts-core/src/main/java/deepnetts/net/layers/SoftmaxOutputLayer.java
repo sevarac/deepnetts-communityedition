@@ -23,7 +23,6 @@ package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.opt.OptimizerType;
-import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;

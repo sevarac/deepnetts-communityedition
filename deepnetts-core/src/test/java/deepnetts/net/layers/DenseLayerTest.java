@@ -227,6 +227,9 @@ public class DenseLayerTest {
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }    
 
+    /**
+     *  Doublechecked with octave: 23.01.19.
+     */
     @Test
     public void testForward3DInputSingleOutput() {
         // initialize weights with specified random seed
@@ -255,13 +258,17 @@ public class DenseLayerTest {
         // do the forward pass
         instance.forward();
         // get layer outpputs
-        Tensor actualOutputs = instance.getOutputs();   // [-0.14187025]  
-        Tensor expectedOutputs = new Tensor(-0.14187025f); // octave kaze 0.058130
+        Tensor actualOutputs = instance.getOutputs();   
+        Tensor expectedOutputs = new Tensor(-0.14187025f); 
+                            // octave kaze  -0.1418702485
 
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }    
     
-    @Test       // ovaj izgleda nije doublechecked
+    /**
+     * Doublechecked with octave: 23.01.19.
+     */
+    @Test
     public void testForward3DInputTwoOutputs() {
         // initialize weights with specified random seed
         RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
@@ -290,7 +297,8 @@ public class DenseLayerTest {
         instance.forward();
         // get layer outpputs
         Tensor actualOutputs = instance.getOutputs(); 
-        Tensor expectedOutputs = new Tensor(0.15495503f, 0.2643498f); // octave kaze -0.1549549936880784, 0.2643497903952628    Zasto ovde minus????
+        Tensor expectedOutputs = new Tensor(0.15495503f, 0.2643498f); 
+                            // octave kaze  0.154954993, 0.2643497904 
 
         assertArrayEquals(actualOutputs.getValues(), expectedOutputs.getValues(), 1e-7f);
     }        
