@@ -129,20 +129,24 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
                 final BufferedImage image = ImageIO.read(new File(imgFileName));
                 final String flabel = label;
-                DeepNettsThreadPool.getInstance().run(() -> {
-                    try {
-                        final ExampleImage exImg = new ExampleImage(image, flabel);
-                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-                                add(exImg);  
-                    } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                // make sure all images are the same size
-//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
+                final ExampleImage exImg = new ExampleImage(image, flabel);
+                exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                add(exImg);  
                 
-                                
-                });
+//                DeepNettsThreadPool.getInstance().run(() -> {
+//                    try {
+//                        final ExampleImage exImg = new ExampleImage(image, flabel);
+//                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+//                                add(exImg);  
+//                    } catch (IOException ex) {
+//                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    
+//                // make sure all images are the same size
+////                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
+//                
+//                                
+//                });
                 // ovo baci u poseban thread
 
                 
@@ -199,24 +203,36 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 if (!absPaths) imgFileName = parentPath + File.separator + imgFileName;
                 label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
                 
+                try {
                 // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
-                final BufferedImage image = ImageIO.read(new File(imgFileName));
-                final String flabel = label;
-                DeepNettsThreadPool.getInstance().run(() -> {
-                    try {
-                        final ExampleImage exImg = new ExampleImage(image, flabel);
-                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-                                add(exImg);  
-                    } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                // make sure all images are the same size
-//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
-                
-                                
-                });
+                    final BufferedImage image = ImageIO.read(new File(imgFileName));
+                    final String flabel = label;
+                    final ExampleImage exImg;
+
+                    exImg = new ExampleImage(image, flabel);
+                    exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                    add(exImg);  
+                } catch (IOException ex) {
+                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                      
+//                DeepNettsThreadPool.getInstance().run(() -> {
+//                    try {
+//                        final ExampleImage exImg = new ExampleImage(image, flabel);
+//                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+//                                add(exImg);  
+//                    } catch (IOException ex) {
+//                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    
+//                // make sure all images are the same size
+////                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());    
+//                
+//                                
+//                });
             }
+            
+            // sacekaj da pool zavrsi
 
             if (isEmpty()) {
                 throw new DeepNettsException("Zero images loaded!");

@@ -29,6 +29,6 @@ import java.io.IOException;
  */
 public class CreateLabelsIndex {
     public static void main(String[] args) throws IOException {
-        ImageSetUtils.createLabelsIndex("/home/zoran/Desktop/JavaOneSponsors/randomlyCroped");
+        ImageSetUtils.createLabelsIndex("D:\\datasets\\clouds\\swimcat");
     }
 }

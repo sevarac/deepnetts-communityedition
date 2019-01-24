@@ -17,6 +17,7 @@ public class SoftmaxOutputLayerTest {
     
     /**
      * Test of forward method, of class SoftmaxOutputLayer.
+     * Doublechecked with octave: 23.01.19.
      */
     @Test
     public void testForward() {
@@ -86,16 +87,33 @@ public class SoftmaxOutputLayerTest {
 
         instance.backward();
                 
-        Tensor result = instance.getDeltas(); //   [0.01052711, 0.08937729, 0.026437959, 0.060416743, 0.043582395, 0.08463131, 0.04119066, -0.084595, 0.022867741, -0.0038115513]
-        Tensor expResult = new Tensor(10); // [0.01052711  0.08937729  0.02643796   0.06041675   0.0435824    0.08463131  0.04119066  -0.084595  0.02286774   -0.00381155] from num py test
+        
+/* gradients = out_errors .* in'   
+   octave gradients =
+
+   0.004212712000   0.036987680000   0.010604945000   0.024532129000   0.017567812000   0.034893453000   0.016589892000  -0.034877524000   0.009166324000  -0.001524709000
+   0.008425424000   0.073975360000   0.021209890000   0.049064258000   0.035135624000   0.069786906000   0.033179784000  -0.069755048000   0.018332648000  -0.003049418000
+   0.012638136000   0.110963040000   0.031814835000   0.073596387000   0.052703436000   0.104680359000   0.049769676000  -0.104632572000   0.027498972000  -0.004574127000
+   0.016850848000   0.147950720000   0.042419780000   0.098128516000   0.070271248000   0.139573812000   0.066359568000  -0.139510096000   0.036665296000  -0.006098836000
+   0.021063560000   0.184938400000   0.053024725000   0.122660645000   0.087839060000   0.174467265000   0.082949460000  -0.174387620000   0.045831620000  -0.007623545000
+ */              
+        
+        Tensor result = instance.getDeltas();   // delta je ovde samo error 
+        Tensor expResult = new Tensor(10);
         expResult.setValues( 0.04212712f,  0.3698768f, 0.10604945f, 0.24532129f, 0.17567812f, 0.34893453f, 0.16589892f, -0.34877524f, 0.09166324f, -0.01524709f);
 
         assertArrayEquals(expResult.getValues(), result.getValues(), 1e-8f);        
         
-        Tensor deltaWeights = instance.getDeltaWeights();
+        Tensor deltaWeights = instance.getDeltaWeights();   // a ovde je negativni gradijent pomnozen sa learning rate
         Tensor expDeltaWeights = new Tensor(-0.000421271f,  -0.00369877f,  -0.00106049f,  -0.00245321f,  -0.00175678f,  -0.00348935f,  -0.00165899f,  0.00348775f,  -0.000916632f,  0.000152471f,  -0.000842543f,  -0.00739754f,  -0.00212099f,  -0.00490643f,  -0.00351356f,  -0.00697869f,  -0.00331798f,  0.00697551f,  -0.00183326f,  0.000304942f,  -0.00126381f,  -0.0110963f,  -0.00318148f,  -0.00735964f,  -0.00527034f,  -0.010468f,  -0.00497697f,  0.0104633f,  -0.0027499f,  0.000457413f,  -0.00168509f,  -0.0147951f,  -0.00424198f,  -0.00981285f,  -0.00702712f,  -0.0139574f,  -0.00663596f,  0.013951f,  -0.00366653f,  0.000609884f,  -0.00210636f,  -0.0184938f,  -0.00530247f,  -0.0122661f,  -0.00878391f,  -0.0174467f,  -0.00829495f,  0.0174388f,  -0.00458316f,  0.000762355f);
                 
         assertArrayEquals(expDeltaWeights.getValues(), deltaWeights.getValues(), 1e-7f);
+        
+        // test bias
+        float[] deltaBiases = instance.getDeltaBiases();
+        float[] expDeltaBiases = new float[] {  -0.00421271f,  -0.0369877f,  -0.0106049f,  -0.0245321f,  -0.0175678f,  -0.0348935f,  -0.0165899f,  0.0348775f,  -0.00916632f,  0.00152471f };       
+        assertArrayEquals(expDeltaBiases, deltaBiases, 1e-7f);           
+        
     }
     
 }

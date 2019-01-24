@@ -239,7 +239,7 @@ public class ImageSetUtils {
     * @throws java.io.IOException 
     */    
     public static File createImageIndex(String path, boolean useFullPath) throws IOException { // provide a path to train or text dir
-     
+        String subDir="images";
         File rootDir = new File(path);
         if (!rootDir.isDirectory()) throw new DeepNettsException("Specified path must be a directory: "+path);            
 
@@ -249,7 +249,7 @@ public class ImageSetUtils {
         String[] subDirs = rootDir.list();
 
         for(String classDirName : subDirs){ // these are the class directories            
-            File classDirFile = new File(path+"/"+classDirName);
+            File classDirFile = new File(path+"/"+classDirName+"/"+subDir);
              if (!classDirFile.isDirectory()) continue;
             String label = classDirName;
             // get label index from labels file
@@ -257,9 +257,9 @@ public class ImageSetUtils {
            String[] imageFiles = classDirFile.list();
            for(String imageFile : imageFiles) {
                if (useFullPath)
-                    pw.println(path + "/" + classDirName + "/"+imageFile + " " + label);                        
+                    pw.println(path + "/" + classDirName + "/"+subDir+ "/" +imageFile + " " + label);                        
                else 
-                   pw.println(classDirName + "/" + imageFile + " " + label);                        
+                   pw.println(classDirName + "/" +subDir+ "/"+ imageFile + " " + label);                        
            }
         }   
         

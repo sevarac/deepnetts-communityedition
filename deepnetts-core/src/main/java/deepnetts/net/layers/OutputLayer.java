@@ -185,7 +185,7 @@ public class OutputLayer extends AbstractLayer {
                 deltas.set(deltaCol, delta); 
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
                 deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
-            } // ... Cross entropy sa softmax je poseban layer
+            } // ... slucaj Cross entropy sa softmax je resen u SoftMaxLayer
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                final float grad = deltas.get(deltaCol) * inputs.get(inCol);
