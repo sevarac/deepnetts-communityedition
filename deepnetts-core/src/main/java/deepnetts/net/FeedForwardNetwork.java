@@ -23,7 +23,7 @@ package deepnetts.net;
 
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.layers.DenseLayer;
+import deepnetts.net.layers.FullyConnectedLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
 import deepnetts.net.layers.SoftmaxOutputLayer;
@@ -93,8 +93,8 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @param width layer width / number of neurons
          * @return builder instance
          */
-        public Builder addDenseLayer(int width) {
-            DenseLayer layer = new DenseLayer(width);
+        public Builder addFullyConnectedLayer(int width) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width);
             network.addLayer(layer);
             return this;
         }
@@ -109,8 +109,8 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @return builder instance
          * @see ActivationFunctions
          */
-        public Builder addDenseLayer(int width, ActivationType activation) {
-            DenseLayer layer = new DenseLayer(width, activation);
+        public Builder addFullyConnectedLayer(int width, ActivationType activation) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width, activation);
             network.addLayer(layer);
             return this;
         }

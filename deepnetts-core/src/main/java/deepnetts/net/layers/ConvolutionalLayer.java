@@ -233,7 +233,7 @@ public class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        if (nextLayer instanceof DenseLayer) { 
+        if (nextLayer instanceof FullyConnectedLayer) { 
             backwardFromFullyConnected();
         }
                     

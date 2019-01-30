@@ -40,7 +40,7 @@ import deepnetts.net.layers.activation.ActivationFunction;
  *
  * @author Zoran Sevarac
  */
-public final class DenseLayer extends AbstractLayer {
+public final class FullyConnectedLayer extends AbstractLayer {
 
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
@@ -50,7 +50,7 @@ public final class DenseLayer extends AbstractLayer {
      *
      * @param width layer width / number of neurons in this layer
      */
-    public DenseLayer(int width) {
+    public FullyConnectedLayer(int width) {
         this.width = width;
         this.height = 1;
         this.depth = 1;
@@ -66,7 +66,7 @@ public final class DenseLayer extends AbstractLayer {
      * @param activationFunction activation function to use with this layer
      * @see ActivationFunctions
      */
-    public DenseLayer(int width, ActivationType actType) {
+    public FullyConnectedLayer(int width, ActivationType actType) {
         this(width);
         this.activationType = actType;
         this.activation = ActivationFunction.create(actType);
@@ -84,7 +84,7 @@ public final class DenseLayer extends AbstractLayer {
         outputs = new Tensor(width);
         deltas = new Tensor(width);
 
-        if (prevLayer instanceof DenseLayer) { 
+        if (prevLayer instanceof FullyConnectedLayer) { 
             weights = new Tensor(prevLayer.width, width);
             deltaWeights = new Tensor(prevLayer.width, width);
             gradients = new Tensor(prevLayer.width, width);
@@ -108,7 +108,7 @@ public final class DenseLayer extends AbstractLayer {
 
     @Override
     public void forward() {
-        if (prevLayer instanceof DenseLayer) {
+        if (prevLayer instanceof FullyConnectedLayer) {
             outputs.copyFrom(biases);                                                       // first use (add) biases to all outputs
             // put gtters cols in fibal locals
             for (int outCol = 0; outCol < outputs.getCols(); outCol++) {                    // for all outputs in this layer
@@ -156,7 +156,7 @@ public final class DenseLayer extends AbstractLayer {
         } // end sum weighted deltas from next layer
 
         // STEP 2. calculate delta weights if previous layer is Dense (2D weights matrix) - optimize
-        if ((prevLayer instanceof DenseLayer)) {
+        if ((prevLayer instanceof FullyConnectedLayer)) {
 //            Optimizer opt = new SGDOptimizer(); // create instance in init method
 //            opt.optimize(this);
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // this iterates neurons (weights depth)

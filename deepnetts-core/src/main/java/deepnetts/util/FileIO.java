@@ -30,7 +30,7 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.ConvolutionalLayer;
-import deepnetts.net.layers.DenseLayer;
+import deepnetts.net.layers.FullyConnectedLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.LayerType;
 import deepnetts.net.layers.MaxPoolingLayer;
@@ -154,7 +154,7 @@ public class FileIO {
                 poolLayerJson.put("filterHeight", maxPooling.getFilterHeight());
                 poolLayerJson.put("stride", maxPooling.getStride());
                 layers.put(poolLayerJson);
-            } else if (layer instanceof DenseLayer) {
+            } else if (layer instanceof FullyConnectedLayer) {
                 JSONObject fullyConnLayerJson = new JSONObject();
                 fullyConnLayerJson.put("layerType", LayerType.DENSE);
                 fullyConnLayerJson.put("width", layer.getWidth());
@@ -270,7 +270,7 @@ public class FileIO {
                             String weights = layerObj.getString("weights");
                             allWeights.add(weights);
                          }
-                        builder.addDenseLayer(width, ActivationType.valueOf(activation));
+                        builder.addFullyConnectedLayer(width, ActivationType.valueOf(activation));
                 break;
                 case OUTPUT :
                         width = layerObj.getInt("width");
@@ -328,7 +328,7 @@ public class FileIO {
                             String weights = layerObj.getString("weights");
                             allWeights.add(weights);
                          }
-                        builder.addDenseLayer(width, ActivationType.valueOf(activation));
+                        builder.addFullyConnectedLayer(width, ActivationType.valueOf(activation));
                 break;
                 case OUTPUT :
                         width = layerObj.getInt("width");
