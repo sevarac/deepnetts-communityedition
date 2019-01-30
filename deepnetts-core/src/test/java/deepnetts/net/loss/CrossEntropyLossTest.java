@@ -12,11 +12,11 @@ import org.junit.Ignore;
 /**
  * KOpiraj delove binary ce i po uzoru na intermezzo i nndl
  * testiray u pythonu
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class CrossEntropyLossTest {
-    
+
     /**
      * Test of addPatternError method, of class CrossEntropyLoss.
      */
@@ -25,27 +25,27 @@ public class CrossEntropyLossTest {
         System.out.println("addPatternError");
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
-        
-        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
-              
-        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};        
-        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};        
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
+
+        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};
+        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};
+
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         float[] expResult = new float [] {0.1f, 0.2f, -0.3f};
-       
+
         assertArrayEquals(expResult, result, 1e-8f);
-              
+
         //  ln(0.7) = −0.356674944
         // -sum(ln(actualTargetY)) =  0.356674944
-        
+
         float expTotalError = 0.356674944f;
         float actualTotalError = instance.getTotal();
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-7f);
     }
 
@@ -57,47 +57,47 @@ public class CrossEntropyLossTest {
         System.out.println("getTotalError");
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
-        
-        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
-              
-        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};        
-        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};        
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
+
+        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};
+        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};
+
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         float[] expResult = new float [] {0.1f, 0.2f, -0.3f};
-       
+
         assertArrayEquals(expResult, result, 1e-8f);
-                      
+
         //  ln(0.7) = −0.356674944
-        // -sum(ln(actualTargetY)) =  0.356674944        
-        
+        // -sum(ln(actualTargetY)) =  0.356674944
+
         float expTotalError = 0.356674944f;
         float actualTotalError = instance.getTotal();
-        
-        assertEquals(expTotalError, actualTotalError, 1e-7f);
-        
-        actualOutput = new float[] {0.2f, 0.8f, 0.3f};       
-        targetOutput = new float[] {0.0f, 1.0f, 0.0f};   
 
-        result = instance.addPatternError(actualOutput, targetOutput);        
+        assertEquals(expTotalError, actualTotalError, 1e-7f);
+
+        actualOutput = new float[] {0.2f, 0.8f, 0.3f};
+        targetOutput = new float[] {0.0f, 1.0f, 0.0f};
+
+        result = instance.addPatternError(actualOutput, targetOutput);
         expResult = new float [] {0.2f, -0.2f, 0.3f};
-       
-        assertArrayEquals(expResult, result, 1e-7f);        
-         
-        // ln(0.8) = −0.223143551      
+
+        assertArrayEquals(expResult, result, 1e-7f);
+
+        // ln(0.8) = −0.223143551
         // -sum(ln(actualTargetY))
         // −0.356674944 + −0.223143551 = −0.579818495
         // total error = -sum/2
-        
+
         expTotalError = 0.289909248f; // -0.5 * ( -2.30259 + -1.20397 )
         actualTotalError = instance.getTotal();
-                      
-        assertEquals(expTotalError, actualTotalError, 1e-5f);        
-        
+
+        assertEquals(expTotalError, actualTotalError, 1e-5f);
+
     }
 
     /**
@@ -106,26 +106,26 @@ public class CrossEntropyLossTest {
     @Test
     public void testReset() {
         System.out.println("reset");
-        
+
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.SOFTMAX)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
-        
-        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
-       
-        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};        
-        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};  
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        CrossEntropyLoss instance = (CrossEntropyLoss)neuralNet.getLossFunction();
+
+        float[] actualOutput = new float[] {0.1f, 0.2f, 0.7f};
+        float[] targetOutput = new float[] {0.0f, 0.0f, 1.0f};
+
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         instance.reset();
-        
+
         float actualTotalError = instance.getTotal();
         float expTotalError = Float.NaN;
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-8f);
     }
-    
+
 }

@@ -43,12 +43,12 @@ import java.util.logging.Logger;
  *
  * GOALS:
  * at least 4 significant digits (and often many more)
- * 
- * 
+ *
+ *
  * relative error > 1e-2 usually means the gradient is probably wrong 1e-2 >
  * relative error > 1e-4 should make you feel uncomfortable 1e-4 > relative
  * error is usually okay for objectives with kinks. But if there are no kinks
- * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high. 
+ * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high.
  * 1e-7 and less you should be happy.
  *
  * h = 1e-4 or 1e-6 (ako je suvise mali uci cu u precision problem) relative err
@@ -73,7 +73,7 @@ public class IrisFeedForwardGradientChecker {
     private static FeedForwardNetwork createNetwork() {
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)           //
-                .addDenseLayer(3, ActivationType.SIGMOID)
+                .addFullyConnectedLayer(3, ActivationType.SIGMOID)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)

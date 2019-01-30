@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.net.layers;
 
 import deepnetts.util.DeepNettsThreadPool;
@@ -47,24 +47,24 @@ public final class MaxPoolingLayer extends AbstractLayer {
 
     /**
      * Filter step.
-     * 
+     *
      * Commonly used 2
      */
     final int stride;
-    
+
     /**
      * Max activation idxs.
-     * 
+     *
      * Remember idx of max output for each filter position. [channel][row][col][2]
      */
-    int maxIdx[][][][]; 
-    
-    private List<Callable<Void>> forwardTasks;
-       
+    int maxIdx[][][][];
+
+    private transient List<Callable<Void>> forwardTasks;
+
 
     /**
      * Creates a new max pooling layer with specified filter dimensions and stride.
-     * 
+     *
      * @param filterWidth width of the filter square
      * @param filterHeight height of the filter square
      * @param stride filter step
@@ -72,55 +72,55 @@ public final class MaxPoolingLayer extends AbstractLayer {
     public MaxPoolingLayer(int filterWidth, int filterHeight, int stride) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;
-        this.stride = stride;        
+        this.stride = stride;
     }
-         
+
     @Override
     final public void init() {
         // max pooling layer can be only after Convolutional Layer
         if (!(prevLayer instanceof ConvolutionalLayer)) throw new RuntimeException("Illegal network architecture! MaxPooling can be only after convolutional layer!");
-        
-        inputs = prevLayer.outputs;        
-        
+
+        inputs = prevLayer.outputs;
+
         width = (inputs.getCols() - filterWidth) / stride + 1; // ovo mora biti ceo broj strude veci od 2, 3 je suvise destruktivan
-        height = (inputs.getRows() - filterHeight) / stride + 1;                
-        depth = prevLayer.getDepth(); // depth of pooling layer is always same as in previous convolutional layer                       
-        
+        height = (inputs.getRows() - filterHeight) / stride + 1;
+        depth = prevLayer.getDepth(); // depth of pooling layer is always same as in previous convolutional layer
+
         outputs = new Tensor(height, width, depth);
         deltas = new Tensor(height, width,  depth);
-        
+
         // used in fprop to save idx position of max value
         maxIdx = new int[depth][height][width][2]; // svakoj poziciji filtera odgovara jedna [row, col] celija u outputu idx 0 je col, idx 1 je row
-        
-        
+
+
         forwardTasks = new ArrayList<>();
         float perChannel = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
         CyclicBarrier cb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
-        for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {            
+        for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
             ForwardCallable task = new ForwardCallable((int)perChannel * i, (int)perChannel * (i+1), cb);
             forwardTasks.add(task);
-        }  
-          
+        }
+
     }
-    
-    
+
+
     /**
      * Max pooling forward pass outputs the max value for each filter position.
      */
     @Override
-    public void forward() {          
+    public void forward() {
 //        try {
 //            DeepNettsThreadPool.getInstance().run(forwardTasks);
 //        } catch (InterruptedException ex) {
 //            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-           
+
 
         for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
             forwardChannel(ch);
         }
     }
-    
+
     private void forwardChannel(int ch) {
         float max; // max value
         int maxC = -1, maxR = -1;
@@ -131,7 +131,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
             outCol = 0; // reset col on every new row ???????
             for (int inCol = 0; inCol < inputs.getCols() - filterWidth + 1; inCol += stride) {
 
-                // apply max pool filter 
+                // apply max pool filter
                 max = inputs.get(inRow, inCol, ch);
                 maxC = inCol;
                 maxR = inRow;
@@ -146,14 +146,14 @@ public final class MaxPoolingLayer extends AbstractLayer {
                 }
 
                 // zapamti indexe neurona iz prethodnog lejera koji su propustili max (koristice se u bacward pass-u)
-                maxIdx[ch][outRow][outCol][0] = maxR; // height idx (row)                            
+                maxIdx[ch][outRow][outCol][0] = maxR; // height idx (row)
                 maxIdx[ch][outRow][outCol][1] = maxC; // width idx (col)
 
                 outputs.set(outRow, outCol, ch, max); // set max value as output
                 outCol++;   // increase output col by one for each input (stride) step
             } // scan col
             outRow++; // increase output row by one for each input (stride) step
-        } // scan row        
+        } // scan row
     }
 
     /**
@@ -169,17 +169,17 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        // propusti gresku iz sledeceg lejera daltu unazad samo za neurone koji su bili max (na osnovu zapamcenih pozicija)             
+        // propusti gresku iz sledeceg lejera daltu unazad samo za neurone koji su bili max (na osnovu zapamcenih pozicija)
         // kako su povezani max pooling i sledeci conv layer?  standardna konvolucija
         // prvo treba propagirati delte iz narednog lejera u ovaj lejer
         // zapravo ovde treba samo preneti weighted deltas unazad a u prethodnom konvolucionom sloju se vrsi selekcija u skladu sa max ulazom itd.
-                
-        if (nextLayer instanceof DenseLayer) {
-            backwardFromFullyConnected();                        
+
+        if (nextLayer instanceof FullyConnectedLayer) {
+            backwardFromFullyConnected();
         }
-        
+
         else if (nextLayer instanceof ConvolutionalLayer) {
-            // iterate all deltas  in next layer   
+            // iterate all deltas  in next layer
             final ConvolutionalLayer nextConvLayer = (ConvolutionalLayer)nextLayer;
             deltas.fill(0);
             final int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
@@ -211,14 +211,14 @@ public final class MaxPoolingLayer extends AbstractLayer {
                 }
             }
         }
-     
-        // we can also put zeros to all deltas that dont bellong to max outputs, and free prev convolutional layer to do that...        
+
+        // we can also put zeros to all deltas that dont bellong to max outputs, and free prev convolutional layer to do that...
     }
-    
+
     private void backwardFromFullyConnected() {
         deltas.fill(0);
 
-        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru      
+        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
             for (int row = 0; row < deltas.getRows(); row++) {
                 for (int col = 0; col < deltas.getCols(); col++) {
                     for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer iteriraj delte po sirini/kolonama posto je fully connected
@@ -230,7 +230,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
             }
         }
     }
-    
+
 
     /**
      * Does nothing for pooling layer since it does not have weights
@@ -255,26 +255,26 @@ public final class MaxPoolingLayer extends AbstractLayer {
 
         final int fromCh, toCh;
         CyclicBarrier cb;
-        
+
         public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
             this.fromCh= fromCh;
             this.toCh = toCh;
             this.cb=cb;
         }
-        
+
         @Override
         public Void call() throws Exception {
-            
-           for (int ch = fromCh; ch < toCh; ch++) {  
+
+           for (int ch = fromCh; ch < toCh; ch++) {
                forwardChannel(ch);
            }
-           
+
             cb.await();
             return null;
         }
-    }    
-    
-    
-    
-            
+    }
+
+
+
+
 }

@@ -38,28 +38,28 @@ public class DeepNettsRunner {
         // this should support .properties or json configuration
            // PropertiesConfiguration config = new  PropertiesConfiguration("training.properties");
             // load trainingSet properties and network architecture json, and then run that training
-              Configurations configs = new Configurations();  
+              Configurations configs = new Configurations();
               Configuration config = configs.properties(new File("training.properties"));
 
           //  Configuration config = configs.properties(new File(trainingPropFile));
-            
+
             int imageWidth = config.getInt(PROP_IMAGE_WIDTH);
             int imageHeight = config.getInt(PROP_IMAGE_HEIGHT);
             String labelsFile = config.getString(PROP_LABELS_FILE);
             String trainingFile = config.getString(PROP_TRAINING_FILE);
             float learningRate = config.getFloat(PROP_LEARNING_RATE);
             float maxError = config.getFloat(PROP_MAX_ERROR);
-            
-            // log all configuration settings 
+
+            // log all configuration settings
             // load network architecture configuration setting - json file
             // create network architecture from json
-            
+
             // print out / log all settings from properties file to make it clear
             LOGGER.info("Loading images...");
 
             ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
             imageSet.loadLabels(new File(labelsFile));
-            imageSet.loadImages(new File(trainingFile), true); // napomena - putanje bi trebalo da budu relativne inace moraju da se regenerisu 
+            imageSet.loadImages(new File(trainingFile), true); // napomena - putanje bi trebalo da budu relativne inace moraju da se regenerisu
 
             int labelsCount = imageSet.getLabelsCount();
 
@@ -67,15 +67,15 @@ public class DeepNettsRunner {
             LOGGER.info("Creating neural network...");
 
             // u originanom LeCun-ovom radu koristi se tanh funkcija
-            // create mnist architecture           
+            // create mnist architecture
             ConvolutionalNetwork convNet = ConvolutionalNetwork.builder()
                     .addInputLayer(imageWidth, imageHeight, 3)
                     .addConvolutionalLayer(5, 6)
                     .addMaxPoolingLayer(2, 2)
                     .addConvolutionalLayer(3, 3)
                     .addMaxPoolingLayer(2, 2)
-                    .addDenseLayer(30)
-                    .addDenseLayer(20)
+                    .addFullyConnectedLayer(30)
+                    .addFullyConnectedLayer(20)
                     .addOutputLayer(labelsCount, ActivationType.SOFTMAX) // softmax output // labelsCount
                     .lossFunction(LossType.CROSS_ENTROPY)
                     .randomSeed(123)
@@ -93,8 +93,8 @@ public class DeepNettsRunner {
             trainer.train(imageSet);
 
             // how/where to get neural net from training is several nnets are theresult
-//        ImageRecognizer imageRecognizer = new ImageRecognizer(convNet); // ConvolutionalImageRecognizer    
-//        ImageRecognitionResult results = imageRecognizer.recognize(image);     
+//        ImageRecognizer imageRecognizer = new ImageRecognizer(convNet); // ConvolutionalImageRecognizer
+//        ImageRecognitionResult results = imageRecognizer.recognize(image);
 //        imageRecognizer.test(someTestSet);
 
 

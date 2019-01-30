@@ -51,13 +51,12 @@ public class InputLayer extends AbstractLayer { // data Layer
     public InputLayer(int width, int height, int depth) {
         this.width = width;
         this.height = height;
-        this.depth = depth;  // number of input depth
+        this.depth = depth;  // number of input channels / depth
         init();
     }
 
     /**
-     * Creates an instance with specified width and height, with depth=1 (one
-     * channel)
+     * Creates an instance with specified width and height, with depth=1 (single channel).
      *
      * @param width layer width
      * @param height layer height

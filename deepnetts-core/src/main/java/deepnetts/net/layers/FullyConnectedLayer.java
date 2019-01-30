@@ -39,7 +39,7 @@ import deepnetts.net.train.opt.OptimizerType;
  *
  * @author Zoran Sevarac
  */
-public final class DenseLayer extends AbstractLayer {
+public final class FullyConnectedLayer extends AbstractLayer {
 
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
     
@@ -51,7 +51,7 @@ public final class DenseLayer extends AbstractLayer {
      *
      * @param width layer width / number of neurons in this layer
      */
-    public DenseLayer(int width) {
+    public FullyConnectedLayer(int width) {
         this.width = width;
         this.height = 1;
         this.depth = 1;
@@ -67,7 +67,7 @@ public final class DenseLayer extends AbstractLayer {
      * @param actType activation function to use with this layer
      * @see ActivationFunctions
      */
-    public DenseLayer(int width, ActivationType actType) {
+    public FullyConnectedLayer(int width, ActivationType actType) {
         this(width);
         setActivationType(actType);
     }
@@ -88,7 +88,7 @@ public final class DenseLayer extends AbstractLayer {
         deltas = new Tensor(width);
 
         // sta ako je input layer a nema vise dimenzija nego samo jednu?
-        if (prevLayer instanceof DenseLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovo ako je prethodni 1d layer, odnosno ako je prethodni fully connected
+        if (prevLayer instanceof FullyConnectedLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovo ako je prethodni 1d layer, odnosno ako je prethodni fully connected
             weights = new Tensor(prevLayer.width, width);
             deltaWeights = new Tensor(prevLayer.width, width); // dont store delta weighst but gradients? thas seem s betetr soltion
             gradients = new Tensor(prevLayer.width, width);
@@ -145,7 +145,7 @@ public final class DenseLayer extends AbstractLayer {
     @Override
     public void forward() {
         // pokusaj generalizacije da ima samo jednu granu bez obzira na dimenzije prethodnog lejera
-        if (prevLayer instanceof DenseLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovde bi rebalo or InputLayer u 2D
+        if (prevLayer instanceof FullyConnectedLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovde bi rebalo or InputLayer u 2D
             // vectorized implementation:
             // weighted sum of input and weight tensors with added biases
             // folowed by activation function applied to each output element
@@ -202,7 +202,7 @@ public final class DenseLayer extends AbstractLayer {
         } // end sum weighted deltas from next layer
 
         // STEP 2. calculate delta weights if previous layer is Dense (2D weights matrix) - optimize
-        if ((prevLayer instanceof DenseLayer) ||
+        if ((prevLayer instanceof FullyConnectedLayer) ||
             ((prevLayer instanceof InputLayer) && (prevLayer.height==1 && prevLayer.depth==1))   ) { // ili 1d Input Layer, dodati uslov
             
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // this iterates neurons (weights depth)

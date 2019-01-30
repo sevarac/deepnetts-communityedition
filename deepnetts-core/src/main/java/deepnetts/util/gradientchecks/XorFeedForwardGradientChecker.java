@@ -31,7 +31,7 @@ import deepnetts.net.loss.LossType;
 
 /**
  * Ovaj mi radi odlicno!!!
- * 
+ *
  *
  * http://ufldl.stanford.edu/wiki/index.php/Gradient_checking_and_advanced_optimization
  * http://ufldl.stanford.edu/tutorial/supervised/DebuggingGradientChecking/
@@ -41,12 +41,12 @@ import deepnetts.net.loss.LossType;
  *
  * GOALS:
  * at least 4 significant digits (and often many more)
- * 
- * 
+ *
+ *
  * relative error > 1e-2 usually means the gradient is probably wrong 1e-2 >
  * relative error > 1e-4 should make you feel uncomfortable 1e-4 > relative
  * error is usually okay for objectives with kinks. But if there are no kinks
- * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high. 
+ * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high.
  * 1e-7 and less you should be happy.
  *
  * h = 1e-4 or 1e-6 (ako je suvise mali uci cu u precision problem) relative err
@@ -71,8 +71,8 @@ public class XorFeedForwardGradientChecker {
 
     private static FeedForwardNetwork createNetwork() {
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(2)           
-                .addDenseLayer(2, ActivationType.TANH)
+                .addInputLayer(2)
+                .addFullyConnectedLayer(2, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .randomSeed(123)

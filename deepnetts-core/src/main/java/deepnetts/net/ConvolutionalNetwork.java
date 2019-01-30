@@ -24,7 +24,7 @@ package deepnetts.net;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.layers.ConvolutionalLayer;
-import deepnetts.net.layers.DenseLayer;
+import deepnetts.net.layers.FullyConnectedLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.MaxPoolingLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -86,7 +86,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
         }
 
         /**
-         * Input layer with specified width, height and number of channels.
+         * Input layer with specified width, height and number of channels (depth).
          *
          * @param width
          * @param height
@@ -101,8 +101,8 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        public Builder addDenseLayer(int width) {
-            DenseLayer layer = new DenseLayer(width);
+        public Builder addFullyConnectedLayer(int width) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width);
             neuralNet.addLayer(layer);
             return this;
         }
@@ -115,8 +115,8 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
          * @return current builder instance
          * @see ActivationType
          */
-        public Builder addDenseLayer(int width, ActivationType activationType) {
-            DenseLayer layer = new DenseLayer(width, activationType);
+        public Builder addFullyConnectedLayer(int width, ActivationType activationType) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width, activationType);
             neuralNet.addLayer(layer);
             return this;
         }
@@ -300,7 +300,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             if (layer instanceof ConvolutionalLayer) {
                 ((ConvolutionalLayer)layer).setFilters(weights.get(weightsIdx));
                 weightsIdx++;
-            } else if (layer instanceof DenseLayer || layer instanceof OutputLayer) {
+            } else if (layer instanceof FullyConnectedLayer || layer instanceof OutputLayer) {
                 layer.setWeights(weights.get(weightsIdx));
                 weightsIdx++;
             }

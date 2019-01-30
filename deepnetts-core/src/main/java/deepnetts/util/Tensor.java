@@ -427,7 +427,7 @@ public class Tensor implements Serializable {
     public final int getDimensions() {
         return dimensions;
     }
-    
+
     public final int size() {
         return values.length;
     }
@@ -436,23 +436,24 @@ public class Tensor implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("");
+        sb.append("[");
         for (int i = 0; i < values.length; i++) {
             sb.append(values[i]);
-            if (i < values.length - 1) {
+            if ( ((i+1) % cols == 0) && (i < values.length - 1)  ) {
+                sb.append("; ");
+            } else if (i < values.length - 1) {
                 sb.append(", ");
             }
         }
-        sb.append("");
+        sb.append("]");
 
-        // maybe use Arrays.toString(values)
         return sb.toString();
     }
 
     public final void add(final int idx, final float value) {
         values[idx] += value;
     }
-    
+
     /**
      * Adds specified value to matrix value at position x, y
      *
@@ -579,7 +580,7 @@ public class Tensor implements Serializable {
     public static final void copy(final float[] src, final float[] dest) {
         System.arraycopy(src, 0, dest, 0, src.length);
     }
-    
+
     public void apply(Function<Float, Float> f) {
         for(int i=0; i<values.length; i++) {
             values[i] = f.apply(values[i]);
@@ -711,8 +712,8 @@ public class Tensor implements Serializable {
                 values[r * cols + c] = RandomGenerator.getDefault().nextFloat();
             }
         }
-    }    
-    
+    }
+
 
 
 }

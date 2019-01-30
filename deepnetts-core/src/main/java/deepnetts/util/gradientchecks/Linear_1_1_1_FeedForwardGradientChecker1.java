@@ -48,12 +48,12 @@ import java.util.logging.Logger;
  *
  * GOALS:
  * at least 4 significant digits (and often many more)
- * 
- * 
+ *
+ *
  * relative error > 1e-2 usually means the gradient is probably wrong 1e-2 >
  * relative error > 1e-4 should make you feel uncomfortable 1e-4 > relative
  * error is usually okay for objectives with kinks. But if there are no kinks
- * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high. 
+ * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high.
  * 1e-7 and less you should be happy.
  *
  * h = 1e-4 or 1e-6 (ako je suvise mali uci cu u precision problem) relative err
@@ -102,7 +102,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
                 if (layer instanceof InputLayer) {
                     continue; // skip input layer
                 }
-                
+
                 int layerIdx = nnet.getLayers().indexOf(layer);
                 System.out.println("---- Layer " + layerIdx + "-----------------------------------------------------------------------------");
 
@@ -143,15 +143,15 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
 
                         // should we check biases too? why are lossPlusEps - lossMinusEps Nan
                         float numericGradient = (lossPlusEps - lossMinusEps) / (2 * EPSILON);
-                        
+
                         // relative error : http://cs231n.github.io/neural-networks-3/#gradcheck
-                        float relativeError = Math.abs(gradient - numericGradient) / Math.max(Math.abs(gradient), Math.abs(numericGradient)); // PROVERI OVO ZASTO je u brojiocu  max od ova dva 
+                        float relativeError = Math.abs(gradient - numericGradient) / Math.max(Math.abs(gradient), Math.abs(numericGradient)); // PROVERI OVO ZASTO je u brojiocu  max od ova dva
                         //float error = Math.abs(gradient - numericGradient); // absolute error
                         if (relativeError <= ERROR_THRESHOLD && gradient !=0 && numericGradient != 0) {
                             System.out.println("gradient:" + gradient + " numeric grad: " + numericGradient + " relative error:" + relativeError + " good");
                         } else if (gradient ==0 && numericGradient == 0) {
                             System.out.println("Both calculated and numeric gradients are equal zero");
-                        } 
+                        }
                         else {
                             System.out.println("At weight["+row+","+ col+"]" + " gradient:" + gradient + " numeric grad: " + numericGradient + " relative error:" + relativeError + " >>>>>>>>> not good!");
                             System.out.println("For input:" + dataSetItem.getInput());
@@ -159,7 +159,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
                     }
                 }
             }
-         
+
         }
     }
 
@@ -170,7 +170,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
     private FeedForwardNetwork createNetwork() {
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(1)           //
-                .addDenseLayer(1, ActivationType.LINEAR)
+                .addFullyConnectedLayer(1, ActivationType.LINEAR)
                 .addOutputLayer(1, ActivationType.LINEAR)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .randomSeed(123)

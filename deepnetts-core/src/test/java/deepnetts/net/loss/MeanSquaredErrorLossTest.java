@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class MeanSquaredErrorLossTest {
-    
+
     /**
      * Test of addPatternError method, of class MeanSquaredErrorLoss.
      * Test for a single error vector: calculation of error vector and total error
@@ -20,26 +20,26 @@ public class MeanSquaredErrorLossTest {
     public void testAddPatternError() {
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
                                         .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
-        
+
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();
-       
-        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};        
+
+        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};
         float[] targetOutput = new float[] {0.12f, 0.2f, 0.4f};
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         float[] expResult = new float [] {0.38f, 0.2f, -0.1f};
-       
+
         assertArrayEquals(expResult, result, 1e-8f);
-        
+
         float expTotalError = 0.0324f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / (2*3)
         float actualTotalError = instance.getTotal();
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-8f);
-        
+
     }
 
     /**
@@ -49,37 +49,37 @@ public class MeanSquaredErrorLossTest {
     public void testGetTotalError() {
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
                                         .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
-        
+
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();
-       
-        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};        
+
+        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};
         float[] targetOutput = new float[] {0.12f, 0.2f, 0.4f};
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         float[] expResult = new float [] {0.38f, 0.2f, -0.1f};
-       
+
         assertArrayEquals(expResult, result, 1e-8f);
 
         float expTotalError = 0.0324f; // (0.38*0.38 + 0.2*0.2 + −0.1 * −0.1) / 6
         float actualTotalError = instance.getTotal();
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-8f);
-        
-        actualOutput = new float[] {0.1f, 0.3f, 0.7f};        
+
+        actualOutput = new float[] {0.1f, 0.3f, 0.7f};
         targetOutput = new float[] {0.2f, 0.21f, 0.32f};
 
-        result = instance.addPatternError(actualOutput, targetOutput);        
+        result = instance.addPatternError(actualOutput, targetOutput);
         expResult = new float [] {-0.1f, 0.09f, 0.38f};
-        
+
         assertArrayEquals(expResult, result, 1e-7f);
-        
+
         expTotalError = 0.02974167f; // ( 0.0324f +  (-0.1*-0.1 + 0.09*0.09 + 0.38*0.38)/2 ) /6
         actualTotalError = instance.getTotal();
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-8f);
     }
 
@@ -91,24 +91,24 @@ public class MeanSquaredErrorLossTest {
 
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                         .addInputLayer(5)
-                                        .addDenseLayer(10)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(3, ActivationType.LINEAR)
                                         .lossFunction(LossType.MEAN_SQUARED_ERROR)
                                         .build();
-        
+
         MeanSquaredErrorLoss instance = (MeanSquaredErrorLoss)neuralNet.getLossFunction();
-       
-        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};        
+
+        float[] actualOutput = new float[] {0.5f, 0.4f, 0.3f};
         float[] targetOutput = new float[] {0.12f, 0.2f, 0.4f};
 
-        float[] result = instance.addPatternError(actualOutput, targetOutput);        
+        float[] result = instance.addPatternError(actualOutput, targetOutput);
         instance.reset();
-        
+
         float actualTotalError = instance.getTotal();
         float expTotalError = Float.NaN;
-        
+
         assertEquals(expTotalError, actualTotalError, 1e-8f);
-        
+
     }
-    
+
 }

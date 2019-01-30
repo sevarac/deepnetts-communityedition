@@ -23,7 +23,7 @@ package deepnetts.net;
 
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.layers.DenseLayer;
+import deepnetts.net.layers.FullyConnectedLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
 import deepnetts.net.layers.SoftmaxOutputLayer;
@@ -52,21 +52,21 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
         super();
         setTrainer(new BackpropagationTrainer(this));
     }
-       
-    
- /*   
+
+
+ /*
     public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
         builder().addInputLayer(layerWidths[0]);
 //        builder().addOutputLayer(0, activation)
         builder().withActivationFunction(activation);
-        builder().withLossFunction(loss);        
+        builder().withLossFunction(loss);
     }
 */
-    
+
     /**
      * Returns builder for Feed Forward Network
-     * @return 
-     */    
+     * @return
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -105,19 +105,19 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
          * @param width layer width / number of neurons
          * @return builder instance
          */
-        public Builder addDenseLayer(int width) {
-            DenseLayer layer = new DenseLayer(width);
+        public Builder addFullyConnectedLayer(int width) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width);
             network.addLayer(layer);
             return this;
         }
-        
-        public Builder addDenseLayers(int... widths) {
+
+        public Builder addFullyConnectedLayers(int... widths) {
             for(int width : widths) {
-                DenseLayer layer = new DenseLayer(width);
+                FullyConnectedLayer layer = new FullyConnectedLayer(width);
                 network.addLayer(layer);
             }
             return this;
-        }        
+        }
 
         /**
          * Adds fully connected addLayer with specified width and activation
@@ -129,25 +129,25 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
          * @return builder instance
          * @see ActivationFunctions
          */
-        public Builder addDenseLayer(int width, ActivationType activationType) {
-            DenseLayer layer = new DenseLayer(width, activationType);
+        public Builder addFullyConnectedLayer(int width, ActivationType activationType) {
+            FullyConnectedLayer layer = new FullyConnectedLayer(width, activationType);
             network.addLayer(layer);
             return this;
         }
 
-        public Builder addDenseLayers(ActivationType activationType, int... widths) {
+        public Builder addFullyConnectedLayers(ActivationType activationType, int... widths) {
             for(int width : widths) {
-                DenseLayer layer = new DenseLayer(width, activationType);
+                FullyConnectedLayer layer = new FullyConnectedLayer(width, activationType);
                 network.addLayer(layer);
             }
             return this;
-        }        
-                
+        }
+
         /**
          * Adds custom layer to this network (which inherits from AbstractLayer)
-         * 
+         *
          * @param layer
-         * @return 
+         * @return
          */
         public Builder addLayer(AbstractLayer layer) {
             network.addLayer(layer);
@@ -168,7 +168,7 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
             return this;
         }
 
-        
+
         // hidden activation function
         public Builder hiddenActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
