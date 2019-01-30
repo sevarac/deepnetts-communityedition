@@ -42,7 +42,7 @@ public class Regression {
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                     .addInputLayer(5)
-                                    .addDenseLayer(10, ActivationType.TANH)
+                                    .addFullyConnectedLayer(10, ActivationType.TANH)
                                     .addOutputLayer(1, ActivationType.LINEAR)
                                     .lossFunction(LossType.MEAN_SQUARED_ERROR)          
                                     .build();

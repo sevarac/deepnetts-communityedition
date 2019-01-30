@@ -1,21 +1,2 @@
-[ERROR] 2019-01-12 09:25:19.729 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
-[ERROR] 2019-01-12 09:39:08.451 [main] DeepNetts - Could not find labels file: D:\DeepNettsProjects\DeepNetts\deepnetts-examples\datasets\JavaOneSponsors2\labels.txt
-java.io.FileNotFoundException: datasets\JavaOneSponsors2\labels.txt (The system cannot find the path specified)
-	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
-	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
-	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
-	at deepnetts.examples.JavaOneSponsors.run(JavaOneSponsors.java:58) [classes/:?]
-	at deepnetts.examples.JavaOneSponsors.main(JavaOneSponsors.java:114) [classes/:?]
-[ERROR] 2019-01-12 09:39:08.533 [main] DeepNetts - deepnetts.util.DeepNettsException: Could not find labels file: D:\DeepNettsProjects\DeepNetts\deepnetts-examples\datasets\JavaOneSponsors2\labels.txt
-[ERROR] 2019-01-12 09:41:30.863 [main] DeepNetts - Could not find labels file: D:\datasets\datasets\JavaOneSponsors2\labels.txt
-java.io.FileNotFoundException: D:\datasets\datasets\JavaOneSponsors2\labels.txt (The system cannot find the path specified)
-	at java.io.FileInputStream.open0(Native Method) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.open(FileInputStream.java:195) ~[?:1.8.0_192-ea]
-	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[?:1.8.0_192-ea]
-	at java.io.FileReader.<init>(FileReader.java:72) ~[?:1.8.0_192-ea]
-	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:277) [classes/:?]
-	at deepnetts.examples.JavaOneSponsors.run(JavaOneSponsors.java:58) [classes/:?]
-	at deepnetts.examples.JavaOneSponsors.main(JavaOneSponsors.java:114) [classes/:?]
-[ERROR] 2019-01-12 09:41:30.870 [main] DeepNetts - deepnetts.util.DeepNettsException: Could not find labels file: D:\datasets\datasets\JavaOneSponsors2\labels.txt
+[ERROR] 2019-01-30 19:21:37.240 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
+[ERROR] 2019-01-30 19:21:37.266 [main] DeepNetts - deepnetts.util.DeepNettsException: Error loading image file: D:\datasets\JavaOneSponsors2\/home/zoran/datasets/JavaOneSponsors2/couchbase/couchbase_1_3.png

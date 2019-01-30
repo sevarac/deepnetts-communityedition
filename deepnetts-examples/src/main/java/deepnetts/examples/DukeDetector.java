@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.examples;
 
 import deepnetts.core.DeepNetts;
@@ -45,13 +45,13 @@ import org.apache.logging.log4j.Logger;
  */
 public class DukeDetector {
 
-     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());   
+     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int imageWidth = 64;
         int imageHeight = 64;
 
-        String trainingFile = "D:\\datasets\\DukeSet\\train.txt";        
+        String trainingFile = "D:\\datasets\\DukeSet\\train.txt";
         String labelsFile = "D:\\datasets\\DukeSet\\labels.txt";
 //        String labelsFile = "datasets/DukeSet/labels.txt";
 //        String trainingFile = "datasets/DukeSet/train.txt";
@@ -65,8 +65,10 @@ public class DukeDetector {
         imageSet.loadImages(new File(trainingFile), false);
         imageSet.zeroMean();
 
-        imageSet.invert();
+        //imageSet.invert();
         imageSet.shuffle();
+
+        ImageSet[] trainAndTestSet = imageSet.split(0.7, 0.3);
 
         LOGGER.info("Creating neural network...");
 
@@ -78,12 +80,13 @@ public class DukeDetector {
                 .addMaxPoolingLayer(2, 2, 2)
                 .addConvolutionalLayer(3, 3, 24, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
-                .addDenseLayer(30, ActivationType.TANH)
-                .addDenseLayer(20, ActivationType.TANH)
-                .addDenseLayer(10, ActivationType.TANH)
+                .addFullyConnectedLayer(30, ActivationType.TANH)
+                .addFullyConnectedLayer(20, ActivationType.TANH)
+                .addFullyConnectedLayer(10, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .build();
+
 
         convNet.setOutputLabels(imageSet.getOutputLabels());
 
@@ -95,19 +98,19 @@ public class DukeDetector {
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.MOMENTUM)
                .setMomentum(0.9f);
-        trainer.train(imageSet);
+        trainer.train(trainAndTestSet[0]);
 
         // to save neural network to file on disk
         FileIO.writeToFile(convNet, "DukeDetector.dnet");
 
         // to load neural network from file use FileIO.createFromFile
-        // dukeNet = FileIO.createFromFile("DukeDetector.dnet");  
-        // to serialize network in json use FileIO.toJson    
+        // dukeNet = FileIO.createFromFile("DukeDetector.dnet");
+        // to serialize network in json use FileIO.toJson
         // System.out.println(FileIO.toJson(dukeNet));
-        
+
         // to evaluate recognizer with image set
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, imageSet);
+        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, trainAndTestSet[1]);
         System.out.println(pm);
 
         // to use recognizer for single image

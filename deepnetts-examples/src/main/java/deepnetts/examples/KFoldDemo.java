@@ -25,7 +25,7 @@ public class KFoldDemo {
         
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                                             .addInputLayer(4)
-                                            .addDenseLayer(20, ActivationType.TANH)
+                                            .addFullyConnectedLayer(20, ActivationType.TANH)
                                             .addOutputLayer(3, ActivationType.SOFTMAX)
                                             .lossFunction(LossType.CROSS_ENTROPY)
                                             .randomSeed(123)

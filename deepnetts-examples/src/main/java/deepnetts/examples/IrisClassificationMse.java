@@ -49,7 +49,7 @@ public class IrisClassificationMse {
         // create multi layer perceptron with specified settings
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(8) // , ActivationType.SIGMOID
+                .addFullyConnectedLayer(8) // , ActivationType.SIGMOID
                 .addOutputLayer(3, ActivationType.SIGMOID)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .randomSeed(123)

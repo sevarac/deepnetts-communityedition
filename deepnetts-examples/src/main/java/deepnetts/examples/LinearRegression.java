@@ -52,7 +52,7 @@ public class LinearRegression {
             // create neural network using network specific builder
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(inputsNum)
-             //       .addDenseLayer(10, ActivationType.TANH)
+             //       .addFullyConnectedLayer(10, ActivationType.TANH)
                     .addOutputLayer(outputsNum, ActivationType.LINEAR)
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();

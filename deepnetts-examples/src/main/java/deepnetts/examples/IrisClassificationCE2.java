@@ -24,7 +24,6 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
-import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.Evaluators;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
@@ -33,9 +32,7 @@ import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,12 +55,12 @@ public class IrisClassificationCE2 {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(9, ActivationType.TANH)
+                .addFullyConnectedLayer(9, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123).
                 build();
-        
+
 //        neuralNet.train(dataSets[0]);
 
         // create and configure instanceof backpropagation trainer
@@ -76,7 +73,7 @@ public class IrisClassificationCE2 {
         trainer.setMaxEpochs(10000);
         trainer.train(dataSets[0], dataSets[1]);
 
-        
+
         PerformanceMeasure pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
         //ClassifierEvaluator evaluator = new ClassifierEvaluator();
         //PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);

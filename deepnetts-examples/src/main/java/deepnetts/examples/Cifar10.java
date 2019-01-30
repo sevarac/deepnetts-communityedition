@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.examples;
 
 import deepnetts.core.DeepNetts;
@@ -38,77 +38,77 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Cifar10 {
-            
+
     int imageWidth = 32;
     int imageHeight = 32;
-         
+
     //String labelsFile = "/home/zoran/datasets/cifar10/train/labels.txt";
-    String labelsFile = "D:\\datasets\\cifar10\\train\\labels.txt";
+    String labelsFile = "D:\\datasets\\cifar10\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
     //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\cifar10\\train\\train.txt";
-   // String testFile = "datasets/cifar10/test.txt";         
-    
-    static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());        
-        
+    String trainingFile = "D:\\datasets\\cifar10\\train.txt";
+   // String testFile = "datasets/cifar10/test.txt";
+
+    static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
+
     public void run() throws DeepNettsException, IOException {
         LOGGER.info("Loading images...");
-        ImageSet imageSet = new ImageSet(imageWidth, imageHeight);        
+        ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 1000);
+        imageSet.loadImages(new File(trainingFile), false, 2000);
 //        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
-            
+
         int labelsCount = imageSet.getLabelsCount();
-        
-        ImageSet[] imageSets = imageSet.split(0.6, 0.4);        
-                 
+
+        ImageSet[] imageSets = imageSet.split(0.6, 0.4);
+
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
-                                        .addInputLayer(imageWidth, imageHeight) 
+                                        .addInputLayer(imageWidth, imageHeight, 3)
                                         .addConvolutionalLayer(3, 3, 3)
-                                        .addMaxPoolingLayer(2, 2, 2)      
+                                        .addMaxPoolingLayer(2, 2, 2)
                                         .addConvolutionalLayer(3, 3, 12)
-                                        .addMaxPoolingLayer(2, 2, 2)       
+                                        .addMaxPoolingLayer(2, 2, 2)
 //                                        .addConvolutionalLayer(3, 3, 24)
-//                                        .addMaxPoolingLayer(2, 2, 2)                                    
-                                     //   .addDenseLayer(30)     
-                                        .addDenseLayer(20)     
-                                        .addDenseLayer(10)     
+//                                        .addMaxPoolingLayer(2, 2, 2)
+                                     //   .addFullyConnectedLayer(30)
+                                        .addFullyConnectedLayer(20)
+                                        .addFullyConnectedLayer(10)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .hiddenActivationFunction(ActivationType.TANH)
-                                        .lossFunction(LossType.CROSS_ENTROPY)                
+                                        .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
-           
-        LOGGER.info("Training neural network"); 
-         
+
+        LOGGER.info("Training neural network");
+
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.1f);
-        trainer.setMomentum(0.9f); 
-        trainer.setOptimizer(OptimizerType.SGD); 
-        trainer.train(imageSets[0]);       
-        
+        trainer.setMaxError(1.5f);
+        trainer.setMomentum(0.9f);
+        trainer.setOptimizer(OptimizerType.SGD);
+        trainer.train(imageSets[0]);
+
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, imageSets[1]);     
-        LOGGER.info("------------------------------------------------");                          
-        LOGGER.info("Classification performance measure"+System.lineSeparator());       
-        LOGGER.info("TOTAL AVERAGE");    
+        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, imageSets[1]);
+        LOGGER.info("------------------------------------------------");
+        LOGGER.info("Classification performance measure"+System.lineSeparator());
+        LOGGER.info("TOTAL AVERAGE");
         LOGGER.info(evaluator.getTotalAverage());
-        LOGGER.info("By Class");   
-        Map<String, PerformanceMeasure>  byClass = evaluator.getPerformanceByClass();          
-        byClass.entrySet().stream().forEach((entry) -> { 
+        LOGGER.info("By Class");
+        Map<String, PerformanceMeasure>  byClass = evaluator.getPerformanceByClass();
+        byClass.entrySet().stream().forEach((entry) -> {
                                         LOGGER.info("Class " + entry.getKey() + ":");
                                         LOGGER.info(entry.getValue());
                                         LOGGER.info("----------------");
-                                    });        
-        
+                                    });
+
     }
-        
-    public static void main(String[] args) throws DeepNettsException, IOException {                                
-            (new Cifar10()).run();                
+
+    public static void main(String[] args) throws DeepNettsException, IOException {
+            (new Cifar10()).run();
     }
 }

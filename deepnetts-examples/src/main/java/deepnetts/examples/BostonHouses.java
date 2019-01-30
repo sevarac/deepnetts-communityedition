@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -17,7 +17,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
- */    
+ */
 
 package deepnetts.examples;
 
@@ -30,43 +30,42 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.Tensor;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Minimal example for linear regression using FeedForwardNetwork.
  * Fits a straight line through the data.
  Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
  You can use linear regression to roughly estimate a global trend in data.
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BostonHouses {
-    
+
     public static void main(String[] args) throws IOException {
-              
-            int inputsNum = 1; 
+
+            int inputsNum = 1;
             int outputsNum = 1;
             String csvFilename = "datasets/bostonsredjen-2kolone.csv";
-                      
+
             // load and create data set from csv file
             DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum, true);
             DataSet[] dataSetParts = dataSet.split(0.6);
-            
+
             // create neural network using network specific builder
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(inputsNum)
                     .addOutputLayer(outputsNum, ActivationType.LINEAR)
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
-            
+
             neuralNet.train(dataSetParts[0]);
-            
+
             PerformanceMeasure pm = Evaluators.evaluateRegressor(neuralNet, dataSetParts[1]);
             System.out.println(pm);
-                   
+
             // perform prediction for some input value
             neuralNet.setInput(Tensor.create(1, 1, new float[] {0.2f}));
             System.out.println("Predicted price of the house is for 8 :" + neuralNet.getOutput()[0]*50);
     }
-    
+
 }

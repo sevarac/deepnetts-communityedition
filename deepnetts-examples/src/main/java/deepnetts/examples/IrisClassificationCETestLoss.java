@@ -58,7 +58,7 @@ public class IrisClassificationCETestLoss {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(16, ActivationType.TANH)
+                .addFullyConnectedLayer(16, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123).

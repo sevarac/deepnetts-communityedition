@@ -679,6 +679,10 @@ public class Tensor implements Serializable {
         return new Tensor(rows, cols, values);
     }
 
+    public static Tensor create(int rows, int cols, int depth, float[] values) {
+        return new Tensor(rows, cols, depth, values);
+    }
+
     /**
      * Returns sum of abs values of this tensor - L1 norm
      *

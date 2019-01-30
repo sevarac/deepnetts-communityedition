@@ -64,7 +64,7 @@ public class IrisClassificationMoreUserFriendlyAPI {
         // create multi layer perceptron with specified settings
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(inputsNum)   //  rename to inputs?
-                .addDenseLayer(8) // , ActivationType.SIGMOID by defaylt? or better yse Tanh or relu?
+                .addFullyConnectedLayer(8) // , ActivationType.SIGMOID by defaylt? or better yse Tanh or relu?
                 .addOutputLayer(outputsNum, ActivationType.SIGMOID) // rename to outputs?
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .build();

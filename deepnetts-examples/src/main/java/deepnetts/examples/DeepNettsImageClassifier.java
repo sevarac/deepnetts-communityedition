@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.examples;
 
 import deepnetts.data.ExampleImage;
@@ -35,7 +35,7 @@ import javax.visrec.ml.classification.Classifier;
 
 /**
  * Example how to create image classifier using ConvolutionalNetwork
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
@@ -44,7 +44,7 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
 
     public DeepNettsImageClassifier(ConvolutionalNetwork convNet) {
       //TODO: has to beable to specify model instance also
-       super(BufferedImage.class);
+      // super(BufferedImage.class);
     }
 
     /**
@@ -61,7 +61,7 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
         convNet.forward();
         float[] outputs = convNet.getOutput();
 
-        //     float max = outputs[0];       
+        //     float max = outputs[0];
 //       int maxIdx = 0;
         for (int i = 1; i < outputs.length; i++) {
 //           if (outputs[i] > max) {
@@ -73,26 +73,26 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
 
         return results;
     }
-    
+
     @Override
      public Map<String, Float> classify(File imageFile) throws IOException {
          BufferedImage image = ImageIO.read(imageFile);
          return classify(image);
      }
-    
-    
+
+
 
     // getTopKTags()
 //    @Override
 //    public List<RecognitionResult> recognize(BufferedImage image, int k) {
 //        List<RecognitionResult> results = new ArrayList<>();
-//        
+//
 //       convNet.setInput((new ExampleImage(image)).getInput());
 //       convNet.forward();
 //       float[] outputs = convNet.getOutput();
-//       
+//
 //       // iterate outputs and ket k highest with labels - kako naci top k vrednosti - prouci algoritam!!!
-//       float max = outputs[0];       
+//       float max = outputs[0];
 //       int maxIdx = 0;
 //       for(int i=1; i<outputs.length; i++) {
 //           if (outputs[i] > max) {
@@ -100,11 +100,11 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
 //               maxIdx = i;
 //           }
 //       }
-//             
+//
 //       RecognitionResult result = new RecognitionResult(convNet.getOutputLabel(maxIdx), max);
 //       results.add(result);
-//       
-//       return results;        
+//
+//       return results;
 //    }
 
     @Override

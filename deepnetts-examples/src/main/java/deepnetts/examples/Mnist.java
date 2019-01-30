@@ -83,7 +83,7 @@ public class Mnist {
                 .addMaxPoolingLayer(2, 2)
                 .addConvolutionalLayer(5, 3)
                 .addMaxPoolingLayer(2, 2)
-                .addDenseLayer(30)
+                .addFullyConnectedLayer(30)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)

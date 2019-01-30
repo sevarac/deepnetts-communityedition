@@ -84,7 +84,7 @@ public class LeNet {
                 .addConvolutionalLayer(5, 16)
                 .addMaxPoolingLayer(2, 2)
                 .addConvolutionalLayer(5, 120)
-                .addDenseLayer(84)
+                .addFullyConnectedLayer(84)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .hiddenActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)

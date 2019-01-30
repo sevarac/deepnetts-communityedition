@@ -66,8 +66,8 @@ public class Mnist1 {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 10000); //50000
-        imageSet.invert();
+        imageSet.loadImages(new File(trainingFile), false, 2000); //50000
+       // imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
 
@@ -78,11 +78,11 @@ public class Mnist1 {
 
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
-                .addInputLayer(imageWidth, imageHeight)
+                .addInputLayer(imageWidth, imageHeight, 3)
                 .addConvolutionalLayer(3, 3)
-                .addMaxPoolingLayer(2, 2)             
-                .addDenseLayer(30)
-                .addDenseLayer(20)
+                .addMaxPoolingLayer(2, 2)
+                .addFullyConnectedLayer(30)
+                .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
@@ -95,7 +95,7 @@ public class Mnist1 {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.9f)
-                .setMaxError(0.03f)
+                .setMaxError(0.3f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.MOMENTUM);
@@ -124,6 +124,6 @@ public class Mnist1 {
     public static void main(String[] args) throws IOException {
         (new Mnist1()).run();
     }
-    
-    
+
+
 }

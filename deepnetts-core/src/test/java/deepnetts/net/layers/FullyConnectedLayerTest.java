@@ -8,6 +8,7 @@ import deepnetts.util.Tensors;
 import deepnetts.util.WeightsInit;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  * Dense layer tests with various activation functions
@@ -569,26 +570,30 @@ public class FullyConnectedLayerTest {
 
     }
 
+    /**
+     * Double checked with octave 30.1.19.
+     */
     @Test
     public void testBackward2DInputSingleOutput() {
         // initialize weights with specified random seed
         RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
 
         // input vector for this layer  width:4, height:3
-        Tensor input = Tensors.random(5, 4);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375, 0.2532931, 0.57412946, 0.60880035, 0.2588815, 0.80586946, 0.6223695, 0.87541276, 0.5492985, 0.7160485, 0.16221565, 0.071917, 0.6818127, 0.79626095, 0.26765352, 0.57871693, 0.24259669]
+        Tensor input = Tensors.random(4, 5);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375; 0.2532931, 0.57412946, 0.60880035, 0.2588815; 0.80586946, 0.6223695, 0.87541276, 0.5492985; 0.7160485, 0.16221565, 0.071917, 0.6818127; 0.79626095, 0.26765352, 0.57871693, 0.24259669]
 
         // create prev fc layer with 5 outputs
         InputLayer inputLayer = new InputLayer(5, 4);
         inputLayer.setOutputs(input);
 
         // add convolutional layer here
-        ConvolutionalLayer convLayer = new ConvolutionalLayer(3, 3, 1);
-        convLayer.setPrevLayer(inputLayer);
-        convLayer.init();
+        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 1);
+        prevConvLayer.setPrevLayer(inputLayer);
+        prevConvLayer.setActivationType(ActivationType.LINEAR);
+        prevConvLayer.init();
 
         // create instance of layer to test
         FullyConnectedLayer instance = new FullyConnectedLayer(1, ActivationType.LINEAR);
-        instance.setPrevLayer(convLayer);
+        instance.setPrevLayer(prevConvLayer);
         instance.init(); // init weights structure
 
         // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
@@ -598,31 +603,282 @@ public class FullyConnectedLayerTest {
         instance.setWeights(weights); // set weight values
         instance.setBiases(new float[]{0.1f}); // set bias values
 
-        Tensor deltas = new Tensor(1);
-        deltas.setValues(0.04212712f);
-        instance.setDeltas(deltas);
-
-        FullyConnectedLayer nextLayer = new FullyConnectedLayer(1);
+        FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.init();
-
+        nextLayer.init();   // da li ovde da setujem deltas? nema potrebe testirano je u drugim. ali poznati deltas treba da bude setovan u instance
+        // ja ovde testiram da li de delte iz fc layera pravilno racuna gradijente i promene tezina za prethodni convoluvioni 2d layer
+        // bolje dasetujem delte u sledecem layeru pa da vidim da li ih
+        // posto testiram preko backward metod eprilagodi tako da radi sa tim
         // do the backward pass
+        // also set next weights
+        Tensor nextDeltas = new Tensor(1);
+        nextDeltas.setValues(0.04212712f);
+        Tensor nextWeights = new Tensor(1);
+        nextWeights.setValues(0.021f);
+        nextLayer.setDeltas(nextDeltas);
+        nextLayer.setWeights(nextWeights);
+
+        prevConvLayer.forward();
+        instance.forward(); // mora forward da bi povukao inpute
         instance.backward();
 
         // check gradients and deltaWeights
         // gradients = delta * inputs    - deltas broadcasted over inputs
-        Tensor actualGradients = instance.getGradients();
-        Tensor expectedGradients = Tensor.create(3, 3, new float[]{ });
+        Tensor actualGradients = instance.getGradients();   //
+        Tensor expectedGradients = Tensor.create(5, 4, new float[]{
+                                                -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
+                                                -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
+                                                -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
+                                                -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f });
 
         assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
 
-        //Tensor actualDeltaWeights = instance.getDeltaWeights();
-        //Tensor expectedDeltaWeights = Tensor.create(0, 0, null);
+        Tensor actualDeltaWeights = instance.getDeltaWeights();
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, new float[] {
+            0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
+            0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
+            0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
+            0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f
+        });
 
-     //   assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
+        assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
     }
 
+    /**
+     * Double checked with octave 30.1.19.
+     */
+   @Test
+    public void testBackward2DInputTwoOutputs() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(4, 5);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375; 0.2532931, 0.57412946, 0.60880035, 0.2588815; 0.80586946, 0.6223695, 0.87541276, 0.5492985; 0.7160485, 0.16221565, 0.071917, 0.6818127; 0.79626095, 0.26765352, 0.57871693, 0.24259669]
+
+        // create prev fc layer with 5 outputs
+        InputLayer inputLayer = new InputLayer(5, 4);
+        inputLayer.setOutputs(input);
+
+        // add convolutional layer here
+        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 1);
+        prevConvLayer.setPrevLayer(inputLayer);
+        prevConvLayer.setActivationType(ActivationType.LINEAR);
+        prevConvLayer.init();
+
+        // create instance of layer to test
+        FullyConnectedLayer instance = new FullyConnectedLayer(2, ActivationType.LINEAR);
+        instance.setPrevLayer(prevConvLayer);
+        instance.init(); // init weights structure
+
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(5, 4, 1, 2); // weights matrix
+        WeightsInit.uniform(weights.getValues(), 40); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
+
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f, 0.2f}); // set bias values
+
+        FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
+        nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+        nextLayer.init();
+
+        Tensor nextDeltas = new Tensor(1);
+        nextDeltas.setValues(0.04212712f);
+        nextLayer.setDeltas(nextDeltas);
+        Tensor nextWeights = new Tensor(1);
+        nextWeights.setValues(0.021f, 0.31f);
+        nextLayer.setWeights(nextWeights);
+
+        prevConvLayer.forward();
+        instance.forward(); // mora forward da bi povukao inpute
+        instance.backward();
+
+        // check gradients and deltaWeights
+        // gradients = delta * inputs    - deltas broadcasted over inputs
+        Tensor actualGradients = instance.getGradients();   //
+        Tensor expectedGradients = Tensor.create(5, 4, 2, new float[]{
+                                                -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
+                                                -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
+                                                -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
+                                                -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f,
+
+                                                -0.00135688f,  -0.00295837f,  -0.00317954f,   0.00154787f,
+                                                -0.00615053f,  -0.00683026f,  -0.00454205f,   0.00277573f,
+                                                -0.00269849f,  -0.00490297f,  -0.00442022f,   0.00097318f,
+                                                -0.00710020f,   0.00182728f,  -0.00510269f,   0.00390351f,
+                                                -0.00471567f,   0.00096109f,   0.00024498f,   0.00020527f});
+
+        assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
+
+        Tensor actualDeltaWeights = instance.getDeltaWeights();
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, 2, new float[] {
+            0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
+            0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
+            0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
+            0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f,
+
+            0.000135688f,   0.000295837f,   0.000317954f,  -0.000154787f,
+            0.000615053f,   0.000683026f,   0.000454205f,  -0.000277573f,
+            0.000269849f,   0.000490297f,   0.000442022f,  -0.000097318f,
+            0.000710020f,  -0.000182728f,   0.000510269f,  -0.000390351f,
+            0.000471567f,  -0.000096109f,  -0.000024498f,  -0.000020527f
+        });
+
+        assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
+    }
+
+   @Test
+    public void testBackward3DInputSingleOutput() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(4, 5);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375; 0.2532931, 0.57412946, 0.60880035, 0.2588815; 0.80586946, 0.6223695, 0.87541276, 0.5492985; 0.7160485, 0.16221565, 0.071917, 0.6818127; 0.79626095, 0.26765352, 0.57871693, 0.24259669]
+
+        // create prev fc layer with 5 outputs
+        InputLayer inputLayer = new InputLayer(5, 4);
+        inputLayer.setOutputs(input);
+
+        // add convolutional layer here
+        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 1);
+        prevConvLayer.setPrevLayer(inputLayer);
+        prevConvLayer.setActivationType(ActivationType.LINEAR);
+        prevConvLayer.init();
+
+        // create instance of layer to test
+        FullyConnectedLayer instance = new FullyConnectedLayer(1, ActivationType.LINEAR);
+        instance.setPrevLayer(prevConvLayer);
+        instance.init(); // init weights structure
+
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(5, 4, 1, 1); // weights matrix
+        WeightsInit.uniform(weights.getValues(), 20); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
+
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f}); // set bias values
+
+        FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
+        nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+        nextLayer.init();   // da li ovde da setujem deltas? nema potrebe testirano je u drugim. ali poznati deltas treba da bude setovan u instance
+        // ja ovde testiram da li de delte iz fc layera pravilno racuna gradijente i promene tezina za prethodni convoluvioni 2d layer
+        // bolje dasetujem delte u sledecem layeru pa da vidim da li ih
+        // posto testiram preko backward metod eprilagodi tako da radi sa tim
+        // do the backward pass
+        // also set next weights
+        Tensor nextDeltas = new Tensor(1);
+        nextDeltas.setValues(0.04212712f);
+        Tensor nextWeights = new Tensor(1);
+        nextWeights.setValues(0.021f);
+        nextLayer.setDeltas(nextDeltas);
+        nextLayer.setWeights(nextWeights);
+
+        prevConvLayer.forward();    // ovaj baca exception!!!
+        instance.forward(); // mora forward da bi povukao inpute
+        instance.backward();
+
+        // check gradients and deltaWeights
+        // gradients = delta * inputs    - deltas broadcasted over inputs
+        Tensor actualGradients = instance.getGradients();   //
+        Tensor expectedGradients = Tensor.create(5, 4, new float[]{
+                                                -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
+                                                -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
+                                                -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
+                                                -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f });
+
+        assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
+
+        Tensor actualDeltaWeights = instance.getDeltaWeights();
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, new float[] {
+            0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
+            0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
+            0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
+            0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f
+        });
+
+        assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
+    }
+
+    @Ignore
+    public void testBackward3DInputTwoOutputs() {
+        // initialize weights with specified random seed
+        RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
+
+        // input vector for this layer  width:4, height:3
+        Tensor input = Tensors.random(4, 5);    // random input matrix [0.72317415, 0.23724389, 0.99089885, 0.30157375; 0.2532931, 0.57412946, 0.60880035, 0.2588815; 0.80586946, 0.6223695, 0.87541276, 0.5492985; 0.7160485, 0.16221565, 0.071917, 0.6818127; 0.79626095, 0.26765352, 0.57871693, 0.24259669]
+
+        // create prev fc layer with 5 outputs
+        InputLayer inputLayer = new InputLayer(5, 4);
+        inputLayer.setOutputs(input);
+
+        // add convolutional layer here
+        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 2);
+        prevConvLayer.setPrevLayer(inputLayer);
+        prevConvLayer.setActivationType(ActivationType.LINEAR);
+        prevConvLayer.init();
+
+        // create instance of layer to test
+        FullyConnectedLayer instance = new FullyConnectedLayer(2, ActivationType.LINEAR);
+        instance.setPrevLayer(prevConvLayer);
+        instance.init(); // init weights structure
+
+        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(5, 4, 2, 2); // weights matrix
+        WeightsInit.uniform(weights.getValues(), 40); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
+
+        instance.setWeights(weights); // set weight values
+        instance.setBiases(new float[]{0.1f}); // set bias values
+
+        FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
+        nextLayer.setPrevLayer(instance);
+        instance.setNextlayer(nextLayer);
+        nextLayer.init();   // da li ovde da setujem deltas? nema potrebe testirano je u drugim. ali poznati deltas treba da bude setovan u instance
+        // ja ovde testiram da li de delte iz fc layera pravilno racuna gradijente i promene tezina za prethodni convoluvioni 2d layer
+        // bolje dasetujem delte u sledecem layeru pa da vidim da li ih
+        // posto testiram preko backward metod eprilagodi tako da radi sa tim
+        // do the backward pass
+        // also set next weights
+        Tensor nextDeltas = new Tensor(1);
+        nextDeltas.setValues(0.04212712f);
+        Tensor nextWeights = new Tensor(1);
+        nextWeights.setValues(0.021f);
+        nextLayer.setDeltas(nextDeltas);
+        nextLayer.setWeights(nextWeights);
+
+        prevConvLayer.forward();    // ovaj baca exception!!!
+        instance.forward(); // mora forward da bi povukao inpute
+        instance.backward();
+
+        // check gradients and deltaWeights
+        // gradients = delta * inputs    - deltas broadcasted over inputs
+        Tensor actualGradients = instance.getGradients();   //
+        Tensor expectedGradients = Tensor.create(5, 4,  new float[]{
+                                                -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
+                                                -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
+                                                -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
+                                                -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f });
+
+        assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
+
+        Tensor actualDeltaWeights = instance.getDeltaWeights();
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, new float[] {
+            0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
+            0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
+            0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
+            0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f
+        });
+
+        assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
+    }
 
     /**
      * Test of applyWeightChanges method, of class FullyConnectedLayer. in
