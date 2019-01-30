@@ -44,7 +44,7 @@ import org.apache.logging.log4j.Logger;
  * in train.txt file
  *
  * Mnist Overfit
- * 
+ *
  * @author Zoran Sevarac
  */
 public class Mnist1 {
@@ -83,12 +83,12 @@ public class Mnist1 {
                 .addInputLayer(imageWidth, imageHeight)
                 .addConvolutionalLayer(3, 3)
                 .addMaxPoolingLayer(2, 2)
-                .addDenseLayer(30)
-                .addDenseLayer(20)
+                .addFullyConnectedLayer(30)
+                .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .withActivationFunction(ActivationType.RELU)
-                .withLossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123)
+                .hiddenActivationFunction(ActivationType.RELU)
+                .lossFunction(LossType.CROSS_ENTROPY)
+                .randomSeed(123)
                 .build();
 
         LOGGER.info("Training neural network");

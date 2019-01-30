@@ -44,7 +44,7 @@ import org.apache.logging.log4j.Logger;
  * in train.txt file
  *
  * Mnist Train test set
- * 
+ *
  * @author Zoran Sevarac
  */
 public class MnistTrainTest {
@@ -85,11 +85,11 @@ public class MnistTrainTest {
                 .addMaxPoolingLayer(2, 2)
                 .addConvolutionalLayer(5, 3)
                 .addMaxPoolingLayer(2, 2)
-                .addDenseLayer(30)
+                .addFullyConnectedLayer(30)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .withActivationFunction(ActivationType.TANH)
-                .withLossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123)
+                .hiddenActivationFunction(ActivationType.TANH)
+                .lossFunction(LossType.CROSS_ENTROPY)
+                .randomSeed(123)
                 .build();
 
         LOGGER.info("Training neural network");

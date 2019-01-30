@@ -52,17 +52,17 @@ public class IrisClassificationCE2 {
         // load iris data  set
         DataSet dataSet = BasicDataSet.fromCSVFile(new File("datasets/iris_data_normalised.txt"), 4, 3, ",");
         dataSet.shuffle(); // do the shuffling inside the split method automaticaly! how to specify random seed for shuffling?
-        DataSet[] dataSets = dataSet.split(65, 35); 
+        DataSet[] dataSets = dataSet.split(65, 35);
         dataSet.shuffle();
-        
+
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator?
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(9, ActivationType.TANH)
+                .addFullyConnectedLayer(9, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
-                .withLossFunction(LossType.CROSS_ENTROPY)
+                .lossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123).
                 build();
 

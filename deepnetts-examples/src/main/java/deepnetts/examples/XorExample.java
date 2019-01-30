@@ -45,9 +45,9 @@ public class XorExample {
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(2)
-                .addDenseLayer(3, ActivationType.TANH)
+                .addFullyConnectedLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
-                .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .withRandomSeed(123)
                 .build();
 

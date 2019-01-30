@@ -49,9 +49,9 @@ public class IrisClassificationCE {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addDenseLayer(9, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
+                .addFullyConnectedLayer(9, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addOutputLayer(3, ActivationType.SOFTMAX)
-                .withLossFunction(LossType.CROSS_ENTROPY)
+                .lossFunction(LossType.CROSS_ENTROPY)
                 .withRandomSeed(123)
                 .build();
 

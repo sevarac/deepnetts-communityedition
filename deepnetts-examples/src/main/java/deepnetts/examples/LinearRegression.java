@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -17,7 +17,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
- */    
+ */
 
 package deepnetts.examples;
 
@@ -35,36 +35,36 @@ import java.io.IOException;
  * Fits a straight line through the data.
  * Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
  * You can use linear regression to roughly estimate a global trend in data.
- * 
+ *
  * TODO: dont print accuracy for regression problems!
- * 
+ *
  * predicting the total payment for all claims in thousands of Swedish Kronor, given the total number of claims.
- * 
+ *
  * @author Zoran Sevarac
  */
 public class LinearRegression {
-    
+
     public static void main(String[] args) throws IOException {
 
         String datasetFile = "datasets/SweedenAutoInsurance.csv";
         int inputsCount = 1;
         int outputsCount = 1;
         String delimiter = ",";
-        
+
         DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(1)
                 .addOutputLayer(1, ActivationType.LINEAR)
-                .withLossFunction(LossType.MEAN_SQUARED_ERROR)
+                .lossFunction(LossType.MEAN_SQUARED_ERROR)
                 .build();
 
         BackpropagationTrainer trainer = new BackpropagationTrainer();
         trainer.setMaxError(0.01f)
-               .setMaxEpochs(100)                
+               .setMaxEpochs(100)
                .setLearningRate(0.1f)
                .train(neuralNet, dataSet);
 
     }
-    
+
 }
