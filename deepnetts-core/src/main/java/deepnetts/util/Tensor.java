@@ -265,6 +265,28 @@ public class Tensor implements Serializable {
         this.values = new float[rows * cols * depth * fourthDim];
     }
 
+    public Tensor(int rows, int cols, int depth, int fourthDim, float[] values) {
+        if (rows < 0) {
+            throw new IllegalArgumentException("Number of rows cannot be negative: " + rows);
+        }
+        if (cols < 0) {
+            throw new IllegalArgumentException("Number of cols cannot be negative: " + cols);
+        }
+        if (depth < 0) {
+            throw new IllegalArgumentException("Depth cannot be negative: " + depth);
+        }
+        if (fourthDim < 0) {
+            throw new IllegalArgumentException("fourthDim cannot be negative: " + fourthDim);
+        }
+
+        this.rows = rows;
+        this.cols = cols;
+        this.depth = depth;
+        this.fourthDim = fourthDim;
+        this.dimensions = 4;
+        this.values = values;
+    }
+
     public Tensor(int rows, int cols, int depth, float[] values) {
         if (rows < 0) {
             throw new IllegalArgumentException("Number of rows cannot be negative: " + rows);
@@ -681,6 +703,10 @@ public class Tensor implements Serializable {
 
     public static Tensor create(int rows, int cols, int depth, float[] values) {
         return new Tensor(rows, cols, depth, values);
+    }
+
+    public static Tensor create(int rows, int cols, int depth, int fourthDim, float[] values) {
+        return new Tensor(rows, cols, depth, fourthDim, values);
     }
 
     /**

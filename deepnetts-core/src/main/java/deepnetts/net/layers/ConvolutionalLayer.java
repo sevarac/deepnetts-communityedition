@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
-import java.util.logging.Level;
 
 /**
  * This class implements convolutional layer. It performs convolution operation
@@ -90,7 +89,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
     private transient List<Callable<Void>> backwardTasks;
 
 
-    private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
+    private static final Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
     /**
      * Create a new instance of convolutional layer with specified filter.

@@ -166,26 +166,24 @@ Novi
     }
 
     /**
-     * Test of backward method, of class MaxPoolingLayer. propusti gresku iz
-     * sledeceg lejera daltu unazad samo za neurone koji su bili max (na osnovu
-     * zapamcenih pozicija)
+     * Doublechecked with octave 31.1.19.
      */
     @Test
-    public void testBackwardFromDenseToSingleChannel() {
+    public void testBackwardFromFullyConnectedToSingleChannel() {
         RandomGenerator.getDefault().initSeed(123);
-        InputLayer inputLayer = new InputLayer(6, 6, 1);
+        InputLayer inputLayer = new InputLayer(6, 6, 1);    //
         Tensor input = new Tensor(6, 6,
                 new float[]{0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
-                    -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
-                    -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
-                    0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
-                    0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
-                    0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f});
+                            -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
+                            -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
+                            0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
+                            0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
+                            0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f});
 
         Tensor filter = new Tensor(3, 3,
-                new float[]{0.1f, 0.2f, 0.3f,
-                    -0.11f, -0.2f, -0.3f,
-                    0.4f, 0.5f, 0.21f});
+                new float[]{ 0.1f, 0.2f, 0.3f,
+                            -0.11f, -0.2f, -0.3f,
+                             0.4f, 0.5f, 0.21f});
 
         // set biases to zero
         float[] biases = new float[]{0.0f};
@@ -216,11 +214,10 @@ Novi
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
-        nextLayer.init(); // init weights
+        nextLayer.init(); // init weights: [0.18075174, 0.5545214, 0.072818756; 0.31912476, -0.49894053, -0.6323205; 0.2685551, 0.4376064, -0.34319848; 0.11627263, -0.3802099, 0.60284144; 0.15107232, -0.5185875, -0.41857186; 0.7019462, -0.0617525, -0.64165723]
         nextLayer.setDeltas(new Tensor(0.1f, 0.2f));
         // poslednja dimenzija matrice tezina je 2 - koliko ima neurona u fc. - zasto je 3x3x1  X  2  (prev layer x fcCols)
-        /* test samo sa jednim neuronom u fc i delta 0.1, pomnozi sve tezine sa 0.1
-
+        /*
         weights sa dva neurona u fc:
             0.18075174, 0.5545214, 0.072818756,
             0.31912476, -0.49894053, -0.6323205,
@@ -229,24 +226,26 @@ Novi
             0.11627263, -0.3802099, 0.60284144,
             0.15107232, -0.5185875, -0.41857186,
             0.7019462, -0.0617525, -0.64165723
-
          */
 
         instance.backward();
-        Tensor actual = instance.getDeltas();
+        Tensor actualDeltas = instance.getDeltas();   // delte koje su propagirane sa fac lajera unazad na maxpooling, po principu svaki na sve
 
-        // sum delta * weight and transpose
+        // sum (delta * weight) and transpose
         // Test: 0.1 * 0.18075174 + 0.2 * 11627263 = 0.0413297 ...
-        Tensor expected = new Tensor(3, 3,
-                new float[]{0.0413297f, 0.062126942f, 0.16724476f,
-                           -0.020589843f, -0.15361156f, 0.03141014f,
-                            0.12785016f, -0.14694643f, -0.1626513f});
+        Tensor expectedDeltas = new Tensor(3, 3,
+                new float[]{ 0.0413297f,   0.062126940f,   0.167244750f,
+                            -0.02058984f,  -0.153611553f,   0.031410140f,
+                             0.127850164f,  -0.146946422f,  -0.162651294f  });
 
-        assertArrayEquals(actual.getValues(), expected.getValues(), 1e-8f);
+        assertArrayEquals(expectedDeltas.getValues(), actualDeltas.getValues(),  1e-7f);
     }
 
+    /**
+     * Doublechecked with octave 31.1.19.
+     */
     @Test
-    public void testBackwardMultiChannelFromFullyConnected() {
+    public void testBackwardFromFullyConnectedToMultiChannels() {
         RandomGenerator.getDefault().initSeed(123);
 
         InputLayer inputLayer = new InputLayer(6, 6, 1);
@@ -293,11 +292,10 @@ Novi
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
-        nextLayer.init(); // init weights
+        nextLayer.init(); // init weights: [0.0862301, -0.28197122, 0.44707918; 0.112038255, -0.38459483, -0.31042123; 0.5205773, -0.04579687, -0.47586578; -0.4501995, -0.4715696, -0.4138012; -0.44830847, -0.1773395, -0.08274263; 0.47323978, 0.41012484, 0.19486493; 0.08227211, -0.54566085, -0.11338204; -1.4930964E-4, -0.26475245, 0.52672565; -0.38034722, 0.3306117, -0.26243588; 0.31195676, -0.04197538, -0.5319252; -0.06671178, -0.29084632, -0.31613958; -0.025327086, 0.12511307, -0.3920598]
         nextLayer.setDeltas(new Tensor(0.1f, 0.2f));
         // poslednja dimenzija matrice tezina je 2 - koliko ima neurona u fc. - zasto je 3x3x1  X  2  (prev layer x fcCols)
-        /* test samo sa jednim neuronom u fc i delta 0.1, pomnozi sve tezine sa 0.1
-
+        /*
         weights sa dva neurona u fc:
             0.0862301, -0.28197122, 0.44707918,
             0.112038255, -0.38459483, -0.31042123,
@@ -314,26 +312,28 @@ Novi
             0.31195676, -0.04197538, -0.5319252,
             -0.06671178, -0.29084632, -0.31613958,
             -0.025327086, 0.12511307, -0.3920598
-
          */
 
         instance.backward();
         Tensor actual = instance.getDeltas();
 
-        // sum delta * weight and transpose
+        // sum (delta * weight) and transpose
         // Test: 0.1 * 0.0862301 + 0.2 * 0.08227211 =  0.025077432   +
         // Test: 0.1 * -0.28197122 + 0.2 * -0.54566085 = −0.137329292 +
         // Test: 0.1 * -0.4501995 + 0.2 * 0.31195676 = 0.017371402
         // Test: 0.1 * 0.19486493 + 0.2 * -0.3920598 = −0.05892546
 
-        Tensor expected = new Tensor(3, 3, 2,
-                new float[]{ 0.025077432f, 0.011173964f, -0.024011713f,
-                            -0.1373293f, -0.091409974f, 0.06154266f,
-                             0.022031512f, 0.07430301f, -0.100073755f,
 
-                             0.017371401f, -0.058173206f, 0.04225856f,
-                             -0.055552036f, -0.075903215f, 0.0660351f,
-                             -0.14776516f, -0.07150218f, -0.05892546f });
+        Tensor expected = new Tensor(3, 3, 2,
+                new float[]{ 0.025077432f,   0.011173964f,  -0.024011714f,
+                            -0.137329292f,  -0.091409973f,   0.061542653f,
+                             0.022031510f,   0.074303007f,  -0.100073754f,
+
+                             0.017371402f,  -0.058173203f,   0.042258561f,
+                            -0.055552036f,  -0.075903214f,   0.066035098f,
+                            -0.147765160f,  -0.071502179f,  -0.058925467f
+                });
+
 
         assertArrayEquals(actual.getValues(), expected.getValues(), 1e-8f);
     }

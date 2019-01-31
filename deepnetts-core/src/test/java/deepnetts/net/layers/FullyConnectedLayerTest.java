@@ -710,7 +710,8 @@ public class FullyConnectedLayerTest {
                                                 -0.00615053f,  -0.00683026f,  -0.00454205f,   0.00277573f,
                                                 -0.00269849f,  -0.00490297f,  -0.00442022f,   0.00097318f,
                                                 -0.00710020f,   0.00182728f,  -0.00510269f,   0.00390351f,
-                                                -0.00471567f,   0.00096109f,   0.00024498f,   0.00020527f});
+                                                -0.00471567f,   0.00096109f,   0.00024498f,   0.00020527f,
+        });
 
         assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
 
@@ -732,6 +733,9 @@ public class FullyConnectedLayerTest {
         assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
     }
 
+    /**
+     * Doublechecked with octave: 31.01.19.
+     */
    @Test
     public void testBackward3DInputSingleOutput() {
         // initialize weights with specified random seed
@@ -745,7 +749,7 @@ public class FullyConnectedLayerTest {
         inputLayer.setOutputs(input);
 
         // add convolutional layer here
-        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 1);
+        ConvolutionalLayer prevConvLayer = new ConvolutionalLayer(3, 3, 2);
         prevConvLayer.setPrevLayer(inputLayer);
         prevConvLayer.setActivationType(ActivationType.LINEAR);
         prevConvLayer.init();
@@ -755,9 +759,9 @@ public class FullyConnectedLayerTest {
         instance.setPrevLayer(prevConvLayer);
         instance.init(); // init weights structure
 
-        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
-        Tensor weights = new Tensor(5, 4, 1, 1); // weights matrix
-        WeightsInit.uniform(weights.getValues(), 20); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
+        // weights for fc layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        Tensor weights = new Tensor(5, 4, 2, 1); // weights matrix
+        WeightsInit.uniform(weights.getValues(), 40); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
 
         instance.setWeights(weights); // set weight values
         instance.setBiases(new float[]{0.1f}); // set bias values
@@ -765,12 +769,7 @@ public class FullyConnectedLayerTest {
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.init();   // da li ovde da setujem deltas? nema potrebe testirano je u drugim. ali poznati deltas treba da bude setovan u instance
-        // ja ovde testiram da li de delte iz fc layera pravilno racuna gradijente i promene tezina za prethodni convoluvioni 2d layer
-        // bolje dasetujem delte u sledecem layeru pa da vidim da li ih
-        // posto testiram preko backward metod eprilagodi tako da radi sa tim
-        // do the backward pass
-        // also set next weights
+        nextLayer.init();
         Tensor nextDeltas = new Tensor(1);
         nextDeltas.setValues(0.04212712f);
         Tensor nextWeights = new Tensor(1);
@@ -783,30 +782,46 @@ public class FullyConnectedLayerTest {
         instance.backward();
 
         // check gradients and deltaWeights
-        // gradients = delta * inputs    - deltas broadcasted over inputs
+        // gradients = delta * inputs    - deltas broadcasted over inputs u 2 dimenzije
         Tensor actualGradients = instance.getGradients();   //
-        Tensor expectedGradients = Tensor.create(5, 4, new float[]{
+        Tensor expectedGradients = Tensor.create(5, 4, 2, new float[]{
                                                 -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
                                                 -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
                                                 -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
                                                 -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
-                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f });
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f,
+
+                                                0.000078949f,  -0.000037082f,  -0.000053214f,   0.000081395f,
+                                                0.000244928f,  -0.000209157f,  -0.000011700f,  -0.000155940f,
+                                                0.000139534f,  -0.000059146f,  -0.000147893f,  -0.000142479f,
+                                               -0.000029750f,   0.000070834f,  -0.000288258f,  -0.000015608f,
+                                                0.000154841f,   0.000013807f,  -0.000234513f,  -0.000016571f
+    });
 
         assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
 
         Tensor actualDeltaWeights = instance.getDeltaWeights();
-        Tensor expectedDeltaWeights = Tensor.create(5, 4, new float[] {
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, 2, new float[] {
             0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
             0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
             0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
             0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
-            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f,
+
+            -0.0000078949f,   0.0000037082f,   0.0000053214f,  -0.0000081395f,
+            -0.0000244928f,   0.0000209157f,   0.0000011700f,   0.0000155940f,
+            -0.0000139534f,   0.0000059146f,   0.0000147893f,   0.0000142479f,
+             0.0000029750f,  -0.0000070834f,   0.0000288258f,   0.0000015608f,
+            -0.0000154841f,  -0.0000013807f,   0.0000234513f,   0.0000016571f
         });
 
         assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);
     }
 
-    @Ignore
+     /**
+     * Doublechecked with octave: 31.01.19.
+     */
+    @Test
     public void testBackward3DInputTwoOutputs() {
         // initialize weights with specified random seed
         RandomGenerator.getDefault().initSeed(123); // init random generator with seed that will be used for weights2 (same effect as line above)
@@ -829,26 +844,21 @@ public class FullyConnectedLayerTest {
         instance.setPrevLayer(prevConvLayer);
         instance.init(); // init weights structure
 
-        // weights for dense layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
+        // weights for fc layer: prevLayer.width, prevLayer.height, prevLayer.depth, width
         Tensor weights = new Tensor(5, 4, 2, 2); // weights matrix
-        WeightsInit.uniform(weights.getValues(), 40); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
+        WeightsInit.uniform(weights.getValues(), 80); // [-0.02413708, -0.25080326, -0.23727596, -0.24853897, -0.21809235, -0.2362793, -0.09346612, -0.043609187, 0.24941927, 0.21615475, 0.102702856, 0.043361217]
 
         instance.setWeights(weights); // set weight values
-        instance.setBiases(new float[]{0.1f}); // set bias values
+        instance.setBiases(new float[]{0.1f, 0.2f});
 
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(1, ActivationType.LINEAR);
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
-        nextLayer.init();   // da li ovde da setujem deltas? nema potrebe testirano je u drugim. ali poznati deltas treba da bude setovan u instance
-        // ja ovde testiram da li de delte iz fc layera pravilno racuna gradijente i promene tezina za prethodni convoluvioni 2d layer
-        // bolje dasetujem delte u sledecem layeru pa da vidim da li ih
-        // posto testiram preko backward metod eprilagodi tako da radi sa tim
-        // do the backward pass
-        // also set next weights
+        nextLayer.init();
         Tensor nextDeltas = new Tensor(1);
         nextDeltas.setValues(0.04212712f);
         Tensor nextWeights = new Tensor(1);
-        nextWeights.setValues(0.021f);
+        nextWeights.setValues(0.021f, 0.31f);
         nextLayer.setDeltas(nextDeltas);
         nextLayer.setWeights(nextWeights);
 
@@ -857,24 +867,61 @@ public class FullyConnectedLayerTest {
         instance.backward();
 
         // check gradients and deltaWeights
-        // gradients = delta * inputs    - deltas broadcasted over inputs
-        Tensor actualGradients = instance.getGradients();   //
-        Tensor expectedGradients = Tensor.create(5, 4,  new float[]{
+        // gradients = delta * inputs    - deltas broadcasted over inputs u 2 dimenzije
+      Tensor actualGradients = instance.getGradients();   //
+        Tensor expectedGradients = Tensor.create(5, 4, 2, 2, new float[]{
                                                 -0.000091918f,  -0.000200406f,  -0.000215388f,   0.000104856f,
                                                 -0.000416649f,  -0.000462695f,  -0.000307688f,   0.000188033f,
                                                 -0.000182801f,  -0.000332137f,  -0.000299434f,   0.000065925f,
                                                 -0.000480981f,   0.000123783f,  -0.000345666f,   0.000264431f,
-                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f });
+                                                -0.000319448f,   0.000065106f,   0.000016595f,   0.000013906f,
+
+                                                0.000078949f,  -0.000037082f,  -0.000053214f,   0.000081395f,
+                                                0.000244928f,  -0.000209157f,  -0.000011700f,  -0.000155940f,
+                                                0.000139534f,  -0.000059146f,  -0.000147893f,  -0.000142479f,
+                                               -0.000029750f,   0.000070834f,  -0.000288258f,  -0.000015608f,
+                                                0.000154841f,   0.000013807f,  -0.000234513f,  -0.000016571f,
+
+                                                -0.00135688f,  -0.00295837f,  -0.00317954f,   0.00154787f,
+                                                -0.00615053f,  -0.00683026f,  -0.00454205f,   0.00277573f,
+                                                -0.00269849f,  -0.00490297f,  -0.00442022f,   0.00097318f,
+                                                -0.00710020f,   0.00182728f,  -0.00510269f,   0.00390351f,
+                                                -0.00471567f,   0.00096109f,   0.00024498f,   0.00020527f,
+
+                                                 0.00116544f,  -0.00054740f,  -0.00078554f,   0.00120155f,
+                                                 0.00361560f,  -0.00308755f,  -0.00017272f,  -0.00230197f,
+                                                 0.00205979f,  -0.00087311f,  -0.00218318f,  -0.00210326f,
+                                                -0.00043917f,   0.00104564f,  -0.00425524f,  -0.00023040f,
+                                                 0.00228574f,   0.00020382f,  -0.00346185f,  -0.00024462f
+    });
 
         assertArrayEquals(actualGradients.getValues(), expectedGradients.getValues(), 1e-7f);
 
         Tensor actualDeltaWeights = instance.getDeltaWeights();
-        Tensor expectedDeltaWeights = Tensor.create(5, 4, new float[] {
+        Tensor expectedDeltaWeights = Tensor.create(5, 4, 2, 2, new float[] {
             0.0000091918f,   0.0000200406f,   0.0000215388f,  -0.0000104856f,
             0.0000416649f,   0.0000462695f,   0.0000307688f,  -0.0000188033f,
             0.0000182801f,   0.0000332137f,   0.0000299434f,  -0.0000065925f,
             0.0000480981f,  -0.0000123783f,   0.0000345666f,  -0.0000264431f,
-            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f
+            0.0000319448f,  -0.0000065106f,  -0.0000016595f,  -0.0000013906f,
+
+            -0.0000078949f,   0.0000037082f,   0.0000053214f,  -0.0000081395f,
+            -0.0000244928f,   0.0000209157f,   0.0000011700f,   0.0000155940f,
+            -0.0000139534f,   0.0000059146f,   0.0000147893f,   0.0000142479f,
+             0.0000029750f,  -0.0000070834f,   0.0000288258f,   0.0000015608f,
+            -0.0000154841f,  -0.0000013807f,   0.0000234513f,   0.0000016571f,
+
+            0.000135688f,   0.000295837f,   0.000317954f,  -0.000154787f,
+            0.000615053f,   0.000683026f,   0.000454205f,  -0.000277573f,
+            0.000269849f,   0.000490297f,   0.000442022f,  -0.000097318f,
+            0.000710020f,  -0.000182728f,   0.000510269f,  -0.000390351f,
+            0.000471567f,  -0.000096109f,  -0.000024498f,  -0.000020527f,
+
+           -0.000116544f,   0.000054740f,   0.000078554f,  -0.000120155f,
+           -0.000361560f,   0.000308755f,   0.000017272f,   0.000230197f,
+           -0.000205979f,   0.000087311f,   0.000218318f,   0.000210326f,
+            0.000043917f,  -0.000104564f,   0.000425524f,   0.000023040f,
+           -0.000228574f,  -0.000020382f,   0.000346185f,   0.000024462f
         });
 
         assertArrayEquals(actualDeltaWeights.getValues(), expectedDeltaWeights.getValues(), 1e-7f);

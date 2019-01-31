@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class represents Max Pooling layer in convolutional neural network.
@@ -216,9 +214,9 @@ public final class MaxPoolingLayer extends AbstractLayer {
     }
 
     private void backwardFromFullyConnected() {
-        deltas.fill(0);
+        deltas.fill(0); // reset deltas to zero befor propagating deltas from next layer
 
-        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
+        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru, moze multuthreaded
             for (int row = 0; row < deltas.getRows(); row++) {
                 for (int col = 0; col < deltas.getCols(); col++) {
                     for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer iteriraj delte po sirini/kolonama posto je fully connected
