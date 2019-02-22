@@ -32,6 +32,9 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
+import deepnetts.net.train.BackpropagationTrainer;
+import deepnetts.util.RandomGenerator;
+import deepnetts.util.Tensor;
 import deepnetts.util.WeightsInit;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
@@ -42,19 +45,38 @@ import java.util.logging.Logger;
  *
  * @author Zoran Sevarac
  */
-public class FeedForwardNetwork extends NeuralNetwork {
+public class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrainer> {
+
+    private Tensor inputTensor;
+
 
     /**
      * Private constructor allows instantiation only using builder
      */
     private FeedForwardNetwork() {
         super();
+        setTrainer(new BackpropagationTrainer(this));
+    }
+
+    public void setInput(float[] inputs) {
+        inputTensor.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!
+        setInput(inputTensor);
+    }
+
+    /**
+     * Predict output for the given input
+     * @param inputs
+     * @return
+     */
+    public float[] predict(float[] inputs) {
+        setInput(inputs);
+        return getOutput();
     }
 
     /**
      * Returns builder for Feed Forward Network
-     * @return 
-     */    
+     * @return
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -82,6 +104,7 @@ public class FeedForwardNetwork extends NeuralNetwork {
             InputLayer inLayer = new InputLayer(width);
             network.addLayer(inLayer);
             network.setInputLayer(inLayer);
+            network.inputTensor = new Tensor(width);
 
             return this;
         }
@@ -96,6 +119,13 @@ public class FeedForwardNetwork extends NeuralNetwork {
         public Builder addFullyConnectedLayer(int width) {
             FullyConnectedLayer layer = new FullyConnectedLayer(width);
             network.addLayer(layer);
+            return this;
+        }
+
+        public Builder addFullyConnectedLayers(int... widths) {
+            for(int width : widths)
+                addFullyConnectedLayer(width);
+
             return this;
         }
 
@@ -117,9 +147,9 @@ public class FeedForwardNetwork extends NeuralNetwork {
 
         /**
          * Adds custom layer to this network (which inherits from AbstractLayer)
-         * 
+         *
          * @param layer
-         * @return 
+         * @return
          */
         public Builder addLayer(AbstractLayer layer) {
             network.addLayer(layer);
@@ -174,7 +204,7 @@ public class FeedForwardNetwork extends NeuralNetwork {
             return this;
         }
 
-        public Builder withActivationFunction(ActivationType activationType) {
+        public Builder hiddenActivationFunction(ActivationType activationType) {
             this.defaultActivationType = activationType;
             setDefaultActivation = true;
             return this;
@@ -223,8 +253,8 @@ public class FeedForwardNetwork extends NeuralNetwork {
          * @param seed
          * @return
          */
-        public Builder withRandomSeed(long seed) {
-            WeightsInit.initSeed(seed);
+        public Builder randomSeed(long seed) {
+            RandomGenerator.getDefault().initSeed(seed);
             return this;
         }
 

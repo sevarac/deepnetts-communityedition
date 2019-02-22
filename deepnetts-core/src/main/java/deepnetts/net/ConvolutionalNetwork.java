@@ -34,6 +34,7 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
@@ -49,7 +50,7 @@ import java.util.logging.Logger;
  *
  * @author Zoran Sevarac
  */
-public class ConvolutionalNetwork extends NeuralNetwork implements Serializable {
+public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> implements Serializable {
 
     private ConvolutionalNetwork() {
         super();

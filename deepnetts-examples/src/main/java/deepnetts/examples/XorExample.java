@@ -48,17 +48,17 @@ public class XorExample {
                 .addFullyConnectedLayer(3, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.MEAN_SQUARED_ERROR)
-                .withRandomSeed(123)
+                .randomSeed(123)
                 .build();
 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.01f);
         trainer.setLearningRate(0.9f);
-        trainer.train(neuralNet, dataSet);
+        trainer.train(dataSet);
     }
 
     public static DataSet xorDataSet() {
-        DataSet dataSet = new BasicDataSet();
+        DataSet dataSet = new BasicDataSet(2, 1);
 
         DataSetItem item1 = new BasicDataSetItem(new float[]{0, 0}, new float[]{0});
         dataSet.add(item1);

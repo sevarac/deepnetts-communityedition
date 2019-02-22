@@ -61,7 +61,7 @@ import org.json.JSONObject;
 public class FileIO {
 
     public static final String NETWORK_FILE_EXT = "dnet";
-    
+
     /**
      * This class has only static utility methods so we don't need instances
      */
@@ -111,7 +111,7 @@ public class FileIO {
      * @param nnet
      * @return
      */
-    public static String  toJson(NeuralNetwork nnet) {
+    public static String  toJson(NeuralNetwork<?> nnet) {
         JSONObject json = new JSONObject();
         JSONArray layers = new JSONArray();
 

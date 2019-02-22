@@ -21,50 +21,60 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.DataSets;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
-import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
- * Minimal example for simple linear regression using FeedForwardNetwork.
+ * Minimal example for linear regression using FeedForwardNetwork.
  * Fits a straight line through the data.
- * Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
- * You can use linear regression to roughly estimate a global trend in data.
+ Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
+ You can use linear regression to roughly estimate a global trend in data.
  *
- * TODO: dont print accuracy for regression problems!
- *
- * predicting the total payment for all claims in thousands of Swedish Kronor, given the total number of claims.
- *
- * @author Zoran Sevarac
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class LinearRegression {
 
     public static void main(String[] args) throws IOException {
 
-        String datasetFile = "datasets/SweedenAutoInsurance.csv";
-        int inputsCount = 1;
-        int outputsCount = 1;
-        String delimiter = ",";
+            int inputsNum = 1;
+            int outputsNum = 1;
+            String csvFilename = "datasets/linear.csv";
 
-        DataSet dataSet = BasicDataSet.fromCSVFile(new File(datasetFile), inputsCount, outputsCount, delimiter);
+            // load and create data set from csv file
+            DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum);
 
-        FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(1)
-                .addOutputLayer(1, ActivationType.LINEAR)
-                .lossFunction(LossType.MEAN_SQUARED_ERROR)
-                .build();
+            // create neural network using network specific builder
+            FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
+                    .addInputLayer(inputsNum)
+                    .addOutputLayer(outputsNum, ActivationType.LINEAR)
+                    .lossFunction(LossType.MEAN_SQUARED_ERROR)
+                    .build();
 
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
-        trainer.setMaxError(0.01f)
-               .setMaxEpochs(100)
-               .setLearningRate(0.1f)
-               .train(neuralNet, dataSet);
+            BackpropagationTrainer trainer = neuralNet.getTrainer();
+            trainer.setMaxError(0.002f)
+                   .setMaxEpochs(10000)
+                   .setLearningRate(0.01f);
 
+            // train network using loaded data set
+            neuralNet.train(dataSet);
+            PerformanceMeasure pe = neuralNet.test(dataSet);
+            System.out.println(pe);
+
+            // print out learned model
+            float slope = neuralNet.getLayers().get(1).getWeights().get(0);
+            float intercept = neuralNet.getLayers().get(1).getBiases()[0];
+            System.out.println("Original function: y = 0.5 * x + 0.2");
+            System.out.println("Estimated/learned function: y = "+slope+" * x + "+intercept);
+
+            // perform prediction for some input value
+            float[] predictedOutput = neuralNet.predict(new float[] {0.2f});
+            System.out.println("Predicted output for 0.2 :" + Arrays.toString(predictedOutput));
     }
-
 }

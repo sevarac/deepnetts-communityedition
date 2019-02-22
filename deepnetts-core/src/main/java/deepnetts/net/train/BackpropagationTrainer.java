@@ -21,6 +21,7 @@
  */
 package deepnetts.net.train;
 
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.AbstractLayer;
@@ -35,6 +36,7 @@ import deepnetts.net.loss.LossFunction;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +50,7 @@ import org.apache.logging.log4j.LogManager;
  * @see ConvolutionalNetwork
  * @author Zoran Sevarac
  */
-public class BackpropagationTrainer {
+public class BackpropagationTrainer implements Trainer, Serializable {
 
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
@@ -96,13 +98,13 @@ public class BackpropagationTrainer {
      * Current training epoch
      */
     private int epoch;
-    
+
     /**
      * Value of loss function calculated on test set
      */
     private float testLoss=0, prevTestLoss=0;
-    
-    private float accuracy=0;    
+
+    private float accuracy=0;
 
     private float totalTrainingLoss;
 
@@ -111,32 +113,37 @@ public class BackpropagationTrainer {
      */
     private boolean shuffle = false;
 
-    private NeuralNetwork neuralNet;
-    
-    private DataSet<?> trainingSet;
-    private DataSet<?> testSet;
-    
+    private NeuralNetwork<?> neuralNet;
+
+    private transient DataSet<?> trainingSet;
+    private transient DataSet<?> validationSet;
+    //private DataSet<?> testSet;
+
     private LossFunction lossFunction;
-    
+
     /**
      * Use early stopping setting.
      */
     private boolean earlyStopping = false;
 
-    //regularization l1 or l2 add to loss 
+    //regularization l1 or l2 add to loss
     // flag to save network weights during training
-    private boolean saveTrainingWeights = false;    
+    private boolean saveTrainingWeights = false;
     // on how many epochs to save weights
-    private int saveTrainingWeightsEpochs = 5;    
+    private int saveTrainingWeightsEpochs = 5;
     private String saveTrainingWeightsPath = "";
-    
-    
+
+
     private final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
-    public BackpropagationTrainer() {
-
+    /**
+     * Creates and instance of Backpropagation Trainer for the specified neural network.
+     * @param neuralNet neural network to train using this instance of backpropagation algorithm
+     */
+    public BackpropagationTrainer(NeuralNetwork neuralNet) {
+        this.neuralNet = neuralNet;
     }
 
     public BackpropagationTrainer(Properties prop) {
@@ -149,13 +156,13 @@ public class BackpropagationTrainer {
         this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
         this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
-    
-        
-    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet, DataSet<?> testSet) {    
-        this.testSet = testSet;
-        train(neuralNet, trainingSet);
+
+
+    public void train(DataSet<?> trainingSet, DataSet<?> validationSet) {
+        this.validationSet = validationSet;
+        train(trainingSet);
     }
-    
+
     /**
      * This method does actual training procedure.
      *
@@ -165,11 +172,8 @@ public class BackpropagationTrainer {
      * @param neuralNet neural network to train
      * @param trainingSet training set data
      */
-    public void train(NeuralNetwork neuralNet, DataSet<?> trainingSet) {
+    public void train(DataSet<?> trainingSet) {
 
-        if (neuralNet == null) {
-            throw new IllegalArgumentException("Parameter neuralNet cannot be null!");
-        }
         if (trainingSet == null) {
             throw new IllegalArgumentException("Argument trainingSet cannot be null!");
         }
@@ -177,7 +181,6 @@ public class BackpropagationTrainer {
             throw new IllegalArgumentException("Training set cannot be empty!");
         }
 
-        this.neuralNet = neuralNet;
         this.trainingSet = trainingSet;
         neuralNet.setOutputLabels(trainingSet.getOutputLabels());
 
@@ -218,7 +221,7 @@ public class BackpropagationTrainer {
             testLoss=0;
             prevTotalLoss = 0;
             accuracy=0;
-            
+
             if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed
                 trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
             }
@@ -245,10 +248,10 @@ public class BackpropagationTrainer {
                     // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
                 }
                 fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED); // BATCH_FINISHED?
-                
+
                 if (stopTraining) break; // if training was stoped externaly by calling stop() method
             }
-            
+
             endEpoch = System.currentTimeMillis();
 
             //   batch weight update after entire data set - ako vrlicina dataseta nije deljiva sa batchSize - ostatak
@@ -260,16 +263,16 @@ public class BackpropagationTrainer {
 
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
             prevTotalLoss = totalTrainingLoss;
-            
+
             // TODO: how many iterations to test accuracy?
-            if (testSet != null) {
+            if (validationSet != null) {
                 prevTestLoss = testLoss;
-                testLoss = testLoss(testSet);
-                accuracy = testAccuracy(testSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
+                testLoss = testLoss(validationSet);
+                accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             } else {
                 accuracy = testAccuracy(this.trainingSet);
             }
-            
+
             epochTime = endEpoch - startEpoch;
 
             LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TestError:" + testLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy); // EpochTime:"+epochTime + "ms,
@@ -277,18 +280,18 @@ public class BackpropagationTrainer {
             // maybe to trigger this with event
             if (saveTrainingWeights && epoch % saveTrainingWeightsEpochs == 0) {
                 try {
-                    // specify save path somehow or use some temp folder? 
+                    // specify save path somehow or use some temp folder?
                     FileIO.writeToFile(neuralNet, saveTrainingWeightsPath + File.separatorChar + "NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
                 } catch (IOException ex) {
                     LOGGER.catching(ex); //log(Level.SEVERE, null, ex);
                 }
             }
 
-            
+
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
             if (earlyStopping && (testLoss > prevTestLoss)) stopTraining = true;    // basic eary stopping: stop as soon as you notice the test loss is growing. TODO: provide predicate for this
-            
+
             stopTraining = ((epoch == maxEpochs) || (totalTrainingLoss <= maxError)) || stopTraining;    // TODO: ovde dodati early stopping, ako test loss pocne da raste
 
         } while (!stopTraining); // or learning slowed, or overfitting, ...
@@ -357,12 +360,12 @@ public class BackpropagationTrainer {
 
     public void addListener(TrainingListener listener) {
         Objects.requireNonNull(listener, "Training listener cannot be null!");
-        
+
         if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
-    
+
     public void removeListener(TrainingListener listener) {
         listeners.remove(listener);
     }
@@ -424,11 +427,11 @@ public class BackpropagationTrainer {
     }
 
     public DataSet<?> getTestSet() {
-        return testSet;
+        return validationSet;
     }
 
-    public void setTestSet(DataSet<?> testSet) {
-        this.testSet = testSet;
+    public void setTestSet(DataSet<?> validationSet) {
+        this.validationSet = validationSet;
     }
 
     public boolean getEarlyStopping() {
@@ -438,11 +441,11 @@ public class BackpropagationTrainer {
     public void setEarlyStopping(boolean earlyStopping) {
         this.earlyStopping = earlyStopping;
     }
-    
+
     /**
      * Save weights during training on specified number of epochs
-     * 
-     * @param epochs 
+     *
+     * @param epochs
      */
     public void setSaveTrainingWeightsEpochs(int epochs) {
         if (epochs == 0) {
@@ -452,7 +455,7 @@ public class BackpropagationTrainer {
             this.saveTrainingWeightsEpochs = epochs;
         }
     }
-    
+
     public void setSaveTrainingWeightsPath(String path) {
         this.saveTrainingWeightsPath = path;
     }
@@ -464,14 +467,14 @@ public class BackpropagationTrainer {
     public int getSaveTrainingWeightsEpochs() {
         return saveTrainingWeightsEpochs;
     }
-    
-    
-    
+
+
+
     /**
      * Sets properties from available keys in specified prop object.
-     * 
-     * @param prop 
-     */    
+     *
+     * @param prop
+     */
     public void setProperties(Properties prop) {
         // iterate properties keys?use reflection to set them?
    //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
@@ -483,7 +486,7 @@ public class BackpropagationTrainer {
 //        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
 //        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
 //        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));        
+//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
 
     // property names
@@ -495,17 +498,17 @@ public class BackpropagationTrainer {
     public static final String PROP_BATCH_SIZE = "batchSize";      // for mini batch
     public static final String PROP_OPTIMIZER_TYPE = "optimizer";  // for mini batch
 
-    
+
     private float testLoss(DataSet<? extends DataSetItem> testSet) {
-        lossFunction.reset();             
+        lossFunction.reset();
         float testLoss = lossFunction.valueFor(neuralNet, testSet);
         return testLoss;
     }
 
-    
+
     Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
     // only for classification problems
-    private float testAccuracy(DataSet<? extends DataSetItem> testSet) {        
+    private float testAccuracy(DataSet<? extends DataSetItem> testSet) {
         PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, testSet);
         return pm.get(PerformanceMeasure.ACCURACY);
     }

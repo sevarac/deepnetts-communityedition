@@ -52,7 +52,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      */
     protected List<ITEM_TYPE> items;
 
-    private int inputs, outputs; // number of inputs and outputs
+    private int inputsNum, outputsNum; // number of inputs and outputs
 
     protected String[] columnNames; // - data set ce uvek biti importovan iz nekog fajla ili baze
 
@@ -62,14 +62,19 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     private String id;
 
     // TODO: constructor with vector dimensions annd capacity?
-    public BasicDataSet() {
+    protected BasicDataSet() {
         items = new ArrayList<>();
     }
 
-    public BasicDataSet(int inputs, int outputs) {
+    /**
+     * Create a new instance of BasicDataSet with specified length of input and output.
+     * @param inputsNum number of input features
+     * @param outputsNum number of output features
+     */
+    public BasicDataSet(int inputsNum, int outputsNum) {
         this();
-        this.inputs = inputs;
-        this.outputs = outputs;
+        this.inputsNum = inputsNum;
+        this.outputsNum = outputsNum;
     }
 
     @Override
@@ -167,7 +172,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
 
         return dataSet;
     }
-    
+
     public static DataSet fromCSVFile(String fileName, int inputCount, int outputCount, String delimiter) throws FileNotFoundException, IOException {
         return fromCSVFile(new File(fileName), inputCount, outputCount, delimiter);
     }
@@ -181,8 +186,8 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      */
     @Override
     public DataSet[] split(int parts) {
-        int partSize = (int) (100f / parts);
-        int[] partsArr = new int[parts];
+        double partSize = (Math.round((100d / parts)))/100d;
+        double[] partsArr = new double[parts];
         for (int i = 0; i < parts; i++) {
             partsArr[i] = partSize;
         }
@@ -196,34 +201,40 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * parts that will be returned. Part sizes are integer values that represent
      * percents, cannot be negative or zero, and their sum must be 100
      *
-     * @param partSizes sizes of the parts in percents
+     * @param parts sizes of the parts in percents
      * @return parts of the data set of specified size
      */
     @Override
-    public DataSet[] split(int... partSizes) {
-        if (partSizes.length < 2) {
-            throw new IllegalArgumentException("Must specify at least two parts");
+  public DataSet[] split(double... parts) {
+        if (parts.length < 1) {
+            throw new IllegalArgumentException("");
+        } else if (parts.length == 1) {
+            double[] newParts = new double[2];
+            newParts[0] = parts[0];
+            newParts[1] = 1 - parts[0];
+            parts = newParts;
         }
-        int partsSum = 0;
-        for (int i = 0; i < partSizes.length; i++) {
-            if (partSizes[i] <= 0) {
+
+        double partsSum = 0;
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i] <= 0) {
                 throw new IllegalArgumentException("Value of the part cannot be zero or negative!");
             }
-            partsSum += partSizes[i];
+            partsSum += parts[i];
         }
 
-        if (partsSum > 100) {
-            throw new IllegalArgumentException("Sum of parts cannot be larger than 100!");
+        if (partsSum > 1) { // a sta ako je int?
+            throw new IllegalArgumentException("Sum of parts cannot be larger than 1!");
         }
 
-        DataSet[] subSets = new BasicDataSet[partSizes.length];
+        DataSet[] subSets = new BasicDataSet[parts.length];
         int itemIdx = 0;
 
-        //this.shuffle(); // shuffle before splting, how to specify provide random seed?
-        for (int p = 0; p < partSizes.length; p++) {
-            DataSet subSet = new BasicDataSet(this.inputs, this.outputs);
+        this.shuffle(); // shuffle before splting, using global random seed
+        for (int p = 0; p < parts.length; p++) {
+            DataSet subSet = new BasicDataSet(this.inputsNum, this.outputsNum);
             subSet.setColumnNames(this.columnNames);
-            int itemsCount = (int) (size() * partSizes[p] / 100.0f);
+            int itemsCount = (int) (size() * parts[p]);
 
             for (int j = 0; j < itemsCount; j++) {
                 subSet.add(items.get(itemIdx));
@@ -268,9 +279,9 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
 
     @Override
     public String[] getOutputLabels() {
-        String[] outputLabels = new String[outputs];
-        for (int i = 0; i < outputs; i++) {
-            outputLabels[i] = columnNames[inputs + i];
+        String[] outputLabels = new String[outputsNum];
+        for (int i = 0; i < outputsNum; i++) {
+            outputLabels[i] = columnNames[outputsNum + i];
         }
 
         return outputLabels;

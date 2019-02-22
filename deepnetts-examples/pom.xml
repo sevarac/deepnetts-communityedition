@@ -19,28 +19,16 @@
             <artifactId>VisualRecognitionApi</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.5.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <name>deepnetts-examples</name>
-    <description>Run options for debugging inlining
-
--XX:+PrintCompilation
--XX:+UnlockDiagnosticVMOptions
--XX:+PrintInlining
--XX:MaxInlineSize=80
-
-
-----------------------------
-For JitWatch
-
--XX:+UnlockDiagnosticVMOptions
--XX:MaxInlineSize=80
--XX:+LogCompilation
--XX:+TraceClassLoading
--XX:+RangeCheckElimination
-
-</description>
 </project>

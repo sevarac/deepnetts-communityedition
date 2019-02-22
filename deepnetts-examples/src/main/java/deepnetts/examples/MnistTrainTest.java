@@ -25,7 +25,7 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.train.BackpropagationTrainer;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.PerformanceMeasure;
@@ -95,12 +95,12 @@ public class MnistTrainTest {
         LOGGER.info("Training neural network");
 
         // create a trainer and train network
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMaxError(0.02f);
 //                .setBatchMode(true)
 //                .setBatchSize(32);
-        trainer.train(neuralNet, imageSets[0], imageSets[1]);
+        trainer.train(imageSets[0], imageSets[1]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

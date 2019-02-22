@@ -30,7 +30,7 @@ import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
-import deepnetts.net.train.OptimizerType;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.File;
 import java.io.IOException;
@@ -63,18 +63,18 @@ public class IrisClassificationCE2 {
                 .addFullyConnectedLayer(9, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .withRandomSeed(123).
+                .randomSeed(123).
                 build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer();
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.03f);
         trainer.setLearningRate(0.1f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(neuralNet, dataSets[0]);
+        trainer.train(dataSets[0]);
 
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[1]);
