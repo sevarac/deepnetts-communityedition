@@ -29,9 +29,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 
 /**
- * This class represents Max Pooling layer in convolutional neural network.
- * This layer is downsizing output from prev layer by taking max outputs from small predefined filter areas
+ * This layer performs max pooling operation in convolutional neural network, which
+ * scales down output from previous layer by taking max outputs from small predefined filter areas.
  *
+ * @see ConvolutionalNetwork
  * @author Zoran Sevarac
  */
 public final class MaxPoolingLayer extends AbstractLayer {
@@ -199,15 +200,14 @@ public final class MaxPoolingLayer extends AbstractLayer {
                                         continue;
                                     }
 
-                                    // svaki filter propagira unazad svoju deltu, ne bi trebalo mesati delte iz razlicith kanala/filtera vec pre srednja vrednost ili sl?
                                     deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz));
-                                    /// ovde sam umesto ch stavio fz a gore ch iskomentarisao!!! tako treba, jos potvrdi
                                 }
                             }
                         }
                     }
                 }
             }
+//           deltas.div(9); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a
         }
 
         // we can also put zeros to all deltas that dont bellong to max outputs, and free prev convolutional layer to do that...

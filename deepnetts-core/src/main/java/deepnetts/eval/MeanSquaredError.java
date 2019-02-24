@@ -1,24 +1,40 @@
 package deepnetts.eval;
 
 /**
- * this is an evaluation metric not a loss function
- * @author Zoran
+ * This class calculates values used for evaluation metrics for regression problems.
+ *
+ * @author Zoran Sevarac
  */
 public class MeanSquaredError {
-    
-    private float totalSum;
+
+    private float squaredSum;
     private int patternCount;
-    
+
     public void add(float[] predicted, float[] target) {
         for(int i=0; i<predicted.length; i++)
-            totalSum += Math.pow((predicted[i] - target[i]), 2);
-        
+            squaredSum += Math.pow((predicted[i] - target[i]), 2);
+
         patternCount++;
     }
-    
-    
-    public float getTotal() {
-        return totalSum / patternCount;
+
+    /**
+     * Returns squared error sum (RSS, or residual square sum)
+     * @return
+     */
+    public float getSquaredSum() {
+        return squaredSum;
     }
-    
+
+    /**
+     * Returns mean squared error
+     * @return
+     */
+    public float getMeanSquaredSum() {
+        return squaredSum / patternCount;
+    }
+
+    public float getRootMeanSquaredSum() {
+        return (float)Math.sqrt(squaredSum / patternCount);
+    }
+
 }

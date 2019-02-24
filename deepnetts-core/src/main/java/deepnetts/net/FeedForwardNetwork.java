@@ -33,17 +33,18 @@ import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
 import deepnetts.net.train.BackpropagationTrainer;
-import deepnetts.util.WeightsInit;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import deepnetts.util.RandomGenerator;
+import deepnetts.util.Tensor;
 
 /**
  * Feed forward neural network architecture, also known as Multi Layer Perceptron.
+ * Consists of a sequence of layers trained by Backpropagation algorithm.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrainer> {
+
+    private Tensor inputTensor;
 
     /**
      * Private constructor allows instantiation only using builder
@@ -53,6 +54,20 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
         setTrainer(new BackpropagationTrainer(this));
     }
 
+    public void setInput(float[] inputs) {
+        inputTensor.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!
+        setInput(inputTensor);
+    }
+
+    /**
+     * Predict output for the given input
+     * @param inputs
+     * @return
+     */
+    public float[] predict(float[] inputs) {
+        setInput(inputs);
+        return getOutput();
+    }
 
  /*
     public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
@@ -94,6 +109,7 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
             InputLayer inLayer = new InputLayer(width);
             network.addLayer(inLayer);
             network.setInputLayer(inLayer);
+            network.inputTensor = new Tensor(width);
 
             return this;
         }
@@ -220,7 +236,7 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
          * @return
          */
         public Builder randomSeed(long seed) {
-            WeightsInit.initSeed(seed);
+            RandomGenerator.getDefault().initSeed(seed);
             return this;
         }
 

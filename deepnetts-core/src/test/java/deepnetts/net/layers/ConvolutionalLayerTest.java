@@ -24,6 +24,7 @@ public class ConvolutionalLayerTest {
      * [4, 4]: 0.53 * -0.2 + 0.17 * -0.11 + 0.1 * 0.43 + 0.34 * 0.2  = −0.0137
      * [2, 2]: -0.6 * 0.1 + 0.51 *0.2 + 0.23 * 0.3 + -0.11 * 0.61 + -0.2 * -0.15 + -0.3 * 0.47 + 0.4 *0.72 + 0.61 * 0.5  + 0.43 * 0.21 = 0.6162
      *
+     * Doublechecked with octave: 31.1.19.
      */
     @Test
     public void testForwardSingleOutputChannelSingleFilter() {

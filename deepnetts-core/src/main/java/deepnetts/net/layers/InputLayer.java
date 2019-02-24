@@ -24,29 +24,20 @@ package deepnetts.net.layers;
 import deepnetts.util.Tensor;
 
 /**
- * Input layer for convolutional network
- *
- * TODO: move padding to next layer!!!
+ * Input layer in neural network, which accepts external input, and sends it to next layer in a network.
+ * It is always the first layer in the network. Input can be 1D, 2D or 3D vectors/tensors of float values.
  *
  * @author Zoran Sevarac
  */
-public class InputLayer extends AbstractLayer { // data Layer
-
-    /**
-     * Padding parameter specifies empty border around image. Set from padding
-     * parameter from the following Convolutional layer
-     *
-     * @see initInNetwork#init method
-     */
-    private int padding = 0; // mozda je bolje da se ovde odmah navode dimenzije sa paddingom ??? ovo je malo nabudzeno???
+public class InputLayer extends AbstractLayer {
 
     /**
      * Creates input layer with specified width, height, and depth (number of
-     * depth)
+     * channels).
      *
      * @param width layer width
      * @param height layer height
-     * @param depth layer depth (number of input depth)
+     * @param depth layer depth (number of input channels)
      */
     public InputLayer(int width, int height, int depth) {
         this.width = width;
@@ -56,7 +47,7 @@ public class InputLayer extends AbstractLayer { // data Layer
     }
 
     /**
-     * Creates an instance with specified width and height, with depth=1 (single channel).
+     * Creates input layer with specified width and height, with depth=1 (single channel).
      *
      * @param width layer width
      * @param height layer height
@@ -69,8 +60,7 @@ public class InputLayer extends AbstractLayer { // data Layer
     }
 
     /**
-     * Creates an instance with specified width with height and depth 1. It
-     * would probably make more sense that a single dimension is depth.
+     * Creates input layer with specified width, and with height and depth equals to one.
      *
      * @param width layer width
      */
@@ -86,8 +76,8 @@ public class InputLayer extends AbstractLayer { // data Layer
      */
     @Override
     public final void init() {
-        inputs = new Tensor(height, width, depth); // po ovome vidis da redosled nije dobar, nema smisla trebalo bi depth, height, width za column first
-        outputs = inputs;  // for input layer outputs are pointing to the same matrix as inputs
+        inputs = new Tensor(height, width, depth);
+        outputs = inputs;  // for input layer outputs are pointing to the same tensor as inputs
     }
 
     /**

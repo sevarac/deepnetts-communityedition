@@ -36,13 +36,19 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 
 /**
- * This class implements convolutional layer. It performs convolution operation
- on outputs of previous layer using filters
-
- Layer parameters: Filter width, height Number of depth / depth, stride
- padding Stride defaults to 1
+ * Convolutional layer performs image convolution operation on outputs of a
+ * previous layer using filters. This filtering operation is similar like applying
+ * image filters in photoshop, but this filters can also be trained to learn
+ * image features of interest.
  *
- * @author zoran
+ * Layer include parameters:
+ * filter's width, heigh
+ * Number of filters / depth
+ * Step when applying filters : stride
+ * Padding, which is an image border to keep the size of image and avoid information loss
+ * padding Stride defaults to 1
+ *
+ * @author Zoran Sevarac
  */
 public final class ConvolutionalLayer extends AbstractLayer {
 

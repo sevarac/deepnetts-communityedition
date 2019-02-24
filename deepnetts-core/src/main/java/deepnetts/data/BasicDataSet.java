@@ -41,7 +41,7 @@ import java.util.Random;
  * TODO: make this class thread safe
  *
  * add a builder using .builder()   so you can build complex data set import from csv, specif columns names and stuff
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <ITEM_TYPE>
  */
@@ -52,7 +52,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      */
     protected List<ITEM_TYPE> items;
 
-    private int inputs, outputs; // number of inputs and outputs
+    private int inputsNum, outputsNum; // number of inputs and outputs
 
     protected String[] columnNames; // - data set ce uvek biti importovan iz nekog fajla ili baze
 
@@ -62,14 +62,19 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     private String id;
 
     // TODO: constructor with vector dimensions annd capacity?
-    public BasicDataSet() {
+    protected BasicDataSet() {
         items = new ArrayList<>();
     }
 
+    /**
+     * Create a new instance of BasicDataSet with specified length of input and output.
+     * @param inputsNum number of input features
+     * @param outputsNum number of output features
+     */
     public BasicDataSet(int inputs, int outputs) {
         this();
-        this.inputs = inputs;
-        this.outputs = outputs;
+        this.inputsNum = inputs;
+        this.outputsNum = outputs;
     }
 
     @Override
@@ -103,13 +108,13 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     }
 
     public int getInputsNum() {
-        return inputs;
+        return inputsNum;
     }
 
     public int getOutputsNum() {
-        return outputs;
+        return outputsNum;
     }
-    
+
     public List<ITEM_TYPE> getItems() {
         return Collections.unmodifiableList(items);
     }
@@ -122,102 +127,16 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
         this.id = id;
     }
 
-    /**
-     * Creates and returns data set from specified CSV file. Empty lines are
-     * skipped
-     *
-     * @param csvFile CSV file
-     * @param inputsNum number of input values in a row
-     * @param outputsNum number of output values in a row
-     * @param delimiter delimiter used to separate values
-     * @return instance of data set with values loaded from file
-     *
-     * @throws FileNotFoundException if file was not found
-     * @throws IOException if there was an error reading file
-     *
-     * TODO: Detect if there are labels in the first line, if there are no
-     * labels, set class1, class2, class3 in classifier evaluation! and detect
-     * type of attributes Move this method to some factory class or something?
-     * or as a default method in data set?
-     * 
-     *  TODO: should I wrap IO with DeepNetts Exception?
-     */
-    public static BasicDataSet fromCsv(File csvFile, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
-        BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
-        BufferedReader br = new BufferedReader(new FileReader(csvFile));
-        String line=null;
-        // auto detect column names - ako sadrzi slova onda ima imena. Sta ako su atributi nominalni? U ovoj fazi se pretpostavlja d anisu...
-        // i ako u redovima ispod takodje ima stringova u istoj koloni - detect header
-        if (hasColumnNames) {    // get col names from the first line
-            line = br.readLine();
-            String[] colNames = line.split(delimiter);
-            // todo checsk number of col names
-            dataSet.setColumnNames(colNames);
-        } else {
-            String[] colNames = new String[inputsNum+outputsNum];
-            for(int i=0; i<inputsNum;i++)
-                colNames[i] = "in"+(i+1);
-            
-            for(int j=0; j<outputsNum;j++)
-                colNames[inputsNum+j] = "out"+(j+1);
-            
-            dataSet.setColumnNames(colNames);
-        }
-        
-        while ((line = br.readLine()) != null) {
-            if (line.isEmpty()) {
-                continue; // skip empty lines
-            }
-            String[] values = line.split(delimiter);
-            if (values.length != (inputsNum + outputsNum)) {
-                throw new DeepNettsException("Wrong number of values in the row " + (dataSet.size() + 1) + ": found " + values.length + " expected " + (inputsNum + outputsNum));
-            }
-            float[] in = new float[inputsNum];
-            float[] out = new float[outputsNum];
 
-            try {
-                // these methods could be extracted into parse float vectors
-                for (int i = 0; i < inputsNum; i++) { //parse inputs
-                    in[i] = Float.parseFloat(values[i]);
-                }
 
-                for (int j = 0; j < outputsNum; j++) { // parse outputs
-                    out[j] = Float.parseFloat(values[inputsNum + j]);
-                }
-            } catch (NumberFormatException nex) {
-                throw new DeepNettsException("Error parsing csv, number expected line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
-            }
-
-            dataSet.add(new BasicDataSetItem(in, out));
-        }
-        
-        return dataSet;
-    }
-    
-    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws IOException {
-         return fromCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, delimiter);
-    }
-
-    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames) throws IOException {
-        return fromCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, ",");
-    }
-    
-    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum, String delimiter) throws IOException {
-        return fromCsv(new File(fileName), inputsNum, outputsNum, false, delimiter);
-    }
-    
-    public static BasicDataSet fromCsv(String fileName, int inputsNum, int outputsNum) throws IOException {
-        return fromCsv(new File(fileName), inputsNum, outputsNum, false, ",");
-    }
-    
     // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3) detektuj da li je putanja fajla ili url i otvori input stream
- 
+
 
     /**
-     * Split data set into specified number of part of equal sizes. Utility
-     * method used during crossvalidation
-     * note this can be default method
-     * 
+     * Split data set into specified number of part of equal sizes.
+     * Utility method used during cross-validation
+     * Note: this could  be default method
+     *
      * @param parts
      * @return
      */
@@ -251,7 +170,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
             newParts[1] = 1 - parts[0];
             parts = newParts;
         }
-        
+
         double partsSum = 0;
         for (int i = 0; i < parts.length; i++) {
             if (parts[i] <= 0) {
@@ -269,7 +188,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
 
         this.shuffle(); // shuffle before splting, using global random seed
         for (int p = 0; p < parts.length; p++) {
-            DataSet subSet = new BasicDataSet(this.inputs, this.outputs);
+            DataSet subSet = new BasicDataSet(this.inputsNum, this.outputsNum);
             subSet.setColumnNames(this.columnNames);
             int itemsCount = (int) (size() * parts[p]);
 
@@ -317,9 +236,9 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
 
     @Override
     public String[] getOutputLabels() {
-        String[] outputLabels = new String[outputs];
-        for (int i = 0; i < outputs; i++) {
-            outputLabels[i] = columnNames[inputs + i];
+        String[] outputLabels = new String[outputsNum];
+        for (int i = 0; i < outputsNum; i++) {
+            outputLabels[i] = columnNames[inputsNum + i];
         }
 
         return outputLabels;
@@ -331,5 +250,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
             items.add(item);
         }
     }
+
+
 
 }

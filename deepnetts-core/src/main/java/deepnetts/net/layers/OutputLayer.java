@@ -30,23 +30,24 @@ import deepnetts.util.Tensor;
 import java.util.Arrays;
 
 /**
- * This class represents output layer with sigmoid output function by default.
+ * Output layer of a neural network, which gives the final output of a network.
+ * It is always the last layer in the network.
  *
- * @author zoran
+ * @author Zoran Sevarac
  */
 public class OutputLayer extends AbstractLayer {
 
     protected float[] outputErrors;
     protected final String[] labels;
-    protected LossType lossType;    
+    protected LossType lossType;
     protected Optimizer optim;
 
     /**
      * Creates an instance of output layer with specified width (number of outputs)
      * and sigmoid activation function by default.
      * Outputs are labeled using generic names "Output1, 2, 3..."
-     * 
-     * @param width layer width whic represents number of network outputs
+     *
+     * @param width layer width which represents number of network outputs
      */
     public OutputLayer(int width) {
         this.width = width;
@@ -54,9 +55,9 @@ public class OutputLayer extends AbstractLayer {
         this.depth = 1;
 
         labels = new String[depth];
-        // generate enumerated class names from 1..n
+        // generate default output labels
         for (int i = 0; i < depth; i++) {
-            labels[i] = "Output" + i;
+            labels[i] = "out" + i;
         }
 
         setActivationType(ActivationType.SIGMOID);
@@ -66,10 +67,10 @@ public class OutputLayer extends AbstractLayer {
      * Creates an instance of output layer with specified width (number of outputs)
      * and specified activation function.
      * Outputs are labeled using generic names "Output1, 2, 3..."
-     * 
+     *
      * @param width layer width whic represents number of network outputs
      * @param actType activation function
-     */    
+     */
     public OutputLayer(int width, ActivationType actType) {
         this.width = width;
         this.height = 1;
@@ -88,20 +89,20 @@ public class OutputLayer extends AbstractLayer {
      * Creates an instance of output layer with specified width (number of outputs)
      * which corresponds to number of labels and sigmoid activation function by default.
      * Outputs are labeled with strings specified in labels parameter
-     * 
-     * @param labels output's labels
-     */    
-    public OutputLayer(String[] labels) {
-        this.width = labels.length;
+     *
+     * @param outputLabels labels for network's outputs
+     */
+    public OutputLayer(String[] outputLabels) {
+        this.width = outputLabels.length;
         this.height = 1;
         this.depth = 1;
-        this.labels = labels;
+        this.labels = outputLabels;
         setActivationType(ActivationType.SIGMOID);
     }
 
-    public OutputLayer(String[] labels, ActivationType activationFunction) {
-        this(labels);
-        setActivationType(activationFunction);
+    public OutputLayer(String[] outputLabels, ActivationType actType) {
+        this(outputLabels);
+        setActivationType(actType);
     }
 
     public final void setOutputErrors(final float[] outputErrors) {
@@ -119,12 +120,12 @@ public class OutputLayer extends AbstractLayer {
     public void setLossType(LossType lossType) {
         this.lossType = lossType;
     }
-    
+
     @Override
     public void setOptimizerType(OptimizerType optimizer) {
-        super.setOptimizerType(optimizer); 
+        super.setOptimizerType(optimizer);
         optim = Optimizer.create(optimizer, this);
-    }    
+    }
 
     @Override
     public void init() {
@@ -144,7 +145,7 @@ public class OutputLayer extends AbstractLayer {
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
         WeightsInit.randomize(biases);
-        
+
         setOptimizerType(OptimizerType.SGD);
     }
 
@@ -158,12 +159,12 @@ public class OutputLayer extends AbstractLayer {
         outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
         // mnozenje vektora (input) matricom (weights) i smestanje u outputs vector
         for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) { 
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
             }
         }
-        
-        outputs.apply(activation::getValue);    // apply activation function on all outputs
+
+        outputs.apply(activation::getValue);    // apply activation function to all outputs
     }
 
     /**
@@ -182,7 +183,7 @@ public class OutputLayer extends AbstractLayer {
         for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
                 final float delta = outputErrors[deltaCol] * activation.getPrime(outputs.get(deltaCol)); // delta = e*dE/ds
-                deltas.set(deltaCol, delta); 
+                deltas.set(deltaCol, delta);
             } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
                 deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
             } // ... slucaj Cross entropy sa softmax je resen u SoftMaxLayer
@@ -191,17 +192,17 @@ public class OutputLayer extends AbstractLayer {
                final float grad = deltas.get(deltaCol) * inputs.get(inCol);
              //   final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
 //                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 ); // gradient dE/dw + regularization l2
-                  
+
                 gradients.set(inCol, deltaCol, grad);
-                              
+
                 //final float deltaWeight = Optimizers.sgd(learningRate, grad);
                 //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
 
-                final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol);   
+                final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol);
                 deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
-            final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol); 
+            final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
             deltaBiases[deltaCol] += deltaBias; //Optimizers.sgd(learningRate, deltas.get(deltaCol));
 //          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
         }

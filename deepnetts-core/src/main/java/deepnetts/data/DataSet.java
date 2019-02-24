@@ -1,47 +1,43 @@
 package deepnetts.data;
 
-import deepnetts.util.RandomGenerator;
-import java.util.Random;
-
 /**
- * Generic interface for all data sets
- * 
+ * Generic interface for all data sets.
+ * Data Set is an ordered collection of elements used to train a machine learning algorithm.
+ *
  * @author Zoran Sevarac
+ * @param <ITEM_TYPE> type of elements in data set
  */
 public interface DataSet <ITEM_TYPE extends DataSetItem> extends Iterable<ITEM_TYPE> {
-    
-    // TODO: remove idx, item, - as in List
-    
+
+    /**
+     *
+     * @param item
+     */
     public void add(ITEM_TYPE item);
-    
+
     public void addAll(DataSet<ITEM_TYPE> items);
-    
-    public ITEM_TYPE get(int index);
-    
+
+    public ITEM_TYPE get(int idx);
+
     public void clear();
-    
+
     public boolean isEmpty();
 
-    public int size(); 
-    
-    public DataSet[] split(double ... parts); 
-    
+    public int size();
+
+    public DataSet[] split(double ... parts);
+
     public DataSet[] split(int parts);
-    
-    public default DataSet[] split(long randomSeed, double ... parts) {
-        RandomGenerator.getDefault().initSeed(randomSeed);
-        return split(parts);
-    }    
-    
-    public default DataSet[] split(long randomSeed, int parts) {
-        RandomGenerator.getDefault().initSeed(randomSeed);
-        return split(parts);
-    }        
-    
+
+    /**
+     * Randomly shuffle order of elements in dats set using global random generator/
+     */
+    public void shuffle();
+
+    // these two methods below should be solved differently
+
     public String[] getOutputLabels();
-    
+
     public void setColumnNames(String[] labels);
-    
-    public void shuffle();  // shuffle using default RandomGenerator
-    
+
 }

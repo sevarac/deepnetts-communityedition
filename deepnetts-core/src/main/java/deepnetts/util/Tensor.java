@@ -423,6 +423,7 @@ public class Tensor implements Serializable {
     }
 
     public final void setValues(final float... values) {
+//        if (values.length != this.values.length) throw new DeepNettsException("Arrays are not of same size!");
         this.values = values;
     }
 
@@ -741,6 +742,12 @@ public class Tensor implements Serializable {
             for (int c = 0; c < cols; c++) {
                 values[r * cols + c] = RandomGenerator.getDefault().nextFloat();
             }
+        }
+    }
+
+    public void multiplyElementWise(Tensor tensor2) {
+        for(int i=0; i<values.length; i++) {
+            values[i] *= tensor2.values[i];
         }
     }
 

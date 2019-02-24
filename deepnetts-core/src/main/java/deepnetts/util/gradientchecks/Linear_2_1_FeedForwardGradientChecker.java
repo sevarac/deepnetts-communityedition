@@ -23,6 +23,7 @@ package deepnetts.util.gradientchecks;
 
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -42,12 +43,12 @@ import java.util.logging.Logger;
  *
  * GOALS:
  * at least 4 significant digits (and often many more)
- * 
- * 
+ *
+ *
  * relative error > 1e-2 usually means the gradient is probably wrong 1e-2 >
  * relative error > 1e-4 should make you feel uncomfortable 1e-4 > relative
  * error is usually okay for objectives with kinks. But if there are no kinks
- * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high. 
+ * (e.g. use of tanh nonlinearities and softmax), then 1e-4 is too high.
  * 1e-7 and less you should be happy.
  *
  * h = 1e-4 or 1e-6 (ako je suvise mali uci cu u precision problem) relative err
@@ -83,7 +84,7 @@ public class Linear_2_1_FeedForwardGradientChecker {
     //creates linear data set
     private static DataSet createDataSet() {
         try {
-            DataSet dataSet = BasicDataSet.fromCsv("linear_2_1.csv", 2, 1);
+            DataSet dataSet = DataSets.readCsv("linear_2_1.csv", 2, 1);
             return dataSet;
         } catch (IOException ex) {
             Logger.getLogger(Linear_2_1_FeedForwardGradientChecker.class.getName()).log(Level.SEVERE, null, ex);

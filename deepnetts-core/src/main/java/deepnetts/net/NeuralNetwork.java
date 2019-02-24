@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.net;
 
 import deepnetts.core.DeepNetts;
@@ -33,8 +33,6 @@ import deepnetts.net.loss.CrossEntropyLoss;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.loss.MeanSquaredErrorLoss;
-import deepnetts.net.train.BackpropagationTrainer;
-import deepnetts.net.train.Trainable;
 import deepnetts.net.train.Trainer;
 import deepnetts.net.train.TrainerProvider;
 import deepnetts.util.Tensor;
@@ -43,26 +41,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class for all neural networks in DeepNetts. 
- * Holds a list of abstract layers and loss function. 
+ * Base class for all neural networks in DeepNetts.
+ * Holds a list of abstract layers and loss function.
  * Provides methods for forward and backward calculation, and to access input and output layers.
  * Also provides network and output labels.
  *
  * @see AbstractLayer
- * @see LossFunction 
+ * @see LossFunction
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Serializable {
-               
+
     private static final long serialVersionUID = 1L;
+
     private T trainer;
-        
+
     /**
      * Collection of all layers in this network (including input(first), output(last) and hidden(in between)).
      * As a minimum neural network must have an input and output layer.
      */
-    private final List<AbstractLayer> layers;    
-        
+    private final List<AbstractLayer> layers;
+
     /**
      * Loss function
      * Loss function represents total network error for some data, and network learns by minimizing that error.
@@ -71,93 +70,99 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
     private LossFunction lossFunction;
 
     /**
-     * Input layer.  
-     * This layer accepts external inputs and sends them to the next layer 
+     * Input layer.
+     * This layer accepts external inputs and sends them to the next layer
      */
     private InputLayer inputLayer;
-  
+
     /**
      * Output layer.
      * This layer is the final step of processing network's input and its output is network's output.
-     */    
+     */
     private OutputLayer outputLayer;
-    
+
     /**
      * Labels for network outputs (classes)
      */
-    private String[] outputLabels;    
-        
-    
+    private String[] outputLabels;
+
+
     private Tensor inputWrapper;
-    
+
     /**
      * Network's label
      */
     private String label;
     private float regularizationSum=0;
 
-    
+
     protected NeuralNetwork() {
         // if license is not valid this will throw exception
         DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...
         layers = new ArrayList();
     }
-    
-   
+
+
     /**
      * Sets network input vector and triggers forward pass.
-     * 
+     *
      * @param inputs  input tensor
      */
     public void setInput(Tensor inputs) {
         inputLayer.setInput(inputs);
         forward();
     }
-    
-    public void setInput(float[] inputs) {
-//        inputWrapper.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!        
-        inputLayer.setInput(inputWrapper);
-        forward();
-    }    
+
+//    public void setInput(float[] inputs) {
+////        inputWrapper.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!
+//        setInput(inputWrapper);
+//    }
 
     /**
      * Returns network's output.
-     * 
+     *
      * @return network's output
      */
     public float[] getOutput() {
         return outputLayer.getOutputs().getValues();
     }
-    
+
     public void setOutputError(float[] outputErrors) {
         outputLayer.setOutputErrors(outputErrors);
-    }    
-    
+    }
+
     public void train(DataSet<?> trainingSet) {
         trainer.train(trainingSet);
     }
-    
+
     public PerformanceMeasure test(DataSet<?> testSet) {
-        return Evaluators.evaluateClassifier(this, testSet);    // check the loss and output function and use appropriate classifier
-    }    
-    
+        // zakljuci koji ti evaluator treba na osnovu loss i output funkcije
+        // check the loss and output function and use appropriate classifier
+        if (getLossFunction() instanceof CrossEntropyLoss ||
+            getLossFunction() instanceof BinaryCrossEntropyLoss) {
+          return Evaluators.evaluateClassifier(this, testSet);
+        }
+
+        return Evaluators.evaluateRegressor(this, testSet);
+    }
+
     /**
      * Apply calculated weight changes to all layers.
      */
     public void applyWeightChanges() {
-        layers.forEach((layer) -> layer.applyWeightChanges()); // this can be parellelized since all layers are allraedy calculated - each layer cann apply changes in its own thread                
-    }         
-    
+        layers.forEach((layer) -> layer.applyWeightChanges()); // this can be parellelized since all layers are allraedy calculated - each layer cann apply changes in its own thread
+    }
+
     public void forward() {
         for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
             layers.get(i).forward();
         }
     }
 
-    public void backward() {               
+    public void backward() {
         // perfrom backward pass on all layers starting from last
         for (int i = layers.size() - 1; i > 0; i--) {
-            layers.get(i).backward();  
+            layers.get(i).backward();
         }
     }
 
@@ -184,7 +189,7 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
     public String[] getOutputLabels() {
         return outputLabels;
     }
-    
+
     public String getOutputLabel(int i) {
         return outputLabels[i];
     }
@@ -199,7 +204,7 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
 
     public LossFunction getLossFunction() {
         return lossFunction;
-    }    
+    }
 
     public void setLossFunction(LossFunction lossFunction) {
         this.lossFunction = lossFunction;
@@ -223,16 +228,16 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
             regularizationSum += layers.get(i).getL2();
         }
-        return regularizationSum; 
+        return regularizationSum;
     }
-    
+
     public float getL1Reg() {
         regularizationSum=0;
         for (int i = 1; i < layers.size(); i++) {   // starts from 1 to skip input layer
             regularizationSum += layers.get(i).getL1();
         }
-        return regularizationSum; 
-    }    
+        return regularizationSum;
+    }
 
     @Override
     public T getTrainer() {
@@ -244,5 +249,5 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         this.trainer = trainer;
     }
 
-            
+
 }

@@ -24,6 +24,7 @@ package deepnetts.util.gradientchecks;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
+import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.activation.ActivationType;
@@ -182,7 +183,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
     //creates linear data set
     private DataSet createDataSet() {
         try {
-            DataSet dataSet = BasicDataSet.fromCsv("linear11.csv", 1, 1);
+            DataSet dataSet = DataSets.readCsv("linear11.csv", 1, 1);
             return dataSet;
         } catch (IOException ex) {
             Logger.getLogger(Linear_1_1_1_FeedForwardGradientChecker1.class.getName()).log(Level.SEVERE, null, ex);

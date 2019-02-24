@@ -4,13 +4,13 @@ import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 
 /**
- *
+ * This is implemented as a feature in regular layer
  * @author zoran
  */
 public class DropoutLayer extends AbstractLayer {
 
     private Tensor dropout= new Tensor(); // binary tensor same dimensions as previous
-    
+
     @Override
     public void init() {
         // create tensor of same size as input from prev layer
@@ -21,22 +21,22 @@ public class DropoutLayer extends AbstractLayer {
     public void forward() {
         // randomize dropout filter with 1 and 0
         // direct multiply of input tensor
-        
+
         // bolje da  dropout ubacim u postojece layere kao podesavanje
-        
+
         for(int i=0; i<dropout.size(); i++ ){
             float val = (RandomGenerator.getDefault().nextFloat() > 0.5?1f:0f);
-            dropout.set(i, val);            
-            outputs.set(i, val*inputs.get(i));            
-        }                
+            dropout.set(i, val);
+            outputs.set(i, val*inputs.get(i));
+        }
     }
 
     @Override
     public void backward() {
         // feed deltas backward usng same random dropout filter
         for(int i=0; i<dropout.size(); i++ ){
-            deltas.set(i,  gradients.get(i) * dropout.get(i));            
-        }        
+            deltas.set(i,  gradients.get(i) * dropout.get(i));
+        }
     }
 
     @Override

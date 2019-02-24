@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,23 +18,33 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.net.loss;
 
 /**
- * Types of loss functions
- * 
- * @author zoran
+ * Supported types of Loss Functions in Deep Netts engine.
+ * Currently supported loss functions are Mean Squared Error (commonly used for regression) and Cross Entropy (commonly used for regression)
+ *
+ * @see  LossFunction
+ * @author Zoran Sevarac
  */
 public enum LossType {
-    MEAN_SQUARED_ERROR("MEAN_SQUARED_ERROR"), CROSS_ENTROPY("CROSS_ENTROPY");
-    
-    private final String name;       
+    /**
+     * Mean Squared Error loss, used for regression tasks, implemented by {@link MeanSquaredErrorLoss}
+     */
+    MEAN_SQUARED_ERROR("MEAN_SQUARED_ERROR"),
+
+    /**
+     * Cross Entropy Loss, used for classificaton tasks, implemented by {@link CrossEntropyLoss}
+     */
+    CROSS_ENTROPY("CROSS_ENTROPY");
+
+    private final String name;
 
     private LossType(String name) {
         this.name = name;
-    }    
-    
+    }
+
     public boolean equalsName(String otherName) {
         return name.equals(otherName);
     }
@@ -46,11 +56,11 @@ public enum LossType {
             return CROSS_ENTROPY;
         }
 
-       throw new RuntimeException("Unknown loss type!");       
-    }    
-    
+       throw new RuntimeException("Unknown loss type!");
+    }
+
     @Override
     public String toString() {
        return this.name;
-    }      
+    }
 }

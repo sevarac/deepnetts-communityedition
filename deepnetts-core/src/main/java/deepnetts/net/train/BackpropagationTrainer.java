@@ -46,9 +46,13 @@ import org.apache.logging.log4j.LogManager;
 
 /**
  * Backpropagation training algorithm for feed forward and convolutional neural networks.
+ * Backpropagation is a supervised machine learning algorithm which iteratively
+ * reduces prediction error, by looking for the minimum of loss function.
  *
  * @see FeedForwardNetwork
  * @see ConvolutionalNetwork
+ * @see LossFunction
+ * @see OptimizerType
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BackpropagationTrainer implements Trainer, Serializable {
@@ -100,13 +104,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * Current training epoch
      */
     private int epoch;
-    
+
     /**
      * Value of loss function calculated on validation set
      */
     private float validationLoss=0, prevValidationLoss=0;
-    
-    private float accuracy=0;    
+
+    private float accuracy=0;
 
     private float totalTrainingLoss;
 
@@ -116,13 +120,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private boolean shuffle = false;
 
     private NeuralNetwork<?> neuralNet;
-    
+
     private transient DataSet<?> trainingSet;
-    
+
     private transient DataSet<?> validationSet;
-    
+
     private LossFunction lossFunction;
-        
+
     /**
      * Use early stopping setting.
      */
@@ -132,39 +136,43 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * Checkpoint epochs for early stopping.
      */
     private int checkpointEpochs=1;
-    
+
     private int prevCheckpointEpoch=0;
-    
+
     /**
      * Min delta between checkpoints to continue training
      */
     private float checkpointMinDelta=0.000001f;
-    
+
     private int checkpointNum = 2;  //  checkpoint limit
     private int checkpointCounter = 0; // checkpoint counter during training
-    
+
     private float prevCheckpointTestLoss=100f;
-        
-    private String checkpointSavePath = "";    
-    
+
+    private String checkpointSavePath = "";
+
     /**
      * Ovaj inicijalizovati ili na ovo ili na RMSE
      */
     private transient Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
-    
-    //regularization l1 or l2 add to loss 
-    private float regL2, regL1;    
-    // flag to save network weights during training
-//    private boolean saveTrainingWeights = false;    
-     
 
-    
-    
+    //regularization l1 or l2 add to loss
+    private float regL2, regL1;
+    // flag to save network weights during training
+//    private boolean saveTrainingWeights = false;
+
+
+
+
     private transient final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
 
+    /**
+     * Creates and instance of Backpropagation Trainer for the specified neural network.
+     * @param neuralNet neural network to train using this instance of backpropagation algorithm
+     */
     public BackpropagationTrainer(NeuralNetwork neuralNet) {
         this.neuralNet = neuralNet;
     }
@@ -179,15 +187,15 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 //        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
 //        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
-    
-    
+
+
     // da li da eksplicitno navedem validation set ili samo procenat trening koji se koristi za validaciju? odnos 2:1
-    public void train(DataSet<?> trainingSet, DataSet<?> validationSet) {    
+    public void train(DataSet<?> trainingSet, DataSet<?> validationSet) {
         this.validationSet = validationSet;
         train(trainingSet);
     }
-     
-    
+
+
     /**
      * This method does actual training procedure.
      *
@@ -226,7 +234,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         }
 
         lossFunction = neuralNet.getLossFunction();
-        
+
         float[] outputError;
         epoch = 0;
         totalTrainingLoss = 0;
@@ -245,7 +253,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             lossFunction.reset();
             validationLoss=0;
             accuracy=0;
-            
+
             if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed - settings for Trainer
                 trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
             }
@@ -257,7 +265,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input
-                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function                                
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
                 neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
 
@@ -268,16 +276,16 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                     neuralNet.applyWeightChanges();
                     // do we need to reset lossFunction for mini batch - we probably should - saw it in tensorflow, ali ne ovde nego na pocetki batch-a
                     float miniBatchError = lossFunction.getTotal();
-                    LOGGER.info("Mini Batch:" + sampleCounter / batchSize + " Batch Loss:" + miniBatchError);
+                    LOGGER.info("Epoch:" + epoch + ", Mini Batch:" + sampleCounter / batchSize + ", Batch Loss:" + miniBatchError);
                     // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
                 }
                 fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED); // BATCH_FINISHED?
-                
+
                 if (stopTraining) break; // if training was stoped externaly by calling stop() method
             }
-            
+
            if (regL2!=0) lossFunction.addRegularizationSum(regL2 * neuralNet.getL2Reg()); // 0.00001f
-            
+
             endEpoch = System.currentTimeMillis();
 
             //   batch weight update after entire data set - ako vrlicina dataseta nije deljiva sa batchSize - ostatak
@@ -288,32 +296,32 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             totalTrainingLoss = lossFunction.getTotal(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
 
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
-            
+
             prevTotalLoss = totalTrainingLoss;
-            
+
             // use validation set here instead of test set
             if (validationSet != null) {    // kako da znam da li je klasifikacija ili regresija? mozda da imam neki setting, flag?
-                prevValidationLoss = validationLoss;   
+                prevValidationLoss = validationLoss;
                 validationLoss = validationLoss(validationSet);   // pre je i test loss
                 accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             } else {
                 accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?
             }
-            
+
             epochTime = endEpoch - startEpoch;
             // todo: validation error change!!!
 //            StringBuilder logMsgBuilder = new StringBuilder();
 //            logMsgBuilder.append("Epoch:" + epoch);
 //            logMsgBuilder.append(logMsgBuilder);
-            
+
             if (validationSet != null)
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", ValidationError:" + validationLoss + ", Accuracy: "+accuracy);
             else
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy);
-            
-            
+
+
             if (Float.isNaN(totalTrainingLoss)) throw new DeepNettsException("NaN value during training!");
-            
+
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
             // EARLY STOPPING
@@ -337,7 +345,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                     LOGGER.catching(ex);
                 }
             }
-                                   
+
             stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));
 
         } while (!stopTraining); // main training loop
@@ -389,16 +397,16 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
         return this;
     }
-    
+
     public BackpropagationTrainer setL2Regularization(float regL2) {
         this.regL2 = regL2;
         return this;
-    }    
-    
+    }
+
     public BackpropagationTrainer setL1Regularization(float regL1) {
         this.regL1 = regL1;
         return this;
-    }        
+    }
 
     public boolean getShuffle() {
         return shuffle;
@@ -416,12 +424,12 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     public void addListener(TrainingListener listener) {
         Objects.requireNonNull(listener, "Training listener cannot be null!");
-        
+
         if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
-    
+
     public void removeListener(TrainingListener listener) {
         listeners.remove(listener);
     }
@@ -497,11 +505,11 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public void setEarlyStopping(boolean earlyStopping) {
         this.earlyStopping = earlyStopping;
     }
-    
+
     /**
      * Save weights during training on specified number of epochs
-     * 
-     * @param epochs 
+     *
+     * @param epochs
      */
 //    public void setSaveTrainingWeightsEpochs(int epochs) {
 //        if (epochs == 0) {
@@ -511,7 +519,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 //            this.saveTrainingWeightsEpochs = epochs;
 //        }
 //    }
-    
+
     public BackpropagationTrainer setCheckpointSavePath(String path) {
         this.checkpointSavePath = path;
         return this;
@@ -544,13 +552,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return this;
     }
 
-    
-    
+
+
     /**
      * Sets properties from available keys in specified prop object.
-     * 
-     * @param prop 
-     */    
+     *
+     * @param prop
+     */
     public void setProperties(Properties prop) {
         this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
         this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
@@ -558,8 +566,8 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
         this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
         this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));        
-        
+        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
+
         // iterate properties keys?use reflection to set them?
    //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
 //        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
@@ -570,7 +578,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 //        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
 //        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
 //        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));        
+//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
     }
 
     // property names
@@ -582,15 +590,15 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public static final String PROP_BATCH_SIZE = "batchSize";      // for mini batch
     public static final String PROP_OPTIMIZER_TYPE = "optimizer";  // for mini batch
 
-    
+
     private float validationLoss(DataSet<? extends DataSetItem> validationSet) {
-        lossFunction.reset();             
+        lossFunction.reset();
         float validationLoss =  lossFunction.valueFor(neuralNet, validationSet);
         return validationLoss;
     }
-    
+
     // only for classification problems
-    private float testAccuracy(DataSet<? extends DataSetItem> validationSet) {        
+    private float testAccuracy(DataSet<? extends DataSetItem> validationSet) {
         PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, validationSet);
         return pm.get(PerformanceMeasure.ACCURACY);
     }

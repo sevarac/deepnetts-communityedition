@@ -83,7 +83,7 @@ public class XorFeedForwardGradientChecker {
 
     //creates linear data set
     private static DataSet createDataSet() {
-        DataSet dataSet = new BasicDataSet();
+        DataSet dataSet = new BasicDataSet(2, 1);
 
         DataSetItem item1 = new BasicDataSetItem(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);

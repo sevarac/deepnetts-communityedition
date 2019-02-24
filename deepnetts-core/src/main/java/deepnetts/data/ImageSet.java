@@ -22,7 +22,6 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
-import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.Tensor;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -38,6 +37,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import org.apache.logging.log4j.LogManager;
@@ -231,36 +231,36 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 }
                 label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
 
-                try {
-                // ucitavaj slike u ovom a preprocesiraj u posebnom threadu, najbolje submituj preprocesiranje na neki thread pool
-                    final BufferedImage image = ImageIO.read(new File(imgFileName));
-                    final String flabel = label;
-                    final ExampleImage exImg;
-
-                    exImg = new ExampleImage(image, flabel);
-                    exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-                    add(exImg);
-                } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new DeepNettsException("Image loading error!", ex);
-                }
-//                final BufferedImage image = ImageIO.read(new File(imgFileName));
-//                final String flabel = label;
+//                try {
+//                // ucitavaj slike u ovom a preprocesiraj u posebnom threadu, najbolje submituj preprocesiranje na neki thread pool
+//                    final BufferedImage image = ImageIO.read(new File(imgFileName));
+//                    final String flabel = label;
+//                    final ExampleImage exImg;
 //
-//                Future<?> result = es.submit(() -> {
-//                    try {
-//                        final ExampleImage exImg = new ExampleImage(image, flabel);
-//                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-//                        add(exImg);
-//                        return true;
-//                    } catch (IOException ex) {
-//                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    return false;
-//                    // make sure all images are the same size
-////                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
-//                });
-//                results.add(result);
+//                    exImg = new ExampleImage(image, flabel);
+//                    exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+//                    add(exImg);
+//                } catch (IOException ex) {
+//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+//                    throw new DeepNettsException("Image loading error!", ex);
+//                }
+                final BufferedImage image = ImageIO.read(new File(imgFileName));
+                final String flabel = label;
+
+                Future<?> result = es.submit(() -> {
+                    try {
+                        final ExampleImage exImg = new ExampleImage(image, flabel);
+                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                        add(exImg); // ovaj add i kolekcija bi morali da budu sinhronizovani ...
+                        return true;
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return false;
+                    // make sure all images are the same size
+//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
+                });
+                results.add(result);
             }
 
 //            results.forEach((f) -> {
@@ -272,7 +272,12 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            });
-//            es.shutdown();
+            es.shutdown();
+            try {
+                es.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+            } catch (InterruptedException ex) {
+                java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             // sacekaj da pool zavrsi
             if (isEmpty()) {

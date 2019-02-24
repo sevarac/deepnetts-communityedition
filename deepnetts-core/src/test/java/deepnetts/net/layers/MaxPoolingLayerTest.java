@@ -338,12 +338,15 @@ Novi
         assertArrayEquals(actual.getValues(), expected.getValues(), 1e-8f);
     }
 
-
+    /**
+     * Doublechecked with octave 2.2.19.
+     * Proverene pozicije [0,0]  [1,1] i [5,5]
+     */
     @Test
     public void testBackwardFromSingleConvolutionalToSinglePoolingChannel() {
         RandomGenerator.getDefault().initSeed(123);
         InputLayer inputLayer = new InputLayer(12, 12, 1);
-        Tensor input = new Tensor(12, 12,     // ovaj input treba povecati jer se ubrzi prepolovi
+        Tensor input = new Tensor(12, 12,
                 new float[]{
                              0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f, 0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
                             -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f, -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
@@ -408,9 +411,9 @@ Novi
                                         }));
         instance.backward();
 
-        Tensor actual = instance.getDeltas();
-                // da li su ove delte ispravno propagirane unazad?
-        Tensor expected = new Tensor(6, 6,
+        Tensor actualDeltas = instance.getDeltas();
+
+        Tensor expectedDeltas = new Tensor(6, 6,
                 new float[]{
                                 0.0376f, 0.087f, 0.0894f, 0.0918f, 0.0942f, 0.0883f,
                                 0.1476f, 0.2461f, 0.2596f, 0.2731f, 0.2866f, 0.22479999f,
@@ -420,7 +423,7 @@ Novi
                                 0.3216f, 0.3561f, 0.3636f, 0.3711f, 0.3786f, 0.2318f
                            });
 
-        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-7f);
+        assertArrayEquals(expectedDeltas.getValues(), actualDeltas.getValues(), 1e-7f);
     }
 
    @Test

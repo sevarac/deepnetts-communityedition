@@ -24,6 +24,7 @@ package deepnetts.util.gradientchecks;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
+import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -85,7 +86,7 @@ public class IrisFeedForwardGradientChecker {
     //creates linear data set
     private static DataSet<DataSetItem> createDataSet() {
         try {
-            DataSet dataSet = BasicDataSet.fromCsv("iris_data_normalised.txt", 4, 3);
+            DataSet dataSet = DataSets.readCsv("iris_data_normalised.txt", 4, 3);
             return dataSet;
         } catch (IOException ex) {
             Logger.getLogger(IrisFeedForwardGradientChecker.class.getName()).log(Level.SEVERE, null, ex);

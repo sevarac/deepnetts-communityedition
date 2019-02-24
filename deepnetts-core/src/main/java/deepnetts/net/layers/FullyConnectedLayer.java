@@ -23,20 +23,26 @@ package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
+import deepnetts.net.layers.activation.ActivationFunction;
 import deepnetts.util.WeightsInit;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
 import java.util.logging.Logger;
 import deepnetts.net.train.opt.Optimizer;
 import deepnetts.net.train.opt.OptimizerType;
+import deepnetts.util.DeepNettsException;
+import deepnetts.util.RandomGenerator;
 
 /**
- * Fully connected layer has a single row of neurons connected to all neurons in
+ * Fully connected layer is used as hidden layer in the neural network, and it
+ * has a single row of units/nodes/neurons connected to all neurons in
  * previous and next layer.
+ * Previous connected layer can be input fully connected, convolutional or max pooling layer,
+ * while next layer can be fully connected or output layer.
+ * This layer calculates weighted sum of outputs from the previous layers, and applies activation function to that sum.
  *
- * Next layer can be fully connected or output Previous layer can be fully
- * connected, input, convolutional or max pooling
- *
+ * @see ActivationType
+ * @see ActivationFunction
  * @author Zoran Sevarac
  */
 public final class FullyConnectedLayer extends AbstractLayer {
@@ -44,6 +50,9 @@ public final class FullyConnectedLayer extends AbstractLayer {
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
     private Optimizer optim;
+
+    private boolean useDropout=false; //experimental
+    private Tensor dropout;
 
     /**
      * Creates an instance of fully connected layer with specified width (number
@@ -61,10 +70,10 @@ public final class FullyConnectedLayer extends AbstractLayer {
 
     /**
      * Creates an instance of fully connected layer with specified width (number
-     * of neurons) and activation function.
+     * of neurons) and activation function type.
      *
      * @param width layer width / number of neurons in this layer
-     * @param actType activation function to use with this layer
+     * @param actType activation function type to use in this layer
      * @see ActivationFunctions
      */
     public FullyConnectedLayer(int width, ActivationType actType) {
@@ -73,19 +82,25 @@ public final class FullyConnectedLayer extends AbstractLayer {
     }
 
     /**
-     * Creates all data strucutres: inputs, weights, biases, outputs, deltas,
+     * Creates all internal data structures: inputs, weights, biases, outputs, deltas,
      * deltaWeights, deltaBiases prevDeltaWeights, prevDeltaBiases. Init weights
-     * and biases. This method is called from network builder during
-     * initialisation
+     * and biases. This method is called from network builder during initialization
      */
     @Override
     public void init() {
         // check prev and next layers and throw exception if its illegall architecture
-        // if next layer is conv or max throw exception UnsupportedArchitectureException - nema smisla
+        if (!(prevLayer instanceof InputLayer ||
+            prevLayer instanceof MaxPoolingLayer ||
+            prevLayer instanceof ConvolutionalLayer)) throw new DeepNettsException("Bad network architecture! Fully Connected Layer can be connected only to Input, Maxpooling or Convolutional layer as previous layer.");
+
+        if (!(nextLayer instanceof FullyConnectedLayer ||
+            nextLayer instanceof OutputLayer)) throw new DeepNettsException("Bad network architecture! Fully Connected Layer can only be connected only to Fully Connected Layer or Output layer as next layer");
 
         inputs = prevLayer.outputs;
         outputs = new Tensor(width);
         deltas = new Tensor(width);
+        if (useDropout)
+            dropout = new Tensor(width);
 
         // sta ako je input layer a nema vise dimenzija nego samo jednu?
         if (prevLayer instanceof FullyConnectedLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) { // ovo ako je prethodni 1d layer, odnosno ako je prethodni fully connected
@@ -180,6 +195,17 @@ public final class FullyConnectedLayer extends AbstractLayer {
             }
              //outputs.apply(activation::getValue);
         }
+
+        // perform dropout
+        if (useDropout) {
+            dropout.fill(0);
+            for (int i = 0; i < dropout.size(); i++) {
+                float val = (RandomGenerator.getDefault().nextFloat() > 0.5 ? 1f : 0f);
+                dropout.set(i, val);
+                outputs.set(i, val * inputs.get(i));
+            }
+        }
+
     }
 
     @Override
@@ -200,6 +226,10 @@ public final class FullyConnectedLayer extends AbstractLayer {
             final float delta = deltas.get(deltaCol) * activation.getPrime(outputs.get(deltaCol));
             deltas.set(deltaCol, delta);
         } // end sum weighted deltas from next layer
+
+        if (useDropout) {
+            deltas.multiplyElementWise(dropout);
+        }
 
         // STEP 2. calculate delta weights if previous layer is Dense (2D weights matrix) - optimize
         if ((prevLayer instanceof FullyConnectedLayer) ||
