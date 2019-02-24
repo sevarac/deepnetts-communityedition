@@ -24,6 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
@@ -50,7 +51,7 @@ public class IrisClassificationCE2MomentumTest {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
         DataSet[] dataSets = dataSet.split(0.6, 0.1, 0.3); // provide random generator in order to do spliting the same way
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
 
@@ -62,7 +63,7 @@ public class IrisClassificationCE2MomentumTest {
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123).
                 build();
-        
+
 //        neuralNet.train(dataSets[0]);
 
         // create and configure instanceof backpropagation trainer
@@ -75,7 +76,7 @@ public class IrisClassificationCE2MomentumTest {
         trainer.setMaxEpochs(10000);
         trainer.train(dataSets[0], dataSets[1]);
 
-        
+
         PerformanceMeasure pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
         //ClassifierEvaluator evaluator = new ClassifierEvaluator();
         //PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);

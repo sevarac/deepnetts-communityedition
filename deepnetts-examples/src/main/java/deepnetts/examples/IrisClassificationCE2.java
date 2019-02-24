@@ -24,6 +24,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
@@ -48,14 +49,16 @@ public class IrisClassificationCE2 {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
         DataSet[] dataSets = dataSet.split(0.6, 0.1, 0.3); // provide random generator in order to do spliting the same way
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addFullyConnectedLayer(9, ActivationType.TANH)
+                .addFullyConnectedLayer(10, ActivationType.TANH)
+                .addFullyConnectedLayer(8, ActivationType.TANH)
+                .addFullyConnectedLayer(6, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123).
@@ -66,6 +69,7 @@ public class IrisClassificationCE2 {
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.03f);
+        trainer.setMaxEpochs(100);
         trainer.setLearningRate(0.01f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.9f);

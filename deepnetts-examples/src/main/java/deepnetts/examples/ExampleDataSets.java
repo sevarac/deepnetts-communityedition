@@ -4,6 +4,7 @@ import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.BasicDataSetItem;
 import deepnetts.data.DataSetItem;
+import deepnetts.data.DataSets;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,11 +15,12 @@ import java.io.IOException;
 public class ExampleDataSets {
 
     public static DataSet iris() throws IOException {
-       return BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
+       // TODO: apply some normalization here, as a param?
+       return DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
     public static DataSet xor() {
-        DataSet dataSet = new BasicDataSet();
+        DataSet dataSet = new BasicDataSet(2, 1);
 
         DataSetItem item1 = new BasicDataSetItem(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);
@@ -34,7 +36,7 @@ public class ExampleDataSets {
 
         return dataSet;
     }
-    
+
 
     public static DataSet mnist() {
         return null;

@@ -50,16 +50,16 @@ public class RunLegoPeople {
         // create convolutional neural network
         LOG.info("Creating neural network...");
 
-        ConvolutionalNetwork legoPeopleNet = new ConvolutionalNetwork.Builder()
-                                        .addInputLayer(imageWidth, imageHeight, 3)
-                                        .addConvolutionalLayer(5, 5, 6)
-                                        .addMaxPoolingLayer(2, 2, 2)
-                                        .addFullyConnectedLayer(30, ActivationType.TANH)
-                                        .addFullyConnectedLayer(10, ActivationType.TANH)
-                                        .addOutputLayer(1, ActivationType.SIGMOID)
-                                        .lossFunction(LossType.CROSS_ENTROPY)
-                                        .randomSeed(123)
-                                        .build();
+        ConvolutionalNetwork legoPeopleNet = ConvolutionalNetwork.builder()
+                                            .addInputLayer(imageWidth, imageHeight, 3)
+                                            .addConvolutionalLayer(5, 5, 6)
+                                            .addMaxPoolingLayer(2, 2, 2)
+                                            .addFullyConnectedLayer(30, ActivationType.TANH)
+                                            .addFullyConnectedLayer(10, ActivationType.TANH)
+                                            .addOutputLayer(1, ActivationType.SIGMOID)
+                                            .lossFunction(LossType.CROSS_ENTROPY)
+                                            .randomSeed(123)
+                                            .build();
 
         LOG.info("Done creating network.");
         LOG.info("Training neural network...");

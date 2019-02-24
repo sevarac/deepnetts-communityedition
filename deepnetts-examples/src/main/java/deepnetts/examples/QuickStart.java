@@ -2,6 +2,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
+import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -21,7 +22,7 @@ public class QuickStart {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load data  set from csv file
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
 //        dataSet.shuffle();
 
         // create instance of multi addLayer percetpron using builder
@@ -39,10 +40,10 @@ public class QuickStart {
         trainer.setMaxEpochs(10000);
         trainer.setBatchMode(true);
         trainer.setLearningRate(0.01f);
-        
+
         // run training
         neuralNet.train(dataSet);
-        
+
         // save trained network to file
         FileIO.writeToFile(neuralNet, "myNeuralNet.dnet");
     }

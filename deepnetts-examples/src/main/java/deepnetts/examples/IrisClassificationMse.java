@@ -23,6 +23,7 @@ package deepnetts.examples;
 
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.DataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -43,7 +44,7 @@ public class IrisClassificationMse {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data set from csv file
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3);
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
         dataSet.shuffle();
 
         // create multi layer perceptron with specified settings
@@ -56,7 +57,7 @@ public class IrisClassificationMse {
                 .build();
 
         neuralNet.train(dataSet);
-        
+
         // create a trainer object with specified settings
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setMaxError(0.06f)

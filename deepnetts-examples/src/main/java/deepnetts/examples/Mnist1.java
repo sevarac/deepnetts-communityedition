@@ -79,8 +79,10 @@ public class Mnist1 {
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight, 3)
-                .addConvolutionalLayer(3, 3)
+                .addConvolutionalLayer(3, 3, 3)
                 .addMaxPoolingLayer(2, 2)
+//                .addConvolutionalLayer(3, 3, 6)
+//                .addMaxPoolingLayer(2, 2)
                 .addFullyConnectedLayer(30)
                 .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)

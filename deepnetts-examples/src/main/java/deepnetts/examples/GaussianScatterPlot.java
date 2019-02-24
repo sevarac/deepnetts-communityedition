@@ -1,5 +1,7 @@
 package deepnetts.examples;
 
+import deepnetts.examples.util.Plot;
+
 /**
  *
  * @author zoran

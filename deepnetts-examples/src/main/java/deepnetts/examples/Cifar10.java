@@ -70,7 +70,7 @@ public class Cifar10 {
                                         .addInputLayer(imageWidth, imageHeight, 3)
                                         .addConvolutionalLayer(3, 3, 3)
                                         .addMaxPoolingLayer(2, 2, 2)
-                                        .addConvolutionalLayer(3, 3, 12)
+                                        .addConvolutionalLayer(3, 3, 1)
                                         .addMaxPoolingLayer(2, 2, 2)
 //                                        .addConvolutionalLayer(3, 3, 24)
 //                                        .addMaxPoolingLayer(2, 2, 2)

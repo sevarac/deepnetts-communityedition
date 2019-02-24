@@ -23,6 +23,8 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
+import deepnetts.data.DataSets;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -42,7 +44,9 @@ public class IrisClassificationCE {
     public static void main(String[] args) throws DeepNettsException, IOException {
 
         // load iris data  set
-        DataSet dataSet = BasicDataSet.fromCsv("datasets/iris_data_normalised.txt", 4, 3, true);
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
+        // split loaded data into 70 : 30% ratio
+        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.7);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -54,14 +58,17 @@ public class IrisClassificationCE {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+        BackpropagationTrainer trainer = neuralNet.getTrainer();
         trainer.setMaxError(0.01f);
-        trainer.setLearningRate(0.1f);
+        trainer.setLearningRate(0.01f);
         trainer.setBatchMode(false);
         trainer.setMomentum(0.5f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(dataSet);
+
+        neuralNet.train(trainTestSet[0]);
+        PerformanceMeasure pe = neuralNet.test(trainTestSet[1]);
+        System.out.println(pe);
     }
 
 }

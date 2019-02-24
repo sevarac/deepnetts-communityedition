@@ -68,11 +68,11 @@ public class DukeDetector {
         //imageSet.invert();
         imageSet.shuffle();
 
-        ImageSet[] trainAndTestSet = imageSet.split(0.7, 0.3);
+       // ImageSet[] trainAndTestSet = imageSet.split(0.7, 0.3);
 
         LOGGER.info("Creating neural network...");
 
-        ConvolutionalNetwork convNet = new ConvolutionalNetwork.Builder()
+        ConvolutionalNetwork convNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight, 3)
                 .addConvolutionalLayer(3, 3, 3, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
@@ -98,7 +98,7 @@ public class DukeDetector {
                .setLearningRate(0.01f)
                .setOptimizer(OptimizerType.MOMENTUM)
                .setMomentum(0.9f);
-        trainer.train(trainAndTestSet[0]);
+        trainer.train(imageSet);
 
         // to save neural network to file on disk
         FileIO.writeToFile(convNet, "DukeDetector.dnet");
@@ -110,7 +110,7 @@ public class DukeDetector {
 
         // to evaluate recognizer with image set
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, trainAndTestSet[1]);
+        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, imageSet);
         System.out.println(pm);
 
         // to use recognizer for single image

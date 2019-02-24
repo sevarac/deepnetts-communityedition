@@ -1,2 +1,0 @@
-[ERROR] 2019-01-30 19:21:37.240 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
-[ERROR] 2019-01-30 19:21:37.266 [main] DeepNetts - deepnetts.util.DeepNettsException: Error loading image file: D:\datasets\JavaOneSponsors2\/home/zoran/datasets/JavaOneSponsors2/couchbase/couchbase_1_3.png

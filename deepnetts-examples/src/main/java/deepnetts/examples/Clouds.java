@@ -89,7 +89,7 @@ public class Clouds {
         trainer.setMaxError(0.1f);
         trainer.setMaxEpochs(6);
         trainer.setMomentum(0.9f);
-        trainer.setOptimizer(OptimizerType.SGD);
+        trainer.setOptimizer(OptimizerType.SGD);   // sa momentumom raste greska!!!
         trainer.train(imageSets[0]);
 
         // Test trained network

@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -17,15 +17,19 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
- */    
+ */
 
 package deepnetts.examples;
 
+import deepnetts.examples.util.CsvFile;
+import deepnetts.examples.util.Plot;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
+import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
+import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.Tensor;
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,62 +39,71 @@ import java.util.Arrays;
  * Fits a straight line through the data.
  Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
  You can use linear regression to roughly estimate a global trend in data.
- * 
+ *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class LinearRegression {
-    
+
     public static void main(String[] args) throws IOException {
-              
+
             int inputsNum = 1;
             int outputsNum = 1;
             String csvFilename = "linear.csv";
-                      
+
             // load and create data set from csv file
             DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum);
-            
+
             // create neural network using network specific builder
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(inputsNum)
-             //       .addFullyConnectedLayer(10, ActivationType.TANH)
                     .addOutputLayer(outputsNum, ActivationType.LINEAR)
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
-            
-            neuralNet.getTrainer()
-                    .setMaxError(0.000002f)
+
+            BackpropagationTrainer trainer = neuralNet.getTrainer();
+            trainer.setMaxError(0.0002f)
                     .setMaxEpochs(10000)
                     .setBatchMode(false)
-                    .setLearningRate(0.001f);
-            
+                    .setLearningRate(0.01f);
+
             // train network using loaded data set
-          //  neuralNet.train(dataSet);
-                   
-            // learned model
+            neuralNet.train(dataSet);
+            PerformanceMeasure pe = neuralNet.test(dataSet);
+            System.out.println(pe);
+
+            // print out learned model
             float slope = neuralNet.getLayers().get(1).getWeights().get(0);
             float intercept = neuralNet.getLayers().get(1).getBiases()[0];
             System.out.println("Original function: y = 0.5 * x + 0.2");
             System.out.println("Estimated/learned function: y = "+slope+" * x + "+intercept);
 
             // perform prediction for some input value
-            neuralNet.setInput(Tensor.create(1, 1, new float[] {0.2f}));
-            System.out.println("Predicted output for 0.2 :" + Arrays.toString(neuralNet.getOutput()));
-            
-            // plot predictions for some random data 
+            float[] predictedOutput = neuralNet.predict(new float[] {0.2f});
+            System.out.println("Predicted output for 0.2 :" + Arrays.toString(predictedOutput));
+
+
+            plotTrainingData();
+
+            // plot predictions for some random data
             plotPredictions(neuralNet);
     }
-    
-    
+
+
     public static void plotPredictions(FeedForwardNetwork nnet) {
         double[][] data = new double[100][2];
-        
+
         for(int i=0; i<data.length; i++) {
             data[i][0] =  0.5-Math.random();
-            nnet.setInput(new Tensor(1, 1, new float[] { (float)data[i][0] }));            
+            nnet.setInput(new Tensor(1, 1, new float[] { (float)data[i][0] }));
             data[i][1] = nnet.getOutput()[0];
-        }        
-        
-        Plot.scatter(data);   
+        }
+
+        Plot.scatter(data, "Neural Network Predictions");
     }
-    
+
+    public static void plotTrainingData() throws IOException {
+        double[][] dataPoints = CsvFile.read("linear.csv", 30);
+        Plot.scatter(dataPoints, "Training data");
+    }
+
 }

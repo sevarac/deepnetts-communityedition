@@ -1,5 +1,7 @@
 package deepnetts.examples;
 
+import deepnetts.examples.util.CsvFile;
+import deepnetts.examples.util.Plot;
 import java.io.FileNotFoundException;
 
 public class RandomLinearData {
