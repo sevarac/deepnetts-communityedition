@@ -67,7 +67,7 @@ public class Mnist1 {
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), false, 2000); //50000
-       // imageSet.invert();
+        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
 

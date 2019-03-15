@@ -31,12 +31,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: if class count == 2 use binary classifier else, its multi class
- * classifier!
+ * Evaluation method for binary and multi-class classifiers.
+ * Calculates classification performance metrics, how good is it at predicting class of something.
  *
  * http://www.ritchieng.com/machine-learning-evaluate-classification-model/
  * http://scikit-learn.org/stable/modules/model_evaluation.html
  * http://notesbyanerd.com/2014/12/17/multi-class-performance-measures/
+ * https://en.wikipedia.org/wiki/Confusion_matrix
+ * https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
+ * http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
+ *
+ * Micro and macro averaging: https://datascience.stackexchange.com/questions/15989/micro-average-vs-macro-average-performance-in-a-multiclass-classification-settin
+ * I'm doing macro
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */                                         // Evaluator<Classifier, AbstractClassifier, annotate NeuralNetwork instance to become a Classifier
@@ -80,7 +86,8 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
     @Override
     public PerformanceMeasure evaluatePerformance(NeuralNetwork neuralNet, DataSet<?> testSet) {
-        classLabels = Arrays.asList(testSet.getOutputLabels()); // get output labels
+        classLabels = Arrays.asList(testSet.getOutputLabels()); // get labels from neural network outputs
+
         // if class labels are empty create class1, class2, classk ....
         init();
 
@@ -109,15 +116,15 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         int fp = confusionMatrix.getFalsePositive();
         int fn = confusionMatrix.getFalseNegative();
 
-        ClassificationMetrics cm = new ClassificationMetrics(tp, tn, fp, fn);
+        ClassificationMetrics cm = new ClassificationMetrics(tn, fp, fn, tp);
 
         pm.set("TotalClasses", classLabels.size());
         pm.set("TotalItems", cm.getTotal());
 
-        pm.set("TruePositive", tp);
-        pm.set("TrueNegative", tn);
-        pm.set("FalsePositive", fp);
-        pm.set("FalseNegative", fn);
+        pm.set(ConfusionMatrix.TRUE_POSITIVE, tp);
+        pm.set(ConfusionMatrix.TRUE_NEGATIVE, tn);
+        pm.set(ConfusionMatrix.FALSE_POSITIVE, fp);
+        pm.set(ConfusionMatrix.FALSE_NEGATIVE, fn);
 
         pm.set("TotalCorrect", tp + tn);
         pm.set("TotalIncorrect", fp + fn);
@@ -140,12 +147,12 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
             int fp = confusionMatrix.getFalsePositive(clsIdx);
             int fn = confusionMatrix.getFalseNegative(clsIdx);
 
-            ClassificationMetrics cm = new ClassificationMetrics(tp, tn, fp, fn);
+            pm.set(ConfusionMatrix.TRUE_POSITIVE, tp);
+            pm.set(ConfusionMatrix.TRUE_NEGATIVE, tn);
+            pm.set(ConfusionMatrix.FALSE_POSITIVE, fp);
+            pm.set(ConfusionMatrix.FALSE_NEGATIVE, fn);
 
-            pm.set("TruePositive", tp);
-            pm.set("TrueNegative", tn);
-            pm.set("FalsePositive", fp);
-            pm.set("FalseNegative", fn);
+            ClassificationMetrics cm = new ClassificationMetrics(tn, fp, fn, tp);
 
             pm.set(PerformanceMeasure.ACCURACY, cm.getAccuracy());
             pm.set(PerformanceMeasure.PRECISION, cm.getPrecision());
@@ -157,9 +164,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         return performanceByClass;
     }
 
-    // https://en.wikipedia.org/wiki/Confusion_matrix
-    // https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
-    // http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
+
     private void processResult(float[] actual, float[] predicted) {
 
         if (classLabels.size() == 1) { // if its a binary classifier
@@ -175,13 +180,27 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         } else { // multi class classifier
             int actualIdx = indexOfMax(actual);
             int predictedIdx = indexOfMax(predicted); // ako su svi nule predictsIdx je od NEGATIVE
-            // ovd edodaj i threshold
+
             confusionMatrix.inc(actualIdx, predictedIdx);
+//            if (predictedIdx != -1 && actualIdx !=-1) {
+//                confusionMatrix.inc(actualIdx, predictedIdx);
+//            } else if(predictedIdx == -1 && actualIdx !=-1) { // fn
+//                for(int i=0; i<classLabels.size(); i++) {
+//                    if (i != actualIdx) // fn - da li je ovo dobro?
+//                        confusionMatrix.inc(actualIdx, i);
+//                    }
+//            } else { // tn | predictedIdx == -1 && actualIdx ==-1
+//                for(int i=0; i<classLabels.size(); i++) {
+//                        confusionMatrix.inc(i, i);
+//                }
+//            }
+
         }
     }
 
     /**
      * Returns index of max element in specified array.
+     * If all elements are zero (negative example) returns -1
      *
      * @param array
      * @return index of max value
@@ -189,22 +208,11 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     private int indexOfMax(float[] array) {
         int maxIdx = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] > array[maxIdx]) {
-                maxIdx = i;
-            }
+         //   if (array[i] >= threshold) {
+                if (array[i] > array[maxIdx]) maxIdx = i;
+         //   }
         }
         return maxIdx;
-    }
-
-    // target is negative if all target outputs are 0
-    private boolean isNegativeTarget(float[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != 0) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public float getThreshold() {
@@ -236,6 +244,15 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         return total;
     }
 
+    /**
+     * Calculates macro average for the given list of perfromance measures.
+     * Used for multi-class classification.
+     * Its suitable for balanced classes, but if not micro averaging is more suitable.
+     * Micro averaging is summing confusion matrices for individual classes.
+     *
+     * @param measures
+     * @return
+     */
     public static PerformanceMeasure averagePerformance(List<PerformanceMeasure> measures) {
         float accuracy = 0, precision = 0, recall = 0, f1score = 0;
 

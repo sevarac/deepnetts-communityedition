@@ -37,47 +37,44 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Cifar10 {
+public class Blur {
 
-    int imageWidth = 32;
-    int imageHeight = 32;
+    int imageWidth = 256;
+    int imageHeight = 256;
 
-    //String labelsFile = "/home/zoran/datasets/cifar10/train/labels.txt";
-    String labelsFile = "D:\\datasets\\cifar10\\labels.txt";
-    //String trainingFile = "datasets/cifar10/train.txt";
-    //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\cifar10\\train.txt";
-   // String testFile = "datasets/cifar10/test.txt";
-
+    String labelsFile = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256\\labels.txt";
+    String trainingFile = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256\\index.txt";
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
     public void run() throws DeepNettsException, IOException {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 2000);
+        imageSet.loadImages(new File(trainingFile), true);
 //        imageSet.invert();
-        imageSet.zeroMean();
+      //  imageSet.zeroMean();
         imageSet.shuffle();
 
         int labelsCount = imageSet.getLabelsCount();
 
-        ImageSet[] imageSets = imageSet.split(0.6, 0.4);
+        ImageSet[] imageSets = imageSet.split(0.7, 0.3);
 
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
-                                        .addInputLayer(imageWidth, imageHeight, 3)
-                                        .addConvolutionalLayer(3, 3, 3)
+                                        .addInputLayer(imageWidth, imageHeight)
+                                        .addConvolutionalLayer(3, 3,6)
                                         .addMaxPoolingLayer(2, 2, 2)
-                                        .addConvolutionalLayer(3, 3, 1)
+                                        .addConvolutionalLayer(3, 3,12)
                                         .addMaxPoolingLayer(2, 2, 2)
-//                                        .addConvolutionalLayer(3, 3, 24)
+//                                        .addConvolutionalLayer(3, 3, 12)
 //                                        .addMaxPoolingLayer(2, 2, 2)
-                                     //   .addFullyConnectedLayer(30)
-                                        .addFullyConnectedLayer(20)
-                                        .addFullyConnectedLayer(10)
-                                        .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
+////                                        .addConvolutionalLayer(3, 3, 24)
+////                                        .addMaxPoolingLayer(2, 2, 2)
+//                                     //   .addFullyConnectedLayer(30)
+//                                        .addFullyConnectedLayer(20)
+                                        .addFullyConnectedLayer(12)
+                                        .addOutputLayer(labelsCount, ActivationType.SIGMOID)
                                         .hiddenActivationFunction(ActivationType.TANH)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
@@ -86,9 +83,10 @@ public class Cifar10 {
 
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.5f);
+        trainer.setMaxError(0.03f);
+     //   trainer.setMaxEpochs(6);
         trainer.setMomentum(0.9f);
-        trainer.setOptimizer(OptimizerType.SGD);
+        trainer.setOptimizer(OptimizerType.SGD);   // sa momentumom raste greska!!!
         trainer.train(imageSets[0]);
 
         // Test trained network
@@ -109,6 +107,6 @@ public class Cifar10 {
     }
 
     public static void main(String[] args) throws DeepNettsException, IOException {
-            (new Cifar10()).run();
+            (new Blur()).run();
     }
 }

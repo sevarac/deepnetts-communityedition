@@ -28,7 +28,7 @@ public final class ClassificationMetrics {
     * @param falsePositive
     * @param falseNegative
     */
-    public ClassificationMetrics(int truePositive, int trueNegative, int falsePositive, int falseNegative) {
+    public ClassificationMetrics(int trueNegative, int falsePositive, int falseNegative, int truePositive) {
         this.truePositive = truePositive;
         this.trueNegative = trueNegative;
         this.falsePositive = falsePositive;
@@ -167,6 +167,9 @@ public final class ClassificationMetrics {
         return (trueNegative+falsePositive) / total;
     }
 
+    // dovde sam prekontrolisao sve formule!
+    //-------------------------------------------------------------------------------
+
     /**
      * Returns the F-score. When recall and precision are zero, this method will
      * return 0.
@@ -202,8 +205,6 @@ public final class ClassificationMetrics {
         return 0.5 * (truePositive / (truePositive + falseNegative) + trueNegative / (trueNegative + falsePositive));
     }
 
-      // dovde sam prekontrolisao sve formule!
-    //-------------------------------------------------------------------------------
 
 
     @Override
@@ -246,10 +247,14 @@ public final class ClassificationMetrics {
 
     }
 
-
-    public static ClassificationMetrics[] createFromMatrix(ConfusionMatrix confusionMatrix) {
-        // Create Classification measure for each class
-        // Ovde rezdvojiti binary i multi
+    /**
+     * Creates classification metrics from the given confusion matrix.
+     * Creates an array of ClassificationMetrics objects one for each class.
+     *
+     * @param confusionMatrix
+     * @return classification metrics
+     */
+    public static ClassificationMetrics[] createFrom(ConfusionMatrix confusionMatrix) {
 
         int classCount = confusionMatrix.getClassCount();
         if (classCount == 2) { // binary classification
@@ -261,7 +266,7 @@ public final class ClassificationMetrics {
                 int fp = confusionMatrix.getFalsePositive();
                 int fn = confusionMatrix.getFalseNegative();
 
-            measures[0] = new ClassificationMetrics(tp, tn, fp, fn);
+            measures[0] = new ClassificationMetrics(tn, fp, fn, tp);
             measures[0].setClassLabel(classLabels[0]);
 
             return measures;
@@ -277,7 +282,7 @@ public final class ClassificationMetrics {
                 int fp = confusionMatrix.getFalsePositive(clsIdx);
                 int fn = confusionMatrix.getFalseNegative(clsIdx);
 
-                measures[clsIdx] = new ClassificationMetrics(tp, tn, fp, fn);
+                measures[clsIdx] = new ClassificationMetrics(tn, fp, fn, tp);
                 measures[clsIdx].setClassLabel(classLabels[clsIdx]);
             }
             return measures;

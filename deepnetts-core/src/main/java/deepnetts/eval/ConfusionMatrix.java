@@ -200,4 +200,9 @@ public class ConfusionMatrix {
         return totalItems;
     }
 
+    public static final String TRUE_POSITIVE="TruePositive";
+    public static final String TRUE_NEGATIVE="TruePositive";
+    public static final String FALSE_POSITIVE="FalsePositive";
+    public static final String FALSE_NEGATIVE="FalseNegative";
+
 }

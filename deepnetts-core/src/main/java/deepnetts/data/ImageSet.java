@@ -215,8 +215,8 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         String label = null;
         final String[] fColumnNames = columnNames;
 
-        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
-        List<Future<?>> results = new LinkedList<>();
+      //  ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
+      //  List<Future<?>> results = new LinkedList<>();
 
         // ako je numOfImages manji od broja slika u fajlu logovati
         try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
@@ -250,20 +250,20 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 final BufferedImage image = ImageIO.read(new File(imgFileName));
                 final String flabel = label;
 
-                Future<?> result = es.submit(() -> {
+               // Future<?> result = es.submit(() -> {
                     try {
                         final ExampleImage exImg = new ExampleImage(image, flabel);
                         exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
                         add(exImg); // ovaj add i kolekcija bi morali da budu sinhronizovani ...
-                        return true;
+                 //       return true;
                     } catch (IOException ex) {
                         java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    return false;
+              //      return false;
                     // make sure all images are the same size
 //                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
-                });
-                results.add(result);
+          //      });
+          //      results.add(result);
             }
 
 //            results.forEach((f) -> {
@@ -275,12 +275,12 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            });
-            es.shutdown();
-            try {
-                es.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-            } catch (InterruptedException ex) {
-                java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            es.shutdown();
+//            try {
+//                es.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+//            } catch (InterruptedException ex) {
+//                java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
             // sacekaj da pool zavrsi
             if (isEmpty()) {
