@@ -111,13 +111,13 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         String label = null;
         final String[] fColumnNames = columnNames;
 
-        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
+       // ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
 
         // TODO: napravi ovo asinhrono da ucitava i preprocesira u posebnim threadovima, u perspektivi u batchovima, ne sve odjendnom
         // ucitaj prvo indeks slika a onda ucitavanje i preprocrsiranje slika parelelizuj da jedan thread radi ucitavanje a drugi preprocsiranje onoga sto je ucitano
         try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
-            List<Future<?>> results = new LinkedList<>();
+          //  List<Future<?>> results = new LinkedList<>();
             // we can also catch and log FileNotFoundException, IOException in this loop
             while ((line = br.readLine()) != null) {
                 if (line.isEmpty()) {
@@ -183,6 +183,9 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             LOGGER.error(ex);
             throw new DeepNettsException("Could not find image file: " + imgFileName, ex);
         } catch (IOException ex) {
+            LOGGER.error(ex);
+            throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
+        } catch (NullPointerException ex) {
             LOGGER.error(ex);
             throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
         }

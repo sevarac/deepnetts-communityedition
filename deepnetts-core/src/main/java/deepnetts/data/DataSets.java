@@ -1,11 +1,15 @@
 package deepnetts.data;
 
+import deepnetts.util.ColumnType;
+import deepnetts.util.CsvFormat;
 import java.io.File;
 import java.io.IOException;
 import deepnetts.util.DeepNettsException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -13,6 +17,12 @@ import java.io.FileReader;
  * @author zoran
  */
 public class DataSets {
+
+    public final static String DELIMITER_SPACE = " ";
+    public final static String DELIMITER_COMMA = ",";
+    public final static String DELIMITER_SEMICOLON = ";";
+    public final static String DELIMITER_TAB = "\t";
+
    /**
      * Creates and returns data set from specified CSV file. Empty lines are
      * skipped
@@ -33,6 +43,8 @@ public class DataSets {
      * or as a default method in data set?
      *
      *  TODO: should I wrap IO with DeepNetts Exception?
+     * Autodetetect delimiter; header and column type
+     *
      */
     public static BasicDataSet readCsv(File csvFile, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
         BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
@@ -41,7 +53,7 @@ public class DataSets {
         // auto detect column names - ako sadrzi slova onda ima imena. Sta ako su atributi nominalni? U ovoj fazi se pretpostavlja d anisu...
         // i ako u redovima ispod takodje ima stringova u istoj koloni - detect header
         if (hasColumnNames) {    // get col names from the first line
-            line = br.readLine();
+            line = br.readLine().trim();
             String[] colNames = line.split(delimiter);
             // todo checsk number of col names
             dataSet.setColumnNames(colNames);
@@ -57,6 +69,7 @@ public class DataSets {
         }
 
         while ((line = br.readLine()) != null) {
+           line = line.trim();
             if (line.isEmpty()) {
                 continue; // skip empty lines
             }
@@ -110,6 +123,108 @@ public class DataSets {
      */
     public static BasicDataSet readCsv(String fileName, int inputsNum, int outputsNum) throws IOException {
         return readCsv(new File(fileName), inputsNum, outputsNum, false, ",");
+    }
+
+    // delimiter, hasHeader, column names and columnTypes
+    public static CsvFormat detectCsvFormat(String fileName) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String firstLine = br.readLine();
+
+        // sta ako ima i navodnike ""
+
+        // autodetect delimiter
+        String delimiter = null;
+        if (firstLine.contains(",")) delimiter = DELIMITER_COMMA;
+        else if (firstLine.contains(";")) delimiter = DELIMITER_SEMICOLON;
+        else if (firstLine.contains("\t")) delimiter = DELIMITER_TAB;
+        else if (firstLine.contains(" ")) delimiter = DELIMITER_SPACE;  // da li je space delimiter za header?
+        else throw new DeepNettsException("Unknown delimiter");
+
+        boolean hasColumnNames = false;
+        String[] columnNames = null;
+        // da li prvi red sadrzi alfanumericka polja razdvojena delimiterima
+        String[] firstLineFields = firstLine.split(delimiter);
+        int colCount = firstLineFields.length;
+
+        // mogu da budu i negativni brojevi!!!
+        String intRegex = "^-?[0-9]+$"; //  "^-?(0|[1-9]\\d*)$"
+        String decimalRegex = "^-?[0-9]+\\.[0-9]+$";    // "^\\d+(\\.\\d+)?$"
+        String binaryRegex = "^[01]$";
+        String numRegex = "^-?[0-9]+\\.?[0-9]+$";
+        String alphaNumRegex = "^[a-zA-Z0-9_\\s\\-]+$"; // "^([a-zA-Z_0-9\\ \\-])+$"
+        String alphaRegex = "^[a-zA-Z_\\s\\-]+$";
+
+        boolean allNumeric = true;
+        boolean allAlphaNum = true;
+
+        // ako sadrzi sve samo numericke onda nema column names
+        for(String field : firstLineFields) {
+            boolean isNum = Pattern.matches(numRegex, field);
+            boolean isAlphaNum = Pattern.matches(alphaNumRegex, field);
+            allNumeric = allNumeric && isNum;
+            allAlphaNum = allAlphaNum && isAlphaNum;
+        }
+
+        if (allNumeric) {
+            hasColumnNames = false;
+        } else if (allAlphaNum) { // most likely column names but might be also nominal
+            columnNames = firstLineFields;
+            hasColumnNames = true;
+        } else { // mix of num and nominal most likely data row
+            hasColumnNames = false;
+        }
+
+        // TODO: get next five rows and autodetect column types
+        // int, dec, binary, string
+        String[][] sampleRows=new String[5][colCount];
+        for(int i=0; i<5; i++) {
+            String line = br.readLine();
+            String[] fields = line.split(delimiter);
+            sampleRows[i] = fields; // todo trim all fields
+        }
+
+        // detect column types based on first 5 rows (or get random sample of 10 rows from first 100?)
+        ColumnType colTypes[] = new ColumnType[colCount];
+        for (int c=0; c<colCount; c++) {
+            boolean allColsAlphaNum = true,
+                    allColsBinary = true,
+                    allColsDecimal = true,
+                    allColsInt = true;
+
+            for(int r=0; r<5; r++) {
+                boolean isBinary = Pattern.matches(binaryRegex, sampleRows[r][c]);
+                allColsBinary = allColsBinary && isBinary;
+
+                boolean isInt = Pattern.matches(intRegex, sampleRows[r][c]);
+                allColsInt = allColsInt && isInt;
+
+                boolean isDecimal = Pattern.matches(decimalRegex, sampleRows[r][c]);
+                allColsDecimal = allColsDecimal && ( isDecimal || isInt ); // moze da bud ekolona koje ima decimalne ali i int, ona se tretira kao decimalna
+
+                boolean isAlphaNum = Pattern.matches(alphaNumRegex, sampleRows[r][c]);
+                allColsAlphaNum = allColsAlphaNum && isAlphaNum;
+            }
+
+            if (allColsBinary) {
+                colTypes[c] = ColumnType.BINARY;
+            } else if (allColsInt) {
+                colTypes[c] = ColumnType.INTEGER;
+            } else if (allColsDecimal) {
+                colTypes[c] = ColumnType.DECIMAL;
+            } else {
+                colTypes[c] = ColumnType.STRING;
+            }
+
+        }
+
+        CsvFormat csvFormat = new CsvFormat();
+        csvFormat.setDelimiter(delimiter);
+        csvFormat.setColumnTypes(colTypes);
+        csvFormat.setColumnNames(columnNames);
+        csvFormat.setHasHeader(hasColumnNames);
+
+        return csvFormat;
+
     }
 
     public static DataSet normalizeMax(DataSet dataSet, boolean inplace) {

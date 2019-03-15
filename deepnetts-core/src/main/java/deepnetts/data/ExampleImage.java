@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.data;
 
 import deepnetts.util.ColorUtils;
@@ -29,41 +29,41 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * This class represents example image to train the network. 
+ * This class represents example image to train the network.
  * It contains image and label information.
  */
 public class ExampleImage implements DataSetItem {
-    
+
     /**
      * Image dimensions - width and height
      */
     private final int width, height;   // dont need this here , maybe only in dataset
-           
+
     /**
      * Image label, a concept to map to this image
      */
-    private final String label; 
-    
+    private final String label;
+
     /**
      * Desired network output - maybe its better to use  int - output index with 1 ? lesss memory for huge data sets - TODO: use int here
-     */   
+     */
     private float[] targetOutput; // output vector depends on number of classes- this could be int in order to save memory
-              
+
     /**
      * Transformed RGB values of Image pixels
      * used as an input for neural net
      */
-    private float[] rgbVector; 
-    
+    private float[] rgbVector;
+
     private Tensor rgbTensor;
-    
+
     private File file;
-    
+
 
     /**
      * Creates an instance of new example image with specified image and label
      * Loads image from specified file and creates matrix structures with color information
-     * 
+     *
      * @param file image file
      * @param label image label
      * @throws IOException if file is not found or reading file fails from some reason.
@@ -75,7 +75,7 @@ public class ExampleImage implements DataSetItem {
         width = image.getWidth();
         height = image.getHeight();
 
-        extractPixelColors(image);        
+        extractPixelColors(image);
     }
 
     public ExampleImage(BufferedImage image, String label) throws IOException {
@@ -83,16 +83,16 @@ public class ExampleImage implements DataSetItem {
         width = image.getWidth();
         height = image.getHeight();
 
-        extractPixelColors(image);        
+        extractPixelColors(image);
     }
-    
+
     public ExampleImage(BufferedImage image) {
         this.label = null;
         width = image.getWidth();
         height = image.getHeight();
 
-        extractPixelColors(image);        
-    }    
+        extractPixelColors(image);
+    }
 
     private void extractPixelColors(BufferedImage image ) {
         int[][][] pixels = new int[height][width][3]; // da li ovde mogu da koristim Raster ili DataBuffer?
@@ -105,33 +105,33 @@ public class ExampleImage implements DataSetItem {
                 pixels[y][x][0] = ColorUtils.getBlue(color);
                 pixels[y][x][1] = ColorUtils.getGreen(color);
                 pixels[y][x][2] = ColorUtils.getRed(color);
-                
+
                 rgbVector[y * width + x] = pixels[y][x][0] / 255.0f;// - 0.5;   normalize & translate // TODO: proveri da li ovo radi dobro!!!
                 rgbVector[width * height + y * width + x] = pixels[y][x][1] / 255.0f;// - 0.5;
                 rgbVector[2 * width * height + y * width + x] = pixels[y][x][2] / 255.0f;// - 0.5;
             }
         }
-        
+
         rgbTensor = new Tensor(height, width, 3, rgbVector);
-    }    
+    }
 
     @Override
     public float[] getTargetOutput() {
         return targetOutput;
     }
-    
+
     public void setRgbVector(float[] array) {
-        rgbVector = array;        
+        rgbVector = array;
     }
 
     public float[] getRgbVector() {
         return rgbVector;
     }
-    
+
     public final void setTargetOutput(float[] desiredOutput) {
         this.targetOutput = desiredOutput;
     }
-      
+
     public int getWidth() {
         return width;
     }

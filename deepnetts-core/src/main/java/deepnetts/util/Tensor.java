@@ -140,7 +140,7 @@ public class Tensor implements Serializable {
 
     /**
      * Creates an empty single row tensor with specified number of columns.
-     *
+     * TODO: this should be rows!!!
      * @param cols number of columns
      */
     public Tensor(int cols) {

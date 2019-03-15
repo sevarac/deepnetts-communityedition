@@ -63,7 +63,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
      */
     private HashMap<String, PerformanceMeasure> performanceByClass;
 
-    private float threshold = 0.5f; // this should go into classifier
+    private float threshold = 0.5f;
 
     private void init() {
         performanceByClass = new HashMap<>();
@@ -86,18 +86,18 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
         //  wrap neural network with classifier interface, setInput from param, and return output
         // I need a method that wraps modelinto a classifier Classifier.fromNeuralNetwork(neuralNet)
+        // so this method can accept classifier as aparam
         for (DataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
-            neuralNet.forward();
-            final float[] output = neuralNet.getOutput();
-            processResult(output, item.getTargetOutput());
+            final float[] predictedOut = neuralNet.getOutput();
+            processResult(predictedOut, item.getTargetOutput());
         }
 
         if (classLabels.size() == 1) {  // for binary classification
             return createBinaryPerformanceMeasures();
-        } else {    // for multi class classification
+        } else {  // for multi class classification
             createMultiClassPerformanceMeasures();
-            return getTotalAverage(); // najbolje da ovde vracam total a sa posebnom metodom da uzimam by class
+            return getTotalAverage(); // ovde vracam total posebnom metodom uzimam by class
         }
     }
 
@@ -157,22 +157,23 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         return performanceByClass;
     }
 
+    // https://en.wikipedia.org/wiki/Confusion_matrix
     // https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
     // http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
-    private void processResult(float[] predictedOutput, float[] targetOutput) {
+    private void processResult(float[] predicted, float[] actual) {
 
         if (classLabels.size() == 1) { // if its a binary classifier
-            if ((predictedOutput[0] >= threshold) && (targetOutput[0] == 1)) {
+            if ((predicted[0] >= threshold) && (actual[0] == 1)) {
                 confusionMatrix.inc(0, 0); // tp is at [0, 0]
-            } else if ((predictedOutput[0] < threshold) && (targetOutput[0] == 0)) {
-                confusionMatrix.inc(1, 1); // tn is at [0, 0]
-            } else if ((predictedOutput[0] >= threshold) && (targetOutput[0] == 0)) {
+            } else if ((predicted[0] < threshold) && (actual[0] == 0)) {
+                confusionMatrix.inc(1, 1); // tn is at [1, 1]
+            } else if ((predicted[0] >= threshold) && (actual[0] == 0)) {
                 confusionMatrix.inc(0, 1); // fp is at [0, 1]
-            } else if ((predictedOutput[0] < threshold) && (targetOutput[0] == 1)) {
+            } else if ((predicted[0] < threshold) && (actual[0] == 1)) {
                 confusionMatrix.inc(1, 0); // fn is at [1, 0]
             }
         } else { // multi class classifier
-            int actualIdx = indexOfMax(targetOutput);
+            int targetIdx = indexOfMax(actual);
 //            String actualClass = null;
 //
 //            if (!isNegativeTarget(targetOutput)) {
@@ -181,7 +182,8 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 //                actualClass = NEGATIVE; // ako su svi nue, ond aje negativan primer
 //            }
 
-            int predictedIdx = indexOfMax(predictedOutput); // ako su svi nule predictsIdx je od NEGATIVE
+            // dali da primenjuje threshold ili samo da gledam koji je max? verovatno bi trebalo i threshols...
+            int predictedIdx = indexOfMax(predicted); // ako su svi nule predictsIdx je od NEGATIVE
 //            String predictedClass = null;
 //            if (predictedOutput[predictedIdx] >= threshold) {
 //                predictedClass = classLabels.get(predictedIdx);
@@ -189,7 +191,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 //                predictedClass = NEGATIVE;
 //            }
 
-            confusionMatrix.inc(predictedIdx, actualIdx);
+            confusionMatrix.inc(predictedIdx, targetIdx);
         }
     }
 

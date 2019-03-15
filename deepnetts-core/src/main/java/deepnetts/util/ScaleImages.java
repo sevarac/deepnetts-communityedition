@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -35,42 +35,42 @@ import javax.imageio.ImageIO;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class ScaleImages {
-    
-    String sourcePath = "/home/zoran/datasets/cifar10x10/negative";
-    String targetPath = "/home/zoran/datasets/cifar4x1/negative/"; 
-    int targetWidth=4,
-        targetHeight=1; 
-           
+
+    String sourcePath = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet\\negative\\";  // moraju na kraju da se stave \\ ispravi to
+    String targetPath = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256\\negative\\";
+    int targetWidth=256,
+        targetHeight=256;
+
     String imageIndexFileFile =""; // index.txt
     String labelsFile =""; // labels.txt
-        
+    // ovo treba da radi bez ucitavanja celog direktorijuma nego protocno
     public void run() {
         try {
             HashMap<File, BufferedImage> images = ImageUtils.loadFileImageMapFromDirectory(new File(sourcePath)); // da ne ucitava nista sto nije png, jpg i jpeg
-                       
+
             int i = 0;
             for(File file : images.keySet()) {
                 BufferedImage scaledImage = ImageUtils.scaleAndCenter(images.get(file), targetWidth, targetHeight, 0, Color.WHITE);
                 String fileName = file.getName();
                 String imgType = fileName.substring(fileName.lastIndexOf(".")+1); // da podrzi i png slike!
-                                
+
                 ImageIO.write(scaledImage, imgType, new File(targetPath + ""+file.getName()));
                 i++;
             }
-                       
+
             ImageUtils.createIndexFile(images, targetPath + "imageIndex.txt", true);
             // create labels file too
-            // create the directory structure - all classes in same 
-                        
+            // create the directory structure - all classes in same
+
         } catch (IOException ex) {
             Logger.getLogger(ScaleImages.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
+
     public static void main(String[] args) {
         ScaleImages demo = new ScaleImages();
-        demo.run();                
+        demo.run();
     }
-    
+
 }

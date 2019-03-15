@@ -1,7 +1,7 @@
-/**  
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation 
+/**
+ *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
  *  based learning and image recognition.
- * 
+ *
  *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
  *
  *  This file is part of DeepNetts.
@@ -18,7 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
-    
+
 package deepnetts.util;
 
 import java.io.IOException;
@@ -29,6 +29,7 @@ import java.io.IOException;
  */
 public class CreateImageIndex {
     public static void main(String[] args) throws IOException {
-        ImageSetUtils.createImageIndex("D:\\datasets\\clouds\\swimcat", true);
+       ImageSetUtils.createImageIndex("D:\\datasets\\clouds\\swimcat", true);
+    //   ImageSetUtils.createImageIndex("D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256", true);
     }
 }

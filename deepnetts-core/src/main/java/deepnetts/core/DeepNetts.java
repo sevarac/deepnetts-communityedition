@@ -32,7 +32,7 @@ import java.util.Properties;
 public final class DeepNetts {
 
     private static DeepNetts instance;
-    
+
     // https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
     private Properties prop;
 
@@ -41,6 +41,7 @@ public final class DeepNetts {
         prop = new Properties();
         prop.put("version", "1.0");
         prop.put("vendor", "Deep Netts LLC");
+        prop.put("multithreaded", "false");
     }
 
     public static DeepNetts getInstance() {
@@ -51,10 +52,14 @@ public final class DeepNetts {
         return instance;
     }
 
+    public String getProperty(String name) {
+        return prop.getProperty(name);
+    }
+
     public static void checkLicense() {
-        LicenseChecker checker = new LicenseChecker();        
-        try { 
-            checker.checkLicense();       
+        LicenseChecker checker = new LicenseChecker();
+        try {
+            checker.checkLicense();
         } catch(NullPointerException npe) {
             throw new LicenseChecker.LicenceException("License not found!");
         }
@@ -63,9 +68,9 @@ public final class DeepNetts {
     public String version() {
         return prop.getProperty("version");
     }
-    
+
     public Properties getProperties() {
         return prop;
     }
-    
+
 }

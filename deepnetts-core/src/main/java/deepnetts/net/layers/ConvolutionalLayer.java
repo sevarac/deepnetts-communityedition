@@ -93,6 +93,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
     private transient List<Callable<Void>> forwardTasks;
     private transient List<Callable<Void>> backwardTasks;
+    private boolean multithreaded=false;
 
 
     private static final Logger LOG = Logger.getLogger(DeepNetts.class.getName());
@@ -125,7 +126,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
         this.activation = ActivationFunction.create(activationType);
     }
 
-    public ConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels, ActivationType activationType) {
+    // todo: move stride after channels parameter to be consistent
+    public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, int stride, ActivationType activationType) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;
         this.depth = channels;
@@ -214,16 +216,18 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void forward() {
-//        try {
-//            DeepNettsThreadPool.getInstance().run(forwardTasks);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-        for (int ch = 0; ch < this.depth; ch++) {
-            forwardChannel(ch);
+        if (!multithreaded) {
+            for (int ch = 0; ch < this.depth; ch++) {
+                forwardChannel(ch);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(forwardTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage());
+                //Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
     }
 
     private void forwardChannel(int ch) {
