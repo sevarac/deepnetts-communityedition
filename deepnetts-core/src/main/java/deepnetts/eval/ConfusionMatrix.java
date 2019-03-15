@@ -73,11 +73,12 @@ public class ConfusionMatrix {
     /**
      * Increments matrix value at specified position.
      *
-     * @param predictedIdx class id of predicted classification - corresponds to row
-     * @param actualIdx class id of correct classification - corresponds to column
+     * @param actualIdx class idx of actual class - corresponds to row
+     * @param predictedIdx class idx of predicted class - corresponds to column
+     *
      */
-    public final void inc(final int predictedIdx, final int actualIdx) {
-        values[predictedIdx][actualIdx]++;
+    public final void inc(final int actualIdx, final int predictedIdx) {
+        values[actualIdx][predictedIdx]++;
         totalItems++;
     }
 
@@ -111,7 +112,8 @@ public class ConfusionMatrix {
     }
 
     /**
-     * Return true positive for binary classification
+     * Return true positive for binary classification.
+     * How many items that are positive are also classified as positive.
      * @return
      */
     public int getTruePositive() {
@@ -121,11 +123,11 @@ public class ConfusionMatrix {
 
     /**
      * Returns true positive for specified class idx for multiclass classification
-     * @param clsIdx
+     * @param clsIdx Index of class for which true positive value is returned
      * @return
      */
     public int getTruePositive(int clsIdx) {
-        return (int)values[clsIdx][clsIdx];
+        return values[clsIdx][clsIdx];
     }
 
     public int getTrueNegative() {
@@ -134,9 +136,10 @@ public class ConfusionMatrix {
     /*
     https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
     https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
-    promeni indekse da budu intuitivni 1 1 tp, 0 0 tn, 10 fp, 01 fn tako je u scikit learnu
 */
     // saberi sva ostala polja, a izuzmi red i kolonu  za zadatu klasu
+    // trebalo bi zapravo sabrati sva druga po dijagonali?
+    // all non-ci instances that are not classified as c1 - sum everything just skip ci row and col
     public int getTrueNegative(int clsIdx) {
         int trueNegative = 0;
 
@@ -155,30 +158,36 @@ public class ConfusionMatrix {
         return values[0][1];
     }
 
-    // saberi ceo red u kojoj se nalazi zadati clsIdx
+    // saberi celu clsIdx kolonu samo preskoci tp
+    // all non-clsIdx that are classified/predicted as clsIdx
     public int getFalsePositive(int clsIdx) {
         int falsePositive = 0;
 
         for(int i=0; i<classCount; i++) {
             if (i == clsIdx) continue; // skip tp value at diagonal
-            falsePositive += values[clsIdx][i];
+            falsePositive += values[i][clsIdx];
         }
 
         return falsePositive;
     }
 
-    // saberi celu kolonu u kojoj se nalazi zadati clsIdx
+    // saberi ceo red  u kome se nalazi zadati clsIdx
+    // all clsIdx that are classified as non clasIdx
     public int getFalseNegative(int clsIdx) {
         int falseNegative = 0;
 
         for(int i=0; i<classCount; i++) {
             if (i == clsIdx) continue; // skip tp value at diagonal
-            falseNegative += values[i][clsIdx];
+            falseNegative += values[clsIdx][i];
         }
 
         return falseNegative;
     }
 
+    /**
+     * How many positive items has been (falsely) classified as negative.
+     * @return How many positive items has been (falsely) classified as negative
+     */
     public int getFalseNegative() {
         return values[1][0];
     }

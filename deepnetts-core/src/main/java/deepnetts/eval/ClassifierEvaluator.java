@@ -90,7 +90,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         for (DataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
             final float[] predictedOut = neuralNet.getOutput();
-            processResult(predictedOut, item.getTargetOutput());
+            processResult(item.getTargetOutput(), predictedOut);
         }
 
         if (classLabels.size() == 1) {  // for binary classification
@@ -160,38 +160,23 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     // https://en.wikipedia.org/wiki/Confusion_matrix
     // https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
     // http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
-    private void processResult(float[] predicted, float[] actual) {
+    private void processResult(float[] actual, float[] predicted) {
 
         if (classLabels.size() == 1) { // if its a binary classifier
-            if ((predicted[0] >= threshold) && (actual[0] == 1)) {
-                confusionMatrix.inc(0, 0); // tp is at [0, 0]
-            } else if ((predicted[0] < threshold) && (actual[0] == 0)) {
-                confusionMatrix.inc(1, 1); // tn is at [1, 1]
-            } else if ((predicted[0] >= threshold) && (actual[0] == 0)) {
+            if ((actual[0] == 1) && (predicted[0] >= threshold)) {
+                confusionMatrix.inc(1, 1); // tp is at [1, 1]
+            } else if ((actual[0] == 0) && (predicted[0] < threshold)) {
+                confusionMatrix.inc(0, 0); // tn is at [0, 0]
+            } else if ((actual[0] == 0) && (predicted[0] >= threshold)) {
                 confusionMatrix.inc(0, 1); // fp is at [0, 1]
-            } else if ((predicted[0] < threshold) && (actual[0] == 1)) {
+            } else if ((actual[0] == 1) && (predicted[0] < threshold)) {
                 confusionMatrix.inc(1, 0); // fn is at [1, 0]
             }
         } else { // multi class classifier
-            int targetIdx = indexOfMax(actual);
-//            String actualClass = null;
-//
-//            if (!isNegativeTarget(targetOutput)) {
-//                actualClass = classLabels.get(actualIdx);
-//            } else {
-//                actualClass = NEGATIVE; // ako su svi nue, ond aje negativan primer
-//            }
-
-            // dali da primenjuje threshold ili samo da gledam koji je max? verovatno bi trebalo i threshols...
+            int actualIdx = indexOfMax(actual);
             int predictedIdx = indexOfMax(predicted); // ako su svi nule predictsIdx je od NEGATIVE
-//            String predictedClass = null;
-//            if (predictedOutput[predictedIdx] >= threshold) {
-//                predictedClass = classLabels.get(predictedIdx);
-//            } else {
-//                predictedClass = NEGATIVE;
-//            }
-
-            confusionMatrix.inc(predictedIdx, targetIdx);
+            // ovd edodaj i threshold
+            confusionMatrix.inc(actualIdx, predictedIdx);
         }
     }
 
