@@ -14,6 +14,6 @@ import java.io.IOException;
 public class GenerateRandomNegative {
     public static void main(String[] args) throws IOException {
        // ImageUtils.generateRandomColoredImages(96, 96, 460, "D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\negative");
-        ImageSetUtils.createImageIndex("D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\", true);
+        ImageSetUtils.createImageIndex("D:\\datasets\\LegoPeopleNoviJecaPreprocessed\\");
     }
 }

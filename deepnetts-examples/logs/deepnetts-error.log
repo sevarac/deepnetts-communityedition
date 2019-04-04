@@ -1,0 +1,20 @@
+[ERROR] 2019-04-02 22:31:31.615 [main] DeepNetts - java.io.FileNotFoundException: D:\datasets\mnist\train\train.txt (The system cannot find the file specified)
+[ERROR] 2019-04-02 22:31:46.051 [main] DeepNetts - java.io.FileNotFoundException: D:\datasets\mnist\train\train.txt (The system cannot find the file specified)
+[ERROR] 2019-04-02 22:54:36.036 [main] DeepNetts - Could not find labels file: D:\datasets\cifar10\labels.txt
+java.io.FileNotFoundException: D:\datasets\cifar10\labels.txt (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.io.FileInputStream.open(FileInputStream.java:196) ~[?:?]
+	at java.io.FileInputStream.<init>(FileInputStream.java:139) ~[?:?]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:?]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:409) [deepnetts-core-1.1-SNAPSHOT.jar:?]
+	at deepnetts.examples.Cifar10.run(Cifar10.java:57) [classes/:?]
+	at deepnetts.examples.Cifar10.main(Cifar10.java:112) [classes/:?]
+[ERROR] 2019-04-02 22:56:53.803 [main] DeepNetts - Could not find labels file: D:\datasets\cifar10\labels.txt
+java.io.FileNotFoundException: D:\datasets\cifar10\labels.txt (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.io.FileInputStream.open(FileInputStream.java:196) ~[?:?]
+	at java.io.FileInputStream.<init>(FileInputStream.java:139) ~[?:?]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:?]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:409) [deepnetts-core-1.1-SNAPSHOT.jar:?]
+	at deepnetts.examples.Cifar10.run(Cifar10.java:57) [classes/:?]
+	at deepnetts.examples.Cifar10.main(Cifar10.java:112) [classes/:?]

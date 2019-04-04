@@ -66,7 +66,7 @@ public class MnistAdaGrad {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 10000); //50000
+        imageSet.loadImages(new File(trainingFile), 10000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();

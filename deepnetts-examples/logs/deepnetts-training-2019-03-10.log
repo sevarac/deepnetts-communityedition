@@ -1,0 +1,123 @@
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+Loading images...
+java.lang.NullPointerException
+Loading images...
+javax.imageio.IIOException: Can't read input file!
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:12025ms, TrainError:0.18174963, TrainErrorChange:0.18174963, Accuracy: 0.97361475
+Epoch:2, Time:12529ms, TrainError:0.13790806, TrainErrorChange:-0.04384157, Accuracy: 0.97361475
+Epoch:3, Time:12917ms, TrainError:0.1291564, TrainErrorChange:-0.008751661, Accuracy: 0.97361475
+Epoch:4, Time:12280ms, TrainError:0.12606354, TrainErrorChange:-0.0030928552, Accuracy: 0.97361475
+Epoch:5, Time:14553ms, TrainError:0.124700725, TrainErrorChange:-0.0013628155, Accuracy: 0.97361475
+Epoch:6, Time:16848ms, TrainError:0.12400689, TrainErrorChange:-6.938353E-4, Accuracy: 0.97361475
+
+TRAINING COMPLETED
+Total Training Time: 141865ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: NaN
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:22408ms, TrainError:0.18174963, TrainErrorChange:0.18174963, Accuracy: 0.97361475
+Epoch:2, Time:10533ms, TrainError:0.13790806, TrainErrorChange:-0.04384157, Accuracy: 0.97361475
+Epoch:3, Time:10113ms, TrainError:0.1291564, TrainErrorChange:-0.008751661, Accuracy: 0.97361475
+Epoch:4, Time:10102ms, TrainError:0.12606354, TrainErrorChange:-0.0030928552, Accuracy: 0.97361475
+Epoch:5, Time:10055ms, TrainError:0.124700725, TrainErrorChange:-0.0013628155, Accuracy: 0.97361475
+Epoch:6, Time:10120ms, TrainError:0.12400689, TrainErrorChange:-6.938353E-4, Accuracy: 0.97361475
+Epoch:7, Time:10133ms, TrainError:0.123613656, TrainErrorChange:-3.932342E-4, Accuracy: 0.97361475
+Epoch:8, Time:10179ms, TrainError:0.12337087, TrainErrorChange:-2.4278462E-4, Accuracy: 0.97361475
+Epoch:9, Time:10112ms, TrainError:0.123210154, TrainErrorChange:-1.6071647E-4, Accuracy: 0.97361475
+Epoch:10, Time:10159ms, TrainError:0.123097375, TrainErrorChange:-1.1277944E-4, Accuracy: 0.97361475
+Epoch:11, Time:9970ms, TrainError:0.123014234, TrainErrorChange:-8.314103E-5, Accuracy: 0.97361475
+Epoch:12, Time:10104ms, TrainError:0.12295027, TrainErrorChange:-6.3963234E-5, Accuracy: 0.97361475
+Epoch:13, Time:13595ms, TrainError:0.122899115, TrainErrorChange:-5.1155686E-5, Accuracy: 0.97361475
+Epoch:14, Time:11472ms, TrainError:0.12285666, TrainErrorChange:-4.245341E-5, Accuracy: 0.97361475
+Epoch:15, Time:11132ms, TrainError:0.122820325, TrainErrorChange:-3.633648E-5, Accuracy: 0.97361475
+Epoch:16, Time:11122ms, TrainError:0.1227881, TrainErrorChange:-3.222376E-5, Accuracy: 0.97361475
+Epoch:17, Time:10042ms, TrainError:0.122758515, TrainErrorChange:-2.9586256E-5, Accuracy: 0.97361475
+Epoch:18, Time:10256ms, TrainError:0.12273052, TrainErrorChange:-2.7991831E-5, Accuracy: 0.97361475
+Epoch:19, Time:10020ms, TrainError:0.1227028, TrainErrorChange:-2.772361E-5, Accuracy: 0.97361475
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:62292ms, TrainError:0.17779501, TrainErrorChange:0.17779501, Accuracy: 0.97361475
+Epoch:2, Time:62995ms, TrainError:0.13544314, TrainErrorChange:-0.04235187, Accuracy: 0.97361475
+Epoch:3, Time:65412ms, TrainError:0.12745072, TrainErrorChange:-0.007992417, Accuracy: 0.97361475
+Loading images...
+Loading images...
+java.lang.NullPointerException
+Loading images...
+javax.imageio.IIOException: Can't read input file!
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:75807ms, TrainError:0.7713698, TrainErrorChange:0.7713698, Accuracy: 0.5756208
+Epoch:2, Time:82593ms, TrainError:0.6860453, TrainErrorChange:-0.085324526, Accuracy: 0.5756208
+Epoch:3, Time:72239ms, TrainError:0.68587154, TrainErrorChange:-1.7374754E-4, Accuracy: 0.5756208
+Epoch:4, Time:70602ms, TrainError:0.6858681, TrainErrorChange:-3.4570694E-6, Accuracy: 0.5756208
+Epoch:5, Time:76989ms, TrainError:0.685867, TrainErrorChange:-1.0728836E-6, Accuracy: 0.5756208
+Loading images...
+Loaded 633 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:155500ms, TrainError:0.7169685, TrainErrorChange:0.7169685, Accuracy: 0.58013546
+Epoch:2, Time:156455ms, TrainError:0.6956392, TrainErrorChange:-0.021329284, Accuracy: 0.5778781
+Epoch:3, Time:154097ms, TrainError:0.6926579, TrainErrorChange:-0.0029813051, Accuracy: 0.58013546

@@ -55,7 +55,7 @@ public class JavaOneSponsors {
         LOGGER.info("Loading images...");
 
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false);
+        imageSet.loadImages(new File(trainingFile));
 
         imageSet.invert();
         imageSet.zeroMean(); // standardize zero mean 1 variation

@@ -55,7 +55,7 @@ public class Clouds {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), true);
+        imageSet.loadImages(new File(trainingFile));
 //        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();

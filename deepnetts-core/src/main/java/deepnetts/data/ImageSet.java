@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,7 +54,8 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     private final int imageWidth;
     private final int imageHeight;
     private Tensor mean;
-
+    private static String NEGATIVE_LABEL="negative";
+    
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
     // ovi ne mogu svi da budu u memoriji odjednom...
@@ -89,56 +91,65 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //        }
     }
 
+     public void loadImages(String imageIdxFile) throws FileNotFoundException {
+         loadImages(new File(imageIdxFile));
+     }
+           
     /**
-     * Loads example images with labels from specified file.
+     * Loads example images with corresponding labels from the specified file.
      *
-     * TODO: First load entire image index, then load and preprocess image in
-     * multithreaded way TODO2: load images in batches
      *
-     * @param imageIdxFile Plain text file that contains space delimited image
-     * file paths and labels
-     * @param absPaths True if file contains absolute paths for images, false
-     * otherwise
+     * @param imageIdxFile Plain text file that contains space delimited image paths and labels
+     * @param absPaths True if file contains absolute paths for images, false otherwise. If specified value is false, images will be loaded relative to index file path.
      * @throws java.io.FileNotFoundException if imageIdxFile was not found
      */
-    public void loadImages(File imageIdxFile, boolean absPaths) throws FileNotFoundException {
-        String parentPath = "";
-        if (absPaths == false) {
-            parentPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
-        }
+    public void loadImages(File imageIdxFile) throws FileNotFoundException {
+     // TODO: First load entire image index, then load and preprocess image in
+     // multithreaded way TODO2: load images in batches        
+        
+     Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");
+     if (columnNames == null) {
+          throw new DeepNettsException("Error: Labels are not loaded. In order to load images correctly you have to load labels first using ImageSet.loadLabels method.");
+     }               
+     
+     // use paths of the image index file as root path for image categories 
+     final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
+     
+     final String delimiter = " ";
+     String imgFileName = null;
+     String label = null;
+     final String[] fColumnNames = columnNames;
 
-        String imgFileName = null;
-        String label = null;
-        final String[] fColumnNames = columnNames;
-
+        // TODO: da radi u batch-u. Da ima interni brojac dokle je stigao. Ili da drzi otvoren stream da iam metodu loadNextBatch() mozda to najbolje u posebnoj metodi ako je mod za trening batch.
+        
        // ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
 
         // TODO: napravi ovo asinhrono da ucitava i preprocesira u posebnim threadovima, u perspektivi u batchovima, ne sve odjendnom
         // ucitaj prvo indeks slika a onda ucitavanje i preprocrsiranje slika parelelizuj da jedan thread radi ucitavanje a drugi preprocsiranje onoga sto je ucitano
         try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
+            int lineCount=0;
           //  List<Future<?>> results = new LinkedList<>();
             // we can also catch and log FileNotFoundException, IOException in this loop
             while ((line = br.readLine()) != null) {
-                if (line.isEmpty()) {
+                lineCount++;
+                if (line.isEmpty()) { // skip empty lines
                     continue;
                 }
-                String[] str = line.split(" "); // parse file and class label from current line - sta ako naziv fajla sadrzi space? - to ne sme ili detektuj nekako sa lastIndex
+                String[] parts = line.split(delimiter); // parse file and class label from current line - sta ako naziv fajla sadrzi space? - to ne sme ili detektuj nekako sa lastIndex
+                if (parts.length >2) throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line "+lineCount);
+                
+                imgFileName = parts[0];
 
-                imgFileName = str[0];
-                if (!absPaths) {
-                    imgFileName = parentPath + File.separator + imgFileName;
-                }
-                if (str.length == 2) {
-                    label = str[1];
-                } else if (str.length == 1) {
-                    // todo: extract label from parent folder - check this
-                    final int labelEndIdx = imgFileName.lastIndexOf(File.separator);
-                    final int labelStartIdx = imgFileName.lastIndexOf(File.separator, labelEndIdx) + 1;
-                    label = imgFileName.substring(labelStartIdx, labelEndIdx);
-                    //parentPath
-                }
+                if (parts.length == 2) { // use specified label if it is available 
+                    label = parts[1];
+                } else if (parts.length == 1) {  // otherwise use name of parent folder as label
+                    final int labelEndIdx = imgFileName.lastIndexOf(File.separator); // assumes one top directory which corresponds to category label
+                    label = imgFileName.substring(0, labelEndIdx);
+                } 
 
+                imgFileName = rootPath + File.separator + imgFileName;
+                
                 // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
                 final BufferedImage image = ImageIO.read(new File(imgFileName));
                 final String flabel = label;
@@ -189,31 +200,28 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             LOGGER.error(ex);
             throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
         }
-
-    }
-
-    public void loadImages(String imageIdxFile, boolean absPaths) throws FileNotFoundException {
-        loadImages(new File(imageIdxFile), absPaths);
     }
 
     /**
-     * Loads example images and corresponding labels from specified file.
-     *
+     * Loads specified number of example images with corresponding labels from the specified file.
+     * 
      * @param imageIdxFile Plain text file which contains space delimited image
-     * file paths and labels
-     * @param absPaths True if file contains absolute paths for images, false
-     * otherwise
+     * file paths and label
      * @param numOfImages number of images to load
      */
-    public void loadImages(File imageIdxFile, boolean absPaths, int numOfImages) throws DeepNettsException {
-        String parentPath = "";
-        if (absPaths == false) {
-            parentPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
-        }
+    public void loadImages(File imageIdxFile, int numOfImages) throws DeepNettsException {
+        Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");        
+        
+        if (columnNames == null) {
+            throw new DeepNettsException("Error: Labels are not loaded. In order to load images correctly you have to load labels first using ImageSet.loadLabels method.");
+        }        
 
+        final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));        
+        
         String imgFileName = null;
         String label = null;
         final String[] fColumnNames = columnNames;
+        final String delimiter = " ";
 
       //  ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
       //  List<Future<?>> results = new LinkedList<>();
@@ -227,12 +235,18 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] str = line.split(" "); // parse file and class label from line
-                imgFileName = str[0];
-                if (!absPaths) {
-                    imgFileName = parentPath + File.separator + imgFileName;
-                }
-                label = str[1]; // TODO: if there is no label, use the name of the parent folder as a label
+                String[] parts = line.split(delimiter); // parse file and class label from line
+                
+                if (parts.length >2) throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line "+i);
+                
+                imgFileName = parts[0];
+
+                if (parts.length == 2) { // use specified label if it is available 
+                    label = parts[1];
+                } else if (parts.length == 1) {  // otherwise use name of parent folder as label
+                    final int labelEndIdx = imgFileName.lastIndexOf(File.separator); // assumes one top directory which corresponds to category label
+                    label = imgFileName.substring(0, labelEndIdx);
+                }                 
 
 //                try {
 //                // ucitavaj slike u ovom a preprocesiraj u posebnom threadu, najbolje submituj preprocesiranje na neki thread pool
@@ -247,18 +261,19 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
 //                    throw new DeepNettsException("Image loading error!", ex);
 //                }
+
+                imgFileName = rootPath + File.separator + imgFileName;
+                
                 final BufferedImage image = ImageIO.read(new File(imgFileName));
                 final String flabel = label;
 
                // Future<?> result = es.submit(() -> {
-                    try {
+
                         final ExampleImage exImg = new ExampleImage(image, flabel);
                         exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
                         add(exImg); // ovaj add i kolekcija bi morali da budu sinhronizovani ...
                  //       return true;
-                    } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
               //      return false;
                     // make sure all images are the same size
 //                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
@@ -298,32 +313,29 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     }
 
     /**
-     * Creates and returns binary target vector for specified label using
-     * one-of-many scheme. Returns all zeros for label 'negative'.
+     * Creates and returns binary array for specified label using one-hot-encoding scheme.
+     * Each position in array corresponds to one label, position with label given as parameter  is 1, while other positions are zero. 
+     * Returns all zeros for label 'negative'.
      *
-     * TODO: add params size and idx and move to some util class
-     *
-     * @param label
+     * @param label specific tabel to encode with 1 in return vector
+     * @param labels all available labels
      * @return
      */
     private float[] oneHotEncode(final String label, final String[] labels) {
-        final float[] vect = new float[labels.length];
+        final float[] returnArr = new float[labels.length];
 
-        if (label.equals("negative")) {
-            return vect; // ovaj izbaci u opstoj verziji
+        if (label.equalsIgnoreCase(NEGATIVE_LABEL)) {
+            return returnArr;
         }
         for (int i = 0; i < labels.length; i++) {
             if (labels[i].equals(label)) {
-                vect[i] = 1;
+                returnArr[i] = 1;
             }
         }
 
-        return vect;
+        return returnArr;
     }
 
-//    public String> getLabels() {
-//        return Collections.unmodifiableList(labels);
-//    }
     public int getLabelsCount() {
         return columnNames.length;
     }
@@ -374,19 +386,35 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         return subSets;
     }
 
+    /**
+     * Loads and returns image labels to train neural network from the specified file.
+     * These labels will be used to label network's outputs.
+     * 
+     * @param filePath
+     * @return
+     * @throws DeepNettsException 
+     */
     public String[] loadLabels(String filePath) throws DeepNettsException {
         return loadLabels(new File(filePath));
     }
 
+    /**
+     * Loads and returns image labels to train neural network from the specified file.These labels will be used to label network's outputs.
+     *
+     * @param file file to load labels from
+     * @return
+     * @throws DeepNettsException 
+     */    
     public String[] loadLabels(File file) throws DeepNettsException {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = null;
             List<String> labelsList = new ArrayList<>(); // temporary labels list
-            // we can also catch and log FileNotFoundException, IOException in this loop
             while ((line = br.readLine()) != null) {
+                if (line.isEmpty()) continue;
+                line = line.trim();
+                if (line.contains(" ")) throw new DeepNettsException("Bad label format: Labels should not contain space characters! For label:"+line);
                 labelsList.add(line);
             }
-            br.close();
             this.columnNames = labelsList.toArray(new String[labelsList.size()]);
             return columnNames;
         } catch (FileNotFoundException ex) {

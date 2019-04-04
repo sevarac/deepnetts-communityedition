@@ -255,7 +255,7 @@ public class FileIO {
 
                         // todo: add biases from json too
 
-                        builder.addConvolutionalLayer(filterWidth, filterHeight, stride, channels, ActivationType.valueOf(activation));
+                        builder.addConvolutionalLayer(filterWidth, filterHeight, channels, stride, ActivationType.valueOf(activation));
                 break;
                 case MAXPOOLING :
                         filterWidth = layerObj.getInt("filterWidth");

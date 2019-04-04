@@ -43,10 +43,10 @@ public class Cifar10 {
     int imageHeight = 32;
 
     //String labelsFile = "/home/zoran/datasets/cifar10/train/labels.txt";
-    String labelsFile = "D:\\datasets\\cifar10\\labels.txt";
+    String labelsFile = "D:\\datasets\\cifar10\\train\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
     //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\cifar10\\train.txt";
+    String trainingFile = "D:\\datasets\\cifar10\\train\\index.txt";
    // String testFile = "datasets/cifar10/test.txt";
 
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
@@ -55,7 +55,7 @@ public class Cifar10 {
         LOGGER.info("Loading images...");
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 2000);
+        imageSet.loadImages(new File(trainingFile), 2000);
 //        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();

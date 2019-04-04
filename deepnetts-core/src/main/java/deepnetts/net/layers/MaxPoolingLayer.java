@@ -168,17 +168,34 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        // propusti gresku iz sledeceg lejera daltu unazad samo za neurone koji su bili max (na osnovu zapamcenih pozicija)
-        // kako su povezani max pooling i sledeci conv layer?  standardna konvolucija
-        // prvo treba propagirati delte iz narednog lejera u ovaj lejer
-        // zapravo ovde treba samo preneti weighted deltas unazad a u prethodnom konvolucionom sloju se vrsi selekcija u skladu sa max ulazom itd.
 
         if (nextLayer instanceof FullyConnectedLayer) {
             backwardFromFullyConnected();
         }
-
         else if (nextLayer instanceof ConvolutionalLayer) {
-            // iterate all deltas  in next layer
+             backwardFromConvolutional();
+        }
+
+    }
+
+    private void backwardFromFullyConnected() {
+        deltas.fill(0); // reset deltas to zero befor propagating deltas from next layer
+
+        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru, moze multuthreaded
+            for (int row = 0; row < deltas.getRows(); row++) {
+                for (int col = 0; col < deltas.getCols(); col++) {
+                    for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer iteriraj delte po sirini/kolonama posto je fully connected
+                        final float nextLayerDelta = nextLayer.deltas.get(ndC);
+                        final float weight = nextLayer.weights.get(col, row, ch, ndC);
+                        deltas.add(row, col, ch, nextLayerDelta * weight);
+                    }
+                }
+            }
+        }
+    }
+    
+    private void backwardFromConvolutional() {
+
             final ConvolutionalLayer nextConvLayer = (ConvolutionalLayer)nextLayer;
             deltas.fill(0);
             final int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
@@ -199,7 +216,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
                                     if (outRow < 0 || outRow >= outputs.getRows() || outCol < 0 || outCol >= outputs.getCols()) {
                                         continue;
                                     }
-
+                                    // deltas ima dosta medju nula
                                     deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz));
                                 }
                             }
@@ -207,27 +224,10 @@ public final class MaxPoolingLayer extends AbstractLayer {
                     }
                 }
             }
-//           deltas.div(9); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a
-        }
-
-        // we can also put zeros to all deltas that dont bellong to max outputs, and free prev convolutional layer to do that...
-    }
-
-    private void backwardFromFullyConnected() {
-        deltas.fill(0); // reset deltas to zero befor propagating deltas from next layer
-
-        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru, moze multuthreaded
-            for (int row = 0; row < deltas.getRows(); row++) {
-                for (int col = 0; col < deltas.getCols(); col++) {
-                    for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer iteriraj delte po sirini/kolonama posto je fully connected
-                        final float nextLayerDelta = nextLayer.deltas.get(ndC);
-                        final float weight = nextLayer.weights.get(col, row, ch, ndC);
-                        deltas.add(row, col, ch, nextLayerDelta * weight);
-                    }
-                }
-            }
-        }
-    }
+            // FIX:
+//           float divisor = nextConvLayer.filterWidth * nextConvLayer.filterHeight;  
+//           deltas.div(divisor); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a        
+    }    
 
 
     /**

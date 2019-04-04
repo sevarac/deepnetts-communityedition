@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -227,43 +228,40 @@ public class ImageSetUtils {
     }
 
    /**
-    * List all files in all subdirectories and write them into single index.txt file.
-    * index.txt is created in the same directory specifed as path
+    * List all files in all subdirectories and write them into single index.txt file.index.txt is created in specifed path.
     * Expected structure of directory is /imageCategoryName/imageFile1.jpg - each category of images should have its own directory
     * which is named as corresponding category
+    * 
+    * Sta se desava ako index.txt vec postoji? Da upozorava?
     *
-    * TODO: sta se desava ako index.txt vec postoji? Da upozorava?
-    *
-    * @param path path to directory to index
-    * @param useFullPath true if image index should contain full image path, false otherwise
+    * @param path directory path to index
+    * @return created image index file
     * @throws java.io.IOException
     */
-    public static File createImageIndex(String path, boolean useFullPath) throws IOException { // provide a path to train or text dir
-        String subDir="";
+    public static File createImageIndex(String path) throws IOException { // provide a path to train or text dir
         File rootDir = new File(path);
         if (!rootDir.isDirectory()) throw new DeepNettsException("Specified path must be a directory: "+path);
 
         File imageIdxFile = new File(path +"/" +IMAGE_IDX_FILE);
-        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(imageIdxFile)));
-
-        String[] subDirs = rootDir.list();
-
-        for(String classDirName : subDirs){ // these are the class directories
-            File classDirFile = new File(path+"/"+classDirName+"/"+subDir);
-             if (!classDirFile.isDirectory()) continue;
-            String label = classDirName;
-            // get label index from labels file
-
-           String[] imageFiles = classDirFile.list();
-           for(String imageFile : imageFiles) {
-               if (useFullPath)
-                    pw.println(path + "/" + classDirName + "/"+subDir+ "/" +imageFile + " " + label);
-               else
-                   pw.println(classDirName + "/" +subDir+ "/"+ imageFile + " " + label);
-           }
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(imageIdxFile)))) {
+            String[] subDirs = rootDir.list();
+            List<String> lines = new LinkedList<>();
+            for(String classDirName : subDirs){ // these are the class directories
+                File classDirFile = new File(path + File.separator + classDirName);
+                if (!classDirFile.isDirectory()) continue;
+                String label = classDirName;
+                
+                String[] imageFiles = classDirFile.list();
+                for(String imageFile : imageFiles) {
+                    lines.add(classDirName + File.separator + imageFile + " " + label);
+                }
+            }
+            
+            // shuffle all lines
+            Collections.shuffle(lines);
+            // and  write them to file
+            lines.stream().forEach((line) -> pw.println(line));                        
         }
-
-        pw.close();
 
         return imageIdxFile;
     }

@@ -59,7 +59,7 @@ public class DeepNettsRunner {
 
             ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
             imageSet.loadLabels(new File(labelsFile));
-            imageSet.loadImages(new File(trainingFile), true); // napomena - putanje bi trebalo da budu relativne inace moraju da se regenerisu
+            imageSet.loadImages(new File(trainingFile)); // napomena - putanje bi trebalo da budu relativne inace moraju da se regenerisu
 
             int labelsCount = imageSet.getLabelsCount();
 

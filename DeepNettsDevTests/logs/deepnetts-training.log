@@ -1,0 +1,17 @@
+javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+java.lang.NullPointerException
+java.lang.NullPointerException
+Loaded 60000 images
+Loaded 10 images
+Loaded 10 images
+Loaded 10 images
+Could not find labels file: d:\datasets\mnist\train\labels.txt
+java.io.FileNotFoundException: d:\datasets\mnist\train\labels.txt (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.io.FileInputStream.open(FileInputStream.java:196) ~[?:?]
+	at java.io.FileInputStream.<init>(FileInputStream.java:139) ~[?:?]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:?]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:409) [deepnetts-core-1.1-SNAPSHOT.jar:?]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:398) [deepnetts-core-1.1-SNAPSHOT.jar:?]
+	at deepnetts.dev.tests.TestImageLaoding.main(TestImageLaoding.java:24) [classes/:?]

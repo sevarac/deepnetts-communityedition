@@ -29,7 +29,8 @@ import java.io.IOException;
  */
 public class CreateLabelsIndex {
     public static void main(String[] args) throws IOException {
-        ImageSetUtils.createLabelsIndex("D:\\datasets\\clouds\\swimcat");
+        ImageSetUtils.createLabelsIndex("D:\\datasets\\cifar10\\train");
+        //ImageSetUtils.createLabelsIndex("D:\\datasets\\clouds\\swimcat");
     //    ImageSetUtils.createLabelsIndex("D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256");
     }
 }

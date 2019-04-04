@@ -5,6 +5,7 @@ import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -214,6 +215,7 @@ Novi
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
+        nextLayer.setNextlayer(new OutputLayer(1)); // just dummy next layer to prevent exception
         nextLayer.init(); // init weights: [0.18075174, 0.5545214, 0.072818756; 0.31912476, -0.49894053, -0.6323205; 0.2685551, 0.4376064, -0.34319848; 0.11627263, -0.3802099, 0.60284144; 0.15107232, -0.5185875, -0.41857186; 0.7019462, -0.0617525, -0.64165723]
         nextLayer.setDeltas(new Tensor(0.1f, 0.2f));
         // poslednja dimenzija matrice tezina je 2 - koliko ima neurona u fc. - zasto je 3x3x1  X  2  (prev layer x fcCols)
@@ -292,6 +294,7 @@ Novi
         FullyConnectedLayer nextLayer = new FullyConnectedLayer(2);
         instance.setNextlayer(nextLayer);
         nextLayer.setPrevLayer(instance);
+        nextLayer.setNextlayer(new OutputLayer(1)); // just dummy output layer to prevent exception
         nextLayer.init(); // init weights: [0.0862301, -0.28197122, 0.44707918; 0.112038255, -0.38459483, -0.31042123; 0.5205773, -0.04579687, -0.47586578; -0.4501995, -0.4715696, -0.4138012; -0.44830847, -0.1773395, -0.08274263; 0.47323978, 0.41012484, 0.19486493; 0.08227211, -0.54566085, -0.11338204; -1.4930964E-4, -0.26475245, 0.52672565; -0.38034722, 0.3306117, -0.26243588; 0.31195676, -0.04197538, -0.5319252; -0.06671178, -0.29084632, -0.31613958; -0.025327086, 0.12511307, -0.3920598]
         nextLayer.setDeltas(new Tensor(0.1f, 0.2f));
         // poslednja dimenzija matrice tezina je 2 - koliko ima neurona u fc. - zasto je 3x3x1  X  2  (prev layer x fcCols)
@@ -340,11 +343,14 @@ Novi
 
     /**
      * Doublechecked with octave 2.2.19.
-     * Proverene pozicije [0,0]  [1,1] i [5,5]
+     * Testira propagaciju delta sa jednog konvolucionog kanala na jedan maxpooling kanal 
+     * Proverene pozicije [0,0], [0, 5], [5, 0], [1,1] i [5,5]
      */
     @Test
     public void testBackwardFromSingleConvolutionalToSinglePoolingChannel() {
         RandomGenerator.getDefault().initSeed(123);
+        
+        // we need input in order to simulate forward propagation
         InputLayer inputLayer = new InputLayer(12, 12, 1);
         Tensor input = new Tensor(12, 12,
                 new float[]{
@@ -376,6 +382,7 @@ Novi
         prevLayer.setPrevLayer(inputLayer);
         prevLayer.activationType = ActivationType.LINEAR;
 
+        // instance of maxpooling layer to test
         MaxPoolingLayer instance = new MaxPoolingLayer(2, 2, 2);
         instance.setPrevLayer(prevLayer);
         prevLayer.setNextlayer(instance);
@@ -413,6 +420,7 @@ Novi
 
         Tensor actualDeltas = instance.getDeltas();
 
+        // mislim da ovo nije dobro tj. da ne akumulira sve sto treba
         Tensor expectedDeltas = new Tensor(6, 6,
                 new float[]{
                                 0.0376f, 0.087f, 0.0894f, 0.0918f, 0.0942f, 0.0883f,
@@ -426,6 +434,9 @@ Novi
         assertArrayEquals(expectedDeltas.getValues(), actualDeltas.getValues(), 1e-7f);
     }
 
+    /**
+     * Doublechecked with octave 4.3.2019.  
+     */
    @Test
     public void testBackwardFromTwoConvolutionalChannelsToSinglePoolingChannel() {
         RandomGenerator.getDefault().initSeed(123);
@@ -452,6 +463,23 @@ Novi
                              -0.11f, -0.12f, -0.13f,
                               0.4f,   0.5f,  0.21f
                             });
+        
+        Tensor[] filter2 = new Tensor[2];
+        
+        filter2[0] = new Tensor(3, 3,
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.12f, -0.13f,
+                              0.4f,   0.5f,  0.21f
+                            });
+
+        filter2[1] = new Tensor(3, 3,
+                new float[]{
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.19f, -0.13f,
+                              0.4f,   0.5f,  0.21f
+                            });
+        
 
         ConvolutionalLayer prevLayer = new ConvolutionalLayer(3, 3, 1);
         prevLayer.setPrevLayer(inputLayer);
@@ -461,7 +489,8 @@ Novi
         instance.setPrevLayer(prevLayer);
         prevLayer.setNextlayer(instance);
 
-        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2);
+        // 2 channel conv layer as next layer
+        ConvolutionalLayer nextLayer = new ConvolutionalLayer(3, 3, 2); 
         nextLayer.setPrevLayer(instance);
         instance.setNextlayer(nextLayer);
 
@@ -473,8 +502,8 @@ Novi
         prevLayer.biases = new float[]{0.0f};
 
         nextLayer.activationType = ActivationType.LINEAR;
-        nextLayer.filters[0] = filter;
-        nextLayer.filters[1] = filter;
+        nextLayer.filters[0] = filter2[0];
+        nextLayer.filters[1] = filter2[1];
         nextLayer.biases = new float[] {0.0f, 0.0f};
 
         // propagate forward and backward
@@ -504,19 +533,20 @@ Novi
 
         Tensor expected = new Tensor(6, 6,
                 new float[]{
-                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
-                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
-                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
-                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
-                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
-                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f
+                            0.0974f,   0.2442f,   0.25f,   0.2558f,   0.2616f,   0.2425f,
+                            0.4134f,   0.7075f,   0.7466f, 0.7857f,   0.8248f,   0.638f,
+                            0.6904f,   1.0985f,   1.1376f, 1.1767f,   1.2158f,   0.912f,
+                            0.9674f,   1.4895f,   1.5286f, 1.5677f,   1.6068f,   1.186f,
+                            1.2444f,   1.8805f,   1.9196f, 1.9587f,   1.9978f,   1.46f,
+                            0.8794f,   0.9815f,   1.0026f, 1.0237f,   1.0448f,   0.603f  
                            });
-
+        
         assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f);
     }
 
     /**
-     * Test delta propagation from single convolutional channel back to two max pooling channels
+     * Test delta propagation from single convolutional channel back to two max pooling channels.
+     * Double checked with octave 4.2.19.
      */
    @Test
     public void testBackwardFromSingleConvolutionalToTwoPoolingChannels() {
@@ -552,7 +582,7 @@ Novi
                               0.4f,   0.5f,  0.21f,
 
                               0.1f,   0.2f,  0.3f,
-                             -0.11f, -0.12f, -0.13f,
+                             -0.11f, -0.19f, -0.13f,
                               0.4f,   0.5f,  0.21f
                             });
 
@@ -606,18 +636,20 @@ Novi
                                 0.4386f, 0.6511001f, 0.6646f, 0.6781f, 0.69159997f, 0.5128f,
                                 0.3216f, 0.3561f, 0.3636f, 0.3711f, 0.3786f, 0.2318f,
 
-                                0.0376f, 0.087f, 0.0894f, 0.0918f, 0.0942f, 0.0883f,
-                                0.1476f, 0.2461f, 0.2596f, 0.2731f, 0.2866f, 0.22479999f,
-                                0.24459998f, 0.3811f, 0.3946f, 0.40809998f, 0.4216f, 0.3208f,
-                                0.34159997f, 0.5161f, 0.5296f, 0.5431f, 0.5566f, 0.4168f,
-                                0.4386f, 0.6511001f, 0.6646f, 0.6781f, 0.69159997f, 0.5128f,
-                                0.3216f, 0.3561f, 0.3636f, 0.3711f, 0.3786f, 0.2318f,
+                                0.0299f, 0.078600004f, 0.0803f, 0.08200001f, 0.0837f, 0.0771f,
+                                0.1329f, 0.2307f, 0.2435f, 0.2563f, 0.2691f, 0.2066f,
+                                0.22289999f, 0.3587f, 0.3715f, 0.3843f, 0.3971f, 0.2956f,
+                                0.31289998f, 0.4867f, 0.4995f, 0.51229995f, 0.5251f, 0.3846f,
+                                0.4029f, 0.6147f, 0.6275f, 0.6403f, 0.6531f, 0.4736f,
+                                0.2789f, 0.3127f, 0.31949997f, 0.3263f, 0.3331f, 0.1856f
                            });
 
-
-        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f); // 0.8432 vs 0.8431999
+        assertArrayEquals(expected.getValues(), actual.getValues(), 1e-7f);
     }
 
+    /**
+     * Doublechecked with octave 3.4.2019.  
+     */
     @Test
     public void testBackwardFromTwoConvolutionalChannelsToTwoPoolingChannels() {
         RandomGenerator.getDefault().initSeed(123);
@@ -629,7 +661,7 @@ Novi
                             -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f, -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
                              0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f, 0.43f, 0.34f, 0.62f, 0.31f, -0.25f, 0.17f,
                              0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f, 0.53f, 0.41f, 0.73f, 0.92f, -0.21f, 0.84f,
-                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f, 0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f,
+                             0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f, 0.18f, 0.74f, 0.28f, 0.37f, 0.15f, 0.62f,                             
                              0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f, 0.3f, 0.5f, 0.6f, 0.2f, 0.14f, 0.1f,
                             -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f, -0.6f, 0.51f, 0.23f, 0.14f, 0.28f, 0.61f,
                             -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f, -0.15f, 0.47f, 0.34f, 0.46f, 0.72f, 0.61f,
@@ -642,18 +674,32 @@ Novi
                 new float[]{
                               0.1f,   0.2f,  0.3f,
                              -0.11f, -0.12f, -0.13f,
-                              0.4f,   0.5f,  0.21f
+                              0.4f,   0.5f,  0.21f                            
                             });
 
-        Tensor filter2 = new Tensor(3, 3, 2,
+        // ovde treba da imamo 2 filtera
+        Tensor[] filter2 = new Tensor[2];
+        
+        filter2[0] = new Tensor(3, 3, 2, 
                 new float[]{
                               0.1f,   0.2f,  0.3f,
                              -0.11f, -0.12f, -0.13f,
                               0.4f,   0.5f,  0.21f,
+                              
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.13f, -0.13f,
+                              0.4f,   0.5f,  0.21f                              
+                            });
 
+        filter2[1] = new Tensor(3, 3, 2,
+                new float[]{
                               0.1f,   0.2f,  0.3f,
                              -0.11f, -0.12f, -0.13f,
-                              0.4f,   0.5f,  0.21f
+                              0.4f,   0.5f,  0.21f,
+                              
+                              0.1f,   0.2f,  0.3f,
+                             -0.11f, -0.13f, -0.13f,
+                              0.4f,   0.5f,  0.21f                              
                             });
 
         float[] biases = new float[]{0.0f, 0.0f};
@@ -679,8 +725,8 @@ Novi
         prevLayer.biases = new float[] {0.0f, 0.0f};
 
         nextLayer.activationType = ActivationType.LINEAR;
-        nextLayer.filters[0] = filter2;
-        nextLayer.filters[1] = filter2;
+        nextLayer.filters[0] = filter2[0];
+        nextLayer.filters[1] = filter2[1];
         nextLayer.biases = new float[] {0.0f, 0.0f};
 
 
@@ -697,12 +743,12 @@ Novi
                                             0.51f, 0.52f, 0.53f, 0.54f, 0.55f, 0.56f,
                                             0.61f, 0.62f, 0.63f, 0.64f, 0.65f, 0.66f,
 
-                                            0.22f, 0.24f, 0.26f, 0.28f, 0.3f,  0.32f,
-                                            0.42f, 0.44f, 0.46f, 0.48f, 0.5f,  0.52f,
-                                            0.62f, 0.64f, 0.66f, 0.68f, 0.7f,  0.72f,
-                                            0.82f, 0.84f, 0.86f, 0.88f, 0.9f,  0.92f,
-                                            1.02f, 1.04f, 1.06f, 1.08f, 1.1f,  1.12f,
-                                            1.22f, 1.24f, 1.26f, 1.28f, 1.3f,  1.32f
+                                            0.11f, 0.12f, 0.13f, 0.14f, 0.15f, 0.16f,
+                                            0.21f, 0.22f, 0.23f, 0.24f, 0.25f, 0.26f,
+                                            0.31f, 0.32f, 0.33f, 0.34f, 0.35f, 0.36f,
+                                            0.41f, 0.42f, 0.43f, 0.44f, 0.45f, 0.46f,
+                                            0.51f, 0.52f, 0.53f, 0.54f, 0.55f, 0.56f,
+                                            0.61f, 0.62f, 0.63f, 0.64f, 0.65f, 0.66f
                                         }));
         instance.backward();
 
@@ -710,21 +756,21 @@ Novi
 
         Tensor expected = new Tensor(6, 6, 2,
                 new float[]{
-                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
-                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
-                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
-                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
-                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
-                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f,
+                                0.0752f,   0.174f,   0.1788f,   0.1836f,   0.1884f,   0.1766f,
+                                0.2952f,   0.4922f,   0.5192f,   0.5462f,   0.5732f,   0.4496f,
+                                0.4892f,   0.7622f,   0.7892f,   0.8162f,   0.8432f,   0.6416f,
+                                0.6832f,   1.0322f,   1.0592f,   1.0862f,   1.1132f,   0.8336f,
+                                0.8772f,   1.3022f,   1.3292f,   1.3562f,   1.3832f,   1.0256f,
+                                0.6432f,   0.7122f,   0.7272f,   0.7422f,   0.7572f,   0.4636f,
 
-                                0.11280f,  0.26100f,  0.26820f,  0.27540f,  0.28260f,  0.26490f,
-                                0.44280f,  0.73830f,  0.77880f,  0.81930f,  0.85980f,  0.67440f,
-                                0.73380f,  1.14330f,  1.18380f,  1.22430f,  1.26480f,  0.96240f,
-                                1.02480f,  1.54830f,  1.58880f,  1.62930f,  1.66980f,  1.25040f,
-                                1.31580f,  1.95330f,  1.99380f,  2.03430f,  2.07480f,  1.53840f,
-                                0.96480f,  1.06830f,  1.09080f,  1.11330f,  1.13580f,  0.69540f
+                                0.073f,   0.1716f,   0.1762f,   0.1808f,   0.1854f,   0.1734f,
+                                0.291f,   0.4878f,   0.5146f,   0.5414f,   0.5682f,   0.4444f,
+                                0.483f,   0.7558f,   0.7826f,   0.8094f,   0.8362f,   0.6344f,
+                                0.675f,   1.0238f,   1.0506f,   1.0774f,   1.1042f,   0.8244f,
+                                0.867f,   1.2918f,   1.3186f,   1.3454f,   1.3722f,   1.0144f,
+                                0.631f,   0.6998f,   0.7146f,   0.7294f,   0.7442f,   0.4504f
                            });
-
+        
         assertArrayEquals(expected.getValues(), actual.getValues(), 1e-4f);
     }
 

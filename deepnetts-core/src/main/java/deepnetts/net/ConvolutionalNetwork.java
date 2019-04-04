@@ -175,7 +175,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels) {
+        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int channels, int stride) {
             ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, stride, channels, defaultActivationType);
             neuralNet.addLayer(convolutionalLayer);
             return this;
@@ -187,8 +187,8 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             return this;
         }
 
-        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int stride, int channels, ActivationType activationType) {
-            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, stride, channels, activationType);
+        public Builder addConvolutionalLayer(int filterWidth, int filterHeight, int channels, int stride, ActivationType activationType) {
+            ConvolutionalLayer convolutionalLayer = new ConvolutionalLayer(filterWidth, filterHeight, channels, stride, activationType);
             neuralNet.addLayer(convolutionalLayer);
             return this;
         }

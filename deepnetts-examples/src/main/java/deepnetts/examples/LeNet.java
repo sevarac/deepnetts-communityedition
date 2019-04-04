@@ -66,7 +66,7 @@ public class LeNet {
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), false, 1000); //50000
+        imageSet.loadImages(new File(trainingFile), 1000); //50000
         imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();

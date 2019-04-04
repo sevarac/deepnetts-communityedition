@@ -127,29 +127,34 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     private LossFunction lossFunction;
 
+    private boolean trainingSnapshots = false;
+    private int snapshotEpochs = 5;    
+    private String snapshotPath = ""; // snapshot path    
+    
     /**
      * Use early stopping setting.
      */
     private boolean earlyStopping = false;
 
     /**
-     * Checkpoint epochs for early stopping.
+     * How many epochs for early stopping checkpoint.
      */
     private int checkpointEpochs=1;
-
-    private int prevCheckpointEpoch=0;
 
     /**
      * Min delta between checkpoints to continue training
      */
-    private float checkpointMinDelta=0.000001f;
+    private float earlyStoppingMinDelta=0.000001f;
 
-    private int checkpointNum = 2;  //  checkpoint limit
-    private int checkpointCounter = 0; // checkpoint counter during training
+    /**
+     * How many checkpoints to wait before stopping training
+     */
+    private int earlyStoppingPatience = 2;
+    private int earlyStoppingCheckpointCount = 0; // checkpoint counter during training
 
     private float prevCheckpointTestLoss=100f;
 
-    private String checkpointSavePath = "";
+
 
     /**
      * Ovaj inicijalizovati ili na ovo ili na RMSE
@@ -190,6 +195,14 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
 
     // da li da eksplicitno navedem validation set ili samo procenat trening koji se koristi za validaciju? odnos 2:1
+    // moze i jedna i druga varijanta
+    /**
+     * Run training using specified training and validation sets.
+     * Training set is used to train model, while validation set is used to check model accuracy with unseen data in order to prevent overfitting.
+     * 
+     * @param trainingSet
+     * @param validationSet 
+     */
     public void train(DataSet<?> trainingSet, DataSet<?> validationSet) {
         this.validationSet = validationSet;
         train(trainingSet);
@@ -197,13 +210,14 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
 
     /**
-     * This method does actual training procedure.
+     * Run training using specified training set.
      *
      * Make this pure function so it can run in multithreaded - can train
      * several nn in parallel put network as param
      *
-     * @param trainingSet training set data
+     * @param trainingSet training data to build the model
      */
+    @Override
     public void train(DataSet<?> trainingSet) {
 
         if (trainingSet == null) {
@@ -254,7 +268,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             validationLoss=0;
             accuracy=0;
 
-            if (shuffle) {  // maybe remove this from gere, dont autoshuffle, for time series not needed - settings for Trainer
+            if (shuffle) {  // maybe remove this from here, dont autoshuffle, for time series not needed - settings for Trainer
                 trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
             }
             int sampleCounter = 0;
@@ -264,7 +278,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             // maybe generate a sequence of random indexes instead of foreach, so i dontneed to shuffle in every epoch?
             for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
-                neuralNet.setInput(dataSetItem.getInput());   // set network input
+                neuralNet.setInput(dataSetItem.getInput());   // set network input and automaticaly trigger  forward pass
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
                 neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
@@ -326,28 +340,31 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             // EARLY STOPPING
             if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
-                if (prevCheckpointTestLoss - validationLoss < checkpointMinDelta) {
-                    if (checkpointCounter == checkpointNum) {
+                if (prevCheckpointTestLoss - validationLoss < earlyStoppingMinDelta) {
+                    if (earlyStoppingCheckpointCount == earlyStoppingPatience) {
                         stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
                     } else {
-                        checkpointCounter++;    // count how many checkpoints have validation loss stagnated or grown?
+                        earlyStoppingCheckpointCount++;    // count how many checkpoints have validation loss stagnated or grown?
                     }
                 } else {
-                    checkpointCounter = 0;  // reset counter for loss growth or stagnation
+                    earlyStoppingCheckpointCount = 0;  // reset counter for loss growth or stagnation
                 }
 
                 // save network at this checkpoint since loss if going down
                 prevCheckpointTestLoss = validationLoss;
-                prevCheckpointEpoch = epoch;
-                try { // save to some tmp file only if test loss was smaller
-                    FileIO.writeToFile(neuralNet, checkpointSavePath + File.separatorChar + "checkhpoint_NetworkTraining_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
-                } catch (IOException ex) {
-                    LOGGER.catching(ex);
-                }
             }
 
-            stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));
-
+            // make training snapshots every snapshotEpochs
+            if (trainingSnapshots && (epoch > 0 && epoch % snapshotEpochs == 0)) {
+                try { // save to some tmp file only if test loss was smaller
+                    FileIO.writeToFile(neuralNet, snapshotPath + "_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
+                } catch (IOException ex) { // Catching
+                    LOGGER.catching(ex);
+                }                
+            }
+            
+            stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));          
+            
         } while (!stopTraining); // main training loop
 
         endTraining = System.currentTimeMillis();
@@ -420,6 +437,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         for (TrainingListener l : listeners) {
             l.handleEvent(new TrainingEvent(this, type));
         }
+        if (type == TrainingEvent.Type.STOPPED) {
+            listeners.clear(); // remove alllisteners if training has stopped
+        }
+        
     }
 
     public void addListener(TrainingListener listener) {
@@ -520,10 +541,32 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 //        }
 //    }
 
-    public BackpropagationTrainer setCheckpointSavePath(String path) {
-        this.checkpointSavePath = path;
+    public BackpropagationTrainer setSnapshotPath(String snapshotPath) {
+        this.snapshotPath = snapshotPath;
         return this;
     }
+
+    public int getSnapshotEpochs() {
+        return snapshotEpochs;
+    }
+
+    public void setSnapshotEpochs(int snapshotEpochs) {
+        this.snapshotEpochs = snapshotEpochs;
+    }
+    
+    public String getSnapshotPath() {
+        return snapshotPath;
+    }    
+
+    public boolean createsTrainingSnaphots() {
+        return trainingSnapshots;
+    }
+
+    public void setTrainingSnapshots(boolean trainingSnapshots) {
+        this.trainingSnapshots = trainingSnapshots;
+    }
+
+    
 
     public int getCheckpointEpochs() {
         return checkpointEpochs;
@@ -534,21 +577,21 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return this;
     }
 
-    public float getCheckpointMinDelta() {
-        return checkpointMinDelta;
+    public float getEarlyStoppingMinDelta() {
+        return earlyStoppingMinDelta;
     }
 
-    public BackpropagationTrainer setCheckpointMinDelta(float checkpointMinDelta) {
-        this.checkpointMinDelta = checkpointMinDelta;
+    public BackpropagationTrainer setEarlyStoppingMinDelta(float earlyStoppingMinDelta) {
+        this.earlyStoppingMinDelta = earlyStoppingMinDelta;
         return this;
     }
 
-    public int getCheckpointNum() {
-        return checkpointNum;
+    public int getEarlyStoppingPatience() {
+        return earlyStoppingPatience;
     }
 
-    public BackpropagationTrainer setCheckpointNum(int checkpointNum) {
-        this.checkpointNum = checkpointNum;
+    public BackpropagationTrainer setEarlyStoppingPatience(int earlyStoppingPatience) {
+        this.earlyStoppingPatience = earlyStoppingPatience;
         return this;
     }
 

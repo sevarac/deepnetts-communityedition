@@ -1,0 +1,900 @@
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 1998 images
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1970ms, TrainError:2.0498667, TrainErrorChange:2.0498667, Accuracy: 0.8089388
+Epoch:2, Time:1930ms, TrainError:1.1105661, TrainErrorChange:-0.93930054, Accuracy: 0.8382969
+Epoch:3, Time:1824ms, TrainError:0.8359083, TrainErrorChange:-0.27465785, Accuracy: 0.88296
+Epoch:4, Time:1856ms, TrainError:0.64459455, TrainErrorChange:-0.19131374, Accuracy: 0.8979891
+Epoch:5, Time:1951ms, TrainError:0.5215406, TrainErrorChange:-0.12305397, Accuracy: 0.9220751
+Epoch:6, Time:1939ms, TrainError:0.49867916, TrainErrorChange:-0.022861421, Accuracy: 0.9203625
+Epoch:7, Time:2038ms, TrainError:0.45682284, TrainErrorChange:-0.04185632, Accuracy: 0.90628564
+Epoch:8, Time:1914ms, TrainError:0.39316002, TrainErrorChange:-0.06366283, Accuracy: 0.92928725
+Epoch:9, Time:1808ms, TrainError:0.37034196, TrainErrorChange:-0.022818059, Accuracy: 0.8920743
+Epoch:10, Time:2113ms, TrainError:0.4452026, TrainErrorChange:0.07486063, Accuracy: 0.914664
+Epoch:11, Time:2070ms, TrainError:0.4258638, TrainErrorChange:-0.019338787, Accuracy: 0.925708
+Epoch:12, Time:1954ms, TrainError:0.34859723, TrainErrorChange:-0.077266574, Accuracy: 0.9359485
+Epoch:13, Time:1907ms, TrainError:0.30637658, TrainErrorChange:-0.042220652, Accuracy: 0.925378
+Epoch:14, Time:1961ms, TrainError:0.2951255, TrainErrorChange:-0.011251062, Accuracy: 0.9485258
+
+TRAINING COMPLETED
+Total Training Time: 31904ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.91999996
+Precision: 0.5988054
+F1Score: 0.5988054
+Recall: 0.5988054
+
+By Class
+Class 0:
+Accuracy: 0.94693875
+FalsePositive: 40.0
+FalseNegative: 12.0
+Precision: 0.61165047
+F1Score: 0.61165047
+TruePositive: 865.0
+Recall: 0.61165047
+
+----------------
+Class 1:
+Accuracy: 0.90408164
+FalsePositive: 30.0
+FalseNegative: 64.0
+Precision: 0.6703297
+F1Score: 0.6703297
+TruePositive: 825.0
+Recall: 0.6703297
+
+----------------
+Class 2:
+Accuracy: 0.8816326
+FalsePositive: 27.0
+FalseNegative: 89.0
+Precision: 0.6086956
+F1Score: 0.6086956
+TruePositive: 822.0
+Recall: 0.6086956
+
+----------------
+Class 3:
+Accuracy: 0.92346936
+FalsePositive: 34.0
+FalseNegative: 41.0
+Precision: 0.6
+F1Score: 0.6
+TruePositive: 854.0
+Recall: 0.6
+
+----------------
+Class 4:
+Accuracy: 0.9397959
+FalsePositive: 46.0
+FalseNegative: 13.0
+Precision: 0.6134454
+F1Score: 0.6134454
+TruePositive: 848.0
+Recall: 0.6134454
+
+----------------
+Class 5:
+Accuracy: 0.8989796
+FalsePositive: 50.0
+FalseNegative: 49.0
+Precision: 0.48453608
+F1Score: 0.48453608
+TruePositive: 834.0
+Recall: 0.48453608
+
+----------------
+Class 6:
+Accuracy: 0.9357143
+FalsePositive: 36.0
+FalseNegative: 27.0
+Precision: 0.61290324
+F1Score: 0.61290324
+TruePositive: 860.0
+Recall: 0.61290324
+
+----------------
+Class 7:
+Accuracy: 0.9163265
+FalsePositive: 42.0
+FalseNegative: 40.0
+Precision: 0.63793105
+F1Score: 0.63793105
+TruePositive: 824.0
+Recall: 0.63793105
+
+----------------
+Class 8:
+Accuracy: 0.92346936
+FalsePositive: 40.0
+FalseNegative: 35.0
+Precision: 0.54022986
+F1Score: 0.54022986
+TruePositive: 858.0
+Recall: 0.54022986
+
+----------------
+Class 9:
+Accuracy: 0.92959183
+FalsePositive: 47.0
+FalseNegative: 22.0
+Precision: 0.60833335
+F1Score: 0.60833335
+TruePositive: 838.0
+Recall: 0.60833335
+
+----------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1844ms, TrainError:2.0498667, TrainErrorChange:2.0498667, Accuracy: 0.9001538
+Epoch:2, Time:1692ms, TrainError:1.1105661, TrainErrorChange:-0.93930054, Accuracy: 0.948923
+Epoch:3, Time:1809ms, TrainError:0.8359083, TrainErrorChange:-0.27465785, Accuracy: 0.9701539
+Epoch:4, Time:1807ms, TrainError:0.64459455, TrainErrorChange:-0.19131374, Accuracy: 0.9713845
+Epoch:5, Time:1770ms, TrainError:0.5215406, TrainErrorChange:-0.12305397, Accuracy: 0.974
+Epoch:6, Time:1856ms, TrainError:0.49867916, TrainErrorChange:-0.022861421, Accuracy: 0.97923076
+Epoch:7, Time:1900ms, TrainError:0.45682284, TrainErrorChange:-0.04185632, Accuracy: 0.9766153
+Epoch:8, Time:1927ms, TrainError:0.39316002, TrainErrorChange:-0.06366283, Accuracy: 0.980923
+Epoch:9, Time:1721ms, TrainError:0.37034196, TrainErrorChange:-0.022818059, Accuracy: 0.9747693
+Epoch:10, Time:2060ms, TrainError:0.4452026, TrainErrorChange:0.07486063, Accuracy: 0.97784615
+Epoch:11, Time:2011ms, TrainError:0.4258638, TrainErrorChange:-0.019338787, Accuracy: 0.9816923
+Epoch:12, Time:1920ms, TrainError:0.34859723, TrainErrorChange:-0.077266574, Accuracy: 0.9813846
+Epoch:13, Time:1883ms, TrainError:0.30637658, TrainErrorChange:-0.042220652, Accuracy: 0.9816923
+Epoch:14, Time:1821ms, TrainError:0.2951255, TrainErrorChange:-0.011251062, Accuracy: 0.9895385
+
+TRAINING COMPLETED
+Total Training Time: 30399ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.97199994
+Precision: 0.86683905
+F1Score: 0.86683905
+Recall: 0.86683905
+
+By Class
+Class 0:
+Accuracy: 0.98571426
+FalsePositive: 6.0
+FalseNegative: 4.0
+Precision: 0.9130435
+F1Score: 0.9130435
+TruePositive: 627.0
+Recall: 0.9130435
+
+----------------
+Class 1:
+Accuracy: 0.9885714
+FalsePositive: 2.0
+FalseNegative: 6.0
+Precision: 0.9692308
+F1Score: 0.9692308
+TruePositive: 629.0
+Recall: 0.9692308
+
+----------------
+Class 2:
+Accuracy: 0.97571427
+FalsePositive: 5.0
+FalseNegative: 12.0
+Precision: 0.90384614
+F1Score: 0.90384614
+TruePositive: 636.0
+Recall: 0.90384614
+
+----------------
+Class 3:
+Accuracy: 0.9742857
+FalsePositive: 2.0
+FalseNegative: 16.0
+Precision: 0.962963
+F1Score: 0.962963
+TruePositive: 630.0
+Recall: 0.962963
+
+----------------
+Class 4:
+Accuracy: 0.9685714
+FalsePositive: 17.0
+FalseNegative: 5.0
+Precision: 0.8111111
+F1Score: 0.8111111
+TruePositive: 605.0
+Recall: 0.8111111
+
+----------------
+Class 5:
+Accuracy: 0.94714284
+FalsePositive: 22.0
+FalseNegative: 15.0
+Precision: 0.69014084
+F1Score: 0.69014084
+TruePositive: 614.0
+Recall: 0.69014084
+
+----------------
+Class 6:
+Accuracy: 0.9785714
+FalsePositive: 5.0
+FalseNegative: 10.0
+Precision: 0.9206349
+F1Score: 0.9206349
+TruePositive: 627.0
+Recall: 0.9206349
+
+----------------
+Class 7:
+Accuracy: 0.9742857
+FalsePositive: 12.0
+FalseNegative: 6.0
+Precision: 0.8636364
+F1Score: 0.8636364
+TruePositive: 606.0
+Recall: 0.8636364
+
+----------------
+Class 8:
+Accuracy: 0.97
+FalsePositive: 11.0
+FalseNegative: 10.0
+Precision: 0.8135593
+F1Score: 0.8135593
+TruePositive: 631.0
+Recall: 0.8135593
+
+----------------
+Class 9:
+Accuracy: 0.95714283
+FalsePositive: 16.0
+FalseNegative: 14.0
+Precision: 0.8202247
+F1Score: 0.82022464
+TruePositive: 597.0
+Recall: 0.8202247
+
+----------------
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1810ms, TrainError:2.3079624, TrainErrorChange:2.3079624, Accuracy: 0.8271667
+Epoch:2, Time:1827ms, TrainError:2.2747197, TrainErrorChange:-0.033242702, Accuracy: 0.834
+Epoch:3, Time:1684ms, TrainError:2.2205012, TrainErrorChange:-0.05421853, Accuracy: 0.8411667
+Epoch:4, Time:1751ms, TrainError:2.1646671, TrainErrorChange:-0.055834055, Accuracy: 0.8463333
+Epoch:5, Time:1610ms, TrainError:2.1314044, TrainErrorChange:-0.03326273, Accuracy: 0.84683335
+Epoch:6, Time:1651ms, TrainError:2.1085432, TrainErrorChange:-0.022861242, Accuracy: 0.84833324
+Epoch:7, Time:1681ms, TrainError:2.0909693, TrainErrorChange:-0.017573833, Accuracy: 0.85
+Epoch:8, Time:1621ms, TrainError:2.076758, TrainErrorChange:-0.014211416, Accuracy: 0.8516666
+Epoch:9, Time:1725ms, TrainError:2.0648777, TrainErrorChange:-0.011880159, Accuracy: 0.8526667
+Epoch:10, Time:1692ms, TrainError:2.0550387, TrainErrorChange:-0.009839058, Accuracy: 0.85233337
+Epoch:11, Time:1670ms, TrainError:2.0489616, TrainErrorChange:-0.006077051, Accuracy: 0.8508333
+Epoch:12, Time:1606ms, TrainError:2.045799, TrainErrorChange:-0.0031626225, Accuracy: 0.84683335
+Epoch:13, Time:1616ms, TrainError:2.0452664, TrainErrorChange:-5.326271E-4, Accuracy: 0.84716666
+Epoch:14, Time:1740ms, TrainError:2.0490303, TrainErrorChange:0.003763914, Accuracy: 0.84799993
+Epoch:15, Time:1740ms, TrainError:2.0544767, TrainErrorChange:0.005446434, Accuracy: 0.8475
+Epoch:16, Time:1834ms, TrainError:2.0606735, TrainErrorChange:0.0061967373, Accuracy: 0.84749997
+Epoch:17, Time:1711ms, TrainError:2.0652175, TrainErrorChange:0.0045440197, Accuracy: 0.84683335
+Epoch:18, Time:1701ms, TrainError:2.066273, TrainErrorChange:0.001055479, Accuracy: 0.8461666
+Epoch:19, Time:1770ms, TrainError:2.0700104, TrainErrorChange:0.0037374496, Accuracy: 0.8463333
+Epoch:20, Time:1741ms, TrainError:2.0718205, TrainErrorChange:0.0018100739, Accuracy: 0.8461666
+Epoch:21, Time:1712ms, TrainError:2.0699224, TrainErrorChange:-0.0018980503, Accuracy: 0.84766674
+Epoch:22, Time:1734ms, TrainError:2.063593, TrainErrorChange:-0.0063295364, Accuracy: 0.84816664
+Epoch:23, Time:1699ms, TrainError:2.0570288, TrainErrorChange:-0.0065641403, Accuracy: 0.8496667
+Epoch:24, Time:1636ms, TrainError:2.0502908, TrainErrorChange:-0.0067379475, Accuracy: 0.85066664
+Epoch:25, Time:1706ms, TrainError:2.0433784, TrainErrorChange:-0.00691247, Accuracy: 0.84983337
+Epoch:26, Time:1611ms, TrainError:2.0365484, TrainErrorChange:-0.006829977, Accuracy: 0.8496667
+Epoch:27, Time:1640ms, TrainError:2.0296485, TrainErrorChange:-0.0068998337, Accuracy: 0.8493334
+Epoch:28, Time:1616ms, TrainError:2.023219, TrainErrorChange:-0.006429434, Accuracy: 0.84816664
+Epoch:29, Time:1631ms, TrainError:2.0163019, TrainErrorChange:-0.0069172382, Accuracy: 0.8471667
+Epoch:30, Time:1696ms, TrainError:2.0089054, TrainErrorChange:-0.0073964596, Accuracy: 0.84733325
+Epoch:31, Time:1612ms, TrainError:2.001497, TrainErrorChange:-0.0074083805, Accuracy: 0.84683335
+Epoch:32, Time:1700ms, TrainError:1.994396, TrainErrorChange:-0.007101059, Accuracy: 0.8473333
+Epoch:33, Time:1620ms, TrainError:1.9873995, TrainErrorChange:-0.0069965124, Accuracy: 0.847
+Epoch:34, Time:1610ms, TrainError:1.9794859, TrainErrorChange:-0.0079135895, Accuracy: 0.8488334
+Epoch:35, Time:1670ms, TrainError:1.9721556, TrainErrorChange:-0.0073302984, Accuracy: 0.8488334
+Epoch:36, Time:1610ms, TrainError:1.9652321, TrainErrorChange:-0.006923437, Accuracy: 0.8499999
+Epoch:37, Time:1675ms, TrainError:1.9579588, TrainErrorChange:-0.0072733164, Accuracy: 0.8511666
+Epoch:38, Time:1620ms, TrainError:1.9503995, TrainErrorChange:-0.0075592995, Accuracy: 0.851
+Epoch:39, Time:1670ms, TrainError:1.942333, TrainErrorChange:-0.008066535, Accuracy: 0.8526667
+Epoch:40, Time:1614ms, TrainError:1.933628, TrainErrorChange:-0.00870502, Accuracy: 0.854
+Epoch:41, Time:1630ms, TrainError:1.9240434, TrainErrorChange:-0.009584546, Accuracy: 0.8549999
+Epoch:42, Time:1644ms, TrainError:1.913679, TrainErrorChange:-0.010364413, Accuracy: 0.8566667
+Epoch:43, Time:1607ms, TrainError:1.9024316, TrainErrorChange:-0.0112473965, Accuracy: 0.8590001
+Epoch:44, Time:1670ms, TrainError:1.8906264, TrainErrorChange:-0.011805177, Accuracy: 0.86116666
+Epoch:45, Time:1630ms, TrainError:1.8782227, TrainErrorChange:-0.012403727, Accuracy: 0.8626667
+Epoch:46, Time:1646ms, TrainError:1.8657417, TrainErrorChange:-0.012480974, Accuracy: 0.86433333
+Epoch:47, Time:1609ms, TrainError:1.8538225, TrainErrorChange:-0.01191926, Accuracy: 0.8678333
+Epoch:48, Time:1609ms, TrainError:1.8424435, TrainErrorChange:-0.0113790035, Accuracy: 0.86899996
+Epoch:49, Time:1681ms, TrainError:1.8314227, TrainErrorChange:-0.01102078, Accuracy: 0.86966676
+Epoch:50, Time:1614ms, TrainError:1.8201083, TrainErrorChange:-0.011314392, Accuracy: 0.8713333
+Epoch:51, Time:1725ms, TrainError:1.8084564, TrainErrorChange:-0.011651874, Accuracy: 0.8723334
+Epoch:52, Time:1716ms, TrainError:1.796556, TrainErrorChange:-0.011900425, Accuracy: 0.8728334
+Epoch:53, Time:1680ms, TrainError:1.783349, TrainErrorChange:-0.013206959, Accuracy: 0.8745
+Epoch:54, Time:1616ms, TrainError:1.7701843, TrainErrorChange:-0.013164759, Accuracy: 0.8748333
+Epoch:55, Time:1606ms, TrainError:1.7596799, TrainErrorChange:-0.010504365, Accuracy: 0.87616664
+Epoch:56, Time:1685ms, TrainError:1.755459, TrainErrorChange:-0.0042209625, Accuracy: 0.8783333
+Epoch:57, Time:1610ms, TrainError:1.7534565, TrainErrorChange:-0.0020024776, Accuracy: 0.879
+Epoch:58, Time:1694ms, TrainError:1.7506294, TrainErrorChange:-0.0028270483, Accuracy: 0.8793333
+Epoch:59, Time:1639ms, TrainError:1.7455508, TrainErrorChange:-0.0050786734, Accuracy: 0.88116664
+Epoch:60, Time:1630ms, TrainError:1.7421377, TrainErrorChange:-0.0034130812, Accuracy: 0.8806666
+Epoch:61, Time:1616ms, TrainError:1.7500106, TrainErrorChange:0.007872939, Accuracy: 0.8781667
+Epoch:62, Time:1690ms, TrainError:1.7516845, TrainErrorChange:0.0016739368, Accuracy: 0.87950003
+Epoch:63, Time:1792ms, TrainError:1.7459605, TrainErrorChange:-0.0057240725, Accuracy: 0.8803333
+Epoch:64, Time:1614ms, TrainError:1.7376082, TrainErrorChange:-0.00835228, Accuracy: 0.88
+Epoch:65, Time:1698ms, TrainError:1.730148, TrainErrorChange:-0.0074602365, Accuracy: 0.8793333
+Epoch:66, Time:1600ms, TrainError:1.730163, TrainErrorChange:1.50203705E-5, Accuracy: 0.8801667
+Epoch:67, Time:1617ms, TrainError:1.7269034, TrainErrorChange:-0.0032595396, Accuracy: 0.8791667
+Epoch:68, Time:1606ms, TrainError:1.7219092, TrainErrorChange:-0.004994273, Accuracy: 0.87766665
+Epoch:69, Time:1624ms, TrainError:1.7160785, TrainErrorChange:-0.0058306456, Accuracy: 0.87666667
+Epoch:70, Time:1699ms, TrainError:1.704027, TrainErrorChange:-0.012051463, Accuracy: 0.87816656
+Epoch:71, Time:1625ms, TrainError:1.6885451, TrainErrorChange:-0.015481949, Accuracy: 0.88133335
+Epoch:72, Time:1884ms, TrainError:1.6689034, TrainErrorChange:-0.019641757, Accuracy: 0.8835
+Epoch:73, Time:1751ms, TrainError:1.6506884, TrainErrorChange:-0.018214941, Accuracy: 0.88566667
+Epoch:74, Time:1902ms, TrainError:1.636092, TrainErrorChange:-0.014596462, Accuracy: 0.88600004
+Epoch:75, Time:2110ms, TrainError:1.6219444, TrainErrorChange:-0.01414752, Accuracy: 0.8871666
+Epoch:76, Time:2422ms, TrainError:1.6086131, TrainErrorChange:-0.013331294, Accuracy: 0.8883333
+Epoch:77, Time:1784ms, TrainError:1.5973443, TrainErrorChange:-0.011268854, Accuracy: 0.88949996
+Epoch:78, Time:1800ms, TrainError:1.5898006, TrainErrorChange:-0.007543683, Accuracy: 0.88916665
+Epoch:79, Time:2150ms, TrainError:1.5795221, TrainErrorChange:-0.010278463, Accuracy: 0.89
+Epoch:80, Time:2220ms, TrainError:1.5678177, TrainErrorChange:-0.011704445, Accuracy: 0.89016664
+Epoch:81, Time:1897ms, TrainError:1.5556327, TrainErrorChange:-0.0121849775, Accuracy: 0.8921666
+Epoch:82, Time:1830ms, TrainError:1.544125, TrainErrorChange:-0.01150775, Accuracy: 0.89333326
+Epoch:83, Time:1643ms, TrainError:1.5342369, TrainErrorChange:-0.009888053, Accuracy: 0.89350003
+Epoch:84, Time:1700ms, TrainError:1.5243756, TrainErrorChange:-0.00986135, Accuracy: 0.89433336
+Epoch:85, Time:1769ms, TrainError:1.5154539, TrainErrorChange:-0.008921623, Accuracy: 0.8956667
+Epoch:86, Time:1862ms, TrainError:1.5067399, TrainErrorChange:-0.00871408, Accuracy: 0.8953334
+Epoch:87, Time:1981ms, TrainError:1.4972204, TrainErrorChange:-0.009519458, Accuracy: 0.8959999
+
+TRAINING COMPLETED
+Total Training Time: 202774ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.849
+Precision: 0.24106407
+F1Score: 0.24106407
+Recall: 0.24106407
+
+By Class
+Class 0:
+Accuracy: 0.875
+FalsePositive: 43.0
+FalseNegative: 57.0
+Precision: 0.35820895
+F1Score: 0.35820898
+TruePositive: 676.0
+Recall: 0.35820895
+
+----------------
+Class 1:
+Accuracy: 0.865
+FalsePositive: 54.0
+FalseNegative: 54.0
+Precision: 0.2987013
+F1Score: 0.2987013
+TruePositive: 669.0
+Recall: 0.2987013
+
+----------------
+Class 2:
+Accuracy: 0.8375
+FalsePositive: 34.0
+FalseNegative: 96.0
+Precision: 0.10526316
+F1Score: 0.105263166
+TruePositive: 666.0
+Recall: 0.10526316
+
+----------------
+Class 3:
+Accuracy: 0.86
+FalsePositive: 46.0
+FalseNegative: 66.0
+Precision: 0.17857143
+F1Score: 0.17857142
+TruePositive: 678.0
+Recall: 0.17857143
+
+----------------
+Class 4:
+Accuracy: 0.82375
+FalsePositive: 76.0
+FalseNegative: 65.0
+Precision: 0.21649484
+F1Score: 0.21649483
+TruePositive: 638.0
+Recall: 0.21649484
+
+----------------
+Class 5:
+Accuracy: 0.86
+FalsePositive: 46.0
+FalseNegative: 66.0
+Precision: 0.22033899
+F1Score: 0.22033899
+TruePositive: 675.0
+Recall: 0.22033899
+
+----------------
+Class 6:
+Accuracy: 0.785
+FalsePositive: 131.0
+FalseNegative: 41.0
+Precision: 0.17088607
+F1Score: 0.17088607
+TruePositive: 601.0
+Recall: 0.17088607
+
+----------------
+Class 7:
+Accuracy: 0.86625
+FalsePositive: 51.0
+FalseNegative: 56.0
+Precision: 0.22727273
+F1Score: 0.22727273
+TruePositive: 678.0
+Recall: 0.22727273
+
+----------------
+Class 8:
+Accuracy: 0.85375
+FalsePositive: 63.0
+FalseNegative: 54.0
+Precision: 0.24096386
+F1Score: 0.24096386
+TruePositive: 663.0
+Recall: 0.24096386
+
+----------------
+Class 9:
+Accuracy: 0.86375
+FalsePositive: 60.0
+FalseNegative: 49.0
+Precision: 0.3939394
+F1Score: 0.39393944
+TruePositive: 652.0
+Recall: 0.3939394
+
+----------------
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2120ms, TrainError:2.3419666, TrainErrorChange:2.3419666, Accuracy: 0.8288333
+Epoch:2, Time:2090ms, TrainError:2.3344162, TrainErrorChange:-0.007550478, Accuracy: 0.8258333
+Epoch:3, Time:2070ms, TrainError:2.3803809, TrainErrorChange:0.045964718, Accuracy: 0.8215
+Epoch:4, Time:2043ms, TrainError:2.3806884, TrainErrorChange:3.0755997E-4, Accuracy: 0.82250005
+Epoch:5, Time:2037ms, TrainError:2.356997, TrainErrorChange:-0.023691416, Accuracy: 0.82299995
+Epoch:6, Time:2060ms, TrainError:2.3537202, TrainErrorChange:-0.003276825, Accuracy: 0.82333326
+Epoch:7, Time:2043ms, TrainError:2.3505092, TrainErrorChange:-0.0032110214, Accuracy: 0.82616675
+Epoch:8, Time:2117ms, TrainError:2.3528771, TrainErrorChange:0.0023679733, Accuracy: 0.82683337
+Epoch:9, Time:2050ms, TrainError:2.3475907, TrainErrorChange:-0.005286455, Accuracy: 0.82733333
+Epoch:10, Time:2050ms, TrainError:2.344827, TrainErrorChange:-0.0027637482, Accuracy: 0.83033323
+Epoch:11, Time:2098ms, TrainError:2.3354099, TrainErrorChange:-0.009417057, Accuracy: 0.8266667
+Epoch:12, Time:2031ms, TrainError:2.327141, TrainErrorChange:-0.008268833, Accuracy: 0.83100003
+Epoch:13, Time:2090ms, TrainError:2.3247313, TrainErrorChange:-0.0024096966, Accuracy: 0.8291666
+Epoch:14, Time:2074ms, TrainError:2.3177025, TrainErrorChange:-0.007028818, Accuracy: 0.83149993
+Epoch:15, Time:2077ms, TrainError:2.3216307, TrainErrorChange:0.0039281845, Accuracy: 0.8285
+Epoch:16, Time:2030ms, TrainError:2.3654122, TrainErrorChange:0.04378152, Accuracy: 0.83016664
+Epoch:17, Time:2117ms, TrainError:2.3345244, TrainErrorChange:-0.030887842, Accuracy: 0.82183343
+Epoch:18, Time:2040ms, TrainError:2.3315182, TrainErrorChange:-0.0030062199, Accuracy: 0.8286667
+Epoch:19, Time:2087ms, TrainError:2.373079, TrainErrorChange:0.04156089, Accuracy: 0.83533335
+Epoch:20, Time:2024ms, TrainError:2.3283157, TrainErrorChange:-0.044763327, Accuracy: 0.83916664
+Epoch:21, Time:2119ms, TrainError:2.3568525, TrainErrorChange:0.028536797, Accuracy: 0.8385
+Epoch:22, Time:2095ms, TrainError:2.3325644, TrainErrorChange:-0.024288177, Accuracy: 0.83166665
+Epoch:23, Time:2100ms, TrainError:2.335333, TrainErrorChange:0.002768755, Accuracy: 0.8365
+Epoch:24, Time:2251ms, TrainError:2.36378, TrainErrorChange:0.028446913, Accuracy: 0.83183336
+Epoch:25, Time:2472ms, TrainError:2.3254073, TrainErrorChange:-0.038372755, Accuracy: 0.838
+Epoch:26, Time:2390ms, TrainError:2.309681, TrainErrorChange:-0.015726328, Accuracy: 0.8411667
+Epoch:27, Time:2351ms, TrainError:2.2912216, TrainErrorChange:-0.01845932, Accuracy: 0.8416667
+Epoch:28, Time:2239ms, TrainError:2.2924726, TrainErrorChange:0.0012509823, Accuracy: 0.8415
+Epoch:29, Time:2160ms, TrainError:2.3031702, TrainErrorChange:0.010697603, Accuracy: 0.84416664
+Epoch:30, Time:2141ms, TrainError:2.3161278, TrainErrorChange:0.012957573, Accuracy: 0.8416666
+Epoch:31, Time:2321ms, TrainError:2.3140564, TrainErrorChange:-0.0020713806, Accuracy: 0.8438333
+Epoch:32, Time:2263ms, TrainError:2.282147, TrainErrorChange:-0.031909466, Accuracy: 0.84466666
+Epoch:33, Time:2080ms, TrainError:2.2997756, TrainErrorChange:0.01762867, Accuracy: 0.8436667
+Epoch:34, Time:2161ms, TrainError:2.352208, TrainErrorChange:0.0524323, Accuracy: 0.83916664
+Epoch:35, Time:2150ms, TrainError:2.2901819, TrainErrorChange:-0.062026024, Accuracy: 0.84499997
+Epoch:36, Time:2233ms, TrainError:2.2926488, TrainErrorChange:0.002466917, Accuracy: 0.8463333
+Epoch:37, Time:2128ms, TrainError:2.270531, TrainErrorChange:-0.022117853, Accuracy: 0.84716666
+Epoch:38, Time:2170ms, TrainError:2.2709827, TrainErrorChange:4.518032E-4, Accuracy: 0.846
+Epoch:39, Time:2071ms, TrainError:2.2449937, TrainErrorChange:-0.025989056, Accuracy: 0.84783334
+Epoch:40, Time:2217ms, TrainError:2.2597165, TrainErrorChange:0.014722824, Accuracy: 0.8513333
+Epoch:41, Time:2229ms, TrainError:2.244072, TrainErrorChange:-0.01564455, Accuracy: 0.8466667
+Epoch:42, Time:2165ms, TrainError:2.3395345, TrainErrorChange:0.09546256, Accuracy: 0.8413334
+Epoch:43, Time:2171ms, TrainError:2.2954366, TrainErrorChange:-0.0440979, Accuracy: 0.8451667
+Epoch:44, Time:2191ms, TrainError:2.2650318, TrainErrorChange:-0.030404806, Accuracy: 0.84716666
+Epoch:45, Time:2151ms, TrainError:2.2321496, TrainErrorChange:-0.032882214, Accuracy: 0.8423333
+Epoch:46, Time:2177ms, TrainError:2.2620711, TrainErrorChange:0.029921532, Accuracy: 0.84816664
+Epoch:47, Time:2288ms, TrainError:2.270657, TrainErrorChange:0.00858593, Accuracy: 0.8468334
+Epoch:48, Time:2135ms, TrainError:2.2601535, TrainErrorChange:-0.0105035305, Accuracy: 0.846
+Epoch:49, Time:2258ms, TrainError:2.2885582, TrainErrorChange:0.028404713, Accuracy: 0.8353332
+Epoch:50, Time:2062ms, TrainError:2.3419876, TrainErrorChange:0.053429365, Accuracy: 0.84333336
+Epoch:51, Time:2098ms, TrainError:2.2881658, TrainErrorChange:-0.053821802, Accuracy: 0.8455
+Epoch:52, Time:2243ms, TrainError:2.46614, TrainErrorChange:0.17797422, Accuracy: 0.8285
+Epoch:53, Time:2234ms, TrainError:2.4757555, TrainErrorChange:0.009615421, Accuracy: 0.8230001
+Epoch:54, Time:2124ms, TrainError:2.4957886, TrainErrorChange:0.020033121, Accuracy: 0.8285
+Epoch:55, Time:2219ms, TrainError:2.450676, TrainErrorChange:-0.04511261, Accuracy: 0.8246667
+Epoch:56, Time:2170ms, TrainError:2.4347963, TrainErrorChange:-0.015879631, Accuracy: 0.8253333
+Epoch:57, Time:2251ms, TrainError:2.426758, TrainErrorChange:-0.008038282, Accuracy: 0.8251667
+Epoch:58, Time:2165ms, TrainError:2.4527276, TrainErrorChange:0.025969505, Accuracy: 0.82433337
+Epoch:59, Time:2213ms, TrainError:2.4545262, TrainErrorChange:0.0017986298, Accuracy: 0.82416666
+Epoch:60, Time:2176ms, TrainError:2.4312172, TrainErrorChange:-0.023308992, Accuracy: 0.82416666
+Epoch:61, Time:2200ms, TrainError:2.4574885, TrainErrorChange:0.026271343, Accuracy: 0.82416666
+Epoch:62, Time:2220ms, TrainError:2.4355376, TrainErrorChange:-0.02195096, Accuracy: 0.82433337
+Epoch:63, Time:2091ms, TrainError:2.4396532, TrainErrorChange:0.0041155815, Accuracy: 0.82416666
+Epoch:64, Time:2289ms, TrainError:2.4355764, TrainErrorChange:-0.0040767193, Accuracy: 0.824
+Epoch:65, Time:2128ms, TrainError:2.4223971, TrainErrorChange:-0.013179302, Accuracy: 0.82416666
+Epoch:66, Time:2280ms, TrainError:2.4396513, TrainErrorChange:0.017254114, Accuracy: 0.8238333
+Epoch:67, Time:2073ms, TrainError:2.4375668, TrainErrorChange:-0.0020844936, Accuracy: 0.82383335
+Epoch:68, Time:2160ms, TrainError:2.4315503, TrainErrorChange:-0.006016493, Accuracy: 0.82383335
+Epoch:69, Time:2201ms, TrainError:2.4338064, TrainErrorChange:0.002256155, Accuracy: 0.824
+Epoch:70, Time:2200ms, TrainError:2.435517, TrainErrorChange:0.0017106533, Accuracy: 0.82383335
+Epoch:71, Time:2090ms, TrainError:2.4265757, TrainErrorChange:-0.008941412, Accuracy: 0.82383335
+Epoch:72, Time:2169ms, TrainError:2.432091, TrainErrorChange:0.005515337, Accuracy: 0.8235
+Epoch:73, Time:2123ms, TrainError:2.4347522, TrainErrorChange:0.0026612282, Accuracy: 0.824
+Epoch:74, Time:2215ms, TrainError:2.4376173, TrainErrorChange:0.002865076, Accuracy: 0.8246666
+Epoch:75, Time:2073ms, TrainError:2.4299543, TrainErrorChange:-0.0076630116, Accuracy: 0.8248334
+Epoch:76, Time:2123ms, TrainError:2.4337873, TrainErrorChange:0.0038330555, Accuracy: 0.82600003
+Epoch:77, Time:2064ms, TrainError:2.415944, TrainErrorChange:-0.017843246, Accuracy: 0.8258333
+Epoch:78, Time:2137ms, TrainError:2.419946, TrainErrorChange:0.004001856, Accuracy: 0.82683337
+Epoch:79, Time:2068ms, TrainError:2.4181757, TrainErrorChange:-0.001770258, Accuracy: 0.82766664
+Epoch:80, Time:2137ms, TrainError:2.417925, TrainErrorChange:-2.5081635E-4, Accuracy: 0.82799995
+Epoch:81, Time:2049ms, TrainError:2.4083028, TrainErrorChange:-0.009622097, Accuracy: 0.82816666
+Epoch:82, Time:2113ms, TrainError:2.4261777, TrainErrorChange:0.017874956, Accuracy: 0.83166665
+Epoch:83, Time:2090ms, TrainError:2.4061036, TrainErrorChange:-0.02007413, Accuracy: 0.83000004
+Epoch:84, Time:2200ms, TrainError:2.4558036, TrainErrorChange:0.04970002, Accuracy: 0.82250005
+Epoch:85, Time:2233ms, TrainError:2.4085276, TrainErrorChange:-0.04727602, Accuracy: 0.83199996
+Epoch:86, Time:2067ms, TrainError:2.3811126, TrainErrorChange:-0.027415037, Accuracy: 0.8325
+Epoch:87, Time:2106ms, TrainError:2.3874834, TrainErrorChange:0.006370783, Accuracy: 0.8343333
+Epoch:88, Time:2054ms, TrainError:2.3688786, TrainErrorChange:-0.018604755, Accuracy: 0.83799994
+Epoch:89, Time:2066ms, TrainError:2.3830311, TrainErrorChange:0.014152527, Accuracy: 0.8345
+Epoch:90, Time:2062ms, TrainError:2.3752167, TrainErrorChange:-0.007814407, Accuracy: 0.8366667
+Epoch:91, Time:2070ms, TrainError:2.3694093, TrainErrorChange:-0.0058073997, Accuracy: 0.83966666
+Epoch:92, Time:2057ms, TrainError:2.39313, TrainErrorChange:0.023720741, Accuracy: 0.83766663
+Epoch:93, Time:2300ms, TrainError:2.3679328, TrainErrorChange:-0.025197268, Accuracy: 0.8375
+Epoch:94, Time:2249ms, TrainError:2.3707387, TrainErrorChange:0.0028059483, Accuracy: 0.83166665
+Epoch:95, Time:2411ms, TrainError:2.3949144, TrainErrorChange:0.024175644, Accuracy: 0.83500004
+Epoch:96, Time:2215ms, TrainError:2.3642616, TrainErrorChange:-0.030652761, Accuracy: 0.8381667
+Epoch:97, Time:2296ms, TrainError:2.3594291, TrainErrorChange:-0.004832506, Accuracy: 0.83683336
+Epoch:98, Time:2140ms, TrainError:2.3551033, TrainErrorChange:-0.0043258667, Accuracy: 0.83066666
+Epoch:99, Time:2240ms, TrainError:2.372514, TrainErrorChange:0.017410755, Accuracy: 0.84499997
+Epoch:100, Time:2166ms, TrainError:2.3688622, TrainErrorChange:-0.0036518574, Accuracy: 0.8370001
+Epoch:101, Time:2336ms, TrainError:2.3532772, TrainErrorChange:-0.015584946, Accuracy: 0.84816664
+Epoch:102, Time:2381ms, TrainError:2.330731, TrainErrorChange:-0.022546291, Accuracy: 0.84366673
+Epoch:103, Time:2320ms, TrainError:2.320017, TrainErrorChange:-0.010713816, Accuracy: 0.84566677
+Epoch:104, Time:2269ms, TrainError:2.3029723, TrainErrorChange:-0.017044783, Accuracy: 0.84316665
+Epoch:105, Time:2101ms, TrainError:2.2899427, TrainErrorChange:-0.013029575, Accuracy: 0.8456667
+Epoch:106, Time:2121ms, TrainError:2.2749875, TrainErrorChange:-0.014955282, Accuracy: 0.8416666
+Epoch:107, Time:2168ms, TrainError:2.3010926, TrainErrorChange:0.026105165, Accuracy: 0.8436667
+Epoch:108, Time:2183ms, TrainError:2.304451, TrainErrorChange:0.003358364, Accuracy: 0.8431667
+Epoch:109, Time:2080ms, TrainError:2.2785304, TrainErrorChange:-0.02592063, Accuracy: 0.846
+Epoch:110, Time:2169ms, TrainError:2.2703176, TrainErrorChange:-0.008212805, Accuracy: 0.84683335
+Epoch:111, Time:2151ms, TrainError:2.2539098, TrainErrorChange:-0.016407728, Accuracy: 0.84800005
+Epoch:112, Time:2209ms, TrainError:2.2752852, TrainErrorChange:0.021375418, Accuracy: 0.84366673
+Epoch:113, Time:2418ms, TrainError:2.2543077, TrainErrorChange:-0.020977497, Accuracy: 0.84483325
+Epoch:114, Time:2060ms, TrainError:2.2560236, TrainErrorChange:0.0017158985, Accuracy: 0.8453334
+Epoch:115, Time:2873ms, TrainError:2.2651105, TrainErrorChange:0.009086847, Accuracy: 0.8475
+Epoch:116, Time:2223ms, TrainError:2.2619393, TrainErrorChange:-0.0031712055, Accuracy: 0.8485001
+Epoch:117, Time:2200ms, TrainError:2.2543602, TrainErrorChange:-0.007579088, Accuracy: 0.84849995
+Epoch:118, Time:2011ms, TrainError:2.290062, TrainErrorChange:0.03570175, Accuracy: 0.84449995
+Epoch:119, Time:1976ms, TrainError:2.2429087, TrainErrorChange:-0.047153234, Accuracy: 0.8411667
+Epoch:120, Time:2004ms, TrainError:2.2738068, TrainErrorChange:0.030898094, Accuracy: 0.84349996
+Epoch:121, Time:2074ms, TrainError:2.2511663, TrainErrorChange:-0.022640467, Accuracy: 0.84400004
+Epoch:122, Time:1947ms, TrainError:2.2494888, TrainErrorChange:-0.0016775131, Accuracy: 0.846
+Epoch:123, Time:1958ms, TrainError:2.2540166, TrainErrorChange:0.0045278072, Accuracy: 0.8431667
+Epoch:124, Time:1944ms, TrainError:2.2807207, TrainErrorChange:0.026704073, Accuracy: 0.8363334
+Epoch:125, Time:2060ms, TrainError:2.3100038, TrainErrorChange:0.029283047, Accuracy: 0.85
+Epoch:126, Time:1991ms, TrainError:2.2205677, TrainErrorChange:-0.089436054, Accuracy: 0.84666663
+Epoch:127, Time:2044ms, TrainError:2.2463803, TrainErrorChange:0.025812626, Accuracy: 0.8476666
+Epoch:128, Time:2026ms, TrainError:2.2377133, TrainErrorChange:-0.008666992, Accuracy: 0.85300004
+Epoch:129, Time:1952ms, TrainError:2.2137232, TrainErrorChange:-0.023990154, Accuracy: 0.84816676
+Epoch:130, Time:2030ms, TrainError:2.2406256, TrainErrorChange:0.026902437, Accuracy: 0.8495
+Epoch:131, Time:1971ms, TrainError:2.2197173, TrainErrorChange:-0.020908356, Accuracy: 0.8499999
+Epoch:132, Time:2020ms, TrainError:2.2548313, TrainErrorChange:0.03511405, Accuracy: 0.8456667
+Epoch:133, Time:2092ms, TrainError:2.301796, TrainErrorChange:0.046964645, Accuracy: 0.84433335
+Epoch:134, Time:1945ms, TrainError:2.2469149, TrainErrorChange:-0.054881096, Accuracy: 0.8455
+Epoch:135, Time:2015ms, TrainError:2.2532547, TrainErrorChange:0.0063397884, Accuracy: 0.837
+Epoch:136, Time:2060ms, TrainError:2.2447207, TrainErrorChange:-0.008533955, Accuracy: 0.8471667
+Epoch:137, Time:2117ms, TrainError:2.2546394, TrainErrorChange:0.00991869, Accuracy: 0.84466666
+Epoch:138, Time:2019ms, TrainError:2.2733653, TrainErrorChange:0.018725872, Accuracy: 0.8415
+Epoch:139, Time:1974ms, TrainError:2.2696717, TrainErrorChange:-0.0036935806, Accuracy: 0.84333336
+Epoch:140, Time:1962ms, TrainError:2.2859712, TrainErrorChange:0.016299486, Accuracy: 0.83883333
+Epoch:141, Time:1940ms, TrainError:2.28029, TrainErrorChange:-0.0056812763, Accuracy: 0.84866667
+Epoch:142, Time:1934ms, TrainError:2.226567, TrainErrorChange:-0.05372286, Accuracy: 0.8448334
+Epoch:143, Time:1844ms, TrainError:2.277405, TrainErrorChange:0.050837994, Accuracy: 0.84250003
+Epoch:144, Time:1961ms, TrainError:2.243971, TrainErrorChange:-0.033433914, Accuracy: 0.846
+Epoch:145, Time:1974ms, TrainError:2.2595768, TrainErrorChange:0.015605688, Accuracy: 0.8448334
+Epoch:146, Time:1944ms, TrainError:2.2754884, TrainErrorChange:0.01591158, Accuracy: 0.8383333
+Epoch:147, Time:1900ms, TrainError:2.26378, TrainErrorChange:-0.01170826, Accuracy: 0.84799993
+Epoch:148, Time:2062ms, TrainError:2.2217622, TrainErrorChange:-0.042017937, Accuracy: 0.85083324
+Epoch:149, Time:2054ms, TrainError:2.245484, TrainErrorChange:0.023721933, Accuracy: 0.8473333
+Epoch:150, Time:2175ms, TrainError:2.2486284, TrainErrorChange:0.0031442642, Accuracy: 0.84716666
+Epoch:151, Time:2377ms, TrainError:2.2297432, TrainErrorChange:-0.018885136, Accuracy: 0.83566666
+Epoch:152, Time:2268ms, TrainError:2.2785726, TrainErrorChange:0.048829317, Accuracy: 0.8453333
+Epoch:153, Time:2221ms, TrainError:2.229221, TrainErrorChange:-0.049351454, Accuracy: 0.8473333
+Epoch:154, Time:2264ms, TrainError:2.313263, TrainErrorChange:0.084041834, Accuracy: 0.8426666
+Epoch:155, Time:2253ms, TrainError:2.2976751, TrainErrorChange:-0.015587807, Accuracy: 0.84050006
+Epoch:156, Time:2130ms, TrainError:2.2607, TrainErrorChange:-0.036975145, Accuracy: 0.83583325
+Epoch:157, Time:2199ms, TrainError:2.2701476, TrainErrorChange:0.009447575, Accuracy: 0.8396667
+Epoch:158, Time:2160ms, TrainError:2.2369308, TrainErrorChange:-0.033216715, Accuracy: 0.84383327
+Epoch:159, Time:2190ms, TrainError:2.3058174, TrainErrorChange:0.06888652, Accuracy: 0.8416667
+Epoch:160, Time:2126ms, TrainError:2.2877023, TrainErrorChange:-0.018115044, Accuracy: 0.8453333
+Epoch:161, Time:2336ms, TrainError:2.3566551, TrainErrorChange:0.0689528, Accuracy: 0.8398334
+Epoch:162, Time:2374ms, TrainError:2.374824, TrainErrorChange:0.018168926, Accuracy: 0.8305
+Epoch:163, Time:2191ms, TrainError:2.2658594, TrainErrorChange:-0.10896468, Accuracy: 0.8411667
+Epoch:164, Time:2110ms, TrainError:2.2136326, TrainErrorChange:-0.05222678, Accuracy: 0.8456667
+Epoch:165, Time:2360ms, TrainError:2.2422695, TrainErrorChange:0.028636932, Accuracy: 0.8435
+Epoch:166, Time:2044ms, TrainError:2.2162, TrainErrorChange:-0.026069403, Accuracy: 0.8475
+Epoch:167, Time:2040ms, TrainError:2.2108645, TrainErrorChange:-0.0053355694, Accuracy: 0.83933336
+Epoch:168, Time:2040ms, TrainError:2.2248113, TrainErrorChange:0.013946772, Accuracy: 0.849
+Epoch:169, Time:2020ms, TrainError:2.2293873, TrainErrorChange:0.004575968, Accuracy: 0.8443333
+Epoch:170, Time:2006ms, TrainError:2.210115, TrainErrorChange:-0.019272327, Accuracy: 0.85
+Epoch:171, Time:2010ms, TrainError:2.2128875, TrainErrorChange:0.0027725697, Accuracy: 0.85199994
+Epoch:172, Time:2240ms, TrainError:2.1996558, TrainErrorChange:-0.013231754, Accuracy: 0.85099995
+Epoch:173, Time:2470ms, TrainError:2.1952522, TrainErrorChange:-0.004403591, Accuracy: 0.8545
+Epoch:174, Time:2336ms, TrainError:2.213295, TrainErrorChange:0.018042803, Accuracy: 0.8525001
+Epoch:175, Time:2128ms, TrainError:2.1874528, TrainErrorChange:-0.02584219, Accuracy: 0.84849995
+Epoch:176, Time:2226ms, TrainError:2.1966693, TrainErrorChange:0.009216547, Accuracy: 0.85066664
+Epoch:177, Time:2150ms, TrainError:2.1721199, TrainErrorChange:-0.024549484, Accuracy: 0.85
+Epoch:178, Time:2161ms, TrainError:2.171972, TrainErrorChange:-1.4781952E-4, Accuracy: 0.854
+Epoch:179, Time:2036ms, TrainError:2.1961596, TrainErrorChange:0.024187565, Accuracy: 0.8575001
+Epoch:180, Time:2080ms, TrainError:2.191387, TrainErrorChange:-0.004772663, Accuracy: 0.85716665
+Epoch:181, Time:2050ms, TrainError:2.1848028, TrainErrorChange:-0.0065841675, Accuracy: 0.8538333
+Epoch:182, Time:2088ms, TrainError:2.2585788, TrainErrorChange:0.07377601, Accuracy: 0.85683334
+Epoch:183, Time:2116ms, TrainError:2.1812105, TrainErrorChange:-0.07736826, Accuracy: 0.8493334
+Epoch:184, Time:2086ms, TrainError:2.2354832, TrainErrorChange:0.05427265, Accuracy: 0.8498333
+Epoch:185, Time:2065ms, TrainError:2.2106662, TrainErrorChange:-0.02481699, Accuracy: 0.8513333
+Epoch:186, Time:2224ms, TrainError:2.1587303, TrainErrorChange:-0.05193591, Accuracy: 0.84416664
+Epoch:187, Time:2050ms, TrainError:2.1386662, TrainErrorChange:-0.020064116, Accuracy: 0.8601667
+Epoch:188, Time:2106ms, TrainError:2.1733065, TrainErrorChange:0.034640312, Accuracy: 0.8511667
+Epoch:189, Time:2030ms, TrainError:2.1651614, TrainErrorChange:-0.008145094, Accuracy: 0.8511667
+Epoch:190, Time:2088ms, TrainError:2.176959, TrainErrorChange:0.011797667, Accuracy: 0.8535
+Epoch:191, Time:2019ms, TrainError:2.2244177, TrainErrorChange:0.04745865, Accuracy: 0.8455
+Epoch:192, Time:2100ms, TrainError:2.3227406, TrainErrorChange:0.09832287, Accuracy: 0.84499997
+Epoch:193, Time:2070ms, TrainError:2.1865776, TrainErrorChange:-0.136163, Accuracy: 0.8583333
+Epoch:194, Time:2194ms, TrainError:2.183532, TrainErrorChange:-0.003045559, Accuracy: 0.8505
+Epoch:195, Time:2090ms, TrainError:2.192419, TrainErrorChange:0.008887053, Accuracy: 0.8533333
+Epoch:196, Time:2159ms, TrainError:2.2147276, TrainErrorChange:0.022308588, Accuracy: 0.8503334
+Epoch:197, Time:2131ms, TrainError:2.2099028, TrainErrorChange:-0.004824877, Accuracy: 0.8538333
+Epoch:198, Time:2269ms, TrainError:2.1617799, TrainErrorChange:-0.048122883, Accuracy: 0.8543333
+Epoch:199, Time:2114ms, TrainError:2.1702833, TrainErrorChange:0.008503437, Accuracy: 0.8511666
+Epoch:200, Time:2019ms, TrainError:2.208967, TrainErrorChange:0.038683653, Accuracy: 0.8565
+Epoch:201, Time:2060ms, TrainError:2.1839156, TrainErrorChange:-0.025051355, Accuracy: 0.8546667
+Epoch:202, Time:2180ms, TrainError:2.1832192, TrainErrorChange:-6.9642067E-4, Accuracy: 0.85616666
+Epoch:203, Time:2060ms, TrainError:2.1770692, TrainErrorChange:-0.0061500072, Accuracy: 0.8501667
+Epoch:204, Time:2044ms, TrainError:2.162642, TrainErrorChange:-0.014427185, Accuracy: 0.85649997
+Epoch:205, Time:2160ms, TrainError:2.1723402, TrainErrorChange:0.009698153, Accuracy: 0.85333335
+Epoch:206, Time:2032ms, TrainError:2.1568484, TrainErrorChange:-0.015491724, Accuracy: 0.85233337
+Epoch:207, Time:2073ms, TrainError:2.1754813, TrainErrorChange:0.018632889, Accuracy: 0.853
+Epoch:208, Time:2056ms, TrainError:2.1777518, TrainErrorChange:0.0022704601, Accuracy: 0.8578334
+Epoch:209, Time:2151ms, TrainError:2.1609442, TrainErrorChange:-0.016807556, Accuracy: 0.8513333
+Epoch:210, Time:2040ms, TrainError:2.154347, TrainErrorChange:-0.0065972805, Accuracy: 0.86050004
+Epoch:211, Time:2233ms, TrainError:2.145777, TrainErrorChange:-0.008569956, Accuracy: 0.84650004
+Epoch:212, Time:2044ms, TrainError:2.1822507, TrainErrorChange:0.03647375, Accuracy: 0.85749996
+Epoch:213, Time:2130ms, TrainError:2.1717675, TrainErrorChange:-0.010483265, Accuracy: 0.8613334
+Epoch:214, Time:2080ms, TrainError:2.1206772, TrainErrorChange:-0.05109024, Accuracy: 0.8589999
+Epoch:215, Time:2078ms, TrainError:2.157749, TrainErrorChange:0.037071705, Accuracy: 0.86083335
+Epoch:216, Time:2070ms, TrainError:2.127154, TrainErrorChange:-0.030594826, Accuracy: 0.8591666
+Epoch:217, Time:2220ms, TrainError:2.1035178, TrainErrorChange:-0.023636341, Accuracy: 0.8625
+Epoch:218, Time:2140ms, TrainError:2.2480245, TrainErrorChange:0.1445067, Accuracy: 0.855
+Epoch:219, Time:2233ms, TrainError:2.133176, TrainErrorChange:-0.114848375, Accuracy: 0.8603333
+Epoch:220, Time:2104ms, TrainError:2.1877856, TrainErrorChange:0.054609537, Accuracy: 0.8545
+Epoch:221, Time:2094ms, TrainError:2.1313963, TrainErrorChange:-0.05638933, Accuracy: 0.8583333
+Epoch:222, Time:2221ms, TrainError:2.1699758, TrainErrorChange:0.038579464, Accuracy: 0.85550004
+Epoch:223, Time:2414ms, TrainError:2.2517927, TrainErrorChange:0.08181691, Accuracy: 0.84816664
+Epoch:224, Time:2266ms, TrainError:2.2311995, TrainErrorChange:-0.020593166, Accuracy: 0.86083335
+Epoch:225, Time:2094ms, TrainError:2.204351, TrainErrorChange:-0.026848555, Accuracy: 0.85200006
+Epoch:226, Time:2083ms, TrainError:2.1863194, TrainErrorChange:-0.018031597, Accuracy: 0.85
+Epoch:227, Time:2061ms, TrainError:2.1308014, TrainErrorChange:-0.055517912, Accuracy: 0.85983336
+Epoch:228, Time:2009ms, TrainError:2.1472, TrainErrorChange:0.016398668, Accuracy: 0.8618334
+Epoch:229, Time:2040ms, TrainError:2.1642883, TrainErrorChange:0.017088175, Accuracy: 0.85566664
+Epoch:230, Time:2024ms, TrainError:2.2554789, TrainErrorChange:0.09119058, Accuracy: 0.8376667
+Epoch:231, Time:2042ms, TrainError:2.1996326, TrainErrorChange:-0.055846214, Accuracy: 0.855
+Epoch:232, Time:2041ms, TrainError:2.1339746, TrainErrorChange:-0.06565809, Accuracy: 0.8584999
+Epoch:233, Time:2100ms, TrainError:2.1514575, TrainErrorChange:0.017482996, Accuracy: 0.862
+Epoch:234, Time:2096ms, TrainError:2.1151667, TrainErrorChange:-0.036290884, Accuracy: 0.8578334
+Epoch:235, Time:2050ms, TrainError:2.1380885, TrainErrorChange:0.0229218, Accuracy: 0.8568333
+Epoch:236, Time:2038ms, TrainError:2.0934682, TrainErrorChange:-0.044620275, Accuracy: 0.84699994
+Epoch:237, Time:2429ms, TrainError:2.2118537, TrainErrorChange:0.11838555, Accuracy: 0.8578334
+Epoch:238, Time:2280ms, TrainError:2.105706, TrainErrorChange:-0.106147766, Accuracy: 0.85583323
+Epoch:239, Time:2058ms, TrainError:2.1157832, TrainErrorChange:0.010077238, Accuracy: 0.8585
+Epoch:240, Time:2134ms, TrainError:2.0698192, TrainErrorChange:-0.045964003, Accuracy: 0.85616666
+Epoch:241, Time:2070ms, TrainError:2.115909, TrainErrorChange:0.046089888, Accuracy: 0.86083335
+Epoch:242, Time:2114ms, TrainError:2.1316342, TrainErrorChange:0.015725136, Accuracy: 0.8448334
+Epoch:243, Time:2101ms, TrainError:2.1364374, TrainErrorChange:0.0048031807, Accuracy: 0.86016667
+Epoch:244, Time:2132ms, TrainError:2.145911, TrainErrorChange:0.009473562, Accuracy: 0.86116666
+Epoch:245, Time:2100ms, TrainError:2.1101875, TrainErrorChange:-0.035723448, Accuracy: 0.8605
+Epoch:246, Time:2134ms, TrainError:2.122613, TrainErrorChange:0.012425423, Accuracy: 0.85966665
+Epoch:247, Time:2080ms, TrainError:2.1083214, TrainErrorChange:-0.014291525, Accuracy: 0.8635
+Epoch:248, Time:2164ms, TrainError:2.1216536, TrainErrorChange:0.0133321285, Accuracy: 0.8588332
+Epoch:249, Time:2110ms, TrainError:2.0933955, TrainErrorChange:-0.028258085, Accuracy: 0.86100006
+Epoch:250, Time:2220ms, TrainError:2.1344798, TrainErrorChange:0.04108429, Accuracy: 0.84866667
+Epoch:251, Time:2080ms, TrainError:2.293899, TrainErrorChange:0.1594193, Accuracy: 0.8373333
+Epoch:252, Time:2111ms, TrainError:2.2013521, TrainErrorChange:-0.09254694, Accuracy: 0.84816664
+Epoch:253, Time:2080ms, TrainError:2.1856003, TrainErrorChange:-0.015751839, Accuracy: 0.857
+Epoch:254, Time:2073ms, TrainError:2.1639812, TrainErrorChange:-0.021619081, Accuracy: 0.8551666
+Epoch:255, Time:2086ms, TrainError:2.1755638, TrainErrorChange:0.011582613, Accuracy: 0.8620001
+Epoch:256, Time:2137ms, TrainError:2.1779666, TrainErrorChange:0.0024027824, Accuracy: 0.86083335
+Epoch:257, Time:2030ms, TrainError:2.1476345, TrainErrorChange:-0.030332088, Accuracy: 0.85566676
+Epoch:258, Time:2160ms, TrainError:2.1409545, TrainErrorChange:-0.0066800117, Accuracy: 0.851
+Epoch:259, Time:2110ms, TrainError:2.2734187, TrainErrorChange:0.13246417, Accuracy: 0.8385
+Epoch:260, Time:2070ms, TrainError:2.2288702, TrainErrorChange:-0.04454851, Accuracy: 0.8531667
+Epoch:261, Time:2113ms, TrainError:2.2026393, TrainErrorChange:-0.026230812, Accuracy: 0.85216665
+Epoch:262, Time:2060ms, TrainError:2.198674, TrainErrorChange:-0.003965378, Accuracy: 0.842
+Epoch:263, Time:2097ms, TrainError:2.2470407, TrainErrorChange:0.048366785, Accuracy: 0.8545
+Epoch:264, Time:2045ms, TrainError:2.1416328, TrainErrorChange:-0.10540795, Accuracy: 0.85949993
+Epoch:265, Time:2130ms, TrainError:2.200021, TrainErrorChange:0.058388233, Accuracy: 0.85999995
+Epoch:266, Time:2027ms, TrainError:2.1463487, TrainErrorChange:-0.053672314, Accuracy: 0.8545
+Epoch:267, Time:2100ms, TrainError:2.162553, TrainErrorChange:0.016204357, Accuracy: 0.8625001
+Epoch:268, Time:2113ms, TrainError:2.1474173, TrainErrorChange:-0.015135765, Accuracy: 0.84366673
+Epoch:269, Time:2190ms, TrainError:2.1846, TrainErrorChange:0.037182808, Accuracy: 0.8546666
+Epoch:270, Time:2093ms, TrainError:2.1661623, TrainErrorChange:-0.018437862, Accuracy: 0.8475
+Epoch:271, Time:2128ms, TrainError:2.2883599, TrainErrorChange:0.12219763, Accuracy: 0.8291667
+Epoch:272, Time:2113ms, TrainError:2.3856153, TrainErrorChange:0.09725547, Accuracy: 0.83566666
+Epoch:273, Time:2361ms, TrainError:2.395539, TrainErrorChange:0.0099236965, Accuracy: 0.83650005
+Epoch:274, Time:2170ms, TrainError:2.328641, TrainErrorChange:-0.06689811, Accuracy: 0.8496667
+Epoch:275, Time:2149ms, TrainError:2.1793418, TrainErrorChange:-0.14929914, Accuracy: 0.8511666
+Epoch:276, Time:2014ms, TrainError:2.1815147, TrainErrorChange:0.002172947, Accuracy: 0.85916674
+Epoch:277, Time:2040ms, TrainError:2.1628878, TrainErrorChange:-0.018626928, Accuracy: 0.85133344
+Epoch:278, Time:1964ms, TrainError:2.2075102, TrainErrorChange:0.04462242, Accuracy: 0.85749996
+Epoch:279, Time:2312ms, TrainError:2.199236, TrainErrorChange:-0.008274317, Accuracy: 0.8491667
+Epoch:280, Time:2285ms, TrainError:2.171837, TrainErrorChange:-0.027398825, Accuracy: 0.8461666
+Epoch:281, Time:2300ms, TrainError:2.2181947, TrainErrorChange:0.04635763, Accuracy: 0.85233337
+Epoch:282, Time:1930ms, TrainError:2.1756835, TrainErrorChange:-0.042511225, Accuracy: 0.8546667
+Epoch:283, Time:1934ms, TrainError:2.177903, TrainErrorChange:0.0022194386, Accuracy: 0.84799993
+Epoch:284, Time:1891ms, TrainError:2.140734, TrainErrorChange:-0.03716898, Accuracy: 0.85683334
+Epoch:285, Time:1944ms, TrainError:2.2072716, TrainErrorChange:0.06653762, Accuracy: 0.85683334
+Epoch:286, Time:1970ms, TrainError:2.26272, TrainErrorChange:0.055448532, Accuracy: 0.8408333
+Epoch:287, Time:2014ms, TrainError:2.3174994, TrainErrorChange:0.05477929, Accuracy: 0.8378333
+Epoch:288, Time:1873ms, TrainError:2.23446, TrainErrorChange:-0.083039284, Accuracy: 0.8408333
+Epoch:289, Time:2040ms, TrainError:2.2513528, TrainErrorChange:0.016892672, Accuracy: 0.84483325
+Epoch:290, Time:1876ms, TrainError:2.2041361, TrainErrorChange:-0.047216654, Accuracy: 0.85233337
+Epoch:291, Time:2031ms, TrainError:2.1456385, TrainErrorChange:-0.058497667, Accuracy: 0.8538334
+Epoch:292, Time:1920ms, TrainError:2.162137, TrainErrorChange:0.016498566, Accuracy: 0.85249996
+Epoch:293, Time:2031ms, TrainError:2.1964383, TrainErrorChange:0.03430128, Accuracy: 0.84699994
+Epoch:294, Time:1867ms, TrainError:2.1669252, TrainErrorChange:-0.02951312, Accuracy: 0.8485001
+Epoch:295, Time:1988ms, TrainError:2.1807745, TrainErrorChange:0.013849258, Accuracy: 0.8496668
+Epoch:296, Time:1850ms, TrainError:2.2022588, TrainErrorChange:0.021484375, Accuracy: 0.85200006
+Epoch:297, Time:1846ms, TrainError:2.1920855, TrainErrorChange:-0.010173321, Accuracy: 0.85550004
+Epoch:298, Time:1874ms, TrainError:2.1735415, TrainErrorChange:-0.018543959, Accuracy: 0.8346666
+Epoch:299, Time:1856ms, TrainError:2.1396396, TrainErrorChange:-0.03390193, Accuracy: 0.85983336
+Epoch:300, Time:1950ms, TrainError:2.1578357, TrainErrorChange:0.018196106, Accuracy: 0.8516666
+Epoch:301, Time:1871ms, TrainError:2.1719882, TrainErrorChange:0.014152527, Accuracy: 0.8496667
+Epoch:302, Time:1956ms, TrainError:2.2079463, TrainErrorChange:0.03595805, Accuracy: 0.85183334
+Epoch:303, Time:1863ms, TrainError:2.1841428, TrainErrorChange:-0.023803473, Accuracy: 0.8506667
+Epoch:304, Time:1978ms, TrainError:2.2502408, TrainErrorChange:0.066097975, Accuracy: 0.8503334
+Epoch:305, Time:1907ms, TrainError:2.2065558, TrainErrorChange:-0.04368496, Accuracy: 0.855
+Epoch:306, Time:1918ms, TrainError:2.1647239, TrainErrorChange:-0.04183197, Accuracy: 0.8561667
+Epoch:307, Time:1857ms, TrainError:2.2109542, TrainErrorChange:0.046230316, Accuracy: 0.8458333
+Epoch:308, Time:1904ms, TrainError:2.4432936, TrainErrorChange:0.23233938, Accuracy: 0.8215
+Epoch:309, Time:1919ms, TrainError:2.5417778, TrainErrorChange:0.09848428, Accuracy: 0.8215
+Epoch:310, Time:1939ms, TrainError:2.5417945, TrainErrorChange:1.66893E-5, Accuracy: 0.8215
+Epoch:311, Time:1911ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:312, Time:1910ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:313, Time:2019ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:314, Time:2027ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:315, Time:1960ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:316, Time:1950ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:317, Time:2207ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:318, Time:2070ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:319, Time:2019ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:320, Time:2018ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:321, Time:1985ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:322, Time:2065ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:323, Time:2017ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:324, Time:1925ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:325, Time:2019ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:326, Time:1934ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:327, Time:1983ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:328, Time:2070ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:329, Time:2070ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:330, Time:1998ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:331, Time:2130ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:332, Time:2094ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:333, Time:2074ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:334, Time:2051ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:335, Time:2095ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:336, Time:2073ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:337, Time:2190ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:338, Time:2007ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:339, Time:2080ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:340, Time:2072ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:341, Time:2088ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:342, Time:2000ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:343, Time:2092ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:344, Time:2004ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:345, Time:2059ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:346, Time:2080ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:347, Time:2093ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:348, Time:1959ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:349, Time:2041ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:350, Time:1916ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:351, Time:2006ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:352, Time:2012ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:353, Time:2300ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:354, Time:1999ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:355, Time:2026ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:356, Time:1980ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:357, Time:2078ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:358, Time:1939ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:359, Time:2040ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:360, Time:1940ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:361, Time:2010ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:362, Time:2176ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:363, Time:2095ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:364, Time:2000ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:365, Time:2053ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:366, Time:1976ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:367, Time:2071ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:368, Time:2021ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:369, Time:2070ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:370, Time:2069ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:371, Time:2058ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:372, Time:1941ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:373, Time:2020ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:374, Time:1951ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:375, Time:2074ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:376, Time:2029ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:377, Time:2081ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:378, Time:1979ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:379, Time:2070ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:380, Time:1974ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:381, Time:2089ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:382, Time:1986ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:383, Time:2130ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:384, Time:1980ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:385, Time:2075ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:386, Time:2021ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:387, Time:2100ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:388, Time:1940ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:389, Time:1970ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:390, Time:2000ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:391, Time:2040ms, TrainError:2.5417943, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:392, Time:1970ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:393, Time:2010ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:394, Time:1966ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:395, Time:2030ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:396, Time:1981ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:397, Time:2060ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:398, Time:2123ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:399, Time:2071ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:400, Time:2009ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:401, Time:2051ms, TrainError:2.5417943, TrainErrorChange:-2.3841858E-7, Accuracy: 0.8215
+Epoch:402, Time:2081ms, TrainError:2.5417943, TrainErrorChange:0.0, Accuracy: 0.8215
+Epoch:403, Time:2200ms, TrainError:2.5417945, TrainErrorChange:2.3841858E-7, Accuracy: 0.8215
+Epoch:404, Time:2111ms, TrainError:2.5417945, TrainErrorChange:0.0, Accuracy: 0.8215
