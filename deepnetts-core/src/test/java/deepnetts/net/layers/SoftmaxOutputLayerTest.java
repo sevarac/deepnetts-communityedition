@@ -7,7 +7,6 @@ import deepnetts.util.Tensor;
 import deepnetts.util.WeightsInit;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *

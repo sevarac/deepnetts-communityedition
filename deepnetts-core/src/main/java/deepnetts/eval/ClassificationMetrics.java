@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Container class for all metrics which use confusion matrix for their computation
+ * Container class for all metrics which use confusion matrix for their computation.
  *
  * https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
  */

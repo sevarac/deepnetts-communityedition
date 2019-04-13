@@ -22,6 +22,7 @@
 package deepnetts.data;
 
 import deepnetts.util.ColorUtils;
+import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -85,6 +86,20 @@ public class ExampleImage implements DataSetItem {
 
         extractPixelColors(image);
     }
+    
+    public ExampleImage(BufferedImage image, String label, int targetWidth, int targetHeight) throws IOException {
+        this.label = label;
+        
+        // if specified image does not fit given dimsnsions scale image
+        if (image.getWidth() != targetWidth || image.getHeight() != targetHeight) {
+            image = ImageUtils.scaleImage(image, targetWidth, targetHeight);
+        }
+       
+        width = image.getWidth();
+        height = image.getHeight();            
+               
+        extractPixelColors(image);
+    }    
 
     public ExampleImage(BufferedImage image) {
         this.label = null;

@@ -69,14 +69,17 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
      */
     private HashMap<String, PerformanceMeasure> performanceByClass;
 
+    /**
+     * Classification threshold
+     */
     private float threshold = 0.5f;
 
     private void init() {
         performanceByClass = new HashMap<>();
 
-        if (classLabels.size() == 1) {
-            confusionMatrix = new ConfusionMatrix(new String[]{POSITIVE, NEGATIVE}); // labels for binary classification
-        } else {
+        if (classLabels.size() == 2) { // for binary classification - these should change positins?
+            confusionMatrix = new ConfusionMatrix(new String[]{NEGATIVE, POSITIVE}); // labels for binary classification
+        } else { // for multi class classification
             confusionMatrix = new ConfusionMatrix(classLabels.toArray(new String[classLabels.size()]));
             classLabels.forEach((label) -> {
                 performanceByClass.put(label, new PerformanceMeasure());
@@ -84,10 +87,20 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         }
     }
 
+    /**
+     * Performs classifier evaluation and returns classification performance metrics.
+     * @param neuralNet
+     * @param testSet
+     * @return 
+     */
     @Override
     public PerformanceMeasure evaluatePerformance(NeuralNetwork neuralNet, DataSet<?> testSet) {
-        classLabels = Arrays.asList(testSet.getOutputLabels()); // get labels from neural network outputs
-
+        classLabels.clear();
+        classLabels.add(0, NEGATIVE); // da li da dodajem negativnu klasu, vidi kako radi sci kit learn
+        for(String label : testSet.getOutputLabels()) { // ali nek uradi ovo samo jednom a ne za svaku epohu
+            classLabels.add(label);
+        }
+        
         // if class labels are empty create class1, class2, classk ....
         init();
 
@@ -100,14 +113,15 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
             processResult(item.getTargetOutput(), predictedOut);
         }
 
-        if (classLabels.size() == 1) {  // for binary classification
+        if (classLabels.size() == 2) {  // for binary classification
             return createBinaryPerformanceMeasures();
         } else {  // for multi class classification
             createMultiClassPerformanceMeasures();
-            return getTotalAverage(); // ovde vracam total posebnom metodom uzimam by class
+            return getTotalAverage(); // in multi class case return average performance for all classes
         }
     }
 
+    
     private PerformanceMeasure createBinaryPerformanceMeasures() {
         PerformanceMeasure pm = new PerformanceMeasure();
 
@@ -139,7 +153,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
     private Map<String, PerformanceMeasure> createMultiClassPerformanceMeasures() {
         performanceByClass = new HashMap();
-        for (int clsIdx = 0; clsIdx < classLabels.size(); clsIdx++) {
+        for (int clsIdx = 1; clsIdx < classLabels.size(); clsIdx++) {
             PerformanceMeasure pm = new PerformanceMeasure();
 
             int tp = confusionMatrix.getTruePositive(clsIdx);
@@ -165,8 +179,15 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     }
 
 
+    /**
+     * Process single classification result and update confusion matrix.
+     * 
+     * @param actual actual class (binary encoded)
+     * @param predicted predicted class (binary encoded)
+     */
     private void processResult(float[] actual, float[] predicted) {
 
+        // binary classification 
         if (classLabels.size() == 1) { // if its a binary classifier
             if ((actual[0] == 1) && (predicted[0] >= threshold)) {
                 confusionMatrix.inc(1, 1); // tp is at [1, 1]
@@ -180,11 +201,19 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         } else { // multi class classifier
             int actualIdx = indexOfMax(actual);
             int predictedIdx = indexOfMax(predicted); // ako su svi nule predictsIdx je od NEGATIVE
+            // ali zapravo ni ne primenjujem threshold u multi class slucaju
+            // mozda bi resenje bilo da i u multiclass lucaj ubacim negative??? To bi mozda bilo najkorektinije, jer bi suma ukupnog broja bila tacna, a koristio bih threshold. Sve drugo bi iskrivljavalo rezultate.
 
+            // jer ovde i ako ne prebacuje threshold on ga kapirao kao klasu!
+            // mada to su dva nacina na koji mogu koristiti nm,moze biti legitiman.
+            
+            // sta ako nijedan ne prebacije 0.5? mislim da taj slcaj propustam!!!!
+            // suma svih treba da bude jednak broju N ukupnom broju itema 
+                        
             confusionMatrix.inc(actualIdx, predictedIdx);
 //            if (predictedIdx != -1 && actualIdx !=-1) {
-//                confusionMatrix.inc(actualIdx, predictedIdx);
-//            } else if(predictedIdx == -1 && actualIdx !=-1) { // fn
+//                confusionMatrix.inc(0, 0);  // TN
+//            }  else if(predictedIdx == -1 && actualIdx !=-1) { // fn
 //                for(int i=0; i<classLabels.size(); i++) {
 //                    if (i != actualIdx) // fn - da li je ovo dobro?
 //                        confusionMatrix.inc(actualIdx, i);
@@ -200,19 +229,23 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
     /**
      * Returns index of max element in specified array.
-     * If all elements are zero (negative example) returns -1
+     * If all elements are zero (negative example) returns 0.
+     * Used only for multi class classificati case.
      *
      * @param array
      * @return index of max value
      */
     private int indexOfMax(float[] array) {
-        int maxIdx = 0;
+        int maxIdx = -1;
         for (int i = 0; i < array.length; i++) {
-         //   if (array[i] >= threshold) {
-                if (array[i] > array[maxIdx]) maxIdx = i;
-         //   }
-        }
-        return maxIdx;
+            if (array[i] >= threshold) {
+                if (maxIdx==-1) maxIdx = i;
+                    else if (array[i] > array[maxIdx]) maxIdx = i;
+            }
+        }    
+        
+        if (maxIdx == -1) return 0;        
+            else return maxIdx+1; // +1 because zero is negative
     }
 
     public float getThreshold() {

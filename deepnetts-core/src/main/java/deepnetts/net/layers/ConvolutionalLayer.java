@@ -90,6 +90,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
     int fCenterX; //  padding = (kernel-1)/2
     int fCenterY;
+    
+    int[][][][] maxIdx;
 
     private transient List<Callable<Void>> forwardTasks;
     private transient List<Callable<Void>> backwardTasks;
@@ -193,12 +195,12 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
         forwardTasks = new ArrayList<>();
         backwardTasks = new ArrayList<>();
-        float perChannel = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
+        float channelsPerThread = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
         CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
         CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
         for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
-            ForwardCallable ftask = new ForwardCallable((int)perChannel * i, (int)perChannel * (i+1), fcb);
-            BackwardCallable btask = new BackwardCallable((int)perChannel * i, (int)perChannel * (i+1), bcb);
+            ForwardCallable ftask = new ForwardCallable((int)channelsPerThread * i, (int)channelsPerThread * (i+1), fcb);
+            BackwardCallable btask = new BackwardCallable((int)channelsPerThread * i, (int)channelsPerThread * (i+1), bcb);
             forwardTasks.add(ftask);
             backwardTasks.add(btask);
         }
@@ -328,7 +330,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
         } // end channel iterator
     }
 
-    int[][][][] maxIdx;
+
 
     private void backwardFromMaxPooling() {
         final MaxPoolingLayer nextPoolLayer = (MaxPoolingLayer) nextLayer;
@@ -372,8 +374,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
         int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
         int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
 
-        /// !!! Zasto u forward pasu imam 6 a u backward 7 loopova? - ako imam gz i ndZ da li mi treba ch ???
-       // for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
             // 1. Propagate deltas from next conv layer for max outputs from this layer
             for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) { // iteriraj sve kanale sledeceg sloja - ovde se moze paralelizovati takodje!
                 for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // iteriraj delte sledeceg lejera po visini
@@ -388,7 +388,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
                                     if (row < 0 || row >= outputs.getRows() || col < 0 || col >= outputs.getCols()) continue;
 
-                                   // final float derivative = ActivationFunctions.prime(activationType, outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.
+                                   // Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.
                                     final float derivative = activation.getPrime(outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.
                                     //   ... ovde treba razjasniti kako se mnozi sa weightsomm? da li ih treba sabirati
                                     deltas.add(row, col, fz, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);

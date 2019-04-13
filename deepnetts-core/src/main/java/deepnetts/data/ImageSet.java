@@ -22,6 +22,7 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -30,30 +31,29 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents data set with images
+ * Data set with images that will be used to train convolutional neural network.
  *
- * @author zoran
+ * @author Zoran Sevarac
  */
 public class ImageSet extends BasicDataSet<ExampleImage> {
-
+               //     extends DataSet<ExampleImage>  ?
     private final int imageWidth;
     private final int imageHeight;
+    private boolean scaleImages = true;
     private Tensor mean;
+    
+    // TODO: method load which takes path to folder with images. May constructor
+    // create image and laels index if they are not present
+    // mozda ImageDataSetBuilder
+    // ukljuci broj slika , index fajlove i sve ostalo
+    
     private static String NEGATIVE_LABEL="negative";
     
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
@@ -78,6 +78,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * @param exImage
      * @throws DeepNettsException if image is empty or has wrong dimensions.
      */
+    @Override
     public void add(ExampleImage exImage) throws DeepNettsException {
         if (exImage == null) {
             throw new DeepNettsException("Example image cannot be null!");
@@ -100,7 +101,6 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      *
      *
      * @param imageIdxFile Plain text file that contains space delimited image paths and labels
-     * @param absPaths True if file contains absolute paths for images, false otherwise. If specified value is false, images will be loaded relative to index file path.
      * @throws java.io.FileNotFoundException if imageIdxFile was not found
      */
     public void loadImages(File imageIdxFile) throws FileNotFoundException {
@@ -151,10 +151,12 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 imgFileName = rootPath + File.separator + imgFileName;
                 
                 // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
-                final BufferedImage image = ImageIO.read(new File(imgFileName));
-                final String flabel = label;
-                final ExampleImage exImg = new ExampleImage(image, flabel);
-                exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
+                BufferedImage image = ImageIO.read(new File(imgFileName));
+                if (scaleImages) {
+                    image = ImageUtils.scaleImage(image, imageWidth, imageHeight);
+                }
+                final ExampleImage exImg = new ExampleImage(image, label);
+                exImg.setTargetOutput(oneHotEncode(label, fColumnNames));
                 add(exImg);
 
 //                Future<?> result = es.submit(() -> {
@@ -461,6 +463,16 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             }
         }
     }
+
+    public boolean getScaleImages() {
+        return scaleImages;
+    }
+
+    public void setScaleImages(boolean scaleImages) {
+        this.scaleImages = scaleImages;
+    }
+    
+    
 
     // since inputs are pixels we dont care about input labels
     @Override

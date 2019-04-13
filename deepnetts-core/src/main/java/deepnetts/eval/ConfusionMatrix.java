@@ -2,16 +2,16 @@ package deepnetts.eval;
 
 /**
  * Confusion matrix container, holds class labels and matrix values.
- * Columns correspond to actual classes, rows to predicted
+ * Rows correspond to actual classes, cols to predicted
  *
  * https://en.wikipedia.org/wiki/Confusion_matrix
  * http://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
  * http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix
  *
- *                 Actual/target
- *                 T   F
- * Predicted  T   TP  FP
- * Predicted  F   FN  TN
+ *                    Predicted
+ *                      F   T
+ *  Actual/target  F   TN  FP
+ *  Actual/target  T   FN  TP
  *
  */
 public class ConfusionMatrix {
@@ -117,7 +117,7 @@ public class ConfusionMatrix {
      * @return
      */
     public int getTruePositive() {
-        return values[0][0];
+        return values[1][1];
     }
 
 
@@ -131,7 +131,7 @@ public class ConfusionMatrix {
     }
 
     public int getTrueNegative() {
-        return values[1][1];
+        return values[0][0];
     }
     /*
     https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
@@ -143,22 +143,28 @@ public class ConfusionMatrix {
     public int getTrueNegative(int clsIdx) {
         int trueNegative = 0;
 
-        for(int i = 0; i < classCount; i++) {
-            if (i == clsIdx) continue;
-            for(int j = 0; j < classCount; j++) {
-                if (j == clsIdx) continue;
-                trueNegative += values[i][j];
-            }
-        }
-
+//        for(int i = 0; i < classCount; i++) {
+//            if (i == clsIdx) continue;
+//            for(int j = 0; j < classCount; j++) {
+//                if (j == clsIdx) continue;
+//                trueNegative += values[i][j];
+//            }
+//        }
+        trueNegative = values[0][0];
         return trueNegative;
     }
 
+    /**
+     * Returns number of false positive classifications.
+     * Items that do not belong to specific class, but they are recognized as they do 
+     * Only for binary classification
+     * @return 
+     */
     public int getFalsePositive() {
         return values[0][1];
     }
 
-    // saberi celu clsIdx kolonu samo preskoci tp
+    // saberi celu clsIdx kolonu samo preskoci clsIdx red
     // all non-clsIdx that are classified/predicted as clsIdx
     public int getFalsePositive(int clsIdx) {
         int falsePositive = 0;
@@ -171,7 +177,8 @@ public class ConfusionMatrix {
         return falsePositive;
     }
 
-    // saberi ceo red  u kome se nalazi zadati clsIdx
+    // Doublechecked: 13.4.19.
+    // saberi ceo red  u kome se nalazi zadati clsIdx. znaci clsIdx red a preskoci kolonu clsIdx
     // all clsIdx that are classified as non clasIdx
     public int getFalseNegative(int clsIdx) {
         int falseNegative = 0;
@@ -201,7 +208,7 @@ public class ConfusionMatrix {
     }
 
     public static final String TRUE_POSITIVE="TruePositive";
-    public static final String TRUE_NEGATIVE="TruePositive";
+    public static final String TRUE_NEGATIVE="TrueNegative";
     public static final String FALSE_POSITIVE="FalsePositive";
     public static final String FALSE_NEGATIVE="FalseNegative";
 

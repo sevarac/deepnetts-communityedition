@@ -7,15 +7,13 @@ import java.util.HashMap;
  * @author Zoran
  */
 public class PerformanceMeasure {
-    // Regression metrics
-
-
-    public final static String MEAN_ABSOLUTE_ERROR      = "MeanAbsoluteError";
 
     /**
     * Mean value of sum of squared errors.
     * Errors are squared in order to better explain variability, and take into account positive and negative errors.
+    * Regression metrics
     */
+    public final static String MEAN_ABSOLUTE_ERROR      = "MeanAbsoluteError";
     public final static String MEAN_SQUARED_ERROR       = "MeanSquaredError";
     public final static String ROOT_MEAN_SQUARED_ERROR  = "RootMeanSquaredError";   // Use RSE instead
     public final static String RESIDUAL_SQUARE_SUM      = "ResidualSquareSum";

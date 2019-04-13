@@ -40,40 +40,59 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
+ * Utility methods to work with images.
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class ImageUtils {
+    
+    private ImageUtils() { }
         
     /**
-     * Scales input image to specified target width or height, centers and returns resulting image.
-     * Scaling factor is calculated using larger dimension (width or height).
+     * Scales specified image and returns new image with specified dimensions.
+     * 
+     * @param img image to sclae
+     * @param newWidth width of scaled image
+     * @param newHeight height of scaled image
+     * @return 
+     */
+    public static BufferedImage scaleImage(BufferedImage img, int newWidth, int newHeight) {    
+        // problem je sto je ovaj iz awt paketa
+        Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);        
+        BufferedImage resultImg = new BufferedImage(newWidth, newHeight, img.getType());    
+        resultImg.getGraphics().drawImage(scaledImg, 0, 0, null);
+                    
+        return resultImg;        
+    }
+    
+    /**
+     * Scales input image to specified target width or height, centers and returns resulting image.Scaling factor is calculated using larger dimension (width or height).
      * Keeps aspect ratio and image type, and bgColor parameter to fill background. 
      * 
-     * @param img
-     * @param targetWidth
-     * @param targetHeight
+     * @param img image to scale
+     * @param targetWidth witdth to scale to
+     * @param targetHeight height to scale to
+     * @param padding
      * @param bgColor
      * @return scaled and centered image
      */
     public static BufferedImage scaleAndCenter(BufferedImage img, int targetWidth, int targetHeight, int padding, Color bgColor) {
-
         int imgWidth = img.getWidth();
         int imgHeight = img.getHeight();
                 
-        float scale = 0;
+        float scaleFactor = 0;
         int xPos, yPos;
         
+        // scale by larger dimension
         if (imgWidth > imgHeight) {
-            scale = imgWidth / (float)(targetWidth-2*padding);
-
+            scaleFactor = imgWidth / (float)(targetWidth-2*padding);
         } else { // imgHeight < imgWidth
-            scale = imgHeight / (float)(targetHeight-2*padding);
+            scaleFactor = imgHeight / (float)(targetHeight-2*padding);
 
         }
 
-        int newWidth = (int) (imgWidth / scale);
-        int newHeight = (int)(imgHeight / scale);
+        int newWidth = (int) (imgWidth / scaleFactor);
+        int newHeight = (int)(imgHeight / scaleFactor);
         
         Image scaledImg = img.getScaledInstance(newWidth, newHeight, imgWidth);
         
@@ -312,16 +331,26 @@ public class ImageUtils {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = bi.copyData(null);
+        
         // https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
       //  return new BufferedImage(cm, raster, isAlphaPremultiplied, null).getSubimage(0, 0, bi.getWidth(), bi.getHeight());
          return new BufferedImage(cm, raster, isAlphaPremultiplied, null); 
     }    
     
-    public static void writeImages(List<BufferedImage> images, String targetPath, String fileName, String fileType) throws IOException {
+    /**
+     * Writes list of images to specified file path.
+     * 
+     * @param images images to write
+     * @param targetPath path to write to
+     * @param fileNamePrefix prefix of image file name to use (eg. for prefix pattern "someImage" it will create file someImage_1.jpg )
+     * @param fileType type of file/images to write
+     * @throws IOException 
+     */
+    public static void writeImages(List<BufferedImage> images, String targetPath, String fileNamePrefix, String fileType) throws IOException {
         int i=0;
         for(BufferedImage img : images) {
             i++;
-            ImageIO.write(img, fileType, new File(targetPath + File.separator  +fileName+"_"+i+"."+fileType));
+            ImageIO.write(img, fileType, new File(targetPath + File.separator  +fileNamePrefix+"_"+i+"."+fileType));
         }
     }
     
