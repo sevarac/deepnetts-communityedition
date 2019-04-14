@@ -273,6 +273,9 @@ public final class MaxPoolingLayer extends AbstractLayer {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Max Pooling Layer { filter width:"+filterWidth+", filter height: "+filterHeight+", stride:"+stride+"}";
+    }
 
 }

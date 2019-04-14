@@ -1,0 +1,3816 @@
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2266ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89342654
+Epoch:2, Time:2652ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9794405
+Epoch:3, Time:2591ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.9971329
+Epoch:4, Time:2649ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.99447554
+Epoch:5, Time:2822ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9983217
+Epoch:6, Time:2551ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9983217
+Epoch:7, Time:2810ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.99762243
+Epoch:8, Time:2940ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.99825174
+Epoch:9, Time:2819ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.9965035
+Epoch:10, Time:2774ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.99839157
+Epoch:11, Time:2650ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.99825174
+Epoch:12, Time:2626ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 1.0
+Epoch:13, Time:2579ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 1.0
+Epoch:14, Time:2711ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 1.0
+Epoch:15, Time:2651ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 63623ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9724676
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.9457143
+FalsePositive: 31.0
+FalseNegative: 7.0
+Precision: 0.68367344
+F1Score: 0.68367344
+TruePositive: 595.0
+Recall: 0.68367344
+
+----------------
+Class 1:
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 609.0
+Recall: 0.96103895
+
+----------------
+Class negative:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 2:
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 628.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 628.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 625.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 604.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 631.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 631.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 622.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 621.0
+Recall: 0.89705884
+
+----------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8366234
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.13142857
+FalsePositive: 605.0
+FalseNegative: 3.0
+Precision: 0.10502958
+F1Score: 0.10502958
+TruePositive: 21.0
+Recall: 0.10502958
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1931ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89342654
+Epoch:2, Time:2573ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9794405
+Epoch:3, Time:2500ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.9971329
+Epoch:4, Time:2435ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.99447554
+Epoch:5, Time:2533ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9983217
+Epoch:6, Time:2508ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9983217
+Epoch:7, Time:2417ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.99762243
+Epoch:8, Time:2501ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.99825174
+Epoch:9, Time:2464ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.9965035
+Epoch:10, Time:2490ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.99839157
+Epoch:11, Time:2383ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.99825174
+Epoch:12, Time:2539ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 1.0
+Epoch:13, Time:2623ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 1.0
+Epoch:14, Time:2828ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 1.0
+Epoch:15, Time:2631ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 42740ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9950649
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class negative:
+Accuracy: 0.9457143
+FalsePositive: 31.0
+FalseNegative: 7.0
+Precision: 0.68367344
+F1Score: 0.68367344
+TruePositive: 595.0
+Recall: 0.68367344
+
+----------------
+Class 2:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:32033ms, TrainError:2.2386904, TrainErrorChange:2.2386904, Accuracy: 0.8374242
+Epoch:2, Time:33402ms, TrainError:2.005003, TrainErrorChange:-0.2336874, Accuracy: 0.91946965
+Epoch:3, Time:35394ms, TrainError:1.8316938, TrainErrorChange:-0.1733092, Accuracy: 0.9914394
+Epoch:4, Time:31986ms, TrainError:1.7253006, TrainErrorChange:-0.10639322, Accuracy: 0.9925757
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8366234
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.13142857
+FalsePositive: 605.0
+FalseNegative: 3.0
+Precision: 0.10502958
+F1Score: 0.10502958
+TruePositive: 21.0
+Recall: 0.10502958
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       0      71       3       0       0       0       0       0       0       0       0
+       1       0      88       0       0       0       0       0       0       0       0       0
+       2       0      62       2       0       0       0       0       0       0       0       0
+       3       0      60       0       0       0       0       0       0       0       0       0
+       4       0      67       7       0       0       0       0       0       0       0       0
+       5       0      72       0       0       0       0       0       0       0       0       0
+       6       0      58       9       0       0       0       0       0       0       0       0
+       7       0      67       0       0       0       0       0       0       0       0       0
+       8       0      62       0       0       0       0       0       0       0       0       0
+       9       0      69       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1859ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89342654
+Epoch:2, Time:2706ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9794405
+Epoch:3, Time:2608ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.9971329
+Epoch:4, Time:2641ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.99447554
+Epoch:5, Time:2596ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9983217
+Epoch:6, Time:2727ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9983217
+Epoch:7, Time:2794ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.99762243
+Epoch:8, Time:2949ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.99825174
+Epoch:9, Time:2598ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.9965035
+Epoch:10, Time:2635ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.99839157
+Epoch:11, Time:2720ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.99825174
+Epoch:12, Time:2637ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 1.0
+Epoch:13, Time:2622ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 1.0
+Epoch:14, Time:2645ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 1.0
+Epoch:15, Time:2690ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 45075ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9950649
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class negative:
+Accuracy: 0.9457143
+FalsePositive: 31.0
+FalseNegative: 7.0
+Precision: 0.68367344
+F1Score: 0.68367344
+TruePositive: 595.0
+Recall: 0.68367344
+
+----------------
+Class 2:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+        negativenegative       0       1       2       3       4       5       6       7       8       9       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+negative       0      67       0       0       0       1       4       0       0       2       0       0       0       0       0       0       0       0       0       0       0       0
+       0       0       5      74       2       0       0       0       0       0       7       0       0       0       0       0       0       0       0       0       0       0       0
+       1       0       6       0      46       6       0       1       1       0       4       0       0       0       0       0       0       0       0       0       0       0       0
+       2       0       1       1       2      50       0       5       0       0       1       0       0       0       0       0       0       0       0       0       0       0       0
+       3       0       3       0       0       0      66       3       0       0       1       1       0       0       0       0       0       0       0       0       0       0       0
+       4       0       3       1       0       0       0      68       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       5       0       1       0       0       0       0       1      65       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       6       0       6       0       4       4       0       2       0      44       1       6       0       0       0       0       0       0       0       0       0       0       0
+       7       0       1       1       0       2       0       4       1       0      53       0       0       0       0       0       0       0       0       0       0       0       0
+       8       0       5       0       0       0       0       4       0       2       0      61       0       0       0       0       0       0       0       0       0       0       0
+       9       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       1       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       2       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       3       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       5       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       6       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       7       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       8       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       9       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8366234
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.13142857
+FalsePositive: 605.0
+FalseNegative: 3.0
+Precision: 0.10502958
+F1Score: 0.10502958
+TruePositive: 21.0
+Recall: 0.10502958
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       0      71       3       0       0       0       0       0       0       0       0
+       1       0      88       0       0       0       0       0       0       0       0       0
+       2       0      62       2       0       0       0       0       0       0       0       0
+       3       0      60       0       0       0       0       0       0       0       0       0
+       4       0      67       7       0       0       0       0       0       0       0       0
+       5       0      72       0       0       0       0       0       0       0       0       0
+       6       0      58       9       0       0       0       0       0       0       0       0
+       7       0      67       0       0       0       0       0       0       0       0       0
+       8       0      62       0       0       0       0       0       0       0       0       0
+       9       0      69       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2010ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89342654
+Epoch:2, Time:2635ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9794405
+Epoch:3, Time:2707ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.9971329
+Epoch:4, Time:2643ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.99447554
+Epoch:5, Time:2616ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9983217
+Epoch:6, Time:2674ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9983217
+Epoch:7, Time:2652ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.99762243
+Epoch:8, Time:2686ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.99825174
+Epoch:9, Time:2527ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.9965035
+Epoch:10, Time:2693ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.99839157
+Epoch:11, Time:2799ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.99825174
+Epoch:12, Time:2705ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 1.0
+Epoch:13, Time:2847ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 1.0
+Epoch:14, Time:2626ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 1.0
+Epoch:15, Time:2712ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 45206ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9950649
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class negative:
+Accuracy: 0.9457143
+FalsePositive: 31.0
+FalseNegative: 7.0
+Precision: 0.68367344
+F1Score: 0.68367344
+TruePositive: 595.0
+Recall: 0.68367344
+
+----------------
+Class 2:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 1.0
+FalsePositive: 0.0
+FalseNegative: 0.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 700.0
+Recall: NaN
+
+----------------
+        negativenegative       0       1       2       3       4       5       6       7       8       9       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+negative       0      67       0       0       0       1       4       0       0       2       0       0       0       0       0       0       0       0       0       0       0       0
+       0       0       5      74       2       0       0       0       0       0       7       0       0       0       0       0       0       0       0       0       0       0       0
+       1       0       6       0      46       6       0       1       1       0       4       0       0       0       0       0       0       0       0       0       0       0       0
+       2       0       1       1       2      50       0       5       0       0       1       0       0       0       0       0       0       0       0       0       0       0       0
+       3       0       3       0       0       0      66       3       0       0       1       1       0       0       0       0       0       0       0       0       0       0       0
+       4       0       3       1       0       0       0      68       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       5       0       1       0       0       0       0       1      65       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       6       0       6       0       4       4       0       2       0      44       1       6       0       0       0       0       0       0       0       0       0       0       0
+       7       0       1       1       0       2       0       4       1       0      53       0       0       0       0       0       0       0       0       0       0       0       0
+       8       0       5       0       0       0       0       4       0       2       0      61       0       0       0       0       0       0       0       0       0       0       0
+       9       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       1       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       2       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       3       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       4       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       5       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       6       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       7       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       8       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+       9       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8181818
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 0.034285713
+FalsePositive: 676.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 24.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1895ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89132863
+Epoch:2, Time:2555ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9202797
+Epoch:3, Time:2454ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.944056
+Epoch:4, Time:2584ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.9342657
+Epoch:5, Time:2793ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.96489507
+Epoch:6, Time:2685ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.97580415
+Epoch:7, Time:2563ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.97482514
+Epoch:8, Time:2486ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.9690909
+Epoch:9, Time:2570ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.96265733
+Epoch:10, Time:2439ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.98293704
+Epoch:11, Time:2710ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.9811189
+Epoch:12, Time:2513ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.97916085
+Epoch:13, Time:2565ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.96965027
+Epoch:14, Time:2454ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.9793007
+Epoch:15, Time:2580ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.9853146
+
+TRAINING COMPLETED
+Total Training Time: 43322ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9711689
+Precision: 0.8123085
+F1Score: NaN
+Recall: 0.8123085
+
+By Class
+Class 0:
+Accuracy: 0.98285717
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 626.0
+Recall: 1.0
+
+----------------
+Class 1:
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 609.0
+Recall: 0.96103895
+
+----------------
+Class negative:
+Accuracy: 0.94857144
+FalsePositive: 36.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 664.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 628.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 628.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 625.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 604.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 631.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 631.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 622.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 621.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8181818
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 0.034285713
+FalsePositive: 676.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 24.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2120ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89132863
+Epoch:2, Time:2978ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9202797
+Epoch:3, Time:3284ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.944056
+Epoch:4, Time:2787ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.9342657
+Epoch:5, Time:2965ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.96489507
+Epoch:6, Time:2687ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.97580415
+Epoch:7, Time:2960ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.97482514
+Epoch:8, Time:2638ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.9690909
+Epoch:9, Time:3069ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.96265733
+Epoch:10, Time:2848ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.98293704
+Epoch:11, Time:3416ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.9811189
+Epoch:12, Time:2879ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.97916085
+Epoch:13, Time:2745ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.96965027
+Epoch:14, Time:3385ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.9793007
+Epoch:15, Time:3038ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.9853146
+
+TRAINING COMPLETED
+Total Training Time: 49960ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9711689
+Precision: 0.8123085
+F1Score: NaN
+Recall: 0.8123085
+
+By Class
+Class 0:
+Accuracy: 0.98285717
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 626.0
+Recall: 1.0
+
+----------------
+Class 1:
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 609.0
+Recall: 0.96103895
+
+----------------
+Class negative:
+Accuracy: 0.94857144
+FalsePositive: 36.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 664.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 628.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 628.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 625.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 604.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 631.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 631.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 622.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 621.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8181818
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 0.034285713
+FalsePositive: 676.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 24.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2016ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89132863
+Epoch:2, Time:2697ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9202797
+Epoch:3, Time:2749ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.944056
+Epoch:4, Time:2748ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.9342657
+Epoch:5, Time:2651ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.96489507
+Epoch:6, Time:2712ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.97580415
+Epoch:7, Time:2583ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.97482514
+Epoch:8, Time:2615ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.9690909
+Epoch:9, Time:2602ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.96265733
+Epoch:10, Time:2544ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.98293704
+Epoch:11, Time:2751ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.9811189
+Epoch:12, Time:2655ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.97916085
+Epoch:13, Time:2675ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.96965027
+Epoch:14, Time:2570ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.9793007
+Epoch:15, Time:2636ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.9853146
+
+TRAINING COMPLETED
+Total Training Time: 73478ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9711689
+Precision: 0.8123085
+F1Score: NaN
+Recall: 0.8123085
+
+By Class
+Class 0:
+Accuracy: 0.98285717
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 626.0
+Recall: 1.0
+
+----------------
+Class 1:
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 609.0
+Recall: 0.96103895
+
+----------------
+Class negative:
+Accuracy: 0.94857144
+FalsePositive: 36.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 664.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 628.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 628.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 625.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 604.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 631.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 631.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 622.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 621.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:33101ms, TrainError:2.2386904, TrainErrorChange:2.2386904, Accuracy: 0.8181818
+Epoch:2, Time:31350ms, TrainError:2.005003, TrainErrorChange:-0.2336874, Accuracy: 0.81939393
+Epoch:3, Time:32204ms, TrainError:1.8316938, TrainErrorChange:-0.1733092, Accuracy: 0.8293939
+Epoch:4, Time:31605ms, TrainError:1.7253006, TrainErrorChange:-0.10639322, Accuracy: 0.83621216
+Epoch:5, Time:32707ms, TrainError:1.64674, TrainErrorChange:-0.07856059, Accuracy: 0.8427273
+Epoch:6, Time:31621ms, TrainError:1.5770104, TrainErrorChange:-0.06972957, Accuracy: 0.85121214
+Epoch:7, Time:32142ms, TrainError:1.5144295, TrainErrorChange:-0.06258094, Accuracy: 0.8603031
+Epoch:8, Time:33513ms, TrainError:1.4622468, TrainErrorChange:-0.052182674, Accuracy: 0.8657576
+Epoch:9, Time:31202ms, TrainError:1.4222757, TrainErrorChange:-0.039971113, Accuracy: 0.8715152
+Epoch:10, Time:31231ms, TrainError:1.3906044, TrainErrorChange:-0.031671286, Accuracy: 0.8778788
+
+TRAINING COMPLETED
+Total Training Time: 409770ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.85931814
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class automobile:
+Accuracy: 0.9125
+FalsePositive: 13.0
+FalseNegative: 57.0
+Precision: 0.55172414
+F1Score: 0.55172414
+TruePositive: 714.0
+Recall: 0.55172414
+
+----------------
+Class deer:
+Accuracy: 0.89625
+FalsePositive: 10.0
+FalseNegative: 73.0
+Precision: 0.375
+F1Score: 0.375
+TruePositive: 711.0
+Recall: 0.375
+
+----------------
+Class horse:
+Accuracy: 0.91375
+FalsePositive: 0.0
+FalseNegative: 69.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 725.0
+Recall: 1.0
+
+----------------
+Class negative:
+Accuracy: 0.44625
+FalsePositive: 443.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 357.0
+Recall: 0.0
+
+----------------
+Class frog:
+Accuracy: 0.84875
+FalsePositive: 82.0
+FalseNegative: 39.0
+Precision: 0.36434108
+F1Score: 0.36434105
+TruePositive: 632.0
+Recall: 0.36434108
+
+----------------
+Class airplane:
+Accuracy: 0.9
+FalsePositive: 14.0
+FalseNegative: 66.0
+Precision: 0.6888889
+F1Score: 0.6888889
+TruePositive: 689.0
+Recall: 0.6888889
+
+----------------
+Class bird:
+Accuracy: 0.88375
+FalsePositive: 0.0
+FalseNegative: 93.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 707.0
+Recall: NaN
+
+----------------
+Class cat:
+Accuracy: 0.91
+FalsePositive: 3.0
+FalseNegative: 69.0
+Precision: 0.5
+F1Score: 0.5
+TruePositive: 725.0
+Recall: 0.5
+
+----------------
+Class truck:
+Accuracy: 0.91125
+FalsePositive: 20.0
+FalseNegative: 51.0
+Precision: 0.54545456
+F1Score: 0.54545456
+TruePositive: 705.0
+Recall: 0.54545456
+
+----------------
+Class ship:
+Accuracy: 0.9075
+FalsePositive: 31.0
+FalseNegative: 43.0
+Precision: 0.5694444
+F1Score: 0.5694444
+TruePositive: 685.0
+Recall: 0.5694444
+
+----------------
+Class dog:
+Accuracy: 0.9225
+FalsePositive: 3.0
+FalseNegative: 59.0
+Precision: 0.7
+F1Score: 0.7
+TruePositive: 731.0
+Recall: 0.7
+
+----------------
+            negative  airplaneautomobile      bird       cat      deer       dog      frog     horse      ship     truck
+  negative         0         0         0         0         0         0         0         0         0         0         0
+  airplane        44        31         2         0         0         0         0         3         0        16         1
+automobile        38         0        16         0         0         0         1         3         0         2        13
+      bird        69         2         0         0         0         6         0        14         0         2         0
+       cat        46         0         0         0         3         2         1        15         0         3         2
+      deer        49         2         0         0         0         6         0        21         0         1         0
+       dog        40         0         0         0         2         1         7        11         0         3         2
+      frog        34         0         2         0         1         0         0        47         0         1         1
+     horse        57         0         1         0         0         1         0         9         6         1         0
+      ship        28         9         2         0         0         0         1         2         0        41         1
+     truck        38         1         6         0         0         0         0         4         0         2        24
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8181818
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class negative:
+Accuracy: 0.034285713
+FalsePositive: 676.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 24.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1963ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.89132863
+Epoch:2, Time:2711ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9202797
+Epoch:3, Time:2524ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.944056
+Epoch:4, Time:2742ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.9342657
+Epoch:5, Time:2627ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.96489507
+Epoch:6, Time:2706ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.97580415
+Epoch:7, Time:2616ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.97482514
+Epoch:8, Time:2630ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.9690909
+Epoch:9, Time:2641ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.96265733
+Epoch:10, Time:2735ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.98293704
+Epoch:11, Time:2863ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.9811189
+Epoch:12, Time:2595ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.97916085
+Epoch:13, Time:2691ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.96965027
+Epoch:14, Time:2763ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.9793007
+Epoch:15, Time:2544ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.9853146
+
+TRAINING COMPLETED
+Total Training Time: 44889ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9711689
+Precision: 0.8123085
+F1Score: NaN
+Recall: 0.8123085
+
+By Class
+Class 0:
+Accuracy: 0.98285717
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 626.0
+Recall: 1.0
+
+----------------
+Class 1:
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 609.0
+Recall: 0.96103895
+
+----------------
+Class negative:
+Accuracy: 0.94857144
+FalsePositive: 36.0
+FalseNegative: 0.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 664.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 628.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 628.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 625.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 604.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 631.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 631.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 622.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 621.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.89657146
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 1:
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 588.0
+Recall: 0.0
+
+----------------
+Class 2:
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 636.0
+Recall: NaN
+
+----------------
+Class 3:
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 640.0
+Recall: NaN
+
+----------------
+Class 4:
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 626.0
+Recall: NaN
+
+----------------
+Class 5:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+Class 6:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 7:
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 633.0
+Recall: NaN
+
+----------------
+Class 8:
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 638.0
+Recall: NaN
+
+----------------
+Class 9:
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 628.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1841ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.90853846
+Epoch:2, Time:2593ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9315384
+Epoch:3, Time:2568ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.94761544
+Epoch:4, Time:2625ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.94253844
+Epoch:5, Time:2674ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9666154
+Epoch:6, Time:2604ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9793846
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.89657146
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 626.0
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 1:
+TrueNegative: 588.0
+Accuracy: 0.84
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 0.0
+Recall: 0.0
+
+----------------
+Class 2:
+TrueNegative: 636.0
+Accuracy: 0.9085714
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 3:
+TrueNegative: 640.0
+Accuracy: 0.9142857
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 4:
+TrueNegative: 626.0
+Accuracy: 0.89428574
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 5:
+TrueNegative: 628.0
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 6:
+TrueNegative: 633.0
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 7:
+TrueNegative: 633.0
+Accuracy: 0.9042857
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 8:
+TrueNegative: 638.0
+Accuracy: 0.9114286
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 628.0
+Accuracy: 0.8971428
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2112ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.90853846
+Epoch:2, Time:2873ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.9315384
+Epoch:3, Time:2560ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.94761544
+Epoch:4, Time:2660ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.94253844
+Epoch:5, Time:2685ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.9666154
+Epoch:6, Time:2413ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.9793846
+Epoch:7, Time:2524ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.9785384
+Epoch:8, Time:2409ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.9706923
+Epoch:9, Time:2596ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.96523064
+Epoch:10, Time:2495ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.98476917
+Epoch:11, Time:2710ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.9859231
+Epoch:12, Time:2571ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.98123074
+Epoch:13, Time:2632ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.97007686
+Epoch:14, Time:2488ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.9811538
+Epoch:15, Time:2677ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.9871538
+
+TRAINING COMPLETED
+Total Training Time: 43828ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.9734286
+Precision: 0.8935393
+F1Score: 0.8935393
+Recall: 0.8935393
+
+By Class
+Class 0:
+TrueNegative: 626.0
+Accuracy: 0.98285717
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 62.0
+Recall: 1.0
+
+----------------
+Class 1:
+TrueNegative: 609.0
+Accuracy: 0.97571427
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 74.0
+Recall: 0.96103895
+
+----------------
+Class 2:
+TrueNegative: 628.0
+Accuracy: 0.9628571
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 46.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+TrueNegative: 628.0
+Accuracy: 0.9685714
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 50.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+TrueNegative: 625.0
+Accuracy: 0.98714286
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 66.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+TrueNegative: 604.0
+Accuracy: 0.96
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 68.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+TrueNegative: 631.0
+Accuracy: 0.9942857
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 65.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+TrueNegative: 631.0
+Accuracy: 0.96428573
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 44.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+TrueNegative: 622.0
+Accuracy: 0.96428573
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 53.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+TrueNegative: 621.0
+Accuracy: 0.9742857
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 61.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.0
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 0.0
+Recall: 0.0
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2005ms, TrainError:1.6104066, TrainErrorChange:1.6104066, Accuracy: 0.28729522
+Epoch:2, Time:2543ms, TrainError:0.93579644, TrainErrorChange:-0.6746102, Accuracy: 0.44350028
+Epoch:3, Time:2595ms, TrainError:0.71334416, TrainErrorChange:-0.22245228, Accuracy: 0.58293325
+Epoch:4, Time:2544ms, TrainError:0.68309045, TrainErrorChange:-0.030253708, Accuracy: 0.5341521
+Epoch:5, Time:2462ms, TrainError:0.56770134, TrainErrorChange:-0.11538911, Accuracy: 0.7174518
+Epoch:6, Time:2641ms, TrainError:0.44917157, TrainErrorChange:-0.11852977, Accuracy: 0.81154096
+Epoch:7, Time:2456ms, TrainError:0.4260448, TrainErrorChange:-0.023126781, Accuracy: 0.80021656
+Epoch:8, Time:2560ms, TrainError:0.3909469, TrainErrorChange:-0.035097897, Accuracy: 0.74594593
+Epoch:9, Time:2503ms, TrainError:0.4111776, TrainErrorChange:0.02023071, Accuracy: 0.7030703
+Epoch:10, Time:2574ms, TrainError:0.372847, TrainErrorChange:-0.038330615, Accuracy: 0.8574408
+Epoch:11, Time:2569ms, TrainError:0.36380517, TrainErrorChange:-0.009041816, Accuracy: 0.86205226
+Epoch:12, Time:2552ms, TrainError:0.3267345, TrainErrorChange:-0.03707066, Accuracy: 0.8238734
+Epoch:13, Time:2473ms, TrainError:0.36038622, TrainErrorChange:0.03365171, Accuracy: 0.75046337
+Epoch:14, Time:2552ms, TrainError:0.34586585, TrainErrorChange:-0.014520377, Accuracy: 0.82533455
+Epoch:15, Time:2505ms, TrainError:0.26667747, TrainErrorChange:-0.07918838, Accuracy: 0.8787301
+
+TRAINING COMPLETED
+Total Training Time: 42998ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.76040405
+Precision: 0.8935393
+F1Score: 0.8935393
+Recall: 0.8935393
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8378378
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 62.0
+Recall: 1.0
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.8131868
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.96103895
+F1Score: 0.96103895
+TruePositive: 74.0
+Recall: 0.96103895
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.6388889
+FalsePositive: 8.0
+FalseNegative: 18.0
+Precision: 0.8518519
+F1Score: 0.8518519
+TruePositive: 46.0
+Recall: 0.8518519
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.6944444
+FalsePositive: 12.0
+FalseNegative: 10.0
+Precision: 0.8064516
+F1Score: 0.8064516
+TruePositive: 50.0
+Recall: 0.8064516
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.88
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.98507464
+F1Score: 0.98507464
+TruePositive: 66.0
+Recall: 0.98507464
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.7083333
+FalsePositive: 24.0
+FalseNegative: 4.0
+Precision: 0.73913044
+F1Score: 0.73913044
+TruePositive: 68.0
+Recall: 0.73913044
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.942029
+FalsePositive: 2.0
+FalseNegative: 2.0
+Precision: 0.9701493
+F1Score: 0.9701493
+TruePositive: 65.0
+Recall: 0.9701493
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.6376812
+FalsePositive: 2.0
+FalseNegative: 23.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 44.0
+Recall: 0.95652175
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.67948717
+FalsePositive: 16.0
+FalseNegative: 9.0
+Precision: 0.76811594
+F1Score: 0.768116
+TruePositive: 53.0
+Recall: 0.76811594
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.7721519
+FalsePositive: 7.0
+FalseNegative: 11.0
+Precision: 0.89705884
+F1Score: 0.89705884
+TruePositive: 61.0
+Recall: 0.89705884
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       5      62       0       0       0       1       4       0       0       2       0
+       1       5       0      74       2       0       0       0       0       0       7       0
+       2       6       0       0      46       6       0       1       1       0       4       0
+       3       1       0       1       2      50       0       5       0       0       1       0
+       4       3       0       0       0       0      66       3       0       0       1       1
+       5       3       0       1       0       0       0      68       0       0       0       0
+       6       1       0       0       0       0       0       1      65       0       0       0
+       7       6       0       0       4       4       0       2       0      44       1       6
+       8       1       0       1       0       2       0       4       1       0      53       0
+       9       5       0       0       0       0       0       4       0       2       0      61
+
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.0
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 88.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      74       0       0       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      64       0       0       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      74       0       0       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      67       0       0       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      72       0       0       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:2480ms, TrainError:2.3343358, TrainErrorChange:2.3343358, Accuracy: 0.0
+Epoch:2, Time:2585ms, TrainError:2.309048, TrainErrorChange:-0.025287867, Accuracy: 0.0
+Epoch:3, Time:2394ms, TrainError:1.9870168, TrainErrorChange:-0.32203114, Accuracy: 0.09284036
+Epoch:4, Time:2348ms, TrainError:1.7659498, TrainErrorChange:-0.22106695, Accuracy: 0.11560015
+Epoch:5, Time:2567ms, TrainError:1.4086796, TrainErrorChange:-0.35727024, Accuracy: 0.18292369
+Epoch:6, Time:2348ms, TrainError:1.2003692, TrainErrorChange:-0.20831037, Accuracy: 0.22890604
+Epoch:7, Time:2434ms, TrainError:1.1574414, TrainErrorChange:-0.04292786, Accuracy: 0.39379144
+Epoch:8, Time:2382ms, TrainError:1.0199697, TrainErrorChange:-0.13747168, Accuracy: 0.3008635
+Epoch:9, Time:2410ms, TrainError:0.9653221, TrainErrorChange:-0.054647624, Accuracy: 0.5085286
+Epoch:10, Time:2317ms, TrainError:0.86254525, TrainErrorChange:-0.102776825, Accuracy: 0.49135432
+Epoch:11, Time:2287ms, TrainError:0.84541476, TrainErrorChange:-0.017130494, Accuracy: 0.4661563
+Epoch:12, Time:2379ms, TrainError:0.80175537, TrainErrorChange:-0.04365939, Accuracy: 0.57781374
+Epoch:13, Time:2288ms, TrainError:0.86782074, TrainErrorChange:0.06606537, Accuracy: 0.58580035
+Epoch:14, Time:2432ms, TrainError:0.85462075, TrainErrorChange:-0.013199985, Accuracy: 0.50765026
+Epoch:15, Time:2441ms, TrainError:0.739526, TrainErrorChange:-0.11509478, Accuracy: 0.59037507
+Epoch:16, Time:2448ms, TrainError:0.7387668, TrainErrorChange:-7.5918436E-4, Accuracy: 0.5561721
+Epoch:17, Time:2339ms, TrainError:0.7350027, TrainErrorChange:-0.003764093, Accuracy: 0.54391396
+Epoch:18, Time:2518ms, TrainError:0.79128265, TrainErrorChange:0.056279957, Accuracy: 0.60200465
+Epoch:19, Time:2554ms, TrainError:0.7023511, TrainErrorChange:-0.08893156, Accuracy: 0.5596336
+Epoch:20, Time:2387ms, TrainError:0.70124274, TrainErrorChange:-0.0011083484, Accuracy: 0.65596706
+Epoch:21, Time:2290ms, TrainError:0.62661886, TrainErrorChange:-0.07462388, Accuracy: 0.6517079
+Epoch:22, Time:2316ms, TrainError:0.72271055, TrainErrorChange:0.09609169, Accuracy: 0.65516305
+Epoch:23, Time:2317ms, TrainError:0.6347025, TrainErrorChange:-0.088008046, Accuracy: 0.66065127
+Epoch:24, Time:2291ms, TrainError:0.63350743, TrainErrorChange:-0.0011950731, Accuracy: 0.6820675
+Epoch:25, Time:2449ms, TrainError:0.697348, TrainErrorChange:0.06384057, Accuracy: 0.721624
+Epoch:26, Time:2446ms, TrainError:0.65224016, TrainErrorChange:-0.04510784, Accuracy: 0.67014474
+Epoch:27, Time:2473ms, TrainError:0.5770495, TrainErrorChange:-0.07519066, Accuracy: 0.6674946
+Epoch:28, Time:2363ms, TrainError:0.54210335, TrainErrorChange:-0.034946144, Accuracy: 0.72138095
+Epoch:29, Time:2447ms, TrainError:0.62657154, TrainErrorChange:0.084468186, Accuracy: 0.58916706
+Epoch:30, Time:2361ms, TrainError:0.5458916, TrainErrorChange:-0.08067995, Accuracy: 0.714072
+Epoch:31, Time:2452ms, TrainError:0.67011005, TrainErrorChange:0.124218464, Accuracy: 0.67354614
+Epoch:32, Time:2353ms, TrainError:0.58053875, TrainErrorChange:-0.0895713, Accuracy: 0.70082325
+Epoch:33, Time:2380ms, TrainError:0.60453385, TrainErrorChange:0.023995101, Accuracy: 0.71868473
+Epoch:34, Time:2508ms, TrainError:0.5975736, TrainErrorChange:-0.006960273, Accuracy: 0.75308335
+Epoch:35, Time:2332ms, TrainError:0.5478506, TrainErrorChange:-0.04972297, Accuracy: 0.7292314
+Epoch:36, Time:2605ms, TrainError:0.57090527, TrainErrorChange:0.02305466, Accuracy: 0.6234402
+Epoch:37, Time:2463ms, TrainError:0.7858898, TrainErrorChange:0.21498454, Accuracy: 0.71223575
+Epoch:38, Time:2546ms, TrainError:0.53209543, TrainErrorChange:-0.25379437, Accuracy: 0.77319413
+Epoch:39, Time:2411ms, TrainError:0.6386475, TrainErrorChange:0.106552064, Accuracy: 0.7583732
+Epoch:40, Time:2478ms, TrainError:0.5337942, TrainErrorChange:-0.10485327, Accuracy: 0.65802246
+Epoch:41, Time:2337ms, TrainError:0.523511, TrainErrorChange:-0.010283232, Accuracy: 0.77336097
+Epoch:42, Time:2392ms, TrainError:0.48692486, TrainErrorChange:-0.036586136, Accuracy: 0.7194836
+Epoch:43, Time:2462ms, TrainError:0.52103525, TrainErrorChange:0.034110397, Accuracy: 0.82051116
+Epoch:44, Time:2396ms, TrainError:0.5700897, TrainErrorChange:0.049054444, Accuracy: 0.69173306
+Epoch:45, Time:2456ms, TrainError:0.6011342, TrainErrorChange:0.031044483, Accuracy: 0.75586456
+Epoch:46, Time:2473ms, TrainError:0.539669, TrainErrorChange:-0.061465204, Accuracy: 0.52832186
+Epoch:47, Time:2471ms, TrainError:0.6990199, TrainErrorChange:0.15935093, Accuracy: 0.60328287
+Epoch:48, Time:2419ms, TrainError:0.7102078, TrainErrorChange:0.011187911, Accuracy: 0.7002121
+Epoch:49, Time:2545ms, TrainError:1.1023704, TrainErrorChange:0.39216256, Accuracy: 0.18873498
+Epoch:50, Time:2742ms, TrainError:1.3668871, TrainErrorChange:0.2645167, Accuracy: 0.33789998
+Epoch:51, Time:2617ms, TrainError:0.94507027, TrainErrorChange:-0.42181683, Accuracy: 0.5891493
+Epoch:52, Time:2522ms, TrainError:0.9624427, TrainErrorChange:0.01737243, Accuracy: 0.41256028
+Epoch:53, Time:2530ms, TrainError:Infinity, TrainErrorChange:Infinity, Accuracy: 0.5603038
+Epoch:54, Time:2530ms, TrainError:0.96471775, TrainErrorChange:-Infinity, Accuracy: 0.5458021
+Epoch:55, Time:2454ms, TrainError:0.8032589, TrainErrorChange:-0.16145885, Accuracy: 0.60774314
+Epoch:56, Time:2681ms, TrainError:0.9902706, TrainErrorChange:0.18701172, Accuracy: 0.5338977
+Epoch:57, Time:2497ms, TrainError:0.8066891, TrainErrorChange:-0.18358153, Accuracy: 0.56801766
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 2000 images
+Creating neural network...
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.0
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 24.0
+FalseNegative: 88.0
+Precision: 0.0
+F1Score: NaN
+TruePositive: 0.0
+Recall: 0.0
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 64.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 60.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 74.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 67.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 62.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 72.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0      71       0       3       0       0       0       0       0       0       0       0
+       1      88       0       0       0       0       0       0       0       0       0       0
+       2      62       0       2       0       0       0       0       0       0       0       0
+       3      60       0       0       0       0       0       0       0       0       0       0
+       4      67       0       7       0       0       0       0       0       0       0       0
+       5      72       0       0       0       0       0       0       0       0       0       0
+       6      58       0       9       0       0       0       0       0       0       0       0
+       7      67       0       0       0       0       0       0       0       0       0       0
+       8      62       0       0       0       0       0       0       0       0       0       0
+       9      69       0       3       0       0       0       0       0       0       0       0
+
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:1414ms, TrainError:1.8396009, TrainErrorChange:1.8396009, Accuracy: 0.18302953
+Epoch:2, Time:1217ms, TrainError:0.8114377, TrainErrorChange:-1.0281632, Accuracy: 0.6811192
+Epoch:3, Time:1203ms, TrainError:0.51820517, TrainErrorChange:-0.29323256, Accuracy: 0.76934916
+Epoch:4, Time:1272ms, TrainError:0.38549557, TrainErrorChange:-0.1327096, Accuracy: 0.82636976
+Epoch:5, Time:1206ms, TrainError:0.29896998, TrainErrorChange:-0.08652559, Accuracy: 0.85484684
+Epoch:6, Time:1229ms, TrainError:0.233539, TrainErrorChange:-0.065430984, Accuracy: 0.87732106
+Epoch:7, Time:1217ms, TrainError:0.18251906, TrainErrorChange:-0.051019937, Accuracy: 0.8939953
+Epoch:8, Time:1286ms, TrainError:0.14291456, TrainErrorChange:-0.0396045, Accuracy: 0.9124421
+Epoch:9, Time:1189ms, TrainError:0.109180085, TrainErrorChange:-0.033734478, Accuracy: 0.9231766
+Epoch:10, Time:1238ms, TrainError:0.083703645, TrainErrorChange:-0.02547644, Accuracy: 0.93041724
+Epoch:11, Time:1290ms, TrainError:0.0636649, TrainErrorChange:-0.020038746, Accuracy: 0.94361544
+Epoch:12, Time:1287ms, TrainError:0.047594666, TrainErrorChange:-0.016070232, Accuracy: 0.9631882
+Epoch:13, Time:1236ms, TrainError:0.035092868, TrainErrorChange:-0.012501799, Accuracy: 0.9815273
+Epoch:14, Time:1277ms, TrainError:0.0270276, TrainErrorChange:-0.008065268, Accuracy: 0.9852451
+
+TRAINING COMPLETED
+Total Training Time: 22574ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.7755791
+Precision: 0.8853655
+F1Score: 0.8853655
+Recall: 0.8853655
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8181818
+FalsePositive: 3.0
+FalseNegative: 11.0
+Precision: 0.95454544
+F1Score: 0.95454544
+TruePositive: 63.0
+Recall: 0.95454544
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.8791209
+FalsePositive: 3.0
+FalseNegative: 8.0
+Precision: 0.96385545
+F1Score: 0.96385545
+TruePositive: 80.0
+Recall: 0.96385545
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.7605634
+FalsePositive: 7.0
+FalseNegative: 10.0
+Precision: 0.8852459
+F1Score: 0.8852459
+TruePositive: 54.0
+Recall: 0.8852459
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.75384617
+FalsePositive: 5.0
+FalseNegative: 11.0
+Precision: 0.9074074
+F1Score: 0.9074074
+TruePositive: 49.0
+Recall: 0.9074074
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.8414634
+FalsePositive: 8.0
+FalseNegative: 5.0
+Precision: 0.8961039
+F1Score: 0.8961039
+TruePositive: 69.0
+Recall: 0.8961039
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.6511628
+FalsePositive: 14.0
+FalseNegative: 16.0
+Precision: 0.8
+F1Score: 0.8000001
+TruePositive: 56.0
+Recall: 0.8
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.9264706
+FalsePositive: 1.0
+FalseNegative: 4.0
+Precision: 0.984375
+F1Score: 0.984375
+TruePositive: 63.0
+Recall: 0.984375
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.7733333
+FalsePositive: 8.0
+FalseNegative: 9.0
+Precision: 0.8787879
+F1Score: 0.8787879
+TruePositive: 58.0
+Recall: 0.8787879
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.63736266
+FalsePositive: 29.0
+FalseNegative: 4.0
+Precision: 0.6666667
+F1Score: 0.6666667
+TruePositive: 58.0
+Recall: 0.6666667
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.71428573
+FalsePositive: 5.0
+FalseNegative: 17.0
+Precision: 0.9166667
+F1Score: 0.9166667
+TruePositive: 55.0
+Recall: 0.9166667
+
+----------------
+        negative       0       1       2       3       4       5       6       7       8       9
+negative       0       0       0       0       0       0       0       0       0       0       0
+       0       1      63       0       0       0       1       6       0       1       2       0
+       1       1       0      80       2       0       0       0       0       0       5       0
+       2       2       0       0      54       1       2       0       1       1       3       0
+       3       2       0       0       2      49       0       4       0       2       1       0
+       4       0       0       0       1       0      69       0       0       0       2       2
+       5       2       1       1       0       0       0      56       0       0      12       0
+       6       2       1       0       0       0       0       1      63       0       0       0
+       7       1       0       0       2       1       0       1       0      58       1       3
+       8       0       0       2       0       2       0       0       0       0      58       0
+       9       1       1       0       0       1       5       2       0       4       3      55
+
+Loading images...
+Loaded 2000 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------
+Epoch:1, Time:32889ms, TrainError:2.2386904, TrainErrorChange:2.2386904, Accuracy: 0.0
+Epoch:2, Time:31780ms, TrainError:2.005003, TrainErrorChange:-0.2336874, Accuracy: 0.005925926
+Epoch:3, Time:31625ms, TrainError:1.8316938, TrainErrorChange:-0.1733092, Accuracy: 0.052705694
+Epoch:4, Time:31551ms, TrainError:1.7253006, TrainErrorChange:-0.10639322, Accuracy: 0.08288778
+Epoch:5, Time:31738ms, TrainError:1.64674, TrainErrorChange:-0.07856059, Accuracy: 0.11133015
+Epoch:6, Time:31240ms, TrainError:1.5770104, TrainErrorChange:-0.06972957, Accuracy: 0.15102644
+Epoch:7, Time:32008ms, TrainError:1.5144295, TrainErrorChange:-0.06258094, Accuracy: 0.19476253
+Epoch:8, Time:35794ms, TrainError:1.4622468, TrainErrorChange:-0.052182674, Accuracy: 0.21939687
+Epoch:9, Time:30891ms, TrainError:1.4222757, TrainErrorChange:-0.039971113, Accuracy: 0.23977716
+Epoch:10, Time:30880ms, TrainError:1.3906044, TrainErrorChange:-0.031671286, Accuracy: 0.26138502
+
+TRAINING COMPLETED
+Total Training Time: 409873ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.1643106
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class automobile:
+TrueNegative: 0.0
+Accuracy: 0.18604651
+FalsePositive: 13.0
+FalseNegative: 57.0
+Precision: 0.55172414
+F1Score: 0.55172414
+TruePositive: 16.0
+Recall: 0.55172414
+
+----------------
+Class deer:
+TrueNegative: 0.0
+Accuracy: 0.06741573
+FalsePositive: 10.0
+FalseNegative: 73.0
+Precision: 0.375
+F1Score: 0.375
+TruePositive: 6.0
+Recall: 0.375
+
+----------------
+Class horse:
+TrueNegative: 0.0
+Accuracy: 0.08
+FalsePositive: 0.0
+FalseNegative: 69.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 6.0
+Recall: 1.0
+
+----------------
+Class frog:
+TrueNegative: 0.0
+Accuracy: 0.2797619
+FalsePositive: 82.0
+FalseNegative: 39.0
+Precision: 0.36434108
+F1Score: 0.36434105
+TruePositive: 47.0
+Recall: 0.36434108
+
+----------------
+Class airplane:
+TrueNegative: 0.0
+Accuracy: 0.2792793
+FalsePositive: 14.0
+FalseNegative: 66.0
+Precision: 0.6888889
+F1Score: 0.6888889
+TruePositive: 31.0
+Recall: 0.6888889
+
+----------------
+Class bird:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 93.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class cat:
+TrueNegative: 0.0
+Accuracy: 0.04
+FalsePositive: 3.0
+FalseNegative: 69.0
+Precision: 0.5
+F1Score: 0.5
+TruePositive: 3.0
+Recall: 0.5
+
+----------------
+Class truck:
+TrueNegative: 0.0
+Accuracy: 0.25263157
+FalsePositive: 20.0
+FalseNegative: 51.0
+Precision: 0.54545456
+F1Score: 0.54545456
+TruePositive: 24.0
+Recall: 0.54545456
+
+----------------
+Class ship:
+TrueNegative: 0.0
+Accuracy: 0.35652173
+FalsePositive: 31.0
+FalseNegative: 43.0
+Precision: 0.5694444
+F1Score: 0.5694444
+TruePositive: 41.0
+Recall: 0.5694444
+
+----------------
+Class dog:
+TrueNegative: 0.0
+Accuracy: 0.10144927
+FalsePositive: 3.0
+FalseNegative: 59.0
+Precision: 0.7
+F1Score: 0.7
+TruePositive: 7.0
+Recall: 0.7
+
+----------------
+            negative  airplaneautomobile      bird       cat      deer       dog      frog     horse      ship     truck
+  negative         0         0         0         0         0         0         0         0         0         0         0
+  airplane        44        31         2         0         0         0         0         3         0        16         1
+automobile        38         0        16         0         0         0         1         3         0         2        13
+      bird        69         2         0         0         0         6         0        14         0         2         0
+       cat        46         0         0         0         3         2         1        15         0         3         2
+      deer        49         2         0         0         0         6         0        21         0         1         0
+       dog        40         0         0         0         2         1         7        11         0         3         2
+      frog        34         0         2         0         1         0         0        47         0         1         1
+     horse        57         0         1         0         0         1         0         9         6         1         0
+      ship        28         9         2         0         0         0         1         2         0        41         1
+     truck        38         1         6         0         0         0         0         4         0         2        24
+
+Loading images...
+java.io.FileNotFoundException: D:\datasets\clouds\swimcat\train.txt (The system cannot find the file specified)

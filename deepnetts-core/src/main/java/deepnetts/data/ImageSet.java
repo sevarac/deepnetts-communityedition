@@ -22,6 +22,7 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.ImageSetUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
 import java.awt.image.BufferedImage;
@@ -31,11 +32,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.tools.jstat.Alignment;
 
 /**
  * Data set with images that will be used to train convolutional neural network.
@@ -64,14 +69,18 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         super();
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
-
-        // labels = new ArrayList();
     }
 
-//    public ImageSet(int capacity) {
-//        super();
-//        labels = new ArrayList();
-//    }
+    public ImageSet(int imageWidth, int imageHeight, String imageDirPath) throws IOException {
+        super();
+        this.imageWidth = imageWidth;
+        this.imageHeight = imageHeight;
+        
+        ImageSetUtils.createImageIndex(imageDirPath);
+        ImageSetUtils.createLabelsIndex(imageDirPath);
+        setScaleImages(true);
+    }    
+
     /**
      * Adds image to this image set.
      *
@@ -105,7 +114,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      */
     public void loadImages(File imageIdxFile) throws FileNotFoundException {
      // TODO: First load entire image index, then load and preprocess image in
-     // multithreaded way TODO2: load images in batches        
+     // multithreaded way TODO2: load images in batches  verovtano neki iterator nextBatch() 
         
      Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");
      if (columnNames == null) {
@@ -364,9 +373,11 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             partsSum += partSizes[i];
         }
 
-        if (partsSum > 100) {
-            throw new IllegalArgumentException("Sum of parts/percents cannot be larger than 100!");
+        if (partsSum > 1) {
+            throw new IllegalArgumentException("Sum of parts/percents cannot be larger than 1!");
         }
+        
+        LOGGER.info("Splitting data set: " + Arrays.toString(partSizes));
 
         ImageSet[] subSets = new ImageSet[partSizes.length];
         int itemIdx = 0;
@@ -418,6 +429,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 labelsList.add(line);
             }
             this.columnNames = labelsList.toArray(new String[labelsList.size()]);
+            LOGGER.info("Loaded "+labelsList.size()+" labels");
             return columnNames;
         } catch (FileNotFoundException ex) {
             LOGGER.error("Could not find labels file: " + file.getAbsolutePath(), ex);
@@ -429,14 +441,12 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     }
 
     /**
-     * Applies zero mean normalization to entire dataset, and returns mean
-     * matrix. TODO: this mean tensor is not correct!
+     * Applies zero mean normalization to entire dataset, and returns mean tensor.
      *
-     * @return Returns mean matrix for the entire dataset
+     * @return mean Tensor for the entire dataset
      */
     public Tensor zeroMean() {
-        ExampleImage img = items.get(0);
-        mean = new Tensor(img.getHeight(), img.getWidth(), 3);
+        mean = new Tensor(imageHeight, imageWidth, 3);
 
         // sum all matrices
         for (ExampleImage image : items) {
@@ -454,9 +464,12 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         return mean;
     }
 
+    /**
+     * Inverts pixels of all images.
+     * Usefull when white bacground should be ignored.
+     */
     public void invert() {
         for (ExampleImage image : items) {
-            //    mean.add(image.getInput());
             float[] rgbVector = image.getRgbVector();
             for (int i = 0; i < rgbVector.length; i++) {
                 rgbVector[i] = 1 - rgbVector[i];
@@ -464,20 +477,45 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         }
     }
 
+    /**
+     * Returns flag that indicates wheather images should be scaled to specified dimensions while creating image set.
+     * @return 
+     */
     public boolean getScaleImages() {
         return scaleImages;
     }
 
-    public void setScaleImages(boolean scaleImages) {
+    public final void setScaleImages(boolean scaleImages) {
         this.scaleImages = scaleImages;
     }
-    
-    
-
-    // since inputs are pixels we dont care about input labels
+        
+    /**
+     * Returns output/image labels.
+     * @return 
+     */
     @Override
     public String[] getOutputLabels() {
         return columnNames;
+    }
+    
+    public Map<String, Integer> countByClasses() {
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        for(ExampleImage item  :  items)  {
+            if (map.containsKey(item.getLabel())) {
+                final String key = item.getLabel();
+                map.put(key, map.get(key)+1);
+            } else {
+                map.put(item.getLabel(), 0);
+            }
+        }
+        
+        LOGGER.info("Number of images by label/class");
+        for(String key : map.keySet()) {
+            LOGGER.info(key +" : "+map.get(key));
+        }
+                
+        return map;
     }
 
 }

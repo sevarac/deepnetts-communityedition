@@ -29,6 +29,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.loss.LossType;
 import java.io.File;
@@ -68,10 +69,10 @@ public class Cifar10 {
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight, 3)
-                                        .addConvolutionalLayer(3, 3, 3)
-                                        .addMaxPoolingLayer(2, 2, 2)
-                                        .addConvolutionalLayer(3, 3, 1)
-                                        .addMaxPoolingLayer(2, 2, 2)
+                                        .addConvolutionalLayer(3, 3, 16)
+                                        .addMaxPoolingLayer(2, 2, 2)//16
+                                        .addConvolutionalLayer(3, 3, 32)
+                                        .addMaxPoolingLayer(2, 2, 2)//8
 //                                        .addConvolutionalLayer(3, 3, 24)
 //                                        .addMaxPoolingLayer(2, 2, 2)
                                      //   .addFullyConnectedLayer(30)
@@ -86,7 +87,7 @@ public class Cifar10 {
 
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f);
-        trainer.setMaxError(0.5f);
+        trainer.setMaxError(1.4f);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);
@@ -105,6 +106,9 @@ public class Cifar10 {
                                         LOGGER.info(entry.getValue());
                                         LOGGER.info("----------------");
                                     });
+        
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+         LOGGER.info(cm.toString());        
 
     }
 

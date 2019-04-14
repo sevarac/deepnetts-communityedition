@@ -112,5 +112,13 @@ public class InputLayer extends AbstractLayer {
     @Override
     public void applyWeightChanges() {
     }
+    
+    @Override
+    public String toString() {
+        if (height==1 && depth==1)
+            return "Input Layer { width:"+width+", height:"+height+", depth:"+depth+" }";
+        else
+            return "Input Layer { width:"+width+", height:"+height+", depth:"+depth+" }";
+    }
 
 }

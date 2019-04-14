@@ -28,6 +28,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -61,7 +62,7 @@ public class Mnist1 {
     public void run() throws DeepNettsException, IOException {
 
         LOGGER.info("Training convolutional network with MNIST data set");
-        LOGGER.info("Loading images...");
+        LOGGER.info("Creating image data set...");
 
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
@@ -71,18 +72,23 @@ public class Mnist1 {
         imageSet.zeroMean();
         imageSet.shuffle();
 
-        ImageSet[] imageSets = imageSet.split(0.65, 0.35);
+        imageSet.countByClasses();      
+        
+        ImageSet[] imageSets = imageSet.split(0.7, 0.3);
         int labelsCount = imageSet.getLabelsCount();
 
-        LOGGER.info("Creating neural network...");
+        LOGGER.info("------------------------------------------------");
+        LOGGER.info("CREATING NEURAL NETWORK");
+        LOGGER.info("------------------------------------------------");
 
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                 .addInputLayer(imageWidth, imageHeight, 3)
-                .addConvolutionalLayer(3, 3, 3)
+                .addConvolutionalLayer(3, 3, 6)
                 .addMaxPoolingLayer(2, 2)
-//                .addConvolutionalLayer(3, 3, 6)
-//                .addMaxPoolingLayer(2, 2)
+                .addConvolutionalLayer(3, 3, 12)
+                .addMaxPoolingLayer(2, 2)
+                .addFullyConnectedLayer(40)
                 .addFullyConnectedLayer(30)
                 .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
@@ -90,17 +96,17 @@ public class Mnist1 {
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
-
-        LOGGER.info("Training neural network");
-
+        
+        LOGGER.info(neuralNet);        
+        
         // create a trainer and train network
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.9f)
-                .setMaxError(0.3f)
+                .setMaxError(0.03f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
-                .setOptimizer(OptimizerType.MOMENTUM);
+                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);
 
         // Test trained network
@@ -117,6 +123,10 @@ public class Mnist1 {
             LOGGER.info(entry.getValue());
             LOGGER.info("----------------");
         });
+        
+         LOGGER.info("CONFUSION MATRIX");
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+        LOGGER.info(cm);
 
         // Save network to file as json
         //FileIO.writeToFile(neuralNet, "mnistDemo.dnet");

@@ -233,5 +233,9 @@ public class OutputLayer extends AbstractLayer {
             Tensor.fill(deltaBiases, 0);
         }
     }
-
+    
+    @Override
+    public String toString() {
+        return "Output Layer { width:"+width+", activation:"+activationType.name()+"}";
+    }    
 }

@@ -51,8 +51,9 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     /**
      * Constants used as labels for binary classification
      */
-    private final static String POSITIVE = "positive";
-    private final static String NEGATIVE = "negative";
+    private final static String LABEL_POSITIVE = "positive";
+    private final static String LABEL_NEGATIVE = "negative";
+    private final static String LABEL_NONE = "none";
 
     /**
      * Class labels
@@ -78,7 +79,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         performanceByClass = new HashMap<>();
 
         if (classLabels.size() == 2) { // for binary classification - these should change positins?
-            confusionMatrix = new ConfusionMatrix(new String[]{NEGATIVE, POSITIVE}); // labels for binary classification
+            confusionMatrix = new ConfusionMatrix(new String[]{LABEL_NEGATIVE, LABEL_POSITIVE}); // labels for binary classification
         } else { // for multi class classification
             confusionMatrix = new ConfusionMatrix(classLabels.toArray(new String[classLabels.size()]));
             classLabels.forEach((label) -> {
@@ -96,7 +97,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     @Override
     public PerformanceMeasure evaluatePerformance(NeuralNetwork neuralNet, DataSet<?> testSet) {
         classLabels.clear();
-        classLabels.add(0, NEGATIVE); // da li da dodajem negativnu klasu, vidi kako radi sci kit learn
+        classLabels.add(0, LABEL_NONE); // da li da dodajem negativnu klasu, vidi kako radi sci kit learn
         for(String label : testSet.getOutputLabels()) { // ali nek uradi ovo samo jednom a ne za svaku epohu
             classLabels.add(label);
         }
@@ -201,29 +202,8 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         } else { // multi class classifier
             int actualIdx = indexOfMax(actual);
             int predictedIdx = indexOfMax(predicted); // ako su svi nule predictsIdx je od NEGATIVE
-            // ali zapravo ni ne primenjujem threshold u multi class slucaju
-            // mozda bi resenje bilo da i u multiclass lucaj ubacim negative??? To bi mozda bilo najkorektinije, jer bi suma ukupnog broja bila tacna, a koristio bih threshold. Sve drugo bi iskrivljavalo rezultate.
-
-            // jer ovde i ako ne prebacuje threshold on ga kapirao kao klasu!
-            // mada to su dva nacina na koji mogu koristiti nm,moze biti legitiman.
-            
-            // sta ako nijedan ne prebacije 0.5? mislim da taj slcaj propustam!!!!
-            // suma svih treba da bude jednak broju N ukupnom broju itema 
-                        
+                                    
             confusionMatrix.inc(actualIdx, predictedIdx);
-//            if (predictedIdx != -1 && actualIdx !=-1) {
-//                confusionMatrix.inc(0, 0);  // TN
-//            }  else if(predictedIdx == -1 && actualIdx !=-1) { // fn
-//                for(int i=0; i<classLabels.size(); i++) {
-//                    if (i != actualIdx) // fn - da li je ovo dobro?
-//                        confusionMatrix.inc(actualIdx, i);
-//                    }
-//            } else { // tn | predictedIdx == -1 && actualIdx ==-1
-//                for(int i=0; i<classLabels.size(); i++) {
-//                        confusionMatrix.inc(i, i);
-//                }
-//            }
-
         }
     }
 
@@ -264,6 +244,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
             recall += pm.get(PerformanceMeasure.RECALL);
             precision += pm.get(PerformanceMeasure.PRECISION);
             f1score += pm.get(PerformanceMeasure.F1SCORE);
+            // todo: sum tp, tn, fp, fn
         }
 
         int count = performanceByClass.values().size();

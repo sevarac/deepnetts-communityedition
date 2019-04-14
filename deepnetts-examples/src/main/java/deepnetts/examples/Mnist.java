@@ -28,6 +28,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -99,7 +100,7 @@ public class Mnist {
                 .setMaxError(0.02f)
                 .setBatchMode(false)
                 //.setBatchSize(128)
-                .setOptimizer(OptimizerType.ADAGRAD);
+                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);
 
         // Test trained network
@@ -117,6 +118,9 @@ public class Mnist {
             LOGGER.info("----------------");
         });
 
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+        LOGGER.info(cm.toString());
+        
         // Save network to file as json
         //FileIO.writeToFile(neuralNet, "mnistDemo.dnet");
         FileIO.writeToFileAsJson(neuralNet, "mnistDemo.json");

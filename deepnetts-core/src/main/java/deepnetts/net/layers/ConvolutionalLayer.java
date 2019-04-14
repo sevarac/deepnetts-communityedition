@@ -599,5 +599,11 @@ public final class ConvolutionalLayer extends AbstractLayer {
             return null;
         }
     }
+    
+    @Override
+    public String toString() {
+        return "Convolutional Layer { filter width:"+filterWidth+", filter height: "+filterHeight+", channels: "+depth+", stride: "+stride+", activation: "+activationType.name()+"}";
+    }
+    
 
 }

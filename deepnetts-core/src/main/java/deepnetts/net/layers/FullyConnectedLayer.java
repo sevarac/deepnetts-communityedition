@@ -443,5 +443,10 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
 
     }
+    
+    @Override
+    public String toString() {
+        return "Fully Connected Layer { width:"+width+" activation:"+activationType.name()+"}";
+    }
 
 }

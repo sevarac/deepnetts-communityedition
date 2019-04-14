@@ -249,5 +249,12 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         this.trainer = trainer;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        layers.stream().forEach( layer -> sb.append(layer.toString()).append(System.lineSeparator()) );
+                
+        return sb.toString();
+    }
 
 }
