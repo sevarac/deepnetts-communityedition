@@ -107,7 +107,7 @@ public class Mnist1 {
                 .setBatchMode(false)
           //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.SGD);
-        trainer.train(imageSets[0]);
+        trainer.train(imageSets[0], 0.2);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

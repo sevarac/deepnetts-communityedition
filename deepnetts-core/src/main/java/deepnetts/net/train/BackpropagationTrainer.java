@@ -108,9 +108,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     /**
      * Value of loss function calculated on validation set
      */
-    private float validationLoss=0, prevValidationLoss=0;
+    private float valLoss=0, prevValLoss=0;
 
-    private float accuracy=0;
+    private float trainAccuracy=0, valAccuracy=0;
 
     private float totalTrainingLoss;
 
@@ -207,6 +207,12 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         this.validationSet = validationSet;
         train(trainingSet);
     }
+    
+    public void train(DataSet<?> trainingSet, double valPart) {
+        DataSet[] trainValSets = trainingSet.split(1-valPart, valPart); // ali da moze i jedan parametar
+        this.validationSet = trainValSets[1];
+        train(trainValSets[0]);
+    }    
 
 
     /**
@@ -255,9 +261,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         float prevTotalLoss = 0, totalLossChange;
         long startTraining, endTraining, trainingTime, startEpoch, endEpoch, epochTime;
 
-        LOGGER.info("------------------------------------------------------------------------");
+        LOGGER.info("------------------------------------------------------------------------------------------------------------------------------------------------");
         LOGGER.info("TRAINING NEURAL NETWORK");
-        LOGGER.info("------------------------------------------------------------------------");
+        LOGGER.info("------------------------------------------------------------------------------------------------------------------------------------------------");
 
         fireTrainingEvent(TrainingEvent.Type.STARTED);
 
@@ -265,8 +271,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         do {
             epoch++;
             lossFunction.reset();
-            validationLoss=0;
-            accuracy=0;
+            valLoss=0;
+            trainAccuracy=0;
+            valAccuracy=0;
 
             if (shuffle) {  // maybe remove this from here, dont autoshuffle, for time series not needed - settings for Trainer
                 trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
@@ -313,13 +320,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             prevTotalLoss = totalTrainingLoss;
 
+            trainAccuracy = calculateAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?            
+            
             // use validation set here instead of test set
             if (validationSet != null) {    // kako da znam da li je klasifikacija ili regresija? mozda da imam neki setting, flag?
-                prevValidationLoss = validationLoss;
-                validationLoss = validationLoss(validationSet);   // pre je i test loss
-                accuracy = testAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
-            } else {
-                accuracy = testAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?
+                prevValLoss = valLoss;
+                valLoss = validationLoss(validationSet);   // pre je i test loss
+                valAccuracy = calculateAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
             }
 
             epochTime = endEpoch - startEpoch;
@@ -329,9 +336,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 //            logMsgBuilder.append(logMsgBuilder);
 
             if (validationSet != null)
-                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", ValidationError:" + validationLoss + ", Accuracy: "+accuracy);
+                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy + ", ValError:" + valLoss + ", ValAccuracy: "+valAccuracy);// dodaj train i val accuracy
             else
-                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", Accuracy: "+accuracy);
+                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
 
 
             if (Float.isNaN(totalTrainingLoss)) throw new DeepNettsException("NaN value during training!");
@@ -340,7 +347,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             // EARLY STOPPING
             if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
-                if (prevCheckpointTestLoss - validationLoss < earlyStoppingMinDelta) {
+                if (prevCheckpointTestLoss - valLoss < earlyStoppingMinDelta) {
                     if (earlyStoppingCheckpointCount == earlyStoppingPatience) {
                         stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
                     } else {
@@ -351,7 +358,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 }
 
                 // save network at this checkpoint since loss if going down
-                prevCheckpointTestLoss = validationLoss;
+                prevCheckpointTestLoss = valLoss;
             }
 
             // make training snapshots every snapshotEpochs
@@ -494,8 +501,8 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return totalTrainingLoss;
     }
 
-    public float getTestLoss() {
-        return validationLoss;
+    public float getValidationLoss() {
+        return valLoss;
     }
 
     public int getCurrentEpoch() {
@@ -641,7 +648,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
     // only for classification problems
-    private float testAccuracy(DataSet<? extends DataSetItem> validationSet) {
+    private float calculateAccuracy(DataSet<? extends DataSetItem> validationSet) {
         PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, validationSet);
         return pm.get(PerformanceMeasure.ACCURACY);
     }
