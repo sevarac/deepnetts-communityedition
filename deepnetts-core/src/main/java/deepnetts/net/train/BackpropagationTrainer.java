@@ -505,6 +505,16 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return valLoss;
     }
 
+    public float getTrainingAccuracy() {
+        return trainAccuracy;
+    }
+
+    public float getValidationAccuracy() {
+        return valAccuracy;
+    }
+    
+    
+
     public int getCurrentEpoch() {
         return epoch;
     }
