@@ -69,7 +69,7 @@ public class Mnist1 {
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), 2000); //50000
         imageSet.invert();
-        imageSet.zeroMean();
+      //  imageSet.zeroMean();
         imageSet.shuffle();
 
         imageSet.countByClasses();      

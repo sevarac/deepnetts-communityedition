@@ -489,7 +489,7 @@ public class Tensor implements Serializable {
         values[idx] += value;
     }
 
-    public final void add(final int row, final int col, final int z, final float value) {
+    public final void  add(final int row, final int col, final int z, final float value) {
         final int idx = z * cols * rows + row * cols + col;
         values[idx] += value;
     }
@@ -751,6 +751,10 @@ public class Tensor implements Serializable {
         }
     }
 
-
+    public void multiply(float m) {
+        for(int i=0; i<values.length; i++) {
+            values[i] *= m;
+        }
+    }
 
 }

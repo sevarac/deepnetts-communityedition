@@ -233,6 +233,7 @@ public class ImageSetUtils {
     * which is named as corresponding category
     * 
     * Sta se desava ako index.txt vec postoji? Da upozorava?
+    * Pretpostalja da postoje poddirektorijumi ne ide na fajlove u tom zadatom direktorijumu
     *
     * @param path directory path to index
     * @return created image index file

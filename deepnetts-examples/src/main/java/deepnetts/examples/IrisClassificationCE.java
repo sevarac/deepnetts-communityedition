@@ -24,6 +24,8 @@ package deepnetts.examples;
 import deepnetts.data.DataSet;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSets;
+import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.PerformanceMeasure;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -46,29 +48,37 @@ public class IrisClassificationCE {
         // load iris data  set
         DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
         // split loaded data into 70 : 30% ratio
-        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.7);
+        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.65);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addFullyConnectedLayer(9, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
+                .addFullyConnectedLayer(3, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .randomSeed(123)
+                .randomSeed(456)
                 .build();
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = neuralNet.getTrainer();
-        trainer.setMaxError(0.01f);
-        trainer.setLearningRate(0.01f);
-        trainer.setBatchMode(false);
-        trainer.setMomentum(0.5f);
-        trainer.setOptimizer(OptimizerType.MOMENTUM);
-        trainer.setMaxEpochs(10000);
+        trainer.setMaxError(0.05f);
+        trainer.setLearningRate(0.1f);
+       // trainer.setBatchMode(true);
+     //   trainer.setBatchSize(97);
+    //    trainer.setMomentum(0.1f);
+        trainer.setOptimizer(OptimizerType.SGD);
+        trainer.setMaxEpochs(100);
 
         neuralNet.train(trainTestSet[0]);
-        PerformanceMeasure pe = neuralNet.test(trainTestSet[1]);
-        System.out.println(pe);
+    //    PerformanceMeasure pe = neuralNet.test(trainTestSet[1]);
+     //   System.out.println(pe);
+        
+       ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, trainTestSet[1]);
+        System.out.println(pm);
+        System.out.println("CONFUSION MATRIX");
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+        System.out.println(cm);        
     }
 
 }

@@ -21,12 +21,17 @@
 
 package deepnetts.net.layers;
 
+import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.Tensor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This layer performs max pooling operation in convolutional neural network, which
@@ -58,9 +63,13 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     int maxIdx[][][][];
 
+    private boolean multithreaded = false;
     private transient List<Callable<Void>> forwardTasks;
+    private transient List<Callable<Void>> backwardTasks;    
+    private transient List<Callable<Void>> backwardConvTasks;    
 
-
+    private static final Logger LOG = Logger.getLogger(DeepNetts.class.getName());
+    
     /**
      * Creates a new max pooling layer with specified filter dimensions and stride.
      *
@@ -91,15 +100,26 @@ public final class MaxPoolingLayer extends AbstractLayer {
         // used in fprop to save idx position of max value
         maxIdx = new int[depth][height][width][2]; // svakoj poziciji filtera odgovara jedna [row, col] celija u outputu idx 0 je col, idx 1 je row
 
-
+        if (DeepNettsThreadPool.getInstance().getThreadCount() > 1) multithreaded=true;
         forwardTasks = new ArrayList<>();
-        float perChannel = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
-        CyclicBarrier cb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+        backwardTasks = new ArrayList<>();        
+        backwardConvTasks = new ArrayList<>();        
+        float channelsPerThread = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
+        CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+        CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier        
+        
         for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
-            ForwardCallable task = new ForwardCallable((int)perChannel * i, (int)perChannel * (i+1), cb);
+            ForwardCallable task = new ForwardCallable((int)channelsPerThread * i, (int)channelsPerThread * (i+1), fcb);
             forwardTasks.add(task);
+                
+            if (nextLayer instanceof FullyConnectedLayer) {
+                BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
+                backwardTasks.add(bfctask);            
+            } else if (nextLayer instanceof ConvolutionalLayer) {
+                BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
+                backwardConvTasks.add(bctask);            
+            }                  
         }
-
     }
 
 
@@ -108,19 +128,20 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     @Override
     public void forward() {
-//        try {
-//            DeepNettsThreadPool.getInstance().run(forwardTasks);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-
-        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
-            forwardChannel(ch);
+        if (!multithreaded) {
+            for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
+                forwardForChannel(ch);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(forwardTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage());
+            }
         }
     }
 
-    private void forwardChannel(int ch) {
+    private void forwardForChannel(int ch) {
         float max; // max value
         int maxC = -1, maxR = -1;
 
@@ -181,53 +202,82 @@ public final class MaxPoolingLayer extends AbstractLayer {
     private void backwardFromFullyConnected() {
         deltas.fill(0); // reset deltas to zero befor propagating deltas from next layer
 
-        for (int ch = 0; ch < deltas.getDepth(); ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru, moze multuthreaded
-            for (int row = 0; row < deltas.getRows(); row++) {
-                for (int col = 0; col < deltas.getCols(); col++) {
-                    for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) { // sledeci lejer iteriraj delte po sirini/kolonama posto je fully connected
-                        final float nextLayerDelta = nextLayer.deltas.get(ndC);
-                        final float weight = nextLayer.weights.get(col, row, ch, ndC);
-                        deltas.add(row, col, ch, nextLayerDelta * weight);
-                    }
+        if (!multithreaded) {
+            for (int ch = 0; ch < deltas.getDepth(); ch++) { 
+                backwardFromFullyConnectedForChannel(ch);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(backwardTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage()); // throw excepti0on here!!!
+            }
+        }
+    }
+    
+    private void backwardFromFullyConnectedForChannel(int ch) {
+        for (int row = 0; row < deltas.getRows(); row++) {
+            for (int col = 0; col < deltas.getCols(); col++) {
+                for (int ndC = 0; ndC < nextLayer.deltas.getCols(); ndC++) {
+                    final float nextLayerDelta = nextLayer.deltas.get(ndC);
+                    final float weight = nextLayer.weights.get(col, row, ch, ndC);
+                    deltas.add(row, col, ch, nextLayerDelta * weight);
                 }
             }
         }
     }
     
     private void backwardFromConvolutional() {
+        deltas.fill(0);
 
-            final ConvolutionalLayer nextConvLayer = (ConvolutionalLayer)nextLayer;
-            deltas.fill(0);
-            final int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
-            final int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
+        if (!multithreaded) {
+            for (int ch = 0; ch < depth; ch++) { // iteriraj i 3-cu dimeziju sledeceg sloja odnosno kanale ovog sloja
+                backwardFromConvolutionalForChannel(ch);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(backwardConvTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage()); // throw excepti0on here!!!
+            }
 
-            // 1. Propagate deltas from next conv layer for max outputs from this layer
-            for (int ndz = 0; ndz < nextLayer.deltas.getDepth(); ndz++) { // iteriraj i 3-cu dimeziju sledeceg sloja odnosno kanale ovog sloja
-                for (int ndr = 0; ndr < nextLayer.deltas.getRows(); ndr++) { // sledeci lejer delte po visini
-                    for (int ndc = 0; ndc < nextLayer.deltas.getCols(); ndc++) { // sledeci lejer delte po sirini
-                        final float nextLayerDelta = nextLayer.deltas.get(ndr, ndc, ndz); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja
+        }                        
+    }    
+    
+    // fz je ch iz ovog lejera a treca diemnziaj filtera iz narednog lejera
+    private void backwardFromConvolutionalForChannel(int fz) {
+        final ConvolutionalLayer nextConvLayer = (ConvolutionalLayer) nextLayer;
+        final int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
+        final int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
 
-                        for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) {
-                            for (int fr = 0; fr < nextConvLayer.filterHeight; fr++) {
-                                for (int fc = 0; fc < nextConvLayer.filterWidth; fc++) {
-                                    final int outRow = ndr * nextConvLayer.stride + (fr - filterCenterY);
-                                    final int outCol = ndc * nextConvLayer.stride + (fc - filterCenterX);
+        // 1. Propagate deltas from next conv layer for max outputs from this layer
+        for (int ndz = 0; ndz < nextLayer.deltas.getDepth(); ndz++) { // iteriraj i 3-cu dimeziju sledeceg sloja odnosno kanale ovog sloja
+            for (int ndr = 0; ndr < nextLayer.deltas.getRows(); ndr++) { // sledeci lejer delte po visini
+                for (int ndc = 0; ndc < nextLayer.deltas.getCols(); ndc++) { // sledeci lejer delte po sirini
+                    final float nextLayerDelta = nextLayer.deltas.get(ndr, ndc, ndz); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja
 
-                                    if (outRow < 0 || outRow >= outputs.getRows() || outCol < 0 || outCol >= outputs.getCols()) {
-                                        continue;
-                                    }
-                                    // deltas ima dosta medju nula
-                                    deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz));
-                                }
+                    //   for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) { umesto fz ide ch kao parametar
+                    for (int fr = 0; fr < nextConvLayer.filterHeight; fr++) {
+                        for (int fc = 0; fc < nextConvLayer.filterWidth; fc++) {
+                            final int outRow = ndr * nextConvLayer.stride + (fr - filterCenterY);
+                            final int outCol = ndc * nextConvLayer.stride + (fc - filterCenterX);
+
+                            if (outRow < 0 || outRow >= outputs.getRows() || outCol < 0 || outCol >= outputs.getCols()) {
+                                continue;
                             }
+
+                            // deltas ima dosta medju nula
+                            deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz)); // da li se ovde preo z preklapaju?
                         }
                     }
+                    // }
                 }
             }
-            // FIX:
+        }
+        // FIX:
 //           float divisor = nextConvLayer.filterWidth * nextConvLayer.filterHeight;  
-//           deltas.div(divisor); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a        
-    }    
+//           deltas.div(divisor); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a                
+    }
 
 
     /**
@@ -264,13 +314,60 @@ public final class MaxPoolingLayer extends AbstractLayer {
         public Void call() throws Exception {
 
            for (int ch = fromCh; ch < toCh; ch++) {
-               forwardChannel(ch);
+               forwardForChannel(ch);
            }
 
-            cb.await();
+            cb.await(); // wait other thread before completing this layer and going to next one
             return null;
         }
     }
+  
+  private class BackwardFromConvolutionalCallable implements Callable<Void> {
+
+        private final int fromCh, toCh;
+        private final CyclicBarrier cb;    
+
+        public BackwardFromConvolutionalCallable(int fromCh, int toCh, CyclicBarrier cb ) {
+            this.fromCh= fromCh;
+            this.toCh = toCh;
+            this.cb=cb;
+        }
+
+        @Override
+        public Void call() throws Exception {
+
+           for (int ch = fromCh; ch < toCh; ch++) {
+               backwardFromConvolutionalForChannel(ch);
+           }
+
+            cb.await(); // wait other thread before completing this layer and going to next one
+            return null;
+        }
+    }  
+  
+  private class BackwardFromFullyConnectedCallable implements Callable<Void> {
+
+        private final int fromCh, toCh;
+        private final CyclicBarrier cb;
+
+
+        public BackwardFromFullyConnectedCallable(int fromCh, int toCh, CyclicBarrier cb ) {
+            this.fromCh= fromCh;
+            this.toCh = toCh;
+            this.cb=cb;
+        }
+
+        @Override
+        public Void call() throws Exception {
+
+           for (int ch = fromCh; ch < toCh; ch++) {
+               backwardFromFullyConnectedForChannel(ch);
+           }
+
+            cb.await(); // wait other thread before completing this layer and going to next one
+            return null;
+        }
+    }    
 
 
     @Override

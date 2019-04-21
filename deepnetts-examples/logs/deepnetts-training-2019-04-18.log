@@ -1,0 +1,3959 @@
+Loaded 60000 images
+Number of images by label/class
+0 : 5922
+1 : 6741
+2 : 5957
+3 : 6130
+4 : 5841
+5 : 5420
+6 : 5917
+7 : 6264
+8 : 5850
+9 : 5948
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 60000 images
+Number of images by label/class
+0 : 5922
+1 : 6741
+2 : 5957
+3 : 6130
+4 : 5841
+5 : 5420
+6 : 5917
+7 : 6264
+8 : 5850
+9 : 5948
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Mini Batch:1, Batch Loss:2.5506854
+Epoch:1, Mini Batch:2, Batch Loss:2.5120034
+Epoch:1, Mini Batch:3, Batch Loss:2.5433166
+Epoch:1, Mini Batch:4, Batch Loss:2.5523841
+Epoch:1, Mini Batch:5, Batch Loss:2.5499506
+Epoch:1, Mini Batch:6, Batch Loss:2.5596216
+Epoch:1, Mini Batch:7, Batch Loss:2.559068
+Epoch:1, Mini Batch:8, Batch Loss:2.5577145
+Epoch:1, Mini Batch:9, Batch Loss:2.562013
+Epoch:1, Mini Batch:10, Batch Loss:2.564672
+Epoch:1, Mini Batch:11, Batch Loss:2.5567198
+Epoch:1, Mini Batch:12, Batch Loss:2.563483
+Epoch:1, Mini Batch:13, Batch Loss:2.5575197
+Epoch:1, Mini Batch:14, Batch Loss:2.548198
+Epoch:1, Mini Batch:15, Batch Loss:2.5484083
+Epoch:1, Mini Batch:16, Batch Loss:2.5549867
+Epoch:1, Mini Batch:17, Batch Loss:2.5661302
+Epoch:1, Mini Batch:18, Batch Loss:2.5708134
+Epoch:1, Mini Batch:19, Batch Loss:2.5747538
+Epoch:1, Mini Batch:20, Batch Loss:2.5818636
+Epoch:1, Mini Batch:21, Batch Loss:2.5853565
+Epoch:1, Mini Batch:22, Batch Loss:2.5845184
+Epoch:1, Mini Batch:23, Batch Loss:2.586253
+Epoch:1, Mini Batch:24, Batch Loss:2.5863044
+Epoch:1, Mini Batch:25, Batch Loss:2.5888367
+Epoch:1, Mini Batch:26, Batch Loss:2.5820086
+Epoch:1, Mini Batch:27, Batch Loss:2.5842018
+Epoch:1, Mini Batch:28, Batch Loss:2.581667
+Epoch:1, Mini Batch:29, Batch Loss:2.5736573
+Epoch:1, Mini Batch:30, Batch Loss:2.574113
+Epoch:1, Mini Batch:31, Batch Loss:2.5682309
+Epoch:1, Mini Batch:32, Batch Loss:2.567612
+Epoch:1, Mini Batch:33, Batch Loss:2.5676808
+Epoch:1, Mini Batch:34, Batch Loss:2.5660725
+Epoch:1, Mini Batch:35, Batch Loss:2.565604
+Epoch:1, Mini Batch:36, Batch Loss:2.5637872
+Epoch:1, Mini Batch:37, Batch Loss:2.5590305
+Epoch:1, Mini Batch:38, Batch Loss:2.5549116
+Epoch:1, Mini Batch:39, Batch Loss:2.5568657
+Epoch:1, Mini Batch:40, Batch Loss:2.5537379
+Epoch:1, Mini Batch:41, Batch Loss:2.552078
+Epoch:1, Mini Batch:42, Batch Loss:2.548101
+Epoch:1, Mini Batch:43, Batch Loss:2.5480363
+Epoch:1, Mini Batch:44, Batch Loss:2.5464797
+Epoch:1, Mini Batch:45, Batch Loss:2.5431857
+Epoch:1, Mini Batch:46, Batch Loss:2.5420868
+Epoch:1, Mini Batch:47, Batch Loss:2.540822
+Epoch:1, Mini Batch:48, Batch Loss:2.5394397
+Epoch:1, Mini Batch:49, Batch Loss:2.5352461
+Epoch:1, Mini Batch:50, Batch Loss:2.5352352
+Epoch:1, Mini Batch:51, Batch Loss:2.5318885
+Epoch:1, Mini Batch:52, Batch Loss:2.534759
+Epoch:1, Mini Batch:53, Batch Loss:2.5327091
+Epoch:1, Mini Batch:54, Batch Loss:2.5304742
+Epoch:1, Mini Batch:55, Batch Loss:2.528805
+Epoch:1, Mini Batch:56, Batch Loss:2.5277994
+Epoch:1, Mini Batch:57, Batch Loss:2.526399
+Epoch:1, Mini Batch:58, Batch Loss:2.5278497
+Epoch:1, Mini Batch:59, Batch Loss:2.5267744
+Epoch:1, Mini Batch:60, Batch Loss:2.527273
+Epoch:1, Mini Batch:61, Batch Loss:2.5256765
+Epoch:1, Mini Batch:62, Batch Loss:2.5228827
+Epoch:1, Mini Batch:63, Batch Loss:2.5222216
+Epoch:1, Mini Batch:64, Batch Loss:2.5220122
+Epoch:1, Mini Batch:65, Batch Loss:2.5199215
+Epoch:1, Mini Batch:66, Batch Loss:2.5179317
+Epoch:1, Mini Batch:67, Batch Loss:2.516892
+Epoch:1, Mini Batch:68, Batch Loss:2.513972
+Epoch:1, Mini Batch:69, Batch Loss:2.5127654
+Epoch:1, Mini Batch:70, Batch Loss:2.5119565
+Epoch:1, Mini Batch:71, Batch Loss:2.5110068
+Epoch:1, Mini Batch:72, Batch Loss:2.5091658
+Epoch:1, Mini Batch:73, Batch Loss:2.506856
+Epoch:1, Mini Batch:74, Batch Loss:2.505746
+Epoch:1, Mini Batch:75, Batch Loss:2.5065672
+Epoch:1, Mini Batch:76, Batch Loss:2.5052834
+Epoch:1, Mini Batch:77, Batch Loss:2.5034912
+Epoch:1, Mini Batch:78, Batch Loss:2.5029743
+Epoch:1, Mini Batch:79, Batch Loss:2.500281
+Epoch:1, Mini Batch:80, Batch Loss:2.498811
+Epoch:1, Mini Batch:81, Batch Loss:2.4987354
+Epoch:1, Mini Batch:82, Batch Loss:2.497377
+Epoch:1, Mini Batch:83, Batch Loss:2.4958172
+Epoch:1, Mini Batch:84, Batch Loss:2.4938781
+Epoch:1, Mini Batch:85, Batch Loss:2.4924388
+Epoch:1, Mini Batch:86, Batch Loss:2.4913125
+Epoch:1, Mini Batch:87, Batch Loss:2.4903123
+Epoch:1, Mini Batch:88, Batch Loss:2.4891174
+Epoch:1, Mini Batch:89, Batch Loss:2.4873586
+Epoch:1, Mini Batch:90, Batch Loss:2.485187
+Epoch:1, Mini Batch:91, Batch Loss:2.4837737
+Epoch:1, Mini Batch:92, Batch Loss:2.4820702
+Epoch:1, Mini Batch:93, Batch Loss:2.4812944
+Epoch:1, Mini Batch:94, Batch Loss:2.4807982
+Epoch:1, Mini Batch:95, Batch Loss:2.4802315
+Epoch:1, Mini Batch:96, Batch Loss:2.4787772
+Epoch:1, Mini Batch:97, Batch Loss:2.4780834
+Epoch:1, Mini Batch:98, Batch Loss:2.4770045
+Epoch:1, Mini Batch:99, Batch Loss:2.4766655
+Epoch:1, Mini Batch:100, Batch Loss:2.4760003
+Epoch:1, Mini Batch:101, Batch Loss:2.475268
+Epoch:1, Mini Batch:102, Batch Loss:2.473898
+Epoch:1, Mini Batch:103, Batch Loss:2.4723344
+Epoch:1, Mini Batch:104, Batch Loss:2.471412
+Epoch:1, Mini Batch:105, Batch Loss:2.4701905
+Epoch:1, Mini Batch:106, Batch Loss:2.4699082
+Epoch:1, Mini Batch:107, Batch Loss:2.468926
+Epoch:1, Mini Batch:108, Batch Loss:2.4675767
+Epoch:1, Mini Batch:109, Batch Loss:2.4661427
+Epoch:1, Mini Batch:110, Batch Loss:2.4651926
+Epoch:1, Mini Batch:111, Batch Loss:2.4644969
+Epoch:1, Mini Batch:112, Batch Loss:2.463373
+Epoch:1, Mini Batch:113, Batch Loss:2.4631283
+Epoch:1, Mini Batch:114, Batch Loss:2.4624734
+Epoch:1, Mini Batch:115, Batch Loss:2.4621754
+Epoch:1, Mini Batch:116, Batch Loss:2.4616234
+Epoch:1, Mini Batch:117, Batch Loss:2.4606433
+Epoch:1, Mini Batch:118, Batch Loss:2.4598005
+Epoch:1, Mini Batch:119, Batch Loss:2.4586573
+Epoch:1, Mini Batch:120, Batch Loss:2.4577718
+Epoch:1, Mini Batch:121, Batch Loss:2.457432
+Epoch:1, Mini Batch:122, Batch Loss:2.4562953
+Epoch:1, Mini Batch:123, Batch Loss:2.4543514
+Epoch:1, Mini Batch:124, Batch Loss:2.4532738
+Epoch:1, Mini Batch:125, Batch Loss:2.452023
+Epoch:1, Mini Batch:126, Batch Loss:2.451443
+Epoch:1, Mini Batch:127, Batch Loss:2.4503524
+Epoch:1, Mini Batch:128, Batch Loss:2.449722
+Epoch:1, Mini Batch:129, Batch Loss:2.448829
+Epoch:1, Mini Batch:130, Batch Loss:2.4479864
+Epoch:1, Mini Batch:131, Batch Loss:2.4473653
+Epoch:1, Mini Batch:132, Batch Loss:2.4460723
+Epoch:1, Mini Batch:133, Batch Loss:2.4457605
+Epoch:1, Mini Batch:134, Batch Loss:2.4449148
+Epoch:1, Mini Batch:135, Batch Loss:2.4439144
+Epoch:1, Mini Batch:136, Batch Loss:2.442475
+Epoch:1, Mini Batch:137, Batch Loss:2.4417071
+Epoch:1, Mini Batch:138, Batch Loss:2.4412704
+Epoch:1, Mini Batch:139, Batch Loss:2.441038
+Epoch:1, Mini Batch:140, Batch Loss:2.440415
+Epoch:1, Mini Batch:141, Batch Loss:2.4399095
+Epoch:1, Mini Batch:142, Batch Loss:2.4395463
+Epoch:1, Mini Batch:143, Batch Loss:2.4389844
+Epoch:1, Mini Batch:144, Batch Loss:2.4384713
+Epoch:1, Mini Batch:145, Batch Loss:2.4380748
+Epoch:1, Mini Batch:146, Batch Loss:2.4373815
+Epoch:1, Mini Batch:147, Batch Loss:2.4367027
+Epoch:1, Mini Batch:148, Batch Loss:2.435847
+Epoch:1, Mini Batch:149, Batch Loss:2.4347894
+Epoch:1, Mini Batch:150, Batch Loss:2.4340587
+Epoch:1, Mini Batch:151, Batch Loss:2.4332597
+Epoch:1, Mini Batch:152, Batch Loss:2.4324229
+Epoch:1, Mini Batch:153, Batch Loss:2.4316328
+Epoch:1, Mini Batch:154, Batch Loss:2.4316394
+Epoch:1, Mini Batch:155, Batch Loss:2.4309406
+Epoch:1, Mini Batch:156, Batch Loss:2.429933
+Epoch:1, Mini Batch:157, Batch Loss:2.4296634
+Epoch:1, Mini Batch:158, Batch Loss:2.4289045
+Epoch:1, Mini Batch:159, Batch Loss:2.4287055
+Epoch:1, Mini Batch:160, Batch Loss:2.4281216
+Epoch:1, Mini Batch:161, Batch Loss:2.427653
+Epoch:1, Mini Batch:162, Batch Loss:2.4269862
+Epoch:1, Mini Batch:163, Batch Loss:2.426429
+Epoch:1, Mini Batch:164, Batch Loss:2.4256387
+Epoch:1, Mini Batch:165, Batch Loss:2.425162
+Epoch:1, Mini Batch:166, Batch Loss:2.42485
+Epoch:1, Mini Batch:167, Batch Loss:2.4241939
+Epoch:1, Mini Batch:168, Batch Loss:2.423458
+Epoch:1, Mini Batch:169, Batch Loss:2.4229484
+Epoch:1, Mini Batch:170, Batch Loss:2.4225993
+Epoch:1, Mini Batch:171, Batch Loss:2.422116
+Epoch:1, Mini Batch:172, Batch Loss:2.4215422
+Epoch:1, Mini Batch:173, Batch Loss:2.4207623
+Epoch:1, Mini Batch:174, Batch Loss:2.4202855
+Epoch:1, Mini Batch:175, Batch Loss:2.4196188
+Epoch:1, Mini Batch:176, Batch Loss:2.4190514
+Epoch:1, Mini Batch:177, Batch Loss:2.418578
+Epoch:1, Mini Batch:178, Batch Loss:2.4179685
+Epoch:1, Mini Batch:179, Batch Loss:2.4169436
+Epoch:1, Mini Batch:180, Batch Loss:2.4168243
+Epoch:1, Mini Batch:181, Batch Loss:2.4164531
+Epoch:1, Mini Batch:182, Batch Loss:2.4159622
+Epoch:1, Mini Batch:183, Batch Loss:2.4156852
+Epoch:1, Mini Batch:184, Batch Loss:2.4153054
+Epoch:1, Mini Batch:185, Batch Loss:2.4146214
+Epoch:1, Mini Batch:186, Batch Loss:2.4138553
+Epoch:1, Mini Batch:187, Batch Loss:2.4134188
+Epoch:1, Mini Batch:188, Batch Loss:2.4130392
+Epoch:1, Mini Batch:189, Batch Loss:2.4122849
+Epoch:1, Mini Batch:190, Batch Loss:2.4118733
+Epoch:1, Mini Batch:191, Batch Loss:2.4113214
+Epoch:1, Mini Batch:192, Batch Loss:2.4109135
+Epoch:1, Mini Batch:193, Batch Loss:2.410262
+Epoch:1, Mini Batch:194, Batch Loss:2.4097826
+Epoch:1, Mini Batch:195, Batch Loss:2.4094002
+Epoch:1, Mini Batch:196, Batch Loss:2.4089751
+Epoch:1, Mini Batch:197, Batch Loss:2.4085352
+Epoch:1, Mini Batch:198, Batch Loss:2.4078948
+Epoch:1, Mini Batch:199, Batch Loss:2.407466
+Epoch:1, Mini Batch:200, Batch Loss:2.406812
+Epoch:1, Mini Batch:201, Batch Loss:2.4062138
+Epoch:1, Mini Batch:202, Batch Loss:2.4056618
+Epoch:1, Mini Batch:203, Batch Loss:2.4050958
+Epoch:1, Mini Batch:204, Batch Loss:2.4045682
+Epoch:1, Mini Batch:205, Batch Loss:2.4043348
+Epoch:1, Mini Batch:206, Batch Loss:2.4040945
+Epoch:1, Mini Batch:207, Batch Loss:2.4036312
+Epoch:1, Mini Batch:208, Batch Loss:2.4030952
+Epoch:1, Mini Batch:209, Batch Loss:2.402391
+Epoch:1, Mini Batch:210, Batch Loss:2.4018784
+Epoch:1, Mini Batch:211, Batch Loss:2.4013922
+Epoch:1, Mini Batch:212, Batch Loss:2.4009366
+Epoch:1, Mini Batch:213, Batch Loss:2.4005992
+Epoch:1, Mini Batch:214, Batch Loss:2.4003124
+Epoch:1, Mini Batch:215, Batch Loss:2.399868
+Epoch:1, Mini Batch:216, Batch Loss:2.399247
+Epoch:1, Mini Batch:217, Batch Loss:2.3988125
+Epoch:1, Mini Batch:218, Batch Loss:2.398206
+Epoch:1, Mini Batch:219, Batch Loss:2.3979082
+Epoch:1, Mini Batch:220, Batch Loss:2.39724
+Epoch:1, Mini Batch:221, Batch Loss:2.3967996
+Epoch:1, Mini Batch:222, Batch Loss:2.396316
+Epoch:1, Mini Batch:223, Batch Loss:2.3959305
+Epoch:1, Mini Batch:224, Batch Loss:2.3954246
+Epoch:1, Mini Batch:225, Batch Loss:2.3949947
+Epoch:1, Mini Batch:226, Batch Loss:2.3945837
+Epoch:1, Mini Batch:227, Batch Loss:2.394135
+Epoch:1, Mini Batch:228, Batch Loss:2.393775
+Epoch:1, Mini Batch:229, Batch Loss:2.3935266
+Epoch:1, Mini Batch:230, Batch Loss:2.392979
+Epoch:1, Mini Batch:231, Batch Loss:2.3926735
+Epoch:1, Mini Batch:232, Batch Loss:2.3921642
+Epoch:1, Mini Batch:233, Batch Loss:2.3917384
+Epoch:1, Mini Batch:234, Batch Loss:2.39127
+Epoch:1, Mini Batch:235, Batch Loss:2.3908725
+Epoch:1, Mini Batch:236, Batch Loss:2.390416
+Epoch:1, Mini Batch:237, Batch Loss:2.389986
+Epoch:1, Mini Batch:238, Batch Loss:2.3896618
+Epoch:1, Mini Batch:239, Batch Loss:2.3892694
+Epoch:1, Mini Batch:240, Batch Loss:2.3890195
+Epoch:1, Mini Batch:241, Batch Loss:2.3886297
+Epoch:1, Mini Batch:242, Batch Loss:2.3883092
+Epoch:1, Mini Batch:243, Batch Loss:2.3878925
+Epoch:1, Mini Batch:244, Batch Loss:2.3875005
+Epoch:1, Mini Batch:245, Batch Loss:2.3870845
+Epoch:1, Mini Batch:246, Batch Loss:2.3867774
+Epoch:1, Mini Batch:247, Batch Loss:2.3862271
+Epoch:1, Mini Batch:248, Batch Loss:2.3858066
+Epoch:1, Mini Batch:249, Batch Loss:2.3854332
+Epoch:1, Mini Batch:250, Batch Loss:2.3851564
+Epoch:1, Mini Batch:251, Batch Loss:2.3848302
+Epoch:1, Mini Batch:252, Batch Loss:2.3843634
+Epoch:1, Mini Batch:253, Batch Loss:2.3841171
+Epoch:1, Mini Batch:254, Batch Loss:2.3837771
+Epoch:1, Mini Batch:255, Batch Loss:2.3833349
+Epoch:1, Mini Batch:256, Batch Loss:2.3829741
+Epoch:1, Mini Batch:257, Batch Loss:2.3826427
+Epoch:1, Mini Batch:258, Batch Loss:2.3821397
+Epoch:1, Mini Batch:259, Batch Loss:2.3817606
+Epoch:1, Mini Batch:260, Batch Loss:2.3813708
+Epoch:1, Mini Batch:261, Batch Loss:2.380964
+Epoch:1, Mini Batch:262, Batch Loss:2.380679
+Epoch:1, Mini Batch:263, Batch Loss:2.3802178
+Epoch:1, Mini Batch:264, Batch Loss:2.3798778
+Epoch:1, Mini Batch:265, Batch Loss:2.3795164
+Epoch:1, Mini Batch:266, Batch Loss:2.379108
+Epoch:1, Mini Batch:267, Batch Loss:2.3786354
+Epoch:1, Mini Batch:268, Batch Loss:2.378261
+Epoch:1, Mini Batch:269, Batch Loss:2.3779306
+Epoch:1, Mini Batch:270, Batch Loss:2.377524
+Epoch:1, Mini Batch:271, Batch Loss:2.3771868
+Epoch:1, Mini Batch:272, Batch Loss:2.3769176
+Epoch:1, Mini Batch:273, Batch Loss:2.376509
+Epoch:1, Mini Batch:274, Batch Loss:2.3761513
+Epoch:1, Mini Batch:275, Batch Loss:2.3758874
+Epoch:1, Mini Batch:276, Batch Loss:2.3755548
+Epoch:1, Mini Batch:277, Batch Loss:2.3752694
+Epoch:1, Mini Batch:278, Batch Loss:2.3750532
+Epoch:1, Mini Batch:279, Batch Loss:2.374674
+Epoch:1, Mini Batch:280, Batch Loss:2.3743122
+Epoch:1, Mini Batch:281, Batch Loss:2.3739154
+Epoch:1, Mini Batch:282, Batch Loss:2.3736079
+Epoch:1, Mini Batch:283, Batch Loss:2.3732533
+Epoch:1, Mini Batch:284, Batch Loss:2.3728447
+Epoch:1, Mini Batch:285, Batch Loss:2.3725464
+Epoch:1, Mini Batch:286, Batch Loss:2.3722649
+Epoch:1, Mini Batch:287, Batch Loss:2.3720052
+Epoch:1, Mini Batch:288, Batch Loss:2.3717415
+Epoch:1, Mini Batch:289, Batch Loss:2.3713923
+Epoch:1, Mini Batch:290, Batch Loss:2.3710756
+Epoch:1, Mini Batch:291, Batch Loss:2.3707173
+Epoch:1, Mini Batch:292, Batch Loss:2.3703914
+Epoch:1, Mini Batch:293, Batch Loss:2.3702323
+Epoch:1, Mini Batch:294, Batch Loss:2.3699598
+Epoch:1, Mini Batch:295, Batch Loss:2.3696125
+Epoch:1, Mini Batch:296, Batch Loss:2.369306
+Epoch:1, Mini Batch:297, Batch Loss:2.3689365
+Epoch:1, Mini Batch:298, Batch Loss:2.3685575
+Epoch:1, Mini Batch:299, Batch Loss:2.3683136
+Epoch:1, Mini Batch:300, Batch Loss:2.3680813
+Epoch:1, Mini Batch:301, Batch Loss:2.367707
+Epoch:1, Mini Batch:302, Batch Loss:2.3673491
+Epoch:1, Mini Batch:303, Batch Loss:2.3670979
+Epoch:1, Mini Batch:304, Batch Loss:2.3667567
+Epoch:1, Mini Batch:305, Batch Loss:2.3664238
+Epoch:1, Mini Batch:306, Batch Loss:2.3661098
+Epoch:1, Mini Batch:307, Batch Loss:2.3657925
+Epoch:1, Mini Batch:308, Batch Loss:2.3655138
+Epoch:1, Mini Batch:309, Batch Loss:2.3652396
+Epoch:1, Mini Batch:310, Batch Loss:2.3649447
+Epoch:1, Mini Batch:311, Batch Loss:2.364667
+Epoch:1, Mini Batch:312, Batch Loss:2.3644292
+Epoch:1, Mini Batch:313, Batch Loss:2.3641067
+Epoch:1, Mini Batch:314, Batch Loss:2.3638554
+Epoch:1, Mini Batch:315, Batch Loss:2.3636327
+Epoch:1, Mini Batch:316, Batch Loss:2.3633127
+Epoch:1, Mini Batch:317, Batch Loss:2.3630052
+Epoch:1, Mini Batch:318, Batch Loss:2.3627558
+Epoch:1, Mini Batch:319, Batch Loss:2.362504
+Epoch:1, Mini Batch:320, Batch Loss:2.362271
+Epoch:1, Mini Batch:321, Batch Loss:2.3620465
+Epoch:1, Mini Batch:322, Batch Loss:2.361793
+Epoch:1, Mini Batch:323, Batch Loss:2.3614905
+Epoch:1, Mini Batch:324, Batch Loss:2.361338
+Epoch:1, Mini Batch:325, Batch Loss:2.3611238
+Epoch:1, Mini Batch:326, Batch Loss:2.3609192
+Epoch:1, Mini Batch:327, Batch Loss:2.3606105
+Epoch:1, Mini Batch:328, Batch Loss:2.360307
+Epoch:1, Mini Batch:329, Batch Loss:2.3599823
+Epoch:1, Mini Batch:330, Batch Loss:2.3597155
+Epoch:1, Mini Batch:331, Batch Loss:2.3594904
+Epoch:1, Mini Batch:332, Batch Loss:2.3591986
+Epoch:1, Mini Batch:333, Batch Loss:2.3589103
+Epoch:1, Mini Batch:334, Batch Loss:2.3586395
+Epoch:1, Mini Batch:335, Batch Loss:2.3583887
+Epoch:1, Mini Batch:336, Batch Loss:2.3581657
+Epoch:1, Mini Batch:337, Batch Loss:2.3579245
+Epoch:1, Mini Batch:338, Batch Loss:2.3576846
+Epoch:1, Mini Batch:339, Batch Loss:2.3575132
+Epoch:1, Mini Batch:340, Batch Loss:2.3572907
+Epoch:1, Mini Batch:341, Batch Loss:2.357083
+Epoch:1, Mini Batch:342, Batch Loss:2.3568146
+Epoch:1, Mini Batch:343, Batch Loss:2.356606
+Epoch:1, Mini Batch:344, Batch Loss:2.356355
+Epoch:1, Mini Batch:345, Batch Loss:2.3561304
+Epoch:1, Mini Batch:346, Batch Loss:2.3558333
+Epoch:1, Mini Batch:347, Batch Loss:2.3555615
+Epoch:1, Mini Batch:348, Batch Loss:2.3553588
+Epoch:1, Mini Batch:349, Batch Loss:2.3551552
+Epoch:1, Mini Batch:350, Batch Loss:2.354892
+Epoch:1, Mini Batch:351, Batch Loss:2.3546371
+Epoch:1, Mini Batch:352, Batch Loss:2.3543525
+Epoch:1, Mini Batch:353, Batch Loss:2.3540702
+Epoch:1, Mini Batch:354, Batch Loss:2.3538787
+Epoch:1, Mini Batch:355, Batch Loss:2.3536682
+Epoch:1, Mini Batch:356, Batch Loss:2.3533924
+Epoch:1, Mini Batch:357, Batch Loss:2.3531406
+Epoch:1, Mini Batch:358, Batch Loss:2.3528793
+Epoch:1, Mini Batch:359, Batch Loss:2.3526301
+Epoch:1, Mini Batch:360, Batch Loss:2.352398
+Epoch:1, Mini Batch:361, Batch Loss:2.3522077
+Epoch:1, Mini Batch:362, Batch Loss:2.3519766
+Epoch:1, Mini Batch:363, Batch Loss:2.3517833
+Epoch:1, Mini Batch:364, Batch Loss:2.3515677
+Epoch:1, Mini Batch:365, Batch Loss:2.3513315
+Epoch:1, Mini Batch:366, Batch Loss:2.3511481
+Epoch:1, Mini Batch:367, Batch Loss:2.3509674
+Epoch:1, Mini Batch:368, Batch Loss:2.3507519
+Epoch:1, Mini Batch:369, Batch Loss:2.3505764
+Epoch:1, Mini Batch:370, Batch Loss:2.3503296
+Epoch:1, Mini Batch:371, Batch Loss:2.350071
+Epoch:1, Mini Batch:372, Batch Loss:2.3498354
+Epoch:1, Mini Batch:373, Batch Loss:2.3496518
+Epoch:1, Mini Batch:374, Batch Loss:2.3494332
+Epoch:1, Mini Batch:375, Batch Loss:2.3492315
+Epoch:1, Mini Batch:376, Batch Loss:2.3490055
+Epoch:1, Mini Batch:377, Batch Loss:2.348785
+Epoch:1, Mini Batch:378, Batch Loss:2.3485987
+Epoch:1, Mini Batch:379, Batch Loss:2.348411
+Epoch:1, Mini Batch:380, Batch Loss:2.3482206
+Epoch:1, Mini Batch:381, Batch Loss:2.347969
+Epoch:1, Mini Batch:382, Batch Loss:2.3477762
+Epoch:1, Mini Batch:383, Batch Loss:2.347542
+Epoch:1, Mini Batch:384, Batch Loss:2.347292
+Epoch:1, Mini Batch:385, Batch Loss:2.3470526
+Epoch:1, Mini Batch:386, Batch Loss:2.3468878
+Epoch:1, Mini Batch:387, Batch Loss:2.3467262
+Epoch:1, Mini Batch:388, Batch Loss:2.3465123
+Epoch:1, Mini Batch:389, Batch Loss:2.3463078
+Epoch:1, Mini Batch:390, Batch Loss:2.3460777
+Epoch:1, Mini Batch:391, Batch Loss:2.3458345
+Epoch:1, Mini Batch:392, Batch Loss:2.3456235
+Epoch:1, Mini Batch:393, Batch Loss:2.3454525
+Epoch:1, Mini Batch:394, Batch Loss:2.3452148
+Epoch:1, Mini Batch:395, Batch Loss:2.345035
+Epoch:1, Mini Batch:396, Batch Loss:2.3447871
+Epoch:1, Mini Batch:397, Batch Loss:2.3446362
+Epoch:1, Mini Batch:398, Batch Loss:2.344427
+Epoch:1, Mini Batch:399, Batch Loss:2.3442297
+Epoch:1, Mini Batch:400, Batch Loss:2.3440566
+Epoch:1, Mini Batch:401, Batch Loss:2.3438356
+Epoch:1, Mini Batch:402, Batch Loss:2.34365
+Epoch:1, Mini Batch:403, Batch Loss:2.3434372
+Epoch:1, Mini Batch:404, Batch Loss:2.3432672
+Epoch:1, Mini Batch:405, Batch Loss:2.3430266
+Epoch:1, Mini Batch:406, Batch Loss:2.3427732
+Epoch:1, Mini Batch:407, Batch Loss:2.3425984
+Epoch:1, Mini Batch:408, Batch Loss:2.3423731
+Epoch:1, Mini Batch:409, Batch Loss:2.3421419
+Epoch:1, Mini Batch:410, Batch Loss:2.3419626
+Epoch:1, Mini Batch:411, Batch Loss:2.3417842
+Epoch:1, Mini Batch:412, Batch Loss:2.3415916
+Epoch:1, Mini Batch:413, Batch Loss:2.3414288
+Epoch:1, Mini Batch:414, Batch Loss:2.34126
+Epoch:1, Mini Batch:415, Batch Loss:2.3410137
+Epoch:1, Mini Batch:416, Batch Loss:2.3408163
+Epoch:1, Mini Batch:417, Batch Loss:2.340599
+Epoch:1, Mini Batch:418, Batch Loss:2.3404331
+Epoch:1, Mini Batch:419, Batch Loss:2.3402257
+Epoch:1, Mini Batch:420, Batch Loss:2.3400521
+Epoch:1, Mini Batch:421, Batch Loss:2.339805
+Epoch:1, Mini Batch:422, Batch Loss:2.3395998
+Epoch:1, Mini Batch:423, Batch Loss:2.339438
+Epoch:1, Mini Batch:424, Batch Loss:2.3392267
+Epoch:1, Mini Batch:425, Batch Loss:2.3390775
+Epoch:1, Mini Batch:426, Batch Loss:2.3388848
+Epoch:1, Mini Batch:427, Batch Loss:2.3387194
+Epoch:1, Mini Batch:428, Batch Loss:2.3385303
+Epoch:1, Mini Batch:429, Batch Loss:2.338338
+Epoch:1, Mini Batch:430, Batch Loss:2.338151
+Epoch:1, Mini Batch:431, Batch Loss:2.3379686
+Epoch:1, Mini Batch:432, Batch Loss:2.3377557
+Epoch:1, Mini Batch:433, Batch Loss:2.3375978
+Epoch:1, Mini Batch:434, Batch Loss:2.3374066
+Epoch:1, Mini Batch:435, Batch Loss:2.3372285
+Epoch:1, Mini Batch:436, Batch Loss:2.3370504
+Epoch:1, Mini Batch:437, Batch Loss:2.3368547
+Epoch:1, Mini Batch:438, Batch Loss:2.3366842
+Epoch:1, Mini Batch:439, Batch Loss:2.3365033
+Epoch:1, Mini Batch:440, Batch Loss:2.3363183
+Epoch:1, Mini Batch:441, Batch Loss:2.3361487
+Epoch:1, Mini Batch:442, Batch Loss:2.3359792
+Epoch:1, Mini Batch:443, Batch Loss:2.335812
+Epoch:1, Mini Batch:444, Batch Loss:2.3356295
+Epoch:1, Mini Batch:445, Batch Loss:2.3354445
+Epoch:1, Mini Batch:446, Batch Loss:2.3352935
+Epoch:1, Mini Batch:447, Batch Loss:2.3351278
+Epoch:1, Mini Batch:448, Batch Loss:2.335
+Epoch:1, Mini Batch:449, Batch Loss:2.3347921
+Epoch:1, Mini Batch:450, Batch Loss:2.3346214
+Epoch:1, Mini Batch:451, Batch Loss:2.334455
+Epoch:1, Mini Batch:452, Batch Loss:2.3342505
+Epoch:1, Mini Batch:453, Batch Loss:2.3341236
+Epoch:1, Mini Batch:454, Batch Loss:2.3339353
+Epoch:1, Mini Batch:455, Batch Loss:2.3337445
+Epoch:1, Mini Batch:456, Batch Loss:2.3335354
+Epoch:1, Mini Batch:457, Batch Loss:2.3333976
+Epoch:1, Mini Batch:458, Batch Loss:2.3332233
+Epoch:1, Mini Batch:459, Batch Loss:2.3330414
+Epoch:1, Mini Batch:460, Batch Loss:2.33288
+Epoch:1, Mini Batch:461, Batch Loss:2.332704
+Epoch:1, Mini Batch:462, Batch Loss:2.3325326
+Epoch:1, Mini Batch:463, Batch Loss:2.3323767
+Epoch:1, Mini Batch:464, Batch Loss:2.332235
+Epoch:1, Mini Batch:465, Batch Loss:2.3320696
+Epoch:1, Mini Batch:466, Batch Loss:2.3318822
+Epoch:1, Mini Batch:467, Batch Loss:2.331744
+Epoch:1, Mini Batch:468, Batch Loss:2.33161
+Epoch:1, Mini Batch:469, Batch Loss:2.331451
+Epoch:1, Mini Batch:470, Batch Loss:2.3312871
+Epoch:1, Mini Batch:471, Batch Loss:2.3311052
+Epoch:1, Mini Batch:472, Batch Loss:2.3309584
+Epoch:1, Mini Batch:473, Batch Loss:2.3307989
+Epoch:1, Mini Batch:474, Batch Loss:2.3306344
+Epoch:1, Mini Batch:475, Batch Loss:2.3304565
+Epoch:1, Mini Batch:476, Batch Loss:2.330296
+Epoch:1, Mini Batch:477, Batch Loss:2.3301349
+Epoch:1, Mini Batch:478, Batch Loss:2.3299992
+Epoch:1, Mini Batch:479, Batch Loss:2.329845
+Epoch:1, Mini Batch:480, Batch Loss:2.3296938
+Epoch:1, Mini Batch:481, Batch Loss:2.3295379
+Epoch:1, Mini Batch:482, Batch Loss:2.3294024
+Epoch:1, Mini Batch:483, Batch Loss:2.3292582
+Epoch:1, Mini Batch:484, Batch Loss:2.3291063
+Epoch:1, Mini Batch:485, Batch Loss:2.3289561
+Epoch:1, Mini Batch:486, Batch Loss:2.328796
+Epoch:1, Mini Batch:487, Batch Loss:2.3286269
+Epoch:1, Mini Batch:488, Batch Loss:2.3284712
+Epoch:1, Mini Batch:489, Batch Loss:2.3283262
+Epoch:1, Mini Batch:490, Batch Loss:2.3281446
+Epoch:1, Mini Batch:491, Batch Loss:2.3279731
+Epoch:1, Mini Batch:492, Batch Loss:2.3278182
+Epoch:1, Mini Batch:493, Batch Loss:2.3276608
+Epoch:1, Mini Batch:494, Batch Loss:2.3275213
+Epoch:1, Mini Batch:495, Batch Loss:2.3273606
+Epoch:1, Mini Batch:496, Batch Loss:2.3271708
+Epoch:1, Mini Batch:497, Batch Loss:2.3270342
+Epoch:1, Mini Batch:498, Batch Loss:2.3268723
+Epoch:1, Mini Batch:499, Batch Loss:2.3267395
+Epoch:1, Mini Batch:500, Batch Loss:2.32658
+Epoch:1, Mini Batch:501, Batch Loss:2.3264754
+Epoch:1, Mini Batch:502, Batch Loss:2.326282
+Epoch:1, Mini Batch:503, Batch Loss:2.3261147
+Epoch:1, Mini Batch:504, Batch Loss:2.3259668
+Epoch:1, Mini Batch:505, Batch Loss:2.3258178
+Epoch:1, Mini Batch:506, Batch Loss:2.3256884
+Epoch:1, Mini Batch:507, Batch Loss:2.3255513
+Epoch:1, Mini Batch:508, Batch Loss:2.3253808
+Epoch:1, Mini Batch:509, Batch Loss:2.3252203
+Epoch:1, Mini Batch:510, Batch Loss:2.3250365
+Epoch:1, Mini Batch:511, Batch Loss:2.324909
+Epoch:1, Mini Batch:512, Batch Loss:2.324759
+Epoch:1, Mini Batch:513, Batch Loss:2.3245993
+Epoch:1, Mini Batch:514, Batch Loss:2.3244622
+Epoch:1, Mini Batch:515, Batch Loss:2.324333
+Epoch:1, Mini Batch:516, Batch Loss:2.3241332
+Epoch:1, Mini Batch:517, Batch Loss:2.3239908
+Epoch:1, Mini Batch:518, Batch Loss:2.3238533
+Epoch:1, Mini Batch:519, Batch Loss:2.3236506
+Epoch:1, Mini Batch:520, Batch Loss:2.323509
+Epoch:1, Mini Batch:521, Batch Loss:2.3234015
+Epoch:1, Mini Batch:522, Batch Loss:2.3232732
+Epoch:1, Mini Batch:523, Batch Loss:2.3231552
+Epoch:1, Mini Batch:524, Batch Loss:2.3230178
+Epoch:1, Mini Batch:525, Batch Loss:2.3228633
+Epoch:1, Mini Batch:526, Batch Loss:2.32272
+Epoch:1, Mini Batch:527, Batch Loss:2.3225806
+Epoch:1, Mini Batch:528, Batch Loss:2.3224187
+Epoch:1, Mini Batch:529, Batch Loss:2.3222506
+Epoch:1, Mini Batch:530, Batch Loss:2.3220897
+Epoch:1, Mini Batch:531, Batch Loss:2.3219247
+Epoch:1, Mini Batch:532, Batch Loss:2.3217711
+Epoch:1, Mini Batch:533, Batch Loss:2.3216143
+Epoch:1, Mini Batch:534, Batch Loss:2.3214638
+Epoch:1, Mini Batch:535, Batch Loss:2.3213074
+Epoch:1, Mini Batch:536, Batch Loss:2.3211396
+Epoch:1, Mini Batch:537, Batch Loss:2.320993
+Epoch:1, Mini Batch:538, Batch Loss:2.3208218
+Epoch:1, Mini Batch:539, Batch Loss:2.3206518
+Epoch:1, Mini Batch:540, Batch Loss:2.3205044
+Epoch:1, Mini Batch:541, Batch Loss:2.320373
+Epoch:1, Mini Batch:542, Batch Loss:2.3202255
+Epoch:1, Mini Batch:543, Batch Loss:2.3200688
+Epoch:1, Mini Batch:544, Batch Loss:2.3199441
+Epoch:1, Mini Batch:545, Batch Loss:2.3198183
+Epoch:1, Mini Batch:546, Batch Loss:2.3196993
+Epoch:1, Mini Batch:547, Batch Loss:2.319562
+Epoch:1, Mini Batch:548, Batch Loss:2.319452
+Epoch:1, Mini Batch:549, Batch Loss:2.3193243
+Epoch:1, Mini Batch:550, Batch Loss:2.3191926
+Epoch:1, Mini Batch:551, Batch Loss:2.319065
+Epoch:1, Mini Batch:552, Batch Loss:2.3189185
+Epoch:1, Mini Batch:553, Batch Loss:2.3187697
+Epoch:1, Mini Batch:554, Batch Loss:2.3186185
+Epoch:1, Mini Batch:555, Batch Loss:2.3184748
+Epoch:1, Mini Batch:556, Batch Loss:2.3183167
+Epoch:1, Mini Batch:557, Batch Loss:2.3181682
+Epoch:1, Mini Batch:558, Batch Loss:2.3180306
+Epoch:1, Mini Batch:559, Batch Loss:2.3179257
+Epoch:1, Mini Batch:560, Batch Loss:2.3177915
+Epoch:1, Mini Batch:561, Batch Loss:2.3176444
+Epoch:1, Mini Batch:562, Batch Loss:2.3175051
+Epoch:1, Mini Batch:563, Batch Loss:2.3173254
+Epoch:1, Mini Batch:564, Batch Loss:2.3171735
+Epoch:1, Mini Batch:565, Batch Loss:2.317025
+Epoch:1, Mini Batch:566, Batch Loss:2.3169115
+Epoch:1, Mini Batch:567, Batch Loss:2.3167841
+Epoch:1, Mini Batch:568, Batch Loss:2.316673
+Epoch:1, Mini Batch:569, Batch Loss:2.3165474
+Epoch:1, Mini Batch:570, Batch Loss:2.3164144
+Epoch:1, Mini Batch:571, Batch Loss:2.316266
+Epoch:1, Mini Batch:572, Batch Loss:2.3161535
+Epoch:1, Mini Batch:573, Batch Loss:2.316009
+Epoch:1, Mini Batch:574, Batch Loss:2.3158498
+Epoch:1, Mini Batch:575, Batch Loss:2.3157582
+Epoch:1, Mini Batch:576, Batch Loss:2.3156195
+Epoch:1, Mini Batch:577, Batch Loss:2.3154595
+Epoch:1, Mini Batch:578, Batch Loss:2.315328
+Epoch:1, Mini Batch:579, Batch Loss:2.3151617
+Epoch:1, Mini Batch:580, Batch Loss:2.3150163
+Epoch:1, Mini Batch:581, Batch Loss:2.3148654
+Epoch:1, Mini Batch:582, Batch Loss:2.3147266
+Epoch:1, Mini Batch:583, Batch Loss:2.3145752
+Epoch:1, Mini Batch:584, Batch Loss:2.3143992
+Epoch:1, Mini Batch:585, Batch Loss:2.3142626
+Epoch:1, Mini Batch:586, Batch Loss:2.3141448
+Epoch:1, Mini Batch:587, Batch Loss:2.3140376
+Epoch:1, Mini Batch:588, Batch Loss:2.31389
+Epoch:1, Mini Batch:589, Batch Loss:2.3137574
+Epoch:1, Mini Batch:590, Batch Loss:2.313623
+Epoch:1, Mini Batch:591, Batch Loss:2.3135026
+Epoch:1, Mini Batch:592, Batch Loss:2.313413
+Epoch:1, Mini Batch:593, Batch Loss:2.313297
+Epoch:1, Mini Batch:594, Batch Loss:2.313158
+Epoch:1, Mini Batch:595, Batch Loss:2.3130295
+Epoch:1, Mini Batch:596, Batch Loss:2.3129206
+Epoch:1, Mini Batch:597, Batch Loss:2.312797
+Epoch:1, Mini Batch:598, Batch Loss:2.312651
+Epoch:1, Mini Batch:599, Batch Loss:2.3125184
+Epoch:1, Mini Batch:600, Batch Loss:2.3123925
+Epoch:1, Mini Batch:601, Batch Loss:2.3122501
+Epoch:1, Mini Batch:602, Batch Loss:2.3121438
+Epoch:1, Mini Batch:603, Batch Loss:2.3120244
+Epoch:1, Mini Batch:604, Batch Loss:2.311888
+Epoch:1, Mini Batch:605, Batch Loss:2.31177
+Epoch:1, Mini Batch:606, Batch Loss:2.3116505
+Epoch:1, Mini Batch:607, Batch Loss:2.3115554
+Epoch:1, Mini Batch:608, Batch Loss:2.3114512
+Epoch:1, Mini Batch:609, Batch Loss:2.311327
+Epoch:1, Mini Batch:610, Batch Loss:2.3111715
+Epoch:1, Mini Batch:611, Batch Loss:2.3110392
+Epoch:1, Mini Batch:612, Batch Loss:2.3109202
+Epoch:1, Mini Batch:613, Batch Loss:2.310791
+Epoch:1, Mini Batch:614, Batch Loss:2.3106332
+Epoch:1, Mini Batch:615, Batch Loss:2.3105295
+Epoch:1, Mini Batch:616, Batch Loss:2.3104246
+Epoch:1, Mini Batch:617, Batch Loss:2.310339
+Epoch:1, Mini Batch:618, Batch Loss:2.3102157
+Epoch:1, Mini Batch:619, Batch Loss:2.3101056
+Epoch:1, Mini Batch:620, Batch Loss:2.3099694
+Epoch:1, Mini Batch:621, Batch Loss:2.309851
+Epoch:1, Mini Batch:622, Batch Loss:2.3097305
+Epoch:1, Mini Batch:623, Batch Loss:2.3096042
+Epoch:1, Mini Batch:624, Batch Loss:2.30948
+Epoch:1, Mini Batch:625, Batch Loss:2.3093615
+Epoch:1, Mini Batch:626, Batch Loss:2.3092356
+Epoch:1, Mini Batch:627, Batch Loss:2.3091319
+Epoch:1, Mini Batch:628, Batch Loss:2.30898
+Epoch:1, Mini Batch:629, Batch Loss:2.3088462
+Epoch:1, Mini Batch:630, Batch Loss:2.3087335
+Epoch:1, Mini Batch:631, Batch Loss:2.3086255
+Epoch:1, Mini Batch:632, Batch Loss:2.3085139
+Epoch:1, Mini Batch:633, Batch Loss:2.308418
+Epoch:1, Mini Batch:634, Batch Loss:2.3082793
+Epoch:1, Mini Batch:635, Batch Loss:2.3081603
+Epoch:1, Mini Batch:636, Batch Loss:2.308042
+Epoch:1, Mini Batch:637, Batch Loss:2.3079057
+Epoch:1, Mini Batch:638, Batch Loss:2.3077743
+Epoch:1, Mini Batch:639, Batch Loss:2.3076227
+Epoch:1, Mini Batch:640, Batch Loss:2.3075023
+Epoch:1, Mini Batch:641, Batch Loss:2.3073988
+Epoch:1, Mini Batch:642, Batch Loss:2.3072846
+Epoch:1, Mini Batch:643, Batch Loss:2.3071456
+Epoch:1, Mini Batch:644, Batch Loss:2.307049
+Epoch:1, Mini Batch:645, Batch Loss:2.3069544
+Epoch:1, Mini Batch:646, Batch Loss:2.3068442
+Epoch:1, Mini Batch:647, Batch Loss:2.306724
+Epoch:1, Mini Batch:648, Batch Loss:2.306572
+Epoch:1, Mini Batch:649, Batch Loss:2.306458
+Epoch:1, Mini Batch:650, Batch Loss:2.306322
+Epoch:1, Mini Batch:651, Batch Loss:2.3062124
+Epoch:1, Mini Batch:652, Batch Loss:2.3060734
+Epoch:1, Mini Batch:653, Batch Loss:2.3059638
+Epoch:1, Mini Batch:654, Batch Loss:2.3058317
+Epoch:1, Mini Batch:655, Batch Loss:2.3057253
+Epoch:1, Mini Batch:656, Batch Loss:2.3056004
+Epoch:1, Mini Batch:657, Batch Loss:2.305478
+Epoch:1, Mini Batch:658, Batch Loss:2.3053615
+Epoch:1, Mini Batch:659, Batch Loss:2.3052452
+Epoch:1, Mini Batch:660, Batch Loss:2.3051462
+Epoch:1, Mini Batch:661, Batch Loss:2.3050442
+Epoch:1, Mini Batch:662, Batch Loss:2.3049147
+Epoch:1, Mini Batch:663, Batch Loss:2.304822
+Epoch:1, Mini Batch:664, Batch Loss:2.3047
+Epoch:1, Mini Batch:665, Batch Loss:2.3045523
+Epoch:1, Mini Batch:666, Batch Loss:2.3044434
+Epoch:1, Mini Batch:667, Batch Loss:2.3043368
+Epoch:1, Mini Batch:668, Batch Loss:2.3042326
+Epoch:1, Mini Batch:669, Batch Loss:2.3041234
+Epoch:1, Mini Batch:670, Batch Loss:2.3040109
+Epoch:1, Mini Batch:671, Batch Loss:2.303894
+Epoch:1, Mini Batch:672, Batch Loss:2.3037627
+Epoch:1, Mini Batch:673, Batch Loss:2.3036423
+Epoch:1, Mini Batch:674, Batch Loss:2.3035164
+Epoch:1, Mini Batch:675, Batch Loss:2.3033977
+Epoch:1, Mini Batch:676, Batch Loss:2.3032658
+Epoch:1, Mini Batch:677, Batch Loss:2.303168
+Epoch:1, Mini Batch:678, Batch Loss:2.3030255
+Epoch:1, Mini Batch:679, Batch Loss:2.3029065
+Epoch:1, Mini Batch:680, Batch Loss:2.302756
+Epoch:1, Mini Batch:681, Batch Loss:2.3026533
+Epoch:1, Mini Batch:682, Batch Loss:2.3025568
+Epoch:1, Mini Batch:683, Batch Loss:2.3024318
+Epoch:1, Mini Batch:684, Batch Loss:2.3023052
+Epoch:1, Mini Batch:685, Batch Loss:2.3022125
+Epoch:1, Mini Batch:686, Batch Loss:2.302111
+Epoch:1, Mini Batch:687, Batch Loss:2.3019912
+Epoch:1, Mini Batch:688, Batch Loss:2.3018653
+Epoch:1, Mini Batch:689, Batch Loss:2.3017576
+Epoch:1, Mini Batch:690, Batch Loss:2.3016577
+Epoch:1, Mini Batch:691, Batch Loss:2.3015635
+Epoch:1, Mini Batch:692, Batch Loss:2.301439
+Epoch:1, Mini Batch:693, Batch Loss:2.3013282
+Epoch:1, Mini Batch:694, Batch Loss:2.3012187
+Epoch:1, Mini Batch:695, Batch Loss:2.3011014
+Epoch:1, Mini Batch:696, Batch Loss:2.300959
+Epoch:1, Mini Batch:697, Batch Loss:2.3008394
+Epoch:1, Mini Batch:698, Batch Loss:2.3007731
+Epoch:1, Mini Batch:699, Batch Loss:2.3006442
+Epoch:1, Mini Batch:700, Batch Loss:2.30055
+Epoch:1, Mini Batch:701, Batch Loss:2.3004327
+Epoch:1, Mini Batch:702, Batch Loss:2.300325
+Epoch:1, Mini Batch:703, Batch Loss:2.300209
+Epoch:1, Mini Batch:704, Batch Loss:2.3001435
+Epoch:1, Mini Batch:705, Batch Loss:2.3000243
+Epoch:1, Mini Batch:706, Batch Loss:2.2999456
+Epoch:1, Mini Batch:707, Batch Loss:2.2998538
+Epoch:1, Mini Batch:708, Batch Loss:2.299727
+Epoch:1, Mini Batch:709, Batch Loss:2.2996051
+Epoch:1, Mini Batch:710, Batch Loss:2.2994845
+Epoch:1, Mini Batch:711, Batch Loss:2.2993588
+Epoch:1, Mini Batch:712, Batch Loss:2.29926
+Epoch:1, Mini Batch:713, Batch Loss:2.2991738
+Epoch:1, Mini Batch:714, Batch Loss:2.299091
+Epoch:1, Mini Batch:715, Batch Loss:2.298966
+Epoch:1, Mini Batch:716, Batch Loss:2.2988324
+Epoch:1, Mini Batch:717, Batch Loss:2.2987185
+Epoch:1, Mini Batch:718, Batch Loss:2.2985947
+Epoch:1, Mini Batch:719, Batch Loss:2.298463
+Epoch:1, Mini Batch:720, Batch Loss:2.2983305
+Epoch:1, Mini Batch:721, Batch Loss:2.2982051
+Epoch:1, Mini Batch:722, Batch Loss:2.29811
+Epoch:1, Mini Batch:723, Batch Loss:2.2979856
+Epoch:1, Mini Batch:724, Batch Loss:2.2978768
+Epoch:1, Mini Batch:725, Batch Loss:2.2977583
+Epoch:1, Mini Batch:726, Batch Loss:2.2976494
+Epoch:1, Mini Batch:727, Batch Loss:2.2975821
+Epoch:1, Mini Batch:728, Batch Loss:2.297481
+Epoch:1, Mini Batch:729, Batch Loss:2.2973669
+Epoch:1, Mini Batch:730, Batch Loss:2.297233
+Epoch:1, Mini Batch:731, Batch Loss:2.2971108
+Epoch:1, Mini Batch:732, Batch Loss:2.2970283
+Epoch:1, Mini Batch:733, Batch Loss:2.296907
+Epoch:1, Mini Batch:734, Batch Loss:2.2968006
+Epoch:1, Mini Batch:735, Batch Loss:2.2966886
+Epoch:1, Mini Batch:736, Batch Loss:2.2965765
+Epoch:1, Mini Batch:737, Batch Loss:2.2964547
+Epoch:1, Mini Batch:738, Batch Loss:2.2963371
+Epoch:1, Mini Batch:739, Batch Loss:2.2962542
+Epoch:1, Mini Batch:740, Batch Loss:2.2961588
+Epoch:1, Mini Batch:741, Batch Loss:2.2960384
+Epoch:1, Mini Batch:742, Batch Loss:2.2959166
+Epoch:1, Mini Batch:743, Batch Loss:2.2957878
+Epoch:1, Mini Batch:744, Batch Loss:2.295688
+Epoch:1, Mini Batch:745, Batch Loss:2.295603
+Epoch:1, Mini Batch:746, Batch Loss:2.295514
+Epoch:1, Mini Batch:747, Batch Loss:2.2953837
+Epoch:1, Mini Batch:748, Batch Loss:2.2952895
+Epoch:1, Mini Batch:749, Batch Loss:2.2951431
+Epoch:1, Mini Batch:750, Batch Loss:2.2950215
+Epoch:1, Mini Batch:751, Batch Loss:2.294909
+Epoch:1, Mini Batch:752, Batch Loss:2.2948008
+Epoch:1, Mini Batch:753, Batch Loss:2.29469
+Epoch:1, Mini Batch:754, Batch Loss:2.2945771
+Epoch:1, Mini Batch:755, Batch Loss:2.2944882
+Epoch:1, Mini Batch:756, Batch Loss:2.294389
+Epoch:1, Mini Batch:757, Batch Loss:2.29428
+Epoch:1, Mini Batch:758, Batch Loss:2.294168
+Epoch:1, Mini Batch:759, Batch Loss:2.2940788
+Epoch:1, Mini Batch:760, Batch Loss:2.2940018
+Epoch:1, Mini Batch:761, Batch Loss:2.293891
+Epoch:1, Mini Batch:762, Batch Loss:2.2937672
+Epoch:1, Mini Batch:763, Batch Loss:2.2936618
+Epoch:1, Mini Batch:764, Batch Loss:2.2935517
+Epoch:1, Mini Batch:765, Batch Loss:2.29344
+Epoch:1, Mini Batch:766, Batch Loss:2.2933285
+Epoch:1, Mini Batch:767, Batch Loss:2.2932415
+Epoch:1, Mini Batch:768, Batch Loss:2.2931526
+Epoch:1, Mini Batch:769, Batch Loss:2.293041
+Epoch:1, Mini Batch:770, Batch Loss:2.2929094
+Epoch:1, Mini Batch:771, Batch Loss:2.2927973
+Epoch:1, Mini Batch:772, Batch Loss:2.2926815
+Epoch:1, Mini Batch:773, Batch Loss:2.2925668
+Epoch:1, Mini Batch:774, Batch Loss:2.292458
+Epoch:1, Mini Batch:775, Batch Loss:2.2923572
+Epoch:1, Mini Batch:776, Batch Loss:2.2922578
+Epoch:1, Mini Batch:777, Batch Loss:2.292137
+Epoch:1, Mini Batch:778, Batch Loss:2.2920241
+Epoch:1, Mini Batch:779, Batch Loss:2.2919457
+Epoch:1, Mini Batch:780, Batch Loss:2.291847
+Epoch:1, Mini Batch:781, Batch Loss:2.2917452
+Epoch:1, Mini Batch:782, Batch Loss:2.2916553
+Epoch:1, Mini Batch:783, Batch Loss:2.291561
+Epoch:1, Mini Batch:784, Batch Loss:2.291472
+Epoch:1, Mini Batch:785, Batch Loss:2.2913613
+Epoch:1, Mini Batch:786, Batch Loss:2.2912796
+Epoch:1, Mini Batch:787, Batch Loss:2.2911985
+Epoch:1, Mini Batch:788, Batch Loss:2.2910926
+Epoch:1, Mini Batch:789, Batch Loss:2.2909858
+Epoch:1, Mini Batch:790, Batch Loss:2.2908773
+Epoch:1, Mini Batch:791, Batch Loss:2.2907698
+Epoch:1, Mini Batch:792, Batch Loss:2.2906816
+Epoch:1, Mini Batch:793, Batch Loss:2.2905686
+Epoch:1, Mini Batch:794, Batch Loss:2.2904737
+Epoch:1, Mini Batch:795, Batch Loss:2.29037
+Epoch:1, Mini Batch:796, Batch Loss:2.2902825
+Epoch:1, Mini Batch:797, Batch Loss:2.2901702
+Epoch:1, Mini Batch:798, Batch Loss:2.2900667
+Epoch:1, Mini Batch:799, Batch Loss:2.2899714
+Epoch:1, Mini Batch:800, Batch Loss:2.2898626
+Epoch:1, Mini Batch:801, Batch Loss:2.2897425
+Epoch:1, Mini Batch:802, Batch Loss:2.2896273
+Epoch:1, Mini Batch:803, Batch Loss:2.2895195
+Epoch:1, Mini Batch:804, Batch Loss:2.2894158
+Epoch:1, Mini Batch:805, Batch Loss:2.289327
+Epoch:1, Mini Batch:806, Batch Loss:2.289194
+Epoch:1, Mini Batch:807, Batch Loss:2.2890704
+Epoch:1, Mini Batch:808, Batch Loss:2.288967
+Epoch:1, Mini Batch:809, Batch Loss:2.2888584
+Epoch:1, Mini Batch:810, Batch Loss:2.2887628
+Epoch:1, Mini Batch:811, Batch Loss:2.2886555
+Epoch:1, Mini Batch:812, Batch Loss:2.288563
+Epoch:1, Mini Batch:813, Batch Loss:2.2884483
+Epoch:1, Mini Batch:814, Batch Loss:2.2883587
+Epoch:1, Mini Batch:815, Batch Loss:2.288277
+Epoch:1, Mini Batch:816, Batch Loss:2.2881877
+Epoch:1, Mini Batch:817, Batch Loss:2.2880816
+Epoch:1, Mini Batch:818, Batch Loss:2.2879894
+Epoch:1, Mini Batch:819, Batch Loss:2.2879
+Epoch:1, Mini Batch:820, Batch Loss:2.2877975
+Epoch:1, Mini Batch:821, Batch Loss:2.2877343
+Epoch:1, Mini Batch:822, Batch Loss:2.2876217
+Epoch:1, Mini Batch:823, Batch Loss:2.2875063
+Epoch:1, Mini Batch:824, Batch Loss:2.2874112
+Epoch:1, Mini Batch:825, Batch Loss:2.2873015
+Epoch:1, Mini Batch:826, Batch Loss:2.2872043
+Epoch:1, Mini Batch:827, Batch Loss:2.2870722
+Epoch:1, Mini Batch:828, Batch Loss:2.2869716
+Epoch:1, Mini Batch:829, Batch Loss:2.2868745
+Epoch:1, Mini Batch:830, Batch Loss:2.2867308
+Epoch:1, Mini Batch:831, Batch Loss:2.2866118
+Epoch:1, Mini Batch:832, Batch Loss:2.2865171
+Epoch:1, Mini Batch:833, Batch Loss:2.2863715
+Epoch:1, Mini Batch:834, Batch Loss:2.2862544
+Epoch:1, Mini Batch:835, Batch Loss:2.2861357
+Epoch:1, Mini Batch:836, Batch Loss:2.286056
+Epoch:1, Mini Batch:837, Batch Loss:2.2859585
+Epoch:1, Mini Batch:838, Batch Loss:2.285844
+Epoch:1, Mini Batch:839, Batch Loss:2.285741
+Epoch:1, Mini Batch:840, Batch Loss:2.2856517
+Epoch:1, Time:268816ms, TrainError:2.2856517, TrainErrorChange:2.2856517, TrainAccuracy: 0.0
+Epoch:2, Mini Batch:1, Batch Loss:2.1921906
+Epoch:2, Mini Batch:2, Batch Loss:2.1999488
+Epoch:2, Mini Batch:3, Batch Loss:2.1962743
+Epoch:2, Mini Batch:4, Batch Loss:2.1988933
+Epoch:2, Mini Batch:5, Batch Loss:2.1975322
+Epoch:2, Mini Batch:6, Batch Loss:2.198169
+Epoch:2, Mini Batch:7, Batch Loss:2.1994998
+Epoch:2, Mini Batch:8, Batch Loss:2.200752
+Epoch:2, Mini Batch:9, Batch Loss:2.1987095
+Epoch:2, Mini Batch:10, Batch Loss:2.199617
+Epoch:2, Mini Batch:11, Batch Loss:2.2002308
+Epoch:2, Mini Batch:12, Batch Loss:2.1998374
+Epoch:2, Mini Batch:13, Batch Loss:2.2003582
+Epoch:2, Mini Batch:14, Batch Loss:2.200605
+Epoch:2, Mini Batch:15, Batch Loss:2.199379
+Epoch:2, Mini Batch:16, Batch Loss:2.1997886
+Epoch:2, Mini Batch:17, Batch Loss:2.1993597
+Epoch:2, Mini Batch:18, Batch Loss:2.1993816
+Epoch:2, Mini Batch:19, Batch Loss:2.199569
+Epoch:2, Mini Batch:20, Batch Loss:2.199399
+Epoch:2, Mini Batch:21, Batch Loss:2.199072
+Epoch:2, Mini Batch:22, Batch Loss:2.198777
+Epoch:2, Mini Batch:23, Batch Loss:2.197518
+Epoch:2, Mini Batch:24, Batch Loss:2.1977208
+Epoch:2, Mini Batch:25, Batch Loss:2.1967077
+Epoch:2, Mini Batch:26, Batch Loss:2.1966019
+Epoch:2, Mini Batch:27, Batch Loss:2.1963406
+Epoch:2, Mini Batch:28, Batch Loss:2.195803
+Epoch:2, Mini Batch:29, Batch Loss:2.1957684
+Epoch:2, Mini Batch:30, Batch Loss:2.1958647
+Epoch:2, Mini Batch:31, Batch Loss:2.1958094
+Epoch:2, Mini Batch:32, Batch Loss:2.1964233
+Epoch:2, Mini Batch:33, Batch Loss:2.1964679
+Epoch:2, Mini Batch:34, Batch Loss:2.1964133
+Epoch:2, Mini Batch:35, Batch Loss:2.196012
+Epoch:2, Mini Batch:36, Batch Loss:2.1955457
+Epoch:2, Mini Batch:37, Batch Loss:2.1961055
+Epoch:2, Mini Batch:38, Batch Loss:2.1962707
+Epoch:2, Mini Batch:39, Batch Loss:2.19607
+Epoch:2, Mini Batch:40, Batch Loss:2.1962311
+Epoch:2, Mini Batch:41, Batch Loss:2.1960115
+Epoch:2, Mini Batch:42, Batch Loss:2.1961455
+Epoch:2, Mini Batch:43, Batch Loss:2.196119
+Epoch:2, Mini Batch:44, Batch Loss:2.1962209
+Epoch:2, Mini Batch:45, Batch Loss:2.1958857
+Epoch:2, Mini Batch:46, Batch Loss:2.1959734
+Epoch:2, Mini Batch:47, Batch Loss:2.1957772
+Epoch:2, Mini Batch:48, Batch Loss:2.1950264
+Epoch:2, Mini Batch:49, Batch Loss:2.1948907
+Epoch:2, Mini Batch:50, Batch Loss:2.1947405
+Epoch:2, Mini Batch:51, Batch Loss:2.1948223
+Epoch:2, Mini Batch:52, Batch Loss:2.1942866
+Epoch:2, Mini Batch:53, Batch Loss:2.1944797
+Epoch:2, Mini Batch:54, Batch Loss:2.1945794
+Epoch:2, Mini Batch:55, Batch Loss:2.1950443
+Epoch:2, Mini Batch:56, Batch Loss:2.1954627
+Epoch:2, Mini Batch:57, Batch Loss:2.1954138
+Epoch:2, Mini Batch:58, Batch Loss:2.1953783
+Epoch:2, Mini Batch:59, Batch Loss:2.1955376
+Epoch:2, Mini Batch:60, Batch Loss:2.1955369
+Epoch:2, Mini Batch:61, Batch Loss:2.1955125
+Epoch:2, Mini Batch:62, Batch Loss:2.1957564
+Epoch:2, Mini Batch:63, Batch Loss:2.195602
+Epoch:2, Mini Batch:64, Batch Loss:2.1958807
+Epoch:2, Mini Batch:65, Batch Loss:2.1957502
+Epoch:2, Mini Batch:66, Batch Loss:2.1955192
+Epoch:2, Mini Batch:67, Batch Loss:2.194895
+Epoch:2, Mini Batch:68, Batch Loss:2.1945229
+Epoch:2, Mini Batch:69, Batch Loss:2.1944563
+Epoch:2, Mini Batch:70, Batch Loss:2.1946626
+Epoch:2, Mini Batch:71, Batch Loss:2.1946306
+Epoch:2, Mini Batch:72, Batch Loss:2.194763
+Epoch:2, Mini Batch:73, Batch Loss:2.1945755
+Epoch:2, Mini Batch:74, Batch Loss:2.1946175
+Epoch:2, Mini Batch:75, Batch Loss:2.1944275
+Epoch:2, Mini Batch:76, Batch Loss:2.1944325
+Epoch:2, Mini Batch:77, Batch Loss:2.1944056
+Epoch:2, Mini Batch:78, Batch Loss:2.1941814
+Epoch:2, Mini Batch:79, Batch Loss:2.1944296
+Epoch:2, Mini Batch:80, Batch Loss:2.1946902
+Epoch:2, Mini Batch:81, Batch Loss:2.1948173
+Epoch:2, Mini Batch:82, Batch Loss:2.1949704
+Epoch:2, Mini Batch:83, Batch Loss:2.1947432
+Epoch:2, Mini Batch:84, Batch Loss:2.1948416
+Epoch:2, Mini Batch:85, Batch Loss:2.1947613
+Epoch:2, Mini Batch:86, Batch Loss:2.1944988
+Epoch:2, Mini Batch:87, Batch Loss:2.19451
+Epoch:2, Mini Batch:88, Batch Loss:2.194156
+Epoch:2, Mini Batch:89, Batch Loss:2.1940565
+Epoch:2, Mini Batch:90, Batch Loss:2.1941328
+Epoch:2, Mini Batch:91, Batch Loss:2.1940746
+Epoch:2, Mini Batch:92, Batch Loss:2.1938365
+Epoch:2, Mini Batch:93, Batch Loss:2.1937468
+Epoch:2, Mini Batch:94, Batch Loss:2.1936603
+Epoch:2, Mini Batch:95, Batch Loss:2.1935856
+Epoch:2, Mini Batch:96, Batch Loss:2.1935284
+Epoch:2, Mini Batch:97, Batch Loss:2.1934018
+Epoch:2, Mini Batch:98, Batch Loss:2.1936123
+Epoch:2, Mini Batch:99, Batch Loss:2.193459
+Epoch:2, Mini Batch:100, Batch Loss:2.1931038
+Epoch:2, Mini Batch:101, Batch Loss:2.1930914
+Epoch:2, Mini Batch:102, Batch Loss:2.1932917
+Epoch:2, Mini Batch:103, Batch Loss:2.1932793
+Epoch:2, Mini Batch:104, Batch Loss:2.193122
+Epoch:2, Mini Batch:105, Batch Loss:2.1931028
+Epoch:2, Mini Batch:106, Batch Loss:2.192977
+Epoch:2, Mini Batch:107, Batch Loss:2.1928077
+Epoch:2, Mini Batch:108, Batch Loss:2.1927164
+Epoch:2, Mini Batch:109, Batch Loss:2.1925924
+Epoch:2, Mini Batch:110, Batch Loss:2.192379
+Epoch:2, Mini Batch:111, Batch Loss:2.1920836
+Epoch:2, Mini Batch:112, Batch Loss:2.1919131
+Epoch:2, Mini Batch:113, Batch Loss:2.1917837
+Epoch:2, Mini Batch:114, Batch Loss:2.1916149
+Epoch:2, Mini Batch:115, Batch Loss:2.191672
+Epoch:2, Mini Batch:116, Batch Loss:2.191775
+Epoch:2, Mini Batch:117, Batch Loss:2.1918046
+Epoch:2, Mini Batch:118, Batch Loss:2.1916366
+Epoch:2, Mini Batch:119, Batch Loss:2.1915011
+Epoch:2, Mini Batch:120, Batch Loss:2.1914473
+Epoch:2, Mini Batch:121, Batch Loss:2.191432
+Epoch:2, Mini Batch:122, Batch Loss:2.1915667
+Epoch:2, Mini Batch:123, Batch Loss:2.191571
+Epoch:2, Mini Batch:124, Batch Loss:2.1915555
+Epoch:2, Mini Batch:125, Batch Loss:2.191781
+Epoch:2, Mini Batch:126, Batch Loss:2.1917443
+Epoch:2, Mini Batch:127, Batch Loss:2.1918736
+Epoch:2, Mini Batch:128, Batch Loss:2.191849
+Epoch:2, Mini Batch:129, Batch Loss:2.1916723
+Epoch:2, Mini Batch:130, Batch Loss:2.191649
+Epoch:2, Mini Batch:131, Batch Loss:2.1916249
+Epoch:2, Mini Batch:132, Batch Loss:2.1918015
+Epoch:2, Mini Batch:133, Batch Loss:2.1917129
+Epoch:2, Mini Batch:134, Batch Loss:2.1915433
+Epoch:2, Mini Batch:135, Batch Loss:2.1915543
+Epoch:2, Mini Batch:136, Batch Loss:2.1915245
+Epoch:2, Mini Batch:137, Batch Loss:2.1914344
+Epoch:2, Mini Batch:138, Batch Loss:2.1912851
+Epoch:2, Mini Batch:139, Batch Loss:2.191152
+Epoch:2, Mini Batch:140, Batch Loss:2.1909938
+Epoch:2, Mini Batch:141, Batch Loss:2.1909604
+Epoch:2, Mini Batch:142, Batch Loss:2.1907823
+Epoch:2, Mini Batch:143, Batch Loss:2.1906521
+Epoch:2, Mini Batch:144, Batch Loss:2.1906824
+Epoch:2, Mini Batch:145, Batch Loss:2.1905186
+Epoch:2, Mini Batch:146, Batch Loss:2.1906192
+Epoch:2, Mini Batch:147, Batch Loss:2.190433
+Epoch:2, Mini Batch:148, Batch Loss:2.1902213
+Epoch:2, Mini Batch:149, Batch Loss:2.1900997
+Epoch:2, Mini Batch:150, Batch Loss:2.1900759
+Epoch:2, Mini Batch:151, Batch Loss:2.1900823
+Epoch:2, Mini Batch:152, Batch Loss:2.1900303
+Epoch:2, Mini Batch:153, Batch Loss:2.1899326
+Epoch:2, Mini Batch:154, Batch Loss:2.189859
+Epoch:2, Mini Batch:155, Batch Loss:2.1896517
+Epoch:2, Mini Batch:156, Batch Loss:2.189652
+Epoch:2, Mini Batch:157, Batch Loss:2.189563
+Epoch:2, Mini Batch:158, Batch Loss:2.1894479
+Epoch:2, Mini Batch:159, Batch Loss:2.1893067
+Epoch:2, Mini Batch:160, Batch Loss:2.1892402
+Epoch:2, Mini Batch:161, Batch Loss:2.189201
+Epoch:2, Mini Batch:162, Batch Loss:2.1891332
+Epoch:2, Mini Batch:163, Batch Loss:2.1890512
+Epoch:2, Mini Batch:164, Batch Loss:2.188877
+Epoch:2, Mini Batch:165, Batch Loss:2.188841
+Epoch:2, Mini Batch:166, Batch Loss:2.1888714
+Epoch:2, Mini Batch:167, Batch Loss:2.1887736
+Epoch:2, Mini Batch:168, Batch Loss:2.188784
+Epoch:2, Mini Batch:169, Batch Loss:2.18861
+Epoch:2, Mini Batch:170, Batch Loss:2.18839
+Epoch:2, Mini Batch:171, Batch Loss:2.1882992
+Epoch:2, Mini Batch:172, Batch Loss:2.188064
+Epoch:2, Mini Batch:173, Batch Loss:2.1878808
+Epoch:2, Mini Batch:174, Batch Loss:2.1876009
+Epoch:2, Mini Batch:175, Batch Loss:2.1875565
+Epoch:2, Mini Batch:176, Batch Loss:2.187629
+Epoch:2, Mini Batch:177, Batch Loss:2.187519
+Epoch:2, Mini Batch:178, Batch Loss:2.1874309
+Epoch:2, Mini Batch:179, Batch Loss:2.1873093
+Epoch:2, Mini Batch:180, Batch Loss:2.1870198
+Epoch:2, Mini Batch:181, Batch Loss:2.1868694
+Epoch:2, Mini Batch:182, Batch Loss:2.1868432
+Epoch:2, Mini Batch:183, Batch Loss:2.1868844
+Epoch:2, Mini Batch:184, Batch Loss:2.1868565
+Epoch:2, Mini Batch:185, Batch Loss:2.186888
+Epoch:2, Mini Batch:186, Batch Loss:2.1869273
+Epoch:2, Mini Batch:187, Batch Loss:2.1868844
+Epoch:2, Mini Batch:188, Batch Loss:2.1867487
+Epoch:2, Mini Batch:189, Batch Loss:2.1866267
+Epoch:2, Mini Batch:190, Batch Loss:2.1865644
+Epoch:2, Mini Batch:191, Batch Loss:2.186458
+Epoch:2, Mini Batch:192, Batch Loss:2.1864314
+Epoch:2, Mini Batch:193, Batch Loss:2.1864495
+Epoch:2, Mini Batch:194, Batch Loss:2.1863902
+Epoch:2, Mini Batch:195, Batch Loss:2.1861818
+Epoch:2, Mini Batch:196, Batch Loss:2.1859982
+Epoch:2, Mini Batch:197, Batch Loss:2.1859925
+Epoch:2, Mini Batch:198, Batch Loss:2.1859732
+Epoch:2, Mini Batch:199, Batch Loss:2.1858535
+Epoch:2, Mini Batch:200, Batch Loss:2.185802
+Epoch:2, Mini Batch:201, Batch Loss:2.1856694
+Epoch:2, Mini Batch:202, Batch Loss:2.185674
+Epoch:2, Mini Batch:203, Batch Loss:2.185614
+Epoch:2, Mini Batch:204, Batch Loss:2.1854937
+Epoch:2, Mini Batch:205, Batch Loss:2.1853662
+Epoch:2, Mini Batch:206, Batch Loss:2.1851826
+Epoch:2, Mini Batch:207, Batch Loss:2.1849747
+Epoch:2, Mini Batch:208, Batch Loss:2.1847599
+Epoch:2, Mini Batch:209, Batch Loss:2.1846006
+Epoch:2, Mini Batch:210, Batch Loss:2.1846385
+Epoch:2, Mini Batch:211, Batch Loss:2.1845737
+Epoch:2, Mini Batch:212, Batch Loss:2.1844068
+Epoch:2, Mini Batch:213, Batch Loss:2.184327
+Epoch:2, Mini Batch:214, Batch Loss:2.1841447
+Epoch:2, Mini Batch:215, Batch Loss:2.1840668
+Epoch:2, Mini Batch:216, Batch Loss:2.1839776
+Epoch:2, Mini Batch:217, Batch Loss:2.183792
+Epoch:2, Mini Batch:218, Batch Loss:2.183797
+Epoch:2, Mini Batch:219, Batch Loss:2.1836255
+Epoch:2, Mini Batch:220, Batch Loss:2.1835842
+Epoch:2, Mini Batch:221, Batch Loss:2.1835494
+Epoch:2, Mini Batch:222, Batch Loss:2.1834106
+Epoch:2, Mini Batch:223, Batch Loss:2.1833723
+Epoch:2, Mini Batch:224, Batch Loss:2.1833365
+Epoch:2, Mini Batch:225, Batch Loss:2.1832635
+Epoch:2, Mini Batch:226, Batch Loss:2.1831741
+Epoch:2, Mini Batch:227, Batch Loss:2.1832063
+Epoch:2, Mini Batch:228, Batch Loss:2.1831868
+Epoch:2, Mini Batch:229, Batch Loss:2.1831882
+Epoch:2, Mini Batch:230, Batch Loss:2.1831136
+Epoch:2, Mini Batch:231, Batch Loss:2.1830559
+Epoch:2, Mini Batch:232, Batch Loss:2.1829906
+Epoch:2, Mini Batch:233, Batch Loss:2.1827981
+Epoch:2, Mini Batch:234, Batch Loss:2.1826603
+Epoch:2, Mini Batch:235, Batch Loss:2.1825078
+Epoch:2, Mini Batch:236, Batch Loss:2.1824336
+Epoch:2, Mini Batch:237, Batch Loss:2.1823146
+Epoch:2, Mini Batch:238, Batch Loss:2.1822813
+Epoch:2, Mini Batch:239, Batch Loss:2.1821096
+Epoch:2, Mini Batch:240, Batch Loss:2.1820748
+Epoch:2, Mini Batch:241, Batch Loss:2.1820378
+Epoch:2, Mini Batch:242, Batch Loss:2.1818633
+Epoch:2, Mini Batch:243, Batch Loss:2.1817822
+Epoch:2, Mini Batch:244, Batch Loss:2.1816144
+Epoch:2, Mini Batch:245, Batch Loss:2.1815343
+Epoch:2, Mini Batch:246, Batch Loss:2.1813972
+Epoch:2, Mini Batch:247, Batch Loss:2.181295
+Epoch:2, Mini Batch:248, Batch Loss:2.1811562
+Epoch:2, Mini Batch:249, Batch Loss:2.1811574
+Epoch:2, Mini Batch:250, Batch Loss:2.181085
+Epoch:2, Mini Batch:251, Batch Loss:2.181051
+Epoch:2, Mini Batch:252, Batch Loss:2.1809003
+Epoch:2, Mini Batch:253, Batch Loss:2.1807756
+Epoch:2, Mini Batch:254, Batch Loss:2.180615
+Epoch:2, Mini Batch:255, Batch Loss:2.1805477
+Epoch:2, Mini Batch:256, Batch Loss:2.1805506
+Epoch:2, Mini Batch:257, Batch Loss:2.1806176
+Epoch:2, Mini Batch:258, Batch Loss:2.1805866
+Epoch:2, Mini Batch:259, Batch Loss:2.1804254
+Epoch:2, Mini Batch:260, Batch Loss:2.1802413
+Epoch:2, Mini Batch:261, Batch Loss:2.1801496
+Epoch:2, Mini Batch:262, Batch Loss:2.17995
+Epoch:2, Mini Batch:263, Batch Loss:2.1798449
+Epoch:2, Mini Batch:264, Batch Loss:2.17973
+Epoch:2, Mini Batch:265, Batch Loss:2.1796422
+Epoch:2, Mini Batch:266, Batch Loss:2.1795359
+Epoch:2, Mini Batch:267, Batch Loss:2.1794798
+Epoch:2, Mini Batch:268, Batch Loss:2.179453
+Epoch:2, Mini Batch:269, Batch Loss:2.1794002
+Epoch:2, Mini Batch:270, Batch Loss:2.1793485
+Epoch:2, Mini Batch:271, Batch Loss:2.1792738
+Epoch:2, Mini Batch:272, Batch Loss:2.1792517
+Epoch:2, Mini Batch:273, Batch Loss:2.1791418
+Epoch:2, Mini Batch:274, Batch Loss:2.1790144
+Epoch:2, Mini Batch:275, Batch Loss:2.1788094
+Epoch:2, Mini Batch:276, Batch Loss:2.1786654
+Epoch:2, Mini Batch:277, Batch Loss:2.1785629
+Epoch:2, Mini Batch:278, Batch Loss:2.1785216
+Epoch:2, Mini Batch:279, Batch Loss:2.1783721
+Epoch:2, Mini Batch:280, Batch Loss:2.178224
+Epoch:2, Mini Batch:281, Batch Loss:2.1781263
+Epoch:2, Mini Batch:282, Batch Loss:2.1781173
+Epoch:2, Mini Batch:283, Batch Loss:2.1780777
+Epoch:2, Mini Batch:284, Batch Loss:2.1779904
+Epoch:2, Mini Batch:285, Batch Loss:2.177814
+Epoch:2, Mini Batch:286, Batch Loss:2.177669
+Epoch:2, Mini Batch:287, Batch Loss:2.1776843
+Epoch:2, Mini Batch:288, Batch Loss:2.1775875
+Epoch:2, Mini Batch:289, Batch Loss:2.1774645
+Epoch:2, Mini Batch:290, Batch Loss:2.177325
+Epoch:2, Mini Batch:291, Batch Loss:2.1773384
+Epoch:2, Mini Batch:292, Batch Loss:2.177215
+Epoch:2, Mini Batch:293, Batch Loss:2.177218
+Epoch:2, Mini Batch:294, Batch Loss:2.1772225
+Epoch:2, Mini Batch:295, Batch Loss:2.1772265
+Epoch:2, Mini Batch:296, Batch Loss:2.1772425
+Epoch:2, Mini Batch:297, Batch Loss:2.1770933
+Epoch:2, Mini Batch:298, Batch Loss:2.176936
+Epoch:2, Mini Batch:299, Batch Loss:2.176822
+Epoch:2, Mini Batch:300, Batch Loss:2.17664
+Epoch:2, Mini Batch:301, Batch Loss:2.1764765
+Epoch:2, Mini Batch:302, Batch Loss:2.1763005
+Epoch:2, Mini Batch:303, Batch Loss:2.1762571
+Epoch:2, Mini Batch:304, Batch Loss:2.176032
+Epoch:2, Mini Batch:305, Batch Loss:2.1759639
+Epoch:2, Mini Batch:306, Batch Loss:2.175802
+Epoch:2, Mini Batch:307, Batch Loss:2.175754
+Epoch:2, Mini Batch:308, Batch Loss:2.175651
+Epoch:2, Mini Batch:309, Batch Loss:2.175537
+Epoch:2, Mini Batch:310, Batch Loss:2.175404
+Epoch:2, Mini Batch:311, Batch Loss:2.175286
+Epoch:2, Mini Batch:312, Batch Loss:2.1752985
+Epoch:2, Mini Batch:313, Batch Loss:2.1751745
+Epoch:2, Mini Batch:314, Batch Loss:2.1751528
+Epoch:2, Mini Batch:315, Batch Loss:2.175175
+Epoch:2, Mini Batch:316, Batch Loss:2.1751401
+Epoch:2, Mini Batch:317, Batch Loss:2.1750298
+Epoch:2, Mini Batch:318, Batch Loss:2.1749418
+Epoch:2, Mini Batch:319, Batch Loss:2.1748729
+Epoch:2, Mini Batch:320, Batch Loss:2.174767
+Epoch:2, Mini Batch:321, Batch Loss:2.1746495
+Epoch:2, Mini Batch:322, Batch Loss:2.1745331
+Epoch:2, Mini Batch:323, Batch Loss:2.1744626
+Epoch:2, Mini Batch:324, Batch Loss:2.174363
+Epoch:2, Mini Batch:325, Batch Loss:2.1743817
+Epoch:2, Mini Batch:326, Batch Loss:2.1742969
+Epoch:2, Mini Batch:327, Batch Loss:2.1742392
+Epoch:2, Mini Batch:328, Batch Loss:2.174154
+Epoch:2, Mini Batch:329, Batch Loss:2.173986
+Epoch:2, Mini Batch:330, Batch Loss:2.1739326
+Epoch:2, Mini Batch:331, Batch Loss:2.1738799
+Epoch:2, Mini Batch:332, Batch Loss:2.1737576
+Epoch:2, Mini Batch:333, Batch Loss:2.1736605
+Epoch:2, Mini Batch:334, Batch Loss:2.1735911
+Epoch:2, Mini Batch:335, Batch Loss:2.1734679
+Epoch:2, Mini Batch:336, Batch Loss:2.173365
+Epoch:2, Mini Batch:337, Batch Loss:2.1732526
+Epoch:2, Mini Batch:338, Batch Loss:2.1731112
+Epoch:2, Mini Batch:339, Batch Loss:2.1731398
+Epoch:2, Mini Batch:340, Batch Loss:2.1731288
+Epoch:2, Mini Batch:341, Batch Loss:2.173142
+Epoch:2, Mini Batch:342, Batch Loss:2.173076
+Epoch:2, Mini Batch:343, Batch Loss:2.1729617
+Epoch:2, Mini Batch:344, Batch Loss:2.172777
+Epoch:2, Mini Batch:345, Batch Loss:2.1727142
+Epoch:2, Mini Batch:346, Batch Loss:2.1726632
+Epoch:2, Mini Batch:347, Batch Loss:2.1724634
+Epoch:2, Mini Batch:348, Batch Loss:2.1723738
+Epoch:2, Mini Batch:349, Batch Loss:2.172318
+Epoch:2, Mini Batch:350, Batch Loss:2.1722667
+Epoch:2, Mini Batch:351, Batch Loss:2.172186
+Epoch:2, Mini Batch:352, Batch Loss:2.1720493
+Epoch:2, Mini Batch:353, Batch Loss:2.1719275
+Epoch:2, Mini Batch:354, Batch Loss:2.171807
+Epoch:2, Mini Batch:355, Batch Loss:2.1717625
+Epoch:2, Mini Batch:356, Batch Loss:2.171553
+Epoch:2, Mini Batch:357, Batch Loss:2.171454
+Epoch:2, Mini Batch:358, Batch Loss:2.1713088
+Epoch:2, Mini Batch:359, Batch Loss:2.17122
+Epoch:2, Mini Batch:360, Batch Loss:2.171146
+Epoch:2, Mini Batch:361, Batch Loss:2.1710672
+Epoch:2, Mini Batch:362, Batch Loss:2.170986
+Epoch:2, Mini Batch:363, Batch Loss:2.1708837
+Epoch:2, Mini Batch:364, Batch Loss:2.1708164
+Epoch:2, Mini Batch:365, Batch Loss:2.1707218
+Epoch:2, Mini Batch:366, Batch Loss:2.1706693
+Epoch:2, Mini Batch:367, Batch Loss:2.1705744
+Epoch:2, Mini Batch:368, Batch Loss:2.1704957
+Epoch:2, Mini Batch:369, Batch Loss:2.1704133
+Epoch:2, Mini Batch:370, Batch Loss:2.170289
+Epoch:2, Mini Batch:371, Batch Loss:2.17018
+Epoch:2, Mini Batch:372, Batch Loss:2.1700122
+Epoch:2, Mini Batch:373, Batch Loss:2.1699822
+Epoch:2, Mini Batch:374, Batch Loss:2.1699293
+Epoch:2, Mini Batch:375, Batch Loss:2.1698658
+Epoch:2, Mini Batch:376, Batch Loss:2.1698413
+Epoch:2, Mini Batch:377, Batch Loss:2.169707
+Epoch:2, Mini Batch:378, Batch Loss:2.169609
+Epoch:2, Mini Batch:379, Batch Loss:2.1694643
+Epoch:2, Mini Batch:380, Batch Loss:2.1694558
+Epoch:2, Mini Batch:381, Batch Loss:2.1693094
+Epoch:2, Mini Batch:382, Batch Loss:2.1692624
+Epoch:2, Mini Batch:383, Batch Loss:2.169153
+Epoch:2, Mini Batch:384, Batch Loss:2.1690176
+Epoch:2, Mini Batch:385, Batch Loss:2.1689303
+Epoch:2, Mini Batch:386, Batch Loss:2.1688793
+Epoch:2, Mini Batch:387, Batch Loss:2.168821
+Epoch:2, Mini Batch:388, Batch Loss:2.1687758
+Epoch:2, Mini Batch:389, Batch Loss:2.1686504
+Epoch:2, Mini Batch:390, Batch Loss:2.1684923
+Epoch:2, Mini Batch:391, Batch Loss:2.168348
+Epoch:2, Mini Batch:392, Batch Loss:2.168257
+Epoch:2, Mini Batch:393, Batch Loss:2.168175
+Epoch:2, Mini Batch:394, Batch Loss:2.1680737
+Epoch:2, Mini Batch:395, Batch Loss:2.1680174
+Epoch:2, Mini Batch:396, Batch Loss:2.1678905
+Epoch:2, Mini Batch:397, Batch Loss:2.1678498
+Epoch:2, Mini Batch:398, Batch Loss:2.167765
+Epoch:2, Mini Batch:399, Batch Loss:2.1676476
+Epoch:2, Mini Batch:400, Batch Loss:2.1676486
+Epoch:2, Mini Batch:401, Batch Loss:2.1674876
+Epoch:2, Mini Batch:402, Batch Loss:2.1674752
+Epoch:2, Mini Batch:403, Batch Loss:2.1673226
+Epoch:2, Mini Batch:404, Batch Loss:2.16729
+Epoch:2, Mini Batch:405, Batch Loss:2.1671517
+Epoch:2, Mini Batch:406, Batch Loss:2.1670296
+Epoch:2, Mini Batch:407, Batch Loss:2.1669803
+Epoch:2, Mini Batch:408, Batch Loss:2.1668286
+Epoch:2, Mini Batch:409, Batch Loss:2.166727
+Epoch:2, Mini Batch:410, Batch Loss:2.1666405
+Epoch:2, Mini Batch:411, Batch Loss:2.1665292
+Epoch:2, Mini Batch:412, Batch Loss:2.1664608
+Epoch:2, Mini Batch:413, Batch Loss:2.166443
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Mini Batch:1, Batch Loss:2.430323
+Epoch:1, Mini Batch:2, Batch Loss:2.6604931
+Epoch:1, Mini Batch:3, Batch Loss:2.6571038
+Epoch:1, Mini Batch:4, Batch Loss:2.6406305
+Epoch:1, Mini Batch:5, Batch Loss:2.6478496
+Epoch:1, Mini Batch:6, Batch Loss:2.701589
+Epoch:1, Mini Batch:7, Batch Loss:2.6671817
+Epoch:1, Mini Batch:8, Batch Loss:2.642152
+Epoch:1, Mini Batch:9, Batch Loss:2.6069725
+Epoch:1, Mini Batch:10, Batch Loss:2.612694
+Epoch:1, Mini Batch:11, Batch Loss:2.6066298
+Epoch:1, Mini Batch:12, Batch Loss:2.6107073
+Epoch:1, Mini Batch:13, Batch Loss:2.5954816
+Epoch:1, Mini Batch:14, Batch Loss:2.5860317
+Epoch:1, Mini Batch:15, Batch Loss:2.5802383
+Epoch:1, Mini Batch:16, Batch Loss:2.5898592
+Epoch:1, Mini Batch:17, Batch Loss:2.5863144
+Epoch:1, Mini Batch:18, Batch Loss:2.5927079
+Epoch:1, Mini Batch:19, Batch Loss:2.5933604
+Epoch:1, Mini Batch:20, Batch Loss:2.594496
+Epoch:1, Mini Batch:21, Batch Loss:2.6002662
+Epoch:1, Mini Batch:22, Batch Loss:2.5942938
+Epoch:1, Mini Batch:23, Batch Loss:2.5883906
+Epoch:1, Mini Batch:24, Batch Loss:2.5878122
+Epoch:1, Mini Batch:25, Batch Loss:2.5857785
+Epoch:1, Mini Batch:26, Batch Loss:2.5806978
+Epoch:1, Mini Batch:27, Batch Loss:2.5787072
+Epoch:1, Mini Batch:28, Batch Loss:2.5734773
+Epoch:1, Mini Batch:29, Batch Loss:2.5747979
+Epoch:1, Mini Batch:30, Batch Loss:2.5721853
+Epoch:1, Mini Batch:31, Batch Loss:2.572386
+Epoch:1, Mini Batch:32, Batch Loss:2.5703313
+Epoch:1, Mini Batch:33, Batch Loss:2.5657282
+Epoch:1, Mini Batch:34, Batch Loss:2.5640922
+Epoch:1, Mini Batch:35, Batch Loss:2.560417
+Epoch:1, Mini Batch:36, Batch Loss:2.556541
+Epoch:1, Mini Batch:37, Batch Loss:2.5540655
+Epoch:1, Mini Batch:38, Batch Loss:2.5505943
+Epoch:1, Mini Batch:39, Batch Loss:2.5502503
+Epoch:1, Mini Batch:40, Batch Loss:2.5480795
+Epoch:1, Mini Batch:41, Batch Loss:2.5481694
+Epoch:1, Mini Batch:42, Batch Loss:2.5446017
+Epoch:1, Mini Batch:43, Batch Loss:2.5429957
+Epoch:1, Mini Batch:44, Batch Loss:2.5414085
+Epoch:1, Mini Batch:45, Batch Loss:2.538487
+Epoch:1, Mini Batch:46, Batch Loss:2.5362866
+Epoch:1, Mini Batch:47, Batch Loss:2.5357535
+Epoch:1, Mini Batch:48, Batch Loss:2.5338407
+Epoch:1, Mini Batch:49, Batch Loss:2.5320234
+Epoch:1, Mini Batch:50, Batch Loss:2.5297973
+Epoch:1, Mini Batch:51, Batch Loss:2.5300229
+Epoch:1, Mini Batch:52, Batch Loss:2.5324233
+Epoch:1, Mini Batch:53, Batch Loss:2.5316522
+Epoch:1, Mini Batch:54, Batch Loss:2.5305126
+Epoch:1, Mini Batch:55, Batch Loss:2.527456
+Epoch:1, Mini Batch:56, Batch Loss:2.5243201
+Epoch:1, Mini Batch:57, Batch Loss:2.5197554
+Epoch:1, Mini Batch:58, Batch Loss:2.51887
+Epoch:1, Mini Batch:59, Batch Loss:2.5178187
+Epoch:1, Mini Batch:60, Batch Loss:2.5160892
+Epoch:1, Mini Batch:61, Batch Loss:2.5178225
+Epoch:1, Mini Batch:62, Batch Loss:2.5151675
+Epoch:1, Mini Batch:63, Batch Loss:2.511907
+Epoch:1, Mini Batch:64, Batch Loss:2.510264
+Epoch:1, Mini Batch:65, Batch Loss:2.5090148
+Epoch:1, Mini Batch:66, Batch Loss:2.5080836
+Epoch:1, Mini Batch:67, Batch Loss:2.5057745
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22390ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+
+TRAINING COMPLETED
+Total Training Time: 28137ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.4044164
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.68085104
+FalsePositive: 1.0
+FalseNegative: 44.0
+Precision: 0.9896907
+F1Score: 0.9896907
+TruePositive: 96.0
+Recall: 0.9896907
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.75
+FalsePositive: 0.0
+FalseNegative: 45.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 135.0
+Recall: 1.0
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.15384616
+FalsePositive: 0.0
+FalseNegative: 132.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 24.0
+Recall: 1.0
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.5117371
+FalsePositive: 62.0
+FalseNegative: 42.0
+Precision: 0.6374269
+F1Score: 0.6374269
+TruePositive: 109.0
+Recall: 0.6374269
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.5607477
+FalsePositive: 63.0
+FalseNegative: 31.0
+Precision: 0.6557377
+F1Score: 0.6557377
+TruePositive: 120.0
+Recall: 0.6557377
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.023622047
+FalsePositive: 0.0
+FalseNegative: 124.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 3.0
+Recall: 1.0
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.6923077
+FalsePositive: 2.0
+FalseNegative: 42.0
+Precision: 0.980198
+F1Score: 0.980198
+TruePositive: 99.0
+Recall: 0.980198
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.67105263
+FalsePositive: 2.0
+FalseNegative: 48.0
+Precision: 0.9807692
+F1Score: 0.9807692
+TruePositive: 102.0
+Recall: 0.9807692
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 156.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 148.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0     43     96      0      0      0      1      0      0      0      0      0
+      1     45      0    135      0      0      0      0      0      0      0      0
+      2    102      0      0     24     22      5      0      2      1      0      0
+      3     41      0      0      0    109      0      0      0      1      0      0
+      4     31      0      0      0      0    120      0      0      0      0      0
+      5     97      0      0      0     26      1      3      0      0      0      0
+      6     38      0      0      0      0      4      0     99      0      0      0
+      7     46      0      0      0      1      1      0      0    102      0      0
+      8    146      0      0      0     10      0      0      0      0      0      0
+      9     93      1      0      0      3     51      0      0      0      0      0
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22389ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+
+TRAINING COMPLETED
+Total Training Time: 28282ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.4044164
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.68085104
+FalsePositive: 1.0
+FalseNegative: 44.0
+Precision: 0.9896907
+F1Score: 0.9896907
+TruePositive: 96.0
+Recall: 0.9896907
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.75
+FalsePositive: 0.0
+FalseNegative: 45.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 135.0
+Recall: 1.0
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.15384616
+FalsePositive: 0.0
+FalseNegative: 132.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 24.0
+Recall: 1.0
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.5117371
+FalsePositive: 62.0
+FalseNegative: 42.0
+Precision: 0.6374269
+F1Score: 0.6374269
+TruePositive: 109.0
+Recall: 0.6374269
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.5607477
+FalsePositive: 63.0
+FalseNegative: 31.0
+Precision: 0.6557377
+F1Score: 0.6557377
+TruePositive: 120.0
+Recall: 0.6557377
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.023622047
+FalsePositive: 0.0
+FalseNegative: 124.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 3.0
+Recall: 1.0
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.6923077
+FalsePositive: 2.0
+FalseNegative: 42.0
+Precision: 0.980198
+F1Score: 0.980198
+TruePositive: 99.0
+Recall: 0.980198
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.67105263
+FalsePositive: 2.0
+FalseNegative: 48.0
+Precision: 0.9807692
+F1Score: 0.9807692
+TruePositive: 102.0
+Recall: 0.9807692
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 156.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.0
+FalsePositive: 0.0
+FalseNegative: 148.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0     43     96      0      0      0      1      0      0      0      0      0
+      1     45      0    135      0      0      0      0      0      0      0      0
+      2    102      0      0     24     22      5      0      2      1      0      0
+      3     41      0      0      0    109      0      0      0      1      0      0
+      4     31      0      0      0      0    120      0      0      0      0      0
+      5     97      0      0      0     26      1      3      0      0      0      0
+      6     38      0      0      0      0      4      0     99      0      0      0
+      7     46      0      0      0      1      1      0      0    102      0      0
+      8    146      0      0      0     10      0      0      0      0      0      0
+      9     93      1      0      0      3     51      0      0      0      0      0
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:21619ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:21601ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:22649ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+
+TRAINING COMPLETED
+Total Training Time: 83001ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.7561408
+Precision: 0.9144763
+F1Score: 0.9144763
+Recall: 0.9144763
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8741259
+FalsePositive: 3.0
+FalseNegative: 15.0
+Precision: 0.9765625
+F1Score: 0.9765625
+TruePositive: 125.0
+Recall: 0.9765625
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.9010989
+FalsePositive: 2.0
+FalseNegative: 16.0
+Precision: 0.9879518
+F1Score: 0.9879518
+TruePositive: 164.0
+Recall: 0.9879518
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.74556214
+FalsePositive: 13.0
+FalseNegative: 30.0
+Precision: 0.9064748
+F1Score: 0.9064748
+TruePositive: 126.0
+Recall: 0.9064748
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.6171171
+FalsePositive: 71.0
+FalseNegative: 14.0
+Precision: 0.65865386
+F1Score: 0.65865386
+TruePositive: 137.0
+Recall: 0.65865386
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.8044693
+FalsePositive: 28.0
+FalseNegative: 7.0
+Precision: 0.8372093
+F1Score: 0.8372093
+TruePositive: 144.0
+Recall: 0.8372093
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.5968992
+FalsePositive: 2.0
+FalseNegative: 50.0
+Precision: 0.9746835
+F1Score: 0.9746835
+TruePositive: 77.0
+Recall: 0.9746835
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.85314685
+FalsePositive: 2.0
+FalseNegative: 19.0
+Precision: 0.983871
+F1Score: 0.983871
+TruePositive: 122.0
+Recall: 0.983871
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.81707317
+FalsePositive: 14.0
+FalseNegative: 16.0
+Precision: 0.9054054
+F1Score: 0.9054054
+TruePositive: 134.0
+Recall: 0.9054054
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.7610063
+FalsePositive: 3.0
+FalseNegative: 35.0
+Precision: 0.9758065
+F1Score: 0.9758065
+TruePositive: 121.0
+Recall: 0.9758065
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.59090906
+FalsePositive: 6.0
+FalseNegative: 57.0
+Precision: 0.9381443
+F1Score: 0.9381443
+TruePositive: 91.0
+Recall: 0.9381443
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0     10    125      0      1      2      1      1      0      0      0      0
+      1     13      0    164      1      0      0      0      1      1      0      0
+      2     11      0      0    126     12      5      0      1      1      0      0
+      3      8      0      1      1    137      0      1      0      1      2      0
+      4      3      0      0      1      0    144      0      0      0      0      3
+      5     17      1      0      0     31      1     77      0      0      0      0
+      6      6      1      0      7      0      5      0    122      0      0      0
+      7      6      0      0      2      5      0      0      0    134      0      3
+      8     20      0      1      0     14      0      0      0      0    121      0
+      9     21      1      0      0      7     16      0      0     11      1     91
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22617ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:22322ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:22049ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Epoch:4, Time:22244ms, TrainError:0.31528392, TrainErrorChange:-0.07332736, TrainAccuracy: 0.8266729
+Epoch:5, Time:22197ms, TrainError:0.2707182, TrainErrorChange:-0.044565737, TrainAccuracy: 0.851188
+Epoch:6, Time:22224ms, TrainError:0.23713747, TrainErrorChange:-0.03358072, TrainAccuracy: 0.87132424
+Epoch:7, Time:22521ms, TrainError:0.21108674, TrainErrorChange:-0.026050732, TrainAccuracy: 0.8843749
+Epoch:8, Time:22030ms, TrainError:0.189064, TrainErrorChange:-0.022022739, TrainAccuracy: 0.8937929
+Epoch:9, Time:21486ms, TrainError:0.17098476, TrainErrorChange:-0.018079236, TrainAccuracy: 0.90518427
+Epoch:10, Time:21672ms, TrainError:0.15550782, TrainErrorChange:-0.015476942, TrainAccuracy: 0.912739
+Epoch:11, Time:22278ms, TrainError:0.14246908, TrainErrorChange:-0.01303874, TrainAccuracy: 0.91616595
+Epoch:12, Time:21931ms, TrainError:0.13031535, TrainErrorChange:-0.01215373, TrainAccuracy: 0.9235791
+Epoch:13, Time:21974ms, TrainError:0.119830854, TrainErrorChange:-0.010484494, TrainAccuracy: 0.92638016
+Epoch:14, Time:21808ms, TrainError:0.11052859, TrainErrorChange:-0.009302266, TrainAccuracy: 0.9305539
+Epoch:15, Time:21634ms, TrainError:0.10196617, TrainErrorChange:-0.008562416, TrainAccuracy: 0.93453866
+Epoch:16, Time:21699ms, TrainError:0.09413695, TrainErrorChange:-0.007829219, TrainAccuracy: 0.9369853
+Epoch:17, Time:21719ms, TrainError:0.08720807, TrainErrorChange:-0.0069288835, TrainAccuracy: 0.9380504
+Epoch:18, Time:21955ms, TrainError:0.08092371, TrainErrorChange:-0.0062843636, TrainAccuracy: 0.94017726
+Epoch:19, Time:22393ms, TrainError:0.074956365, TrainErrorChange:-0.0059673414, TrainAccuracy: 0.94621503
+Epoch:20, Time:21607ms, TrainError:0.06972644, TrainErrorChange:-0.0052299276, TrainAccuracy: 0.9451132
+Epoch:21, Time:21859ms, TrainError:0.06451665, TrainErrorChange:-0.0052097887, TrainAccuracy: 0.94950706
+Epoch:22, Time:21430ms, TrainError:0.059838798, TrainErrorChange:-0.0046778508, TrainAccuracy: 0.9491749
+Epoch:23, Time:21605ms, TrainError:0.055353124, TrainErrorChange:-0.004485674, TrainAccuracy: 0.95115995
+Epoch:24, Time:21741ms, TrainError:0.05131091, TrainErrorChange:-0.004042212, TrainAccuracy: 0.95231295
+Epoch:25, Time:22011ms, TrainError:0.047424357, TrainErrorChange:-0.0038865544, TrainAccuracy: 0.9581237
+
+TRAINING COMPLETED
+Total Training Time: 693476ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8991148
+Precision: 0.95201933
+F1Score: 0.95201933
+Recall: 0.95201933
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.95804197
+FalsePositive: 3.0
+FalseNegative: 3.0
+Precision: 0.9785714
+F1Score: 0.9785714
+TruePositive: 137.0
+Recall: 0.9785714
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.9673913
+FalsePositive: 4.0
+FalseNegative: 2.0
+Precision: 0.978022
+F1Score: 0.978022
+TruePositive: 178.0
+Recall: 0.978022
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.8786127
+FalsePositive: 17.0
+FalseNegative: 4.0
+Precision: 0.8994083
+F1Score: 0.89940834
+TruePositive: 152.0
+Recall: 0.8994083
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.82857144
+FalsePositive: 24.0
+FalseNegative: 6.0
+Precision: 0.8579882
+F1Score: 0.8579882
+TruePositive: 145.0
+Recall: 0.8579882
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.95394737
+FalsePositive: 1.0
+FalseNegative: 6.0
+Precision: 0.9931507
+F1Score: 0.9931507
+TruePositive: 145.0
+Recall: 0.9931507
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.83076924
+FalsePositive: 3.0
+FalseNegative: 19.0
+Precision: 0.972973
+F1Score: 0.972973
+TruePositive: 108.0
+Recall: 0.972973
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.91156465
+FalsePositive: 6.0
+FalseNegative: 7.0
+Precision: 0.95714283
+F1Score: 0.95714283
+TruePositive: 134.0
+Recall: 0.95714283
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.89171976
+FalsePositive: 7.0
+FalseNegative: 10.0
+Precision: 0.95238096
+F1Score: 0.95238096
+TruePositive: 140.0
+Recall: 0.95238096
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.89873415
+FalsePositive: 2.0
+FalseNegative: 14.0
+Precision: 0.9861111
+F1Score: 0.9861111
+TruePositive: 142.0
+Recall: 0.9861111
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.8717949
+FalsePositive: 8.0
+FalseNegative: 12.0
+Precision: 0.9444444
+F1Score: 0.9444444
+TruePositive: 136.0
+Recall: 0.9444444
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0      1    137      0      1      0      0      0      1      0      0      0
+      1      1      0    178      0      0      0      0      0      1      0      0
+      2      0      0      0    152      2      0      0      0      2      0      0
+      3      1      0      1      0    145      0      1      0      2      1      0
+      4      0      0      0      2      0    145      0      1      0      0      3
+      5      0      1      0      2     11      0    108      4      0      0      1
+      6      0      1      0      5      0      0      0    134      0      1      0
+      7      1      0      1      3      1      0      0      0    140      0      4
+      8      3      1      2      3      4      0      1      0      0    142      0
+      9      1      0      0      1      6      1      1      0      2      0    136
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 2000 images
+Number of images by label/class
+0 : 191
+1 : 213
+2 : 195
+3 : 197
+4 : 213
+5 : 174
+6 : 201
+7 : 199
+8 : 199
+9 : 208
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:3, filter height: 3, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:40 activation:RELU}
+Fully Connected Layer { width:30 activation:RELU}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4614ms, TrainError:2.2470124, TrainErrorChange:2.2470124, TrainAccuracy: 0.0, ValError:2.0384755, ValAccuracy: 0.0
+Epoch:2, Time:4276ms, TrainError:1.5915744, TrainErrorChange:-0.65543795, TrainAccuracy: 0.29577094, ValError:1.2582296, ValAccuracy: 0.3152871
+Epoch:3, Time:4252ms, TrainError:0.97238714, TrainErrorChange:-0.6191873, TrainAccuracy: 0.4184169, ValError:1.0408486, ValAccuracy: 0.43576613
+Epoch:4, Time:4620ms, TrainError:0.721356, TrainErrorChange:-0.25103116, TrainAccuracy: 0.5153715, ValError:0.8970225, ValAccuracy: 0.5078608
+Epoch:5, Time:4437ms, TrainError:0.5453714, TrainErrorChange:-0.17598456, TrainAccuracy: 0.5538991, ValError:0.8423433, ValAccuracy: 0.5696701
+Epoch:6, Time:4379ms, TrainError:0.42345676, TrainErrorChange:-0.121914655, TrainAccuracy: 0.64519614, ValError:0.7530848, ValAccuracy: 0.5937687
+Epoch:7, Time:4523ms, TrainError:0.34178808, TrainErrorChange:-0.081668675, TrainAccuracy: 0.6832172, ValError:0.72057176, ValAccuracy: 0.6231202
+Epoch:8, Time:4509ms, TrainError:0.2756889, TrainErrorChange:-0.0660992, TrainAccuracy: 0.70882976, ValError:0.7140715, ValAccuracy: 0.63228303
+Epoch:9, Time:4353ms, TrainError:0.23451132, TrainErrorChange:-0.04117757, TrainAccuracy: 0.69511276, ValError:0.75337166, ValAccuracy: 0.6302959
+Epoch:10, Time:4487ms, TrainError:0.19209035, TrainErrorChange:-0.04242097, TrainAccuracy: 0.7348644, ValError:0.7407037, ValAccuracy: 0.65644294
+Epoch:11, Time:4331ms, TrainError:0.15278369, TrainErrorChange:-0.039306656, TrainAccuracy: 0.7756344, ValError:0.72805816, ValAccuracy: 0.67731404
+Epoch:12, Time:4342ms, TrainError:0.11823412, TrainErrorChange:-0.03454957, TrainAccuracy: 0.8268692, ValError:0.67330974, ValAccuracy: 0.69276226
+Epoch:13, Time:4456ms, TrainError:0.09167538, TrainErrorChange:-0.026558742, TrainAccuracy: 0.796454, ValError:0.7539595, ValAccuracy: 0.68178207
+Epoch:14, Time:4145ms, TrainError:0.072508276, TrainErrorChange:-0.019167103, TrainAccuracy: 0.81060773, ValError:0.75500125, ValAccuracy: 0.72367173
+Epoch:15, Time:4031ms, TrainError:0.06126879, TrainErrorChange:-0.011239484, TrainAccuracy: 0.84366, ValError:0.7595, ValAccuracy: 0.71466064
+Epoch:16, Time:4331ms, TrainError:0.050241776, TrainErrorChange:-0.011027016, TrainAccuracy: 0.9601325, ValError:0.6144256, ValAccuracy: 0.7856336
+Epoch:17, Time:4348ms, TrainError:0.04339414, TrainErrorChange:-0.006847635, TrainAccuracy: 0.945354, ValError:0.688309, ValAccuracy: 0.7589707
+Epoch:18, Time:4714ms, TrainError:0.029179484, TrainErrorChange:-0.014214657, TrainAccuracy: 0.9415188, ValError:0.7526463, ValAccuracy: 0.7867771
+
+TRAINING COMPLETED
+Total Training Time: 110393ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.7715076
+Precision: 0.8785588
+F1Score: 0.8785588
+Recall: 0.8785588
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8405797
+FalsePositive: 4.0
+FalseNegative: 7.0
+Precision: 0.9354839
+F1Score: 0.9354839
+TruePositive: 58.0
+Recall: 0.9354839
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.85057473
+FalsePositive: 9.0
+FalseNegative: 4.0
+Precision: 0.8915663
+F1Score: 0.8915663
+TruePositive: 74.0
+Recall: 0.8915663
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.7741935
+FalsePositive: 4.0
+FalseNegative: 10.0
+Precision: 0.9230769
+F1Score: 0.9230769
+TruePositive: 48.0
+Recall: 0.9230769
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.6769231
+FalsePositive: 15.0
+FalseNegative: 6.0
+Precision: 0.7457627
+F1Score: 0.7457627
+TruePositive: 44.0
+Recall: 0.7457627
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.8548387
+FalsePositive: 1.0
+FalseNegative: 8.0
+Precision: 0.9814815
+F1Score: 0.98148143
+TruePositive: 53.0
+Recall: 0.9814815
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.72602737
+FalsePositive: 7.0
+FalseNegative: 13.0
+Precision: 0.8833333
+F1Score: 0.8833333
+TruePositive: 53.0
+Recall: 0.8833333
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.84615386
+FalsePositive: 6.0
+FalseNegative: 4.0
+Precision: 0.90163934
+F1Score: 0.9016394
+TruePositive: 55.0
+Recall: 0.90163934
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.71666664
+FalsePositive: 3.0
+FalseNegative: 14.0
+Precision: 0.9347826
+F1Score: 0.9347826
+TruePositive: 43.0
+Recall: 0.9347826
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.70689654
+FalsePositive: 11.0
+FalseNegative: 6.0
+Precision: 0.78846157
+F1Score: 0.7884615
+TruePositive: 41.0
+Recall: 0.78846157
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.7222222
+FalsePositive: 13.0
+FalseNegative: 7.0
+Precision: 0.8
+F1Score: 0.8000001
+TruePositive: 52.0
+Recall: 0.8
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0      2     58      0      0      0      0      2      0      0      2      1
+      1      0      0     74      2      2      0      0      0      0      0      0
+      2      0      0      0     48      4      1      0      2      1      2      0
+      3      0      0      0      1     44      0      3      0      1      0      1
+      4      0      0      0      0      0     53      0      2      0      0      6
+      5      1      1      4      0      3      0     53      1      0      3      0
+      6      0      1      0      0      0      0      0     55      0      3      0
+      7      1      2      1      0      3      0      2      0     43      0      5
+      8      2      0      0      0      3      0      0      1      0     41      0
+      9      0      0      4      1      0      0      0      0      1      1     52
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:23015ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:22339ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:22141ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Epoch:4, Time:22091ms, TrainError:0.31528392, TrainErrorChange:-0.07332736, TrainAccuracy: 0.8266729
+Epoch:5, Time:23160ms, TrainError:0.2707182, TrainErrorChange:-0.044565737, TrainAccuracy: 0.851188
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:15694ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:14967ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:15117ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Epoch:4, Time:14926ms, TrainError:0.31528392, TrainErrorChange:-0.07332736, TrainAccuracy: 0.8266729
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:10862ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:10450ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:10473ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:12832ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:12476ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:12486ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Epoch:4, Time:12536ms, TrainError:0.36805966, TrainErrorChange:-0.11027074, TrainAccuracy: 0.80328065
+Epoch:5, Time:12599ms, TrainError:0.31221262, TrainErrorChange:-0.05584705, TrainAccuracy: 0.8330947
+Epoch:6, Time:12731ms, TrainError:0.276521, TrainErrorChange:-0.03569162, TrainAccuracy: 0.85354173
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 2000 images
+Number of images by label/class
+0 : 191
+1 : 213
+2 : 195
+3 : 197
+4 : 213
+5 : 174
+6 : 201
+7 : 199
+8 : 199
+9 : 208
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:3, filter height: 3, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:40 activation:RELU}
+Fully Connected Layer { width:30 activation:RELU}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:3160ms, TrainError:2.1165707, TrainErrorChange:2.1165707, TrainAccuracy: 0.08234717, ValError:1.7459058, ValAccuracy: 0.07899263
+Epoch:2, Time:3051ms, TrainError:1.2627846, TrainErrorChange:-0.8537861, TrainAccuracy: 0.39276356, ValError:1.059163, ValAccuracy: 0.4394334
+Epoch:3, Time:3161ms, TrainError:0.8409047, TrainErrorChange:-0.4218799, TrainAccuracy: 0.46078038, ValError:1.0058, ValAccuracy: 0.46091405
+Epoch:4, Time:3088ms, TrainError:0.6697778, TrainErrorChange:-0.1711269, TrainAccuracy: 0.50553405, ValError:0.9780422, ValAccuracy: 0.49589086
+Epoch:5, Time:3057ms, TrainError:0.54113245, TrainErrorChange:-0.12864536, TrainAccuracy: 0.5640966, ValError:0.91824764, ValAccuracy: 0.5637403
+Epoch:6, Time:3102ms, TrainError:0.43886217, TrainErrorChange:-0.102270275, TrainAccuracy: 0.6249991, ValError:0.8254903, ValAccuracy: 0.6010505
+Epoch:7, Time:3107ms, TrainError:0.37365925, TrainErrorChange:-0.06520292, TrainAccuracy: 0.70093274, ValError:0.6901744, ValAccuracy: 0.6667316
+Epoch:8, Time:3127ms, TrainError:0.30790567, TrainErrorChange:-0.06575358, TrainAccuracy: 0.6945131, ValError:0.7325178, ValAccuracy: 0.6349528
+Epoch:9, Time:3149ms, TrainError:0.26564118, TrainErrorChange:-0.04226449, TrainAccuracy: 0.70367044, ValError:0.7578507, ValAccuracy: 0.64891064
+Epoch:10, Time:2934ms, TrainError:0.22784272, TrainErrorChange:-0.037798464, TrainAccuracy: 0.7422848, ValError:0.73896646, ValAccuracy: 0.66908264
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:11331ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:10663ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:10415ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Epoch:4, Time:10424ms, TrainError:0.36805966, TrainErrorChange:-0.11027074, TrainAccuracy: 0.80328065
+Epoch:5, Time:10706ms, TrainError:0.31221262, TrainErrorChange:-0.05584705, TrainAccuracy: 0.8330947
+Epoch:6, Time:10523ms, TrainError:0.276521, TrainErrorChange:-0.03569162, TrainAccuracy: 0.85354173
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 2000 images
+Number of images by label/class
+0 : 191
+1 : 213
+2 : 195
+3 : 197
+4 : 213
+5 : 174
+6 : 201
+7 : 199
+8 : 199
+9 : 208
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:3, filter height: 3, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:40 activation:RELU}
+Fully Connected Layer { width:30 activation:RELU}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4541ms, TrainError:2.1165707, TrainErrorChange:2.1165707, TrainAccuracy: 0.08234717, ValError:1.7459058, ValAccuracy: 0.07899263
+Epoch:2, Time:4347ms, TrainError:1.2627846, TrainErrorChange:-0.8537861, TrainAccuracy: 0.39276356, ValError:1.059163, ValAccuracy: 0.4394334
+Epoch:3, Time:4500ms, TrainError:0.8409047, TrainErrorChange:-0.4218799, TrainAccuracy: 0.46078038, ValError:1.0058, ValAccuracy: 0.46091405
+Epoch:4, Time:4398ms, TrainError:0.6697778, TrainErrorChange:-0.1711269, TrainAccuracy: 0.50553405, ValError:0.9780422, ValAccuracy: 0.49589086
+Epoch:5, Time:4538ms, TrainError:0.54113245, TrainErrorChange:-0.12864536, TrainAccuracy: 0.5640966, ValError:0.91824764, ValAccuracy: 0.5637403
+Epoch:6, Time:4581ms, TrainError:0.43886217, TrainErrorChange:-0.102270275, TrainAccuracy: 0.6249991, ValError:0.8254903, ValAccuracy: 0.6010505
+Epoch:7, Time:4599ms, TrainError:0.37365925, TrainErrorChange:-0.06520292, TrainAccuracy: 0.70093274, ValError:0.6901744, ValAccuracy: 0.6667316
+Epoch:8, Time:4418ms, TrainError:0.30790567, TrainErrorChange:-0.06575358, TrainAccuracy: 0.6945131, ValError:0.7325178, ValAccuracy: 0.6349528
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:23138ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:22683ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:23041ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:11208ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:12284ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:12055ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Epoch:4, Time:11744ms, TrainError:0.36805966, TrainErrorChange:-0.11027074, TrainAccuracy: 0.80328065
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22663ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:22217ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:23244ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:10799ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:11050ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Epoch:3, Time:11032ms, TrainError:0.4783304, TrainErrorChange:-0.30755052, TrainAccuracy: 0.7690604
+Epoch:4, Time:10825ms, TrainError:0.36805966, TrainErrorChange:-0.11027074, TrainAccuracy: 0.80328065
+Epoch:5, Time:10972ms, TrainError:0.31221262, TrainErrorChange:-0.05584705, TrainAccuracy: 0.8330947
+Epoch:6, Time:10937ms, TrainError:0.276521, TrainErrorChange:-0.03569162, TrainAccuracy: 0.85354173
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:12406ms, TrainError:1.782944, TrainErrorChange:1.782944, TrainAccuracy: 0.31498775
+Epoch:2, Time:11829ms, TrainError:0.75045294, TrainErrorChange:-1.032491, TrainAccuracy: 0.6684952
+Epoch:3, Time:11719ms, TrainError:0.4561245, TrainErrorChange:-0.29432842, TrainAccuracy: 0.77230275
+Epoch:4, Time:11717ms, TrainError:0.35549048, TrainErrorChange:-0.10063404, TrainAccuracy: 0.8097779
+Epoch:5, Time:12044ms, TrainError:0.3040395, TrainErrorChange:-0.051450968, TrainAccuracy: 0.83467495
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22797ms, TrainError:1.7946694, TrainErrorChange:1.7946694, TrainAccuracy: 0.29048365
+Epoch:2, Time:22909ms, TrainError:0.7858809, TrainErrorChange:-1.0087885, TrainAccuracy: 0.6493174
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:14971ms, TrainError:1.7923853, TrainErrorChange:1.7923853, TrainAccuracy: 0.29677337
+Epoch:2, Time:14481ms, TrainError:0.7762238, TrainErrorChange:-1.0161616, TrainAccuracy: 0.6574381
+Epoch:3, Time:14616ms, TrainError:0.46814245, TrainErrorChange:-0.30808133, TrainAccuracy: 0.7750941
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:15181ms, TrainError:1.6905518, TrainErrorChange:1.6905518, TrainAccuracy: 0.42009705
+Epoch:2, Time:15130ms, TrainError:0.6003709, TrainErrorChange:-1.0901809, TrainAccuracy: 0.7299186
+Epoch:3, Time:15119ms, TrainError:0.38863918, TrainErrorChange:-0.2117317, TrainAccuracy: 0.79078597
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:22923ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:22647ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:22620ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:14166ms, TrainError:1.690519, TrainErrorChange:1.690519, TrainAccuracy: 0.42009705
+Epoch:2, Time:13806ms, TrainError:0.6003476, TrainErrorChange:-1.0901713, TrainAccuracy: 0.73021626
+Epoch:3, Time:13867ms, TrainError:0.38858753, TrainErrorChange:-0.21176004, TrainAccuracy: 0.79078597
+Epoch:4, Time:14021ms, TrainError:0.31534737, TrainErrorChange:-0.07324016, TrainAccuracy: 0.8269712
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:12660ms, TrainError:1.6906344, TrainErrorChange:1.6906344, TrainAccuracy: 0.42009705
+Epoch:2, Time:12604ms, TrainError:0.6006112, TrainErrorChange:-1.0900232, TrainAccuracy: 0.7302102
+Epoch:3, Time:12196ms, TrainError:0.3886899, TrainErrorChange:-0.2119213, TrainAccuracy: 0.79116714
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 2000 images
+Number of images by label/class
+0 : 191
+1 : 213
+2 : 195
+3 : 197
+4 : 213
+5 : 174
+6 : 201
+7 : 199
+8 : 199
+9 : 208
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:3, filter height: 3, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:40 activation:RELU}
+Fully Connected Layer { width:30 activation:RELU}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:2836ms, TrainError:2.1160924, TrainErrorChange:2.1160924, TrainAccuracy: 0.08727656, ValError:1.7340925, ValAccuracy: 0.08325359
+Epoch:2, Time:2453ms, TrainError:1.2350725, TrainErrorChange:-0.88101995, TrainAccuracy: 0.37620363, ValError:1.1039048, ValAccuracy: 0.42997432
+Epoch:3, Time:2377ms, TrainError:0.8186863, TrainErrorChange:-0.4163862, TrainAccuracy: 0.4813985, ValError:0.95989716, ValAccuracy: 0.47776395
+Epoch:4, Time:2505ms, TrainError:0.6453388, TrainErrorChange:-0.17334753, TrainAccuracy: 0.5003139, ValError:1.0005416, ValAccuracy: 0.5210917
+Epoch:5, Time:2520ms, TrainError:0.513366, TrainErrorChange:-0.13197279, TrainAccuracy: 0.6161126, ValError:0.81107986, ValAccuracy: 0.60124254
+Epoch:6, Time:2504ms, TrainError:0.42104965, TrainErrorChange:-0.09231633, TrainAccuracy: 0.6347114, ValError:0.7960886, ValAccuracy: 0.62013286
+Epoch:7, Time:2482ms, TrainError:0.35050467, TrainErrorChange:-0.07054499, TrainAccuracy: 0.6814424, ValError:0.72070915, ValAccuracy: 0.6263164
+Epoch:8, Time:2538ms, TrainError:0.29112008, TrainErrorChange:-0.059384584, TrainAccuracy: 0.7047968, ValError:0.7177218, ValAccuracy: 0.64078724
+Epoch:9, Time:2450ms, TrainError:0.24348933, TrainErrorChange:-0.047630757, TrainAccuracy: 0.6911698, ValError:0.79315066, ValAccuracy: 0.6439333
+Epoch:10, Time:2483ms, TrainError:0.20443518, TrainErrorChange:-0.03905414, TrainAccuracy: 0.7216299, ValError:0.77682614, ValAccuracy: 0.65925455
+Epoch:11, Time:2518ms, TrainError:0.17453653, TrainErrorChange:-0.029898658, TrainAccuracy: 0.75008845, ValError:0.7514926, ValAccuracy: 0.6667594
+Epoch:12, Time:2569ms, TrainError:0.15457973, TrainErrorChange:-0.019956797, TrainAccuracy: 0.7409468, ValError:0.8166994, ValAccuracy: 0.65889657
+Epoch:13, Time:2514ms, TrainError:0.12417943, TrainErrorChange:-0.030400299, TrainAccuracy: 0.76231164, ValError:0.76512915, ValAccuracy: 0.71019185
+Epoch:14, Time:2294ms, TrainError:0.10323269, TrainErrorChange:-0.020946741, TrainAccuracy: 0.6383367, ValError:1.1955403, ValAccuracy: 0.589744
+Epoch:15, Time:2538ms, TrainError:0.09778048, TrainErrorChange:-0.005452208, TrainAccuracy: 0.8603157, ValError:0.6151306, ValAccuracy: 0.7282292
+Epoch:16, Time:2546ms, TrainError:0.08517613, TrainErrorChange:-0.012604348, TrainAccuracy: 0.835107, ValError:0.69546825, ValAccuracy: 0.7512259
+Epoch:17, Time:2493ms, TrainError:0.06396593, TrainErrorChange:-0.021210201, TrainAccuracy: 0.9310894, ValError:0.5342524, ValAccuracy: 0.80414516
+Epoch:18, Time:2477ms, TrainError:0.052348487, TrainErrorChange:-0.011617444, TrainAccuracy: 0.8987652, ValError:0.5843808, ValAccuracy: 0.80504674
+Epoch:19, Time:2518ms, TrainError:0.052552197, TrainErrorChange:2.0371005E-4, TrainAccuracy: 0.92389745, ValError:0.5771361, ValAccuracy: 0.7693478
+Epoch:20, Time:2564ms, TrainError:0.06619257, TrainErrorChange:0.01364037, TrainAccuracy: 0.9163448, ValError:0.59340936, ValAccuracy: 0.78936106
+Epoch:21, Time:2480ms, TrainError:0.042302754, TrainErrorChange:-0.023889814, TrainAccuracy: 0.96243346, ValError:0.5776393, ValAccuracy: 0.7932703
+Epoch:22, Time:2571ms, TrainError:0.03815204, TrainErrorChange:-0.0041507147, TrainAccuracy: 0.9213039, ValError:0.72663116, ValAccuracy: 0.78501713
+Epoch:23, Time:2539ms, TrainError:0.036758654, TrainErrorChange:-0.0013933852, TrainAccuracy: 0.93031186, ValError:0.55280524, ValAccuracy: 0.8239585
+Epoch:24, Time:2573ms, TrainError:0.1093582, TrainErrorChange:0.072599545, TrainAccuracy: 0.87537354, ValError:0.7780917, ValAccuracy: 0.7550324
+Epoch:25, Time:2594ms, TrainError:0.046467096, TrainErrorChange:-0.0628911, TrainAccuracy: 0.94986326, ValError:0.5503544, ValAccuracy: 0.8107873
+Epoch:26, Time:2499ms, TrainError:0.03287085, TrainErrorChange:-0.013596244, TrainAccuracy: 0.8943459, ValError:0.90285414, ValAccuracy: 0.79529506
+Epoch:27, Time:2557ms, TrainError:0.03711293, TrainErrorChange:0.0042420775, TrainAccuracy: 0.9934616, ValError:0.4867213, ValAccuracy: 0.84152114
+Epoch:28, Time:2511ms, TrainError:0.011687559, TrainErrorChange:-0.02542537, TrainAccuracy: 1.0, ValError:0.45574975, ValAccuracy: 0.8517893
+
+TRAINING COMPLETED
+Total Training Time: 95151ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.84234047
+Precision: 0.91326505
+F1Score: 0.91326505
+Recall: 0.91326505
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.89705884
+FalsePositive: 3.0
+FalseNegative: 4.0
+Precision: 0.953125
+F1Score: 0.953125
+TruePositive: 61.0
+Recall: 0.953125
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.902439
+FalsePositive: 4.0
+FalseNegative: 4.0
+Precision: 0.94871795
+F1Score: 0.94871795
+TruePositive: 74.0
+Recall: 0.94871795
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.77272725
+FalsePositive: 8.0
+FalseNegative: 7.0
+Precision: 0.86440676
+F1Score: 0.86440676
+TruePositive: 51.0
+Recall: 0.86440676
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.7288136
+FalsePositive: 9.0
+FalseNegative: 7.0
+Precision: 0.8269231
+F1Score: 0.8269231
+TruePositive: 43.0
+Recall: 0.8269231
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.9677419
+FalsePositive: 1.0
+FalseNegative: 1.0
+Precision: 0.9836066
+F1Score: 0.9836066
+TruePositive: 60.0
+Recall: 0.9836066
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.82608694
+FalsePositive: 3.0
+FalseNegative: 9.0
+Precision: 0.95
+F1Score: 0.95
+TruePositive: 57.0
+Recall: 0.95
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.890625
+FalsePositive: 5.0
+FalseNegative: 2.0
+Precision: 0.91935486
+F1Score: 0.91935486
+TruePositive: 57.0
+Recall: 0.91935486
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.75384617
+FalsePositive: 8.0
+FalseNegative: 8.0
+Precision: 0.8596491
+F1Score: 0.8596491
+TruePositive: 49.0
+Recall: 0.8596491
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.8269231
+FalsePositive: 5.0
+FalseNegative: 4.0
+Precision: 0.8958333
+F1Score: 0.8958334
+TruePositive: 43.0
+Recall: 0.8958333
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.85714287
+FalsePositive: 4.0
+FalseNegative: 5.0
+Precision: 0.9310345
+F1Score: 0.9310345
+TruePositive: 54.0
+Recall: 0.9310345
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0      0     61      0      0      0      0      1      0      1      2      0
+      1      0      0     74      2      2      0      0      0      0      0      0
+      2      0      0      0     51      2      0      0      2      2      1      0
+      3      0      0      0      2     43      0      1      0      3      1      0
+      4      0      0      0      1      0     60      0      0      0      0      0
+      5      1      1      3      1      3      0     57      0      0      0      0
+      6      0      1      0      0      0      0      0     57      0      1      0
+      7      0      1      1      1      1      0      0      0     49      0      4
+      8      0      0      0      0      1      0      0      3      0     43      0
+      9      0      0      0      1      0      1      1      0      2      0     54
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 2000 images
+Number of images by label/class
+0 : 191
+1 : 213
+2 : 195
+3 : 197
+4 : 213
+5 : 174
+6 : 201
+7 : 199
+8 : 199
+9 : 208
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:3, filter height: 3, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:40 activation:RELU}
+Fully Connected Layer { width:30 activation:RELU}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+Splitting data set: [0.8, 0.2]
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4684ms, TrainError:2.1160946, TrainErrorChange:2.1160946, TrainAccuracy: 0.08640394, ValError:1.7349949, ValAccuracy: 0.08779904
+Epoch:2, Time:4364ms, TrainError:1.2349161, TrainErrorChange:-0.8811785, TrainAccuracy: 0.37896535, ValError:1.1047714, ValAccuracy: 0.44327545
+Epoch:3, Time:4714ms, TrainError:0.81829035, TrainErrorChange:-0.41662574, TrainAccuracy: 0.42636007, ValError:1.06844, ValAccuracy: 0.4482134
+Epoch:4, Time:4497ms, TrainError:0.64755946, TrainErrorChange:-0.17073089, TrainAccuracy: 0.51484644, ValError:0.9745018, ValAccuracy: 0.5142196
+Epoch:5, Time:4445ms, TrainError:0.5170673, TrainErrorChange:-0.13049215, TrainAccuracy: 0.5833668, ValError:0.86661005, ValAccuracy: 0.5856406
+Epoch:6, Time:4467ms, TrainError:0.41920257, TrainErrorChange:-0.09786475, TrainAccuracy: 0.62449414, ValError:0.83709306, ValAccuracy: 0.60919684
+Epoch:7, Time:4395ms, TrainError:0.3462895, TrainErrorChange:-0.07291308, TrainAccuracy: 0.64991534, ValError:0.8029585, ValAccuracy: 0.6068389
+Epoch:8, Time:4430ms, TrainError:0.2924689, TrainErrorChange:-0.05382058, TrainAccuracy: 0.68756515, ValError:0.760637, ValAccuracy: 0.62825406
+Epoch:9, Time:4459ms, TrainError:0.24421439, TrainErrorChange:-0.04825452, TrainAccuracy: 0.6975106, ValError:0.786346, ValAccuracy: 0.62871236
+Epoch:10, Time:4621ms, TrainError:0.21307805, TrainErrorChange:-0.031136334, TrainAccuracy: 0.6980644, ValError:0.8165291, ValAccuracy: 0.64924335
+Epoch:11, Time:4631ms, TrainError:0.17656401, TrainErrorChange:-0.036514044, TrainAccuracy: 0.76158285, ValError:0.7333681, ValAccuracy: 0.7017542
+Epoch:12, Time:4431ms, TrainError:0.14980741, TrainErrorChange:-0.0267566, TrainAccuracy: 0.71776956, ValError:0.84340715, ValAccuracy: 0.6825737
+Epoch:13, Time:4445ms, TrainError:0.12675478, TrainErrorChange:-0.023052633, TrainAccuracy: 0.7152608, ValError:0.9316059, ValAccuracy: 0.6677863
+Epoch:14, Time:4525ms, TrainError:0.11567928, TrainErrorChange:-0.011075497, TrainAccuracy: 0.8869444, ValError:0.5439978, ValAccuracy: 0.7532412
+Epoch:15, Time:4424ms, TrainError:0.08789077, TrainErrorChange:-0.027788512, TrainAccuracy: 0.66988856, ValError:1.101451, ValAccuracy: 0.62013686
+Epoch:16, Time:4469ms, TrainError:0.09004671, TrainErrorChange:0.0021559447, TrainAccuracy: 0.8560457, ValError:0.6932654, ValAccuracy: 0.76444745
+Epoch:17, Time:4672ms, TrainError:0.08403589, TrainErrorChange:-0.006010823, TrainAccuracy: 0.90667903, ValError:0.5632584, ValAccuracy: 0.78988826
+Epoch:18, Time:4573ms, TrainError:0.093283094, TrainErrorChange:0.009247206, TrainAccuracy: 0.856833, ValError:0.62928355, ValAccuracy: 0.78226066
+Epoch:19, Time:4550ms, TrainError:0.055946697, TrainErrorChange:-0.037336398, TrainAccuracy: 0.90254486, ValError:0.57375556, ValAccuracy: 0.78210896
+Epoch:20, Time:4519ms, TrainError:0.039053433, TrainErrorChange:-0.016893264, TrainAccuracy: 0.83370876, ValError:0.75312144, ValAccuracy: 0.73213226
+Epoch:21, Time:4670ms, TrainError:0.041136477, TrainErrorChange:0.0020830445, TrainAccuracy: 0.91578066, ValError:0.5844716, ValAccuracy: 0.80449855
+Epoch:22, Time:4502ms, TrainError:0.028327463, TrainErrorChange:-0.012809014, TrainAccuracy: 0.9803605, ValError:0.48404142, ValAccuracy: 0.8318175
+
+TRAINING COMPLETED
+Total Training Time: 137658ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.81791526
+Precision: 0.90365124
+F1Score: 0.90365124
+Recall: 0.90365124
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.88235295
+FalsePositive: 3.0
+FalseNegative: 5.0
+Precision: 0.95238096
+F1Score: 0.95238096
+TruePositive: 60.0
+Recall: 0.95238096
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.8902439
+FalsePositive: 4.0
+FalseNegative: 5.0
+Precision: 0.9480519
+F1Score: 0.9480519
+TruePositive: 73.0
+Recall: 0.9480519
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.78688526
+FalsePositive: 3.0
+FalseNegative: 10.0
+Precision: 0.9411765
+F1Score: 0.9411765
+TruePositive: 48.0
+Recall: 0.9411765
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.64179105
+FalsePositive: 17.0
+FalseNegative: 7.0
+Precision: 0.71666664
+F1Score: 0.71666664
+TruePositive: 43.0
+Recall: 0.71666664
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.9516129
+FalsePositive: 1.0
+FalseNegative: 2.0
+Precision: 0.98333335
+F1Score: 0.98333335
+TruePositive: 59.0
+Recall: 0.98333335
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.7733333
+FalsePositive: 9.0
+FalseNegative: 8.0
+Precision: 0.86567163
+F1Score: 0.86567163
+TruePositive: 58.0
+Recall: 0.86567163
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.9047619
+FalsePositive: 4.0
+FalseNegative: 2.0
+Precision: 0.93442625
+F1Score: 0.93442625
+TruePositive: 57.0
+Recall: 0.93442625
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.73846155
+FalsePositive: 8.0
+FalseNegative: 9.0
+Precision: 0.85714287
+F1Score: 0.85714287
+TruePositive: 48.0
+Recall: 0.85714287
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.78431374
+FalsePositive: 4.0
+FalseNegative: 7.0
+Precision: 0.90909094
+F1Score: 0.90909094
+TruePositive: 40.0
+Recall: 0.90909094
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.82539684
+FalsePositive: 4.0
+FalseNegative: 7.0
+Precision: 0.9285714
+F1Score: 0.9285714
+TruePositive: 52.0
+Recall: 0.9285714
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0      0     60      0      0      0      0      2      0      1      2      0
+      1      0      0     73      2      3      0      0      0      0      0      0
+      2      0      0      0     48      5      0      0      2      2      1      0
+      3      1      0      0      0     43      0      3      0      2      1      0
+      4      0      0      0      1      0     59      0      0      0      0      1
+      5      0      1      3      0      3      0     58      1      0      0      0
+      6      1      0      1      0      0      0      0     57      0      0      0
+      7      1      2      0      0      1      0      2      0     48      0      3
+      8      0      0      0      0      5      0      1      1      0     40      0
+      9      2      0      0      0      0      1      1      0      3      0     52
+
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:24525ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:24568ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:24361ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:76165ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:77666ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:80533ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:24089ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:24034ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:23733ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:23807ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:23714ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:23767ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Epoch:4, Time:24305ms, TrainError:0.31528392, TrainErrorChange:-0.07332736, TrainAccuracy: 0.8266729
+Epoch:5, Time:25809ms, TrainError:0.2707182, TrainErrorChange:-0.044565737, TrainAccuracy: 0.851188
+Epoch:6, Time:24511ms, TrainError:0.23713747, TrainErrorChange:-0.03358072, TrainAccuracy: 0.87132424
+Epoch:7, Time:24322ms, TrainError:0.21108674, TrainErrorChange:-0.026050732, TrainAccuracy: 0.8843749
+Epoch:8, Time:25122ms, TrainError:0.189064, TrainErrorChange:-0.022022739, TrainAccuracy: 0.8937929
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:15043ms, TrainError:1.399161, TrainErrorChange:1.399161, TrainAccuracy: 0.64272416
+Epoch:2, Time:15105ms, TrainError:0.5021959, TrainErrorChange:-0.8969651, TrainAccuracy: 0.75608104
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:23219ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:243996ms, TrainError:1.399161, TrainErrorChange:1.399161, TrainAccuracy: 0.64272416
+Epoch:2, Time:15102ms, TrainError:0.5021959, TrainErrorChange:-0.8969651, TrainAccuracy: 0.75608104
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:13839ms, TrainError:1.399161, TrainErrorChange:1.399161, TrainAccuracy: 0.64272416
+Epoch:2, Time:14034ms, TrainError:0.5021959, TrainErrorChange:-0.8969651, TrainAccuracy: 0.75608104
+Epoch:3, Time:13459ms, TrainError:0.3969587, TrainErrorChange:-0.105237186, TrainAccuracy: 0.8121991
+Epoch:4, Time:13482ms, TrainError:0.3544766, TrainErrorChange:-0.042482108, TrainAccuracy: 0.82618016
+Epoch:5, Time:13754ms, TrainError:0.36533386, TrainErrorChange:0.010857254, TrainAccuracy: 0.83286345
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 6, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:15797ms, TrainError:1.6904557, TrainErrorChange:1.6904557, TrainAccuracy: 0.4199615
+Epoch:2, Time:14556ms, TrainError:0.60026234, TrainErrorChange:-1.0901933, TrainAccuracy: 0.7299186
+Epoch:3, Time:14972ms, TrainError:0.3886113, TrainErrorChange:-0.21165106, TrainAccuracy: 0.79043114
+Epoch:4, Time:15213ms, TrainError:0.31528392, TrainErrorChange:-0.07332736, TrainAccuracy: 0.8266729
+Epoch:5, Time:14857ms, TrainError:0.2707182, TrainErrorChange:-0.044565737, TrainAccuracy: 0.851188
+Epoch:6, Time:14913ms, TrainError:0.23713747, TrainErrorChange:-0.03358072, TrainAccuracy: 0.87132424
+Epoch:7, Time:15144ms, TrainError:0.21108674, TrainErrorChange:-0.026050732, TrainAccuracy: 0.8843749
+Epoch:8, Time:15176ms, TrainError:0.189064, TrainErrorChange:-0.022022739, TrainAccuracy: 0.8937929
+Epoch:9, Time:14952ms, TrainError:0.17098476, TrainErrorChange:-0.018079236, TrainAccuracy: 0.90518427
+Epoch:10, Time:15631ms, TrainError:0.15550782, TrainErrorChange:-0.015476942, TrainAccuracy: 0.912739
+Epoch:11, Time:14714ms, TrainError:0.14246908, TrainErrorChange:-0.01303874, TrainAccuracy: 0.91616595
+Epoch:12, Time:15218ms, TrainError:0.13031535, TrainErrorChange:-0.01215373, TrainAccuracy: 0.9235791
+Epoch:13, Time:15926ms, TrainError:0.119830854, TrainErrorChange:-0.010484494, TrainAccuracy: 0.92638016
+Epoch:14, Time:15691ms, TrainError:0.11052859, TrainErrorChange:-0.009302266, TrainAccuracy: 0.9305539
+Epoch:15, Time:15741ms, TrainError:0.10196617, TrainErrorChange:-0.008562416, TrainAccuracy: 0.93453866
+Epoch:16, Time:15927ms, TrainError:0.09413695, TrainErrorChange:-0.007829219, TrainAccuracy: 0.9369853
+Epoch:17, Time:15826ms, TrainError:0.08720807, TrainErrorChange:-0.0069288835, TrainAccuracy: 0.9380504
+Epoch:18, Time:15698ms, TrainError:0.08092371, TrainErrorChange:-0.0062843636, TrainAccuracy: 0.94017726
+Epoch:19, Time:15720ms, TrainError:0.074956365, TrainErrorChange:-0.0059673414, TrainAccuracy: 0.94621503
+Epoch:20, Time:15936ms, TrainError:0.06972644, TrainErrorChange:-0.0052299276, TrainAccuracy: 0.9451132
+Epoch:21, Time:16129ms, TrainError:0.06451665, TrainErrorChange:-0.0052097887, TrainAccuracy: 0.94950706
+Epoch:22, Time:16097ms, TrainError:0.059838798, TrainErrorChange:-0.0046778508, TrainAccuracy: 0.9491749
+Epoch:23, Time:15831ms, TrainError:0.055353124, TrainErrorChange:-0.004485674, TrainAccuracy: 0.95115995
+Epoch:24, Time:15795ms, TrainError:0.05131091, TrainErrorChange:-0.004042212, TrainAccuracy: 0.95231295
+Epoch:25, Time:15643ms, TrainError:0.047424357, TrainErrorChange:-0.0038865544, TrainAccuracy: 0.9581237
+
+TRAINING COMPLETED
+Total Training Time: 486055ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.8991148
+Precision: 0.95201933
+F1Score: 0.95201933
+Recall: 0.95201933
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.95804197
+FalsePositive: 3.0
+FalseNegative: 3.0
+Precision: 0.9785714
+F1Score: 0.9785714
+TruePositive: 137.0
+Recall: 0.9785714
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.9673913
+FalsePositive: 4.0
+FalseNegative: 2.0
+Precision: 0.978022
+F1Score: 0.978022
+TruePositive: 178.0
+Recall: 0.978022
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.8786127
+FalsePositive: 17.0
+FalseNegative: 4.0
+Precision: 0.8994083
+F1Score: 0.89940834
+TruePositive: 152.0
+Recall: 0.8994083
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.82857144
+FalsePositive: 24.0
+FalseNegative: 6.0
+Precision: 0.8579882
+F1Score: 0.8579882
+TruePositive: 145.0
+Recall: 0.8579882
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.95394737
+FalsePositive: 1.0
+FalseNegative: 6.0
+Precision: 0.9931507
+F1Score: 0.9931507
+TruePositive: 145.0
+Recall: 0.9931507
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.83076924
+FalsePositive: 3.0
+FalseNegative: 19.0
+Precision: 0.972973
+F1Score: 0.972973
+TruePositive: 108.0
+Recall: 0.972973
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.91156465
+FalsePositive: 6.0
+FalseNegative: 7.0
+Precision: 0.95714283
+F1Score: 0.95714283
+TruePositive: 134.0
+Recall: 0.95714283
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.89171976
+FalsePositive: 7.0
+FalseNegative: 10.0
+Precision: 0.95238096
+F1Score: 0.95238096
+TruePositive: 140.0
+Recall: 0.95238096
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.89873415
+FalsePositive: 2.0
+FalseNegative: 14.0
+Precision: 0.9861111
+F1Score: 0.9861111
+TruePositive: 142.0
+Recall: 0.9861111
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.8717949
+FalsePositive: 8.0
+FalseNegative: 12.0
+Precision: 0.9444444
+F1Score: 0.9444444
+TruePositive: 136.0
+Recall: 0.9444444
+
+----------------
+CONFUSION MATRIX
+          none      0      1      2      3      4      5      6      7      8      9
+   none      0      0      0      0      0      0      0      0      0      0      0
+      0      1    137      0      1      0      0      0      1      0      0      0
+      1      1      0    178      0      0      0      0      0      1      0      0
+      2      0      0      0    152      2      0      0      0      2      0      0
+      3      1      0      1      0    145      0      1      0      2      1      0
+      4      0      0      0      2      0    145      0      1      0      0      3
+      5      0      1      0      2     11      0    108      4      0      0      1
+      6      0      1      0      5      0      0      0    134      0      1      0
+      7      1      0      1      3      1      0      0      0    140      0      4
+      8      3      1      2      3      4      0      1      0      0    142      0
+      9      1      0      0      1      6      1      1      0      2      0    136
+

@@ -46,7 +46,7 @@ public class AlexNet {
     String labelsFile = "D:\\datasets\\cifar10\\train\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
     //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\cifar10\\train\\train.txt";
+    String trainingFile = "D:\\datasets\\cifar10\\train\\index.txt";
     // String testFile = "datasets/cifar10/test.txt";
 
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
@@ -71,11 +71,11 @@ public class AlexNet {
                 .addInputLayer(imageWidth, imageHeight)
                 .addConvolutionalLayer(11, 11, 3) // 11 x 11
                 .addMaxPoolingLayer(2, 2, 2) // 3, 3, 2
-                .addConvolutionalLayer(5, 5, 16)
+                .addConvolutionalLayer(5, 5, 32) // 16
                 .addMaxPoolingLayer(2, 2, 2)
-                .addConvolutionalLayer(3, 3, 24)
-                .addConvolutionalLayer(3, 3, 24)
-                .addConvolutionalLayer(3, 3, 16)
+                .addConvolutionalLayer(3, 3, 64) //24
+//                .addConvolutionalLayer(3, 3, 24) // 24
+//                .addConvolutionalLayer(3, 3, 24)
                 .addFullyConnectedLayer(256)
                 .addFullyConnectedLayer(256)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
