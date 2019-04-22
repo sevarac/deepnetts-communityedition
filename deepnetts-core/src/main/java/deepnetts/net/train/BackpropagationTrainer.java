@@ -34,6 +34,7 @@ import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.FileIO;
 import java.io.File;
 import java.io.IOException;
@@ -382,6 +383,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         LOGGER.info("------------------------------------------------------------------------");
 
         fireTrainingEvent(TrainingEvent.Type.STOPPED);
+        DeepNettsThreadPool.getInstance().shutdown(); // only for mutlithreaded
     }
 
     public long getMaxEpochs() {
