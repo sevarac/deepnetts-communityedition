@@ -31,7 +31,11 @@ import java.util.logging.Logger;
 import deepnetts.net.train.opt.Optimizer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.RandomGenerator;
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * Fully connected layer is used as hidden layer in the neural network, and it
@@ -53,6 +57,9 @@ public final class FullyConnectedLayer extends AbstractLayer {
 
     private boolean useDropout=false; //experimental
     private Tensor dropout;
+    private boolean multithreaded=false;
+    private ArrayList<Callable<Void>> forwardTasks;
+    private ArrayList<Callable<Void>> backward3DTasks;
 
     /**
      * Creates an instance of fully connected layer with specified width (number
@@ -144,6 +151,27 @@ public final class FullyConnectedLayer extends AbstractLayer {
                WeightsInit.randomize(biases);
 
         setOptimizerType(OptimizerType.SGD);
+        
+        
+        // multithreading tasks
+        if (DeepNettsThreadPool.getInstance().getThreadCount() > 1) {
+            multithreaded = true;
+
+            forwardTasks = new ArrayList<>();
+            backward3DTasks = new ArrayList<>();
+
+            float cellsPerThread = width / (float) DeepNettsThreadPool.getInstance().getThreadCount();
+            CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+          //  CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+            for (int i = 0; i < DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
+                ForwardCallable ftask = new ForwardCallable((int) cellsPerThread * i, (int) cellsPerThread * (i + 1), fcb);
+                forwardTasks.add(ftask);       
+                
+                Backward3DCallable btask = new Backward3DCallable((int) cellsPerThread * i, (int) cellsPerThread * (i + 1), fcb);
+                backward3DTasks.add(btask);                               
+            }
+        }        
+        
     }
 
     @Override
@@ -158,6 +186,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
     // to se verovatno postize broadcastingom po prethodnom lejeru sa dimenzijama 1
     // prouci formule u https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html
     // Doublechecked and tested with octave : 21.01.19.
+    // razbi ovo na 3 podmetode!!!
     @Override
     public void forward() {
         // pokusaj generalizacije da ima samo jednu granu bez obzira na dimenzije prethodnog lejera
@@ -179,22 +208,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
             // outputs.apply(activation::getValue);
         } // if previous layer is MaxPooling, Convolutional or input layer (2D or 3D) - TODO: posto je povezanost svi sa svima ovo mozda moze i kao 1d na 1d niz, verovatno je efikasnije
         else if ((prevLayer instanceof MaxPoolingLayer) || (prevLayer instanceof ConvolutionalLayer) || (prevLayer instanceof InputLayer)) { // povezi sve na sve
-            // prethodni loop se svodi na ovaj pri cemu su inRow=1 i inDepth=1  i to zapravo deluje kao broadcasting!
-            // napravi implementaciju koja ce da zakuca 4d tensor
-            //  cilj je da imam samo jednu granu dfa nema ovog if, nego da radi broadcasting zapravo, ali zakucan na 4 dimenzije
-            outputs.copyFrom(biases);                                             // first use (add) biases to all outputs
-            for (int outCol = 0; outCol < outputs.getCols(); outCol++) {          // for all neurons/outputs in this layer
-                for (int inDepth = 0; inDepth < inputs.getDepth(); inDepth++) {   // iterate depth from prev/input layer
-                    for (int inRow = 0; inRow < inputs.getRows(); inRow++) {      // iterate current channel by height (rows)
-                        for (int inCol = 0; inCol < inputs.getCols(); inCol++) {   // iterate current feature map by width (cols)
-                            outputs.add(outCol, inputs.get(inRow, inCol, inDepth) * weights.get(inCol, inRow, inDepth, outCol)); // add to weighted sum of all inputs (TODO: ako je svaki sa svima to bi mozda moglo da bude i jednostavno i da se prodje u jednom loopu a ugnjezdeni loopovi bi se lakse paralelizovali)
-                        }
-                    }
-                }
-                // apply activation function to all weigthed sums stored in outputs
-               outputs.set(outCol, activation.getValue(outputs.get(outCol)));
-            }
-             //outputs.apply(activation::getValue);
+            forwardFrom3DLayer();
         }
 
         // perform dropout
@@ -208,7 +222,38 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
 
     }
+    
+    private void forwardFrom3DLayer() {
+        // prethodni loop se svodi na ovaj pri cemu su inRow=1 i inDepth=1  i to zapravo deluje kao broadcasting!
+        // napravi implementaciju koja ce da zakuca 4d tensor
+        //  cilj je da imam samo jednu granu dfa nema ovog if, nego da radi broadcasting zapravo, ali zakucan na 4 dimenzije
+        outputs.copyFrom(biases);                                             // first use (add) biases to all outputs
 
+        if (!multithreaded) {
+            for (int outCol = 0; outCol < outputs.getCols(); outCol++) {          // for all neurons/outputs in this layer
+                forwardFrom3DLayerForCell(outCol);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(forwardTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage());
+            }
+        }
+    }
+    
+    private void forwardFrom3DLayerForCell(int outCol) {
+        for (int inDepth = 0; inDepth < inputs.getDepth(); inDepth++) {   // iterate depth from prev/input layer
+            for (int inRow = 0; inRow < inputs.getRows(); inRow++) {      // iterate current channel by height (rows)
+                for (int inCol = 0; inCol < inputs.getCols(); inCol++) {   // iterate current feature map by width (cols)
+                    outputs.add(outCol, inputs.get(inRow, inCol, inDepth) * weights.get(inCol, inRow, inDepth, outCol)); // add to weighted sum of all inputs (TODO: ako je svaki sa svima to bi mozda moglo da bude i jednostavno i da se prodje u jednom loopu a ugnjezdeni loopovi bi se lakse paralelizovali)
+                }
+            }
+        }
+        // apply activation function to all weigthed sums stored in outputs
+        outputs.set(outCol, activation.getValue(outputs.get(outCol)));
+    }
+    
     @Override
     public void backward() {
         if (!batchMode) { // if online mode reset deltaWeights and deltaBiases to zeros
@@ -343,7 +388,30 @@ public final class FullyConnectedLayer extends AbstractLayer {
                 || (prevLayer instanceof ConvolutionalLayer)
                 || (prevLayer instanceof MaxPoolingLayer)) {
 
+            backwardTo3DLayer();
+        }
+    }
+    
+    private void backwardTo3DLayer() {
+//        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // for all neurons/deltas in this layer
+//            backwardTo3DLayerForCell(deltaCol);
+//        }
+        
+        if (!multithreaded) {
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // for all neurons/deltas in this layer
+                backwardTo3DLayerForCell(deltaCol);
+            }
+        } else {
+            try {
+                DeepNettsThreadPool.getInstance().run(backward3DTasks);
+            } catch (InterruptedException ex) {
+                LOG.warning(ex.getMessage());
+            }
+        }        
+    }
+    
+     private void backwardTo3DLayerForCell(int deltaCol) {
+
                 for (int inDepth = 0; inDepth < inputs.getDepth(); inDepth++) { // iterate all inputs from previous layer
                     for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                         for (int inRow = 0; inRow < inputs.getRows(); inRow++) {
@@ -420,9 +488,8 @@ public final class FullyConnectedLayer extends AbstractLayer {
 */
                 float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
                 deltaBiases[deltaCol] += deltaBias;
-            }
-        }
-    }
+              
+     }    
 
     @Override
     public void applyWeightChanges() {
@@ -443,6 +510,53 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
 
     }
+    
+  private class ForwardCallable implements Callable<Void> {
+
+        private final int from, to;
+        private final CyclicBarrier cb;
+
+        public ForwardCallable(int from, int to, CyclicBarrier cb) {
+            this.from = from;
+            this.to = to;
+            this.cb = cb;
+        }
+        
+        @Override
+        public Void call() throws Exception {
+
+            for (int cell = from; cell < to; cell++) {
+                forwardFrom3DLayerForCell(cell);
+            }
+
+            cb.await();
+            return null;
+        }
+    }
+  
+  private class Backward3DCallable implements Callable<Void> {
+
+        private final int from, to;
+        private final CyclicBarrier cb;
+
+        public Backward3DCallable(int from, int to, CyclicBarrier cb) {
+            this.from = from;
+            this.to = to;
+            this.cb = cb;
+        }
+        
+        @Override
+        public Void call() throws Exception {
+
+            for (int cell = from; cell < to; cell++) {
+                backwardTo3DLayerForCell(cell);
+            }
+
+            cb.await();
+            return null;
+        }
+    }  
+    
     
     @Override
     public String toString() {

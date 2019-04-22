@@ -214,9 +214,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 } else if (nextLayer instanceof ConvolutionalLayer) {
                     BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
                     backwardFromConvolutionalTasks.add(bctask);
-                }
-                
-                
+                }                                
             }
         }
 
