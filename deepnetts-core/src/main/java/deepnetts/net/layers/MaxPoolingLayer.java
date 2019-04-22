@@ -100,25 +100,33 @@ public final class MaxPoolingLayer extends AbstractLayer {
         // used in fprop to save idx position of max value
         maxIdx = new int[depth][height][width][2]; // svakoj poziciji filtera odgovara jedna [row, col] celija u outputu idx 0 je col, idx 1 je row
 
-        if (DeepNettsThreadPool.getInstance().getThreadCount() > 1) multithreaded=true;
-        forwardTasks = new ArrayList<>();
-        backwardTasks = new ArrayList<>();        
-        backwardConvTasks = new ArrayList<>();        
-        float channelsPerThread = depth / (float)DeepNettsThreadPool.getInstance().getThreadCount();
-        CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
-        CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier        
-        
-        for(int i=0; i<DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
-            ForwardCallable task = new ForwardCallable((int)channelsPerThread * i, (int)channelsPerThread * (i+1), fcb);
-            forwardTasks.add(task);
+        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
+        if (threadCount > 1) {
+            multithreaded = true;
+            int[] channelsPerThread = calculateChannelsPerThread(threadCount);
+
+            forwardTasks = new ArrayList<>();
+            backwardTasks = new ArrayList<>();
+            backwardConvTasks = new ArrayList<>();
+
+            CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+            CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier        
+            int fromCh = 0, toCh = 0;
+            for (int i = 0; i < DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
+                fromCh = toCh;
+                toCh = fromCh + channelsPerThread[i];
                 
-            if (nextLayer instanceof FullyConnectedLayer) {
-                BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
-                backwardTasks.add(bfctask);            
-            } else if (nextLayer instanceof ConvolutionalLayer) {
-                BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
-                backwardConvTasks.add(bctask);            
-            }                  
+                ForwardCallable task = new ForwardCallable(fromCh, toCh, fcb);
+                forwardTasks.add(task);
+
+                if (nextLayer instanceof FullyConnectedLayer) {
+                    BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable(fromCh, toCh, bcb);
+                    backwardTasks.add(bfctask);
+                } else if (nextLayer instanceof ConvolutionalLayer) {
+                    BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable(fromCh, toCh, bcb);
+                    backwardConvTasks.add(bctask);
+                }
+            }
         }
     }
 
@@ -298,6 +306,31 @@ public final class MaxPoolingLayer extends AbstractLayer {
     public int getStride() {
         return stride;
     }
+    
+    /**
+     * Calculates how many channels should be assigned in each thread in multithreaded mode.
+     * 
+     * @param threadCount
+     * @return 
+     */
+    private int[] calculateChannelsPerThread(int threadCount) {
+        int[] threads = new int[threadCount];
+        int chpt = depth / threadCount;
+        
+        for(int i=0; i<threadCount; i++) {
+            threads[i] = chpt;
+        }
+                        
+        if (depth % threadCount !=0) {
+            int rest = depth % threadCount;
+            
+            for(int i=0; i< rest; i++) {
+                threads[i] = threads[i] + 1;
+            }
+        }
+        
+        return threads;
+    }    
 
   private class ForwardCallable implements Callable<Void> {
 

@@ -191,28 +191,35 @@ public final class ConvolutionalLayer extends AbstractLayer {
         prevBiasSqrSum = new Tensor(depth);
         WeightsInit.randomize(biases);        // sometimes the init to 0 fir relu 0.1
         
-        if (DeepNettsThreadPool.getInstance().getThreadCount() > 1) {
+        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
+        if (threadCount > 1) {
             multithreaded = true;
-
+            int[] channelsPerThread = calculateChannelsPerThread(threadCount);
+            
             forwardTasks = new ArrayList<>();
             backwardFromPoolingTasks = new ArrayList<>();
             backwardFromFullyConnectedTasks = new ArrayList<>();
             backwardFromConvolutionalTasks = new ArrayList<>();
-            float channelsPerThread = depth / (float) DeepNettsThreadPool.getInstance().getThreadCount();
-            CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
-            CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
-            for (int i = 0; i < DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
-                ForwardCallable ftask = new ForwardCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), fcb);
+
+            // ako nije deljivo onda neka PRVI!! thread dobije vise - on ce imati najvise vremena zda zavrsi jer prvi krece???
+            CyclicBarrier fcb = new CyclicBarrier(threadCount);    // all forward threads share the same cyclic barrier
+            CyclicBarrier bcb = new CyclicBarrier(threadCount);    // all backward threads share the same cyclic barrier
+            int fromCh = 0, toCh = 0;
+            for (int i = 0; i < threadCount; i++) {
+                fromCh = toCh;
+                toCh = fromCh + channelsPerThread[i];
+                        
+                ForwardCallable ftask = new ForwardCallable(fromCh, toCh, fcb);
                 forwardTasks.add(ftask);
 
                 if (nextLayer instanceof MaxPoolingLayer) {
-                    BackwardFromPoolingCallable btask = new BackwardFromPoolingCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
+                    BackwardFromPoolingCallable btask = new BackwardFromPoolingCallable(fromCh, toCh, bcb);
                     backwardFromPoolingTasks.add(btask);
                 } else if (nextLayer instanceof FullyConnectedLayer) {
-                    BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
+                    BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable(fromCh, toCh, bcb);
                     backwardFromFullyConnectedTasks.add(bfctask);
                 } else if (nextLayer instanceof ConvolutionalLayer) {
-                    BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable((int) channelsPerThread * i, (int) channelsPerThread * (i + 1), bcb);
+                    BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable(fromCh, toCh, bcb);
                     backwardFromConvolutionalTasks.add(bctask);
                 }                                
             }
@@ -242,8 +249,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
             try {
                 DeepNettsThreadPool.getInstance().run(forwardTasks);
             } catch (InterruptedException ex) {
-                LOG.warning(ex.getMessage()); // throw excepti0on here!!!
-                //Logger.getLogger(ConvolutionalLayer.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.warning(ex.getMessage());
             }
         }
     }
@@ -609,6 +615,31 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
     public Tensor[] getFilterDeltaWeights() {
         return deltaWeights;
+    }
+
+    /**
+     * Calculates how many channels should be assigned in each thread in multithreaded mode.
+     * 
+     * @param threadCount
+     * @return 
+     */
+    private int[] calculateChannelsPerThread(int threadCount) {
+        int[] threads = new int[threadCount];
+        int chpt = depth / threadCount;
+        
+        for(int i=0; i<threadCount; i++) {
+            threads[i] = chpt;
+        }
+                        
+        if (depth % threadCount !=0) {
+            int rest = depth % threadCount;
+            
+            for(int i=0; i< rest; i++) {
+                threads[i] = threads[i] + 1;
+            }
+        }
+        
+        return threads;
     }
 
     /**

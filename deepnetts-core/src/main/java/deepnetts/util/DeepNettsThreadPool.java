@@ -18,7 +18,7 @@ public class DeepNettsThreadPool {
     private final int threadCount;
 
     private DeepNettsThreadPool() {
-        threadCount = 2;//Runtime.getRuntime().availableProcessors()-1;
+        threadCount = 4;//Runtime.getRuntime().availableProcessors()-1;
         es = Executors.newFixedThreadPool(threadCount);
     }
     

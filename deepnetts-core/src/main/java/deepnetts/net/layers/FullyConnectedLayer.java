@@ -153,25 +153,27 @@ public final class FullyConnectedLayer extends AbstractLayer {
         setOptimizerType(OptimizerType.SGD);
         
         
-        // multithreading tasks
-        if (DeepNettsThreadPool.getInstance().getThreadCount() > 1) {
+        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
+        if (threadCount > 1) {
             multithreaded = true;
+            int[] cellsPerThread = calculateCellsPerThread(threadCount);
 
             forwardTasks = new ArrayList<>();
             backward3DTasks = new ArrayList<>();
 
-            float cellsPerThread = width / (float) DeepNettsThreadPool.getInstance().getThreadCount();
-            CyclicBarrier fcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
-          //  CyclicBarrier bcb = new CyclicBarrier(DeepNettsThreadPool.getInstance().getThreadCount());    // all threads share the same cyclic barrier
+            CyclicBarrier fcb = new CyclicBarrier(threadCount);    // all forward threads share the same cyclic barrier
+            CyclicBarrier bcb = new CyclicBarrier(threadCount);    // all backward threads share the same cyclic barrier
+            int from = 0, to = 0;            
             for (int i = 0; i < DeepNettsThreadPool.getInstance().getThreadCount(); i++) {
-                ForwardCallable ftask = new ForwardCallable((int) cellsPerThread * i, (int) cellsPerThread * (i + 1), fcb);
+                from = to;
+                to = from + cellsPerThread[i];                
+                ForwardCallable ftask = new ForwardCallable(from, to, fcb);
                 forwardTasks.add(ftask);       
                 
-                Backward3DCallable btask = new Backward3DCallable((int) cellsPerThread * i, (int) cellsPerThread * (i + 1), fcb);
+                Backward3DCallable btask = new Backward3DCallable(from, to, bcb);
                 backward3DTasks.add(btask);                               
             }
-        }        
-        
+        }                
     }
 
     @Override
@@ -392,11 +394,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
     }
     
-    private void backwardTo3DLayer() {
-//        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // for all neurons/deltas in this layer
-//            backwardTo3DLayerForCell(deltaCol);
-//        }
-        
+    private void backwardTo3DLayer() {   
         if (!multithreaded) {
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // for all neurons/deltas in this layer
                 backwardTo3DLayerForCell(deltaCol);
@@ -557,6 +555,24 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
     }  
     
+    private int[] calculateCellsPerThread(int threadCount) {
+        int[] threads = new int[threadCount];
+        int cpt = width / threadCount;
+        
+        for(int i=0; i<threadCount; i++) {
+            threads[i] = cpt;
+        }
+                        
+        if (width % threadCount !=0) {
+            int rest = width % threadCount;
+            
+            for(int i=0; i< rest; i++) {
+                threads[i] = threads[i] + 1;
+            }
+        }
+        
+        return threads;
+    }      
     
     @Override
     public String toString() {
