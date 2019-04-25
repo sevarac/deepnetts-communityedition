@@ -23,12 +23,20 @@ package deepnetts.util;
 
 import java.util.Random;
 
+/**
+ * Random number generator singleton.
+ * 
+ * @author Zoran Sevarac
+ */
 public class RandomGenerator {
     
     private static RandomGenerator instance;
     
     private Random randomGen =  new Random(123);
         
+    /**
+     * Prevent instantiation of this class
+     */
     private RandomGenerator() { }
     
     public final static RandomGenerator getDefault() {
@@ -47,7 +55,13 @@ public class RandomGenerator {
         return randomGen.nextFloat();
     }
     
-    // TODO: add next int
+    public float nextGaussian() {
+        return (float)randomGen.nextGaussian();
+    }    
+    
+    public int nextInt() {
+        return randomGen.nextInt();
+    }
     
     public Random getRandom() {
         return  randomGen;

@@ -26,6 +26,7 @@ import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
 import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.net.weights.RandomWeightsType;
 
 /**
  * Base class for different types of layers (except data/input layer) Provides
@@ -104,7 +105,6 @@ public abstract class AbstractLayer implements Layer, Serializable {
 
     protected OptimizerType optimizerType = OptimizerType.SGD;
 
-    // TODO: use method reference for activation and optimization function
     protected boolean batchMode = false;
     protected int batchSize = 0;
 
@@ -113,8 +113,10 @@ public abstract class AbstractLayer implements Layer, Serializable {
     // biases are used by output, fully connected and convolutional layers
     //  Note: Tensor biases,  deltaBiases; all these below can be Tensor
     protected float[] biases;
-    protected float[] deltaBiases;
+    protected float[] deltaBiases; 
     protected float[] prevDeltaBiases;
+    
+    protected RandomWeightsType randomWeightsType = RandomWeightsType.XAVIER;
 
     /**
      * This method should implement layer initialization when layer is added to

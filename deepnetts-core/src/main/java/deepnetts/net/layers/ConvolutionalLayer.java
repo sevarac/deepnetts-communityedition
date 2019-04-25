@@ -25,7 +25,7 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.DeepNettsException;
-import deepnetts.util.WeightsInit;
+import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
 import deepnetts.net.layers.activation.ActivationFunction;
@@ -176,7 +176,9 @@ public final class ConvolutionalLayer extends AbstractLayer {
         // kreiraj pojedinacne filtere ovde
         for (int ch = 0; ch < filters.length; ch++) {
             filters[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
-            WeightsInit.uniform(filters[ch].getValues(), inputCount); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija...
+            RandomWeights.uniform(filters[ch].getValues(), inputCount); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija...
+            // uniform ali skaliran u odnosu na broj ulaza
+            //RandomWeights.normal(filters[ch].getValues()); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija...
 
             deltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
             prevDeltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
@@ -189,7 +191,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
         deltaBiases = new float[depth];
         prevDeltaBiases = new float[depth];
         prevBiasSqrSum = new Tensor(depth);
-        WeightsInit.randomize(biases);        // sometimes the init to 0 fir relu 0.1
+        //RandomWeights.randomize(biases);        // sometimes the init to 0 fir relu 0.1
+        Tensor.fill(biases, 0.1f);
         
         int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
         if (threadCount > 1) {

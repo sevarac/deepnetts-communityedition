@@ -25,7 +25,7 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.opt.Optimizer;
 import deepnetts.net.train.opt.OptimizerType;
-import deepnetts.util.WeightsInit;
+import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
 
@@ -139,12 +139,12 @@ public class OutputLayer extends AbstractLayer {
         gradients = new Tensor(prevLayerWidth, width);
         deltaWeights = new Tensor(prevLayerWidth, width);
         prevDeltaWeights = new Tensor(prevLayerWidth, width);
-        WeightsInit.xavier(weights.getValues(), prevLayerWidth, width);
+        RandomWeights.xavier(weights.getValues(), prevLayerWidth, width);
 
         biases = new float[width];
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
-        WeightsInit.randomize(biases);
+        RandomWeights.randomize(biases);
 
         setOptimizerType(OptimizerType.SGD);
     }

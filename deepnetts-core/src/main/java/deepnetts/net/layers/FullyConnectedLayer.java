@@ -24,7 +24,7 @@ package deepnetts.net.layers;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
 import deepnetts.net.layers.activation.ActivationFunction;
-import deepnetts.util.WeightsInit;
+import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -122,8 +122,14 @@ public final class FullyConnectedLayer extends AbstractLayer {
             prevBiasSqrSum = new Tensor(width);
             prevDeltaBiasSqrSum = new Tensor(width);
 
-            WeightsInit.xavier(weights.getValues(), prevLayer.width, width);
-            // WeightsInit.randomize(weights.getValues());
+            // or he for relu
+            // RandomWeights.xavier(weights.getValues(), prevLayer.width, width);
+            if (activationType == ActivationType.RELU || activationType == ActivationType.LEAKY_RELU) {
+                RandomWeights.he(weights.getValues(), outputs.size());
+            } else {    // sigmoid tanh
+                RandomWeights.xavier(weights.getValues(), prevLayer.width, width); // outputs.size() is same as width
+               // RandomWeights.uniform(weights.getValues(), prevLayer.width); // outputs.size() is same as width
+            }             
 
         } else if ((prevLayer instanceof MaxPoolingLayer) || (prevLayer instanceof ConvolutionalLayer) || (prevLayer instanceof InputLayer)) { // ako je pooling ili konvolucioni 2d ili 3d
             weights = new Tensor(prevLayer.width, prevLayer.height, prevLayer.depth, width);
@@ -138,17 +144,24 @@ public final class FullyConnectedLayer extends AbstractLayer {
             prevDeltaBiasSqrSum = new Tensor(width);
 
             int totalInputs = prevLayer.getWidth() * prevLayer.getHeight() * prevLayer.getDepth();
-            WeightsInit.xavier(weights.getValues(), totalInputs, width);
+            
+            if (activationType == ActivationType.RELU || activationType == ActivationType.LEAKY_RELU) {
+                RandomWeights.he(weights.getValues(), totalInputs);
+            } else {    // sigmoid tanh
+                RandomWeights.xavier(weights.getValues(), totalInputs, width); // outputs.size() is same as width
+                //RandomWeights.uniform(weights.getValues(), totalInputs);
+            }           
         }
 
         biases = new float[width];
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
 
-        if (activationType == ActivationType.RELU)
-               Tensor.fill(biases, 0.5f);
-            else
-               WeightsInit.randomize(biases);
+        if (activationType == ActivationType.RELU || activationType == ActivationType.LEAKY_RELU) {
+               Tensor.fill(biases, 0.1f);
+        } else {
+               Tensor.fill(biases, 0.1f);
+        }
 
         setOptimizerType(OptimizerType.SGD);
         

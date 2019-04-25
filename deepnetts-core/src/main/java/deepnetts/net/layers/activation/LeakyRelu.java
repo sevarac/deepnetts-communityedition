@@ -19,6 +19,16 @@ import java.io.Serializable;
  */
 public final class LeakyRelu implements ActivationFunction, Serializable {
 
+    private final float a;
+    
+    public LeakyRelu() {
+        this.a=0.01f;
+    }
+    
+    public LeakyRelu(float a) {
+        this.a=a;
+    }
+    
     @Override
     public float getValue(final float x) {
         return ( x >= 0 ? x : 0.01f*x );  
