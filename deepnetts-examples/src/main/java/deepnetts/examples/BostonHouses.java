@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -60,7 +60,7 @@ public class BostonHouses {
 
             neuralNet.train(dataSetParts[0]);
 
-            PerformanceMeasure pm = Evaluators.evaluateRegressor(neuralNet, dataSetParts[1]);
+            EvaluationMetrics pm = Evaluators.evaluateRegressor(neuralNet, dataSetParts[1]);
             System.out.println(pm);
 
             // perform prediction for some input value

@@ -57,9 +57,9 @@ public final class FullyConnectedLayer extends AbstractLayer {
 
     private boolean useDropout=false; //experimental
     private Tensor dropout;
-    private boolean multithreaded=false;
-    private ArrayList<Callable<Void>> forwardTasks;
-    private ArrayList<Callable<Void>> backward3DTasks;
+    private transient boolean multithreaded=false;
+    private transient ArrayList<Callable<Void>> forwardTasks;
+    private transient ArrayList<Callable<Void>> backward3DTasks;
 
     /**
      * Creates an instance of fully connected layer with specified width (number

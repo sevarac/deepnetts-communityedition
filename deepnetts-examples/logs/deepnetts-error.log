@@ -1,1 +1,1 @@
-[ERROR] 2019-04-17 11:11:00.975 [main] DeepNetts - java.io.FileNotFoundException: D:\datasets\cifar10\train\train.txt (The system cannot find the file specified)
+[ERROR] 2019-04-22 06:25:07.528 [main] DeepNetts - java.io.FileNotFoundException: D:\datasets\clouds\swimcat\train.txt (The system cannot find the file specified)

@@ -3,7 +3,7 @@ package deepnetts.examples;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -70,8 +70,8 @@ public class RunLegoPeople {
         // train convolutional network
         BackpropagationTrainer trainer = legoPeopleNet.getTrainer();
         trainer.setLearningRate(0.01f);
-       // trainer.setMomentum(0.1f);
-        trainer.setMaxError(0.03f);
+     //   trainer.setMomentum(0.7f);
+        trainer.setMaxError(0.07f);
         trainer.setOptimizer(OptimizerType.SGD);
      //   trainer.setBatchMode(true).setBatchSize(10);
         trainer.train(imageSets[0]);
@@ -90,7 +90,7 @@ public class RunLegoPeople {
    //     try {
      //       legoNet = (ConvolutionalNetwork) FileIO.createFromFile("legoPeople.net");
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure  pm =  evaluator.evaluatePerformance(legoPeopleNet, imageSets[1]);
+        EvaluationMetrics  pm =  evaluator.evaluate(legoPeopleNet, imageSets[1]);
         System.out.println(pm);
 
 //        } catch (IOException | ClassNotFoundException ex) {

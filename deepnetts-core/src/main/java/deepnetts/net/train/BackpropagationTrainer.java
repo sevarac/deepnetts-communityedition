@@ -29,7 +29,7 @@ import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.Evaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
@@ -661,8 +661,8 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     // only for classification problems
     private float calculateAccuracy(DataSet<? extends DataSetItem> validationSet) {
-        PerformanceMeasure pm = eval.evaluatePerformance(neuralNet, validationSet);
-        return pm.get(PerformanceMeasure.ACCURACY);
+        EvaluationMetrics pm = eval.evaluate(neuralNet, validationSet);
+        return pm.get(EvaluationMetrics.ACCURACY);
     }
 
 

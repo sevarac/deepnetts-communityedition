@@ -93,7 +93,7 @@ public class MnistFromJson {
 
         // Test trained network
         ClassifierEvaluator tester = new ClassifierEvaluator();
-        tester.evaluatePerformance(neuralNet, imageSet);
+        tester.evaluate(neuralNet, imageSet);
         System.out.println(tester);
 
         // Save network to file as json

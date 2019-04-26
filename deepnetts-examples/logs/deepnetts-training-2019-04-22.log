@@ -1,0 +1,872 @@
+Epoch:2, Time:34502ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:21556ms, TrainError:2.854555, TrainErrorChange:2.854555, TrainAccuracy: 0.0
+Epoch:2, Time:21836ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:21712ms, TrainError:2.854555, TrainErrorChange:2.854555, TrainAccuracy: 0.0
+Epoch:2, Time:21605ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Epoch:3, Time:22174ms, TrainError:2.3934903, TrainErrorChange:-0.19932437, TrainAccuracy: 0.0
+Epoch:4, Time:21729ms, TrainError:2.1984575, TrainErrorChange:-0.19503284, TrainAccuracy: 0.03611111
+Epoch:5, Time:21525ms, TrainError:1.7024758, TrainErrorChange:-0.4959817, TrainAccuracy: 0.16209266
+Epoch:6, Time:20838ms, TrainError:0.93226457, TrainErrorChange:-0.7702112, TrainAccuracy: 0.56224334
+Epoch:7, Time:20910ms, TrainError:0.5840663, TrainErrorChange:-0.3481983, TrainAccuracy: 0.7023342
+
+TRAINING COMPLETED
+Total Training Time: 178319ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.6603922
+Precision: 0.8910443
+F1Score: 0.8910443
+Recall: 0.8910443
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8333333
+FalsePositive: 4.0
+FalseNegative: 2.0
+Precision: 0.88235295
+F1Score: 0.88235295
+TruePositive: 30.0
+Recall: 0.88235295
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.875
+FalsePositive: 6.0
+FalseNegative: 0.0
+Precision: 0.875
+F1Score: 0.875
+TruePositive: 42.0
+Recall: 0.875
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.7297297
+FalsePositive: 3.0
+FalseNegative: 7.0
+Precision: 0.9
+F1Score: 0.9
+TruePositive: 27.0
+Recall: 0.9
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.7222222
+FalsePositive: 0.0
+FalseNegative: 10.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 26.0
+Recall: 1.0
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.53333336
+FalsePositive: 26.0
+FalseNegative: 2.0
+Precision: 0.55172414
+F1Score: 0.55172414
+TruePositive: 32.0
+Recall: 0.55172414
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.5
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 12.0
+Recall: 1.0
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.8717949
+FalsePositive: 3.0
+FalseNegative: 2.0
+Precision: 0.9189189
+F1Score: 0.9189189
+TruePositive: 34.0
+Recall: 0.9189189
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.71428573
+FalsePositive: 2.0
+FalseNegative: 8.0
+Precision: 0.9259259
+F1Score: 0.9259259
+TruePositive: 25.0
+Recall: 0.9259259
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.62857145
+FalsePositive: 1.0
+FalseNegative: 12.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 22.0
+Recall: 0.95652175
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.19565217
+FalsePositive: 1.0
+FalseNegative: 36.0
+Precision: 0.9
+F1Score: 0.9
+TruePositive: 9.0
+Recall: 0.9
+
+----------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 2, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 4, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:5903ms, TrainError:2.2603507, TrainErrorChange:2.2603507, TrainAccuracy: 0.0
+Epoch:2, Time:5349ms, TrainError:1.8665503, TrainErrorChange:-0.39380038, TrainAccuracy: 0.18308581
+Epoch:3, Time:5717ms, TrainError:1.0516125, TrainErrorChange:-0.81493783, TrainAccuracy: 0.42708167
+Epoch:4, Time:5733ms, TrainError:0.7158411, TrainErrorChange:-0.33577138, TrainAccuracy: 0.54072535
+Epoch:5, Time:5405ms, TrainError:0.5784887, TrainErrorChange:-0.1373524, TrainAccuracy: 0.62489665
+Epoch:6, Time:5370ms, TrainError:0.49587506, TrainErrorChange:-0.08261365, TrainAccuracy: 0.6914207
+Epoch:7, Time:5358ms, TrainError:0.43718672, TrainErrorChange:-0.058688343, TrainAccuracy: 0.7285873
+Epoch:8, Time:5367ms, TrainError:0.38979003, TrainErrorChange:-0.04739669, TrainAccuracy: 0.7566582
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 2, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 4, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4046ms, TrainError:2.2603507, TrainErrorChange:2.2603507, TrainAccuracy: 0.0
+Epoch:2, Time:3780ms, TrainError:1.8665503, TrainErrorChange:-0.39380038, TrainAccuracy: 0.18308581
+Epoch:3, Time:3843ms, TrainError:1.0516125, TrainErrorChange:-0.81493783, TrainAccuracy: 0.42708167
+Epoch:4, Time:3858ms, TrainError:0.7158411, TrainErrorChange:-0.33577138, TrainAccuracy: 0.54072535
+Epoch:5, Time:3796ms, TrainError:0.5784887, TrainErrorChange:-0.1373524, TrainAccuracy: 0.62489665
+Epoch:6, Time:3749ms, TrainError:0.49587506, TrainErrorChange:-0.08261365, TrainAccuracy: 0.6914207
+Epoch:7, Time:3858ms, TrainError:0.43718672, TrainErrorChange:-0.058688343, TrainAccuracy: 0.7285873
+Epoch:8, Time:3796ms, TrainError:0.38979003, TrainErrorChange:-0.04739669, TrainAccuracy: 0.7566582
+Epoch:9, Time:3933ms, TrainError:0.35111415, TrainErrorChange:-0.038675874, TrainAccuracy: 0.77582145
+Epoch:10, Time:3999ms, TrainError:0.31905568, TrainErrorChange:-0.032058477, TrainAccuracy: 0.7959962
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:21016ms, TrainError:2.854555, TrainErrorChange:2.854555, TrainAccuracy: 0.0
+Epoch:2, Time:19870ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Epoch:3, Time:19304ms, TrainError:2.3934903, TrainErrorChange:-0.19932437, TrainAccuracy: 0.0
+Epoch:4, Time:19651ms, TrainError:2.1984575, TrainErrorChange:-0.19503284, TrainAccuracy: 0.03611111
+Epoch:5, Time:20001ms, TrainError:1.7024758, TrainErrorChange:-0.4959817, TrainAccuracy: 0.16209266
+Epoch:6, Time:19949ms, TrainError:0.93226457, TrainErrorChange:-0.7702112, TrainAccuracy: 0.56224334
+Loading images...
+Loaded 4 labels
+java.io.FileNotFoundException: D:\datasets\clouds\swimcat\train.txt (The system cannot find the file specified)
+Loading images...
+Loaded 4 labels
+Loaded 784 images
+Splitting data set: [0.6, 0.4]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:21333ms, TrainError:1.1800663, TrainErrorChange:1.1800663, TrainAccuracy: 0.12250951
+Epoch:2, Time:21392ms, TrainError:1.0750264, TrainErrorChange:-0.105039954, TrainAccuracy: 0.71525645
+Epoch:3, Time:21063ms, TrainError:1.0732845, TrainErrorChange:-0.0017418861, TrainAccuracy: 0.7102426
+Epoch:4, Time:20854ms, TrainError:1.0731057, TrainErrorChange:-1.7881393E-4, TrainAccuracy: 0.7066839
+Epoch:5, Time:21433ms, TrainError:1.0665975, TrainErrorChange:-0.006508231, TrainAccuracy: 0.70045614
+Epoch:6, Time:21527ms, TrainError:1.136656, TrainErrorChange:0.070058584, TrainAccuracy: 0.6301714
+
+TRAINING COMPLETED
+Total Training Time: 165505ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.63765305
+Precision: NaN
+F1Score: NaN
+Recall: NaN
+
+By Class
+Class E-veil:
+TrueNegative: 90.0
+Accuracy: 0.71428573
+FalsePositive: 0.0
+FalseNegative: 36.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class B-pattern:
+TrueNegative: 90.0
+Accuracy: 0.73170733
+FalsePositive: 0.0
+FalseNegative: 33.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class D-thick-white:
+TrueNegative: 90.0
+Accuracy: 0.63829786
+FalsePositive: 0.0
+FalseNegative: 51.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Class C-thick-dark:
+TrueNegative: 90.0
+Accuracy: 0.46632123
+FalsePositive: 0.0
+FalseNegative: 103.0
+Precision: NaN
+F1Score: NaN
+TruePositive: 0.0
+Recall: NaN
+
+----------------
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 2, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 4, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4652ms, TrainError:2.2603507, TrainErrorChange:2.2603507, TrainAccuracy: 0.0
+Epoch:2, Time:3911ms, TrainError:1.8665503, TrainErrorChange:-0.39380038, TrainAccuracy: 0.18308581
+Epoch:3, Time:3890ms, TrainError:1.0516125, TrainErrorChange:-0.81493783, TrainAccuracy: 0.42708167
+Epoch:4, Time:3921ms, TrainError:0.7158411, TrainErrorChange:-0.33577138, TrainAccuracy: 0.54072535
+Epoch:5, Time:3874ms, TrainError:0.5784887, TrainErrorChange:-0.1373524, TrainAccuracy: 0.62489665
+Epoch:6, Time:3859ms, TrainError:0.49587506, TrainErrorChange:-0.08261365, TrainAccuracy: 0.6914207
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 2, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Convolutional Layer { filter width:3, filter height: 3, channels: 4, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:20 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:4327ms, TrainError:2.320517, TrainErrorChange:2.320517, TrainAccuracy: 0.0
+Epoch:2, Time:4033ms, TrainError:2.3121667, TrainErrorChange:-0.008350372, TrainAccuracy: 0.0
+Epoch:3, Time:4086ms, TrainError:2.3088715, TrainErrorChange:-0.0032951832, TrainAccuracy: 0.0
+Epoch:4, Time:4056ms, TrainError:2.3072395, TrainErrorChange:-0.0016319752, TrainAccuracy: 0.0
+Epoch:5, Time:4015ms, TrainError:2.306945, TrainErrorChange:-2.9444695E-4, TrainAccuracy: 0.0
+Epoch:6, Time:4140ms, TrainError:2.306489, TrainErrorChange:-4.5609474E-4, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:17392ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:17441ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:12717ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:11950ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Epoch:3, Time:12044ms, TrainError:2.304655, TrainErrorChange:6.651878E-5, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:14312ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:14122ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:19345ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:18231ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:10199ms, TrainError:2.3114443, TrainErrorChange:2.3114443, TrainAccuracy: 0.0
+Epoch:2, Time:9794ms, TrainError:2.3057468, TrainErrorChange:-0.005697489, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:13438ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:12543ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:10391ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:9745ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Epoch:3, Time:10252ms, TrainError:2.304655, TrainErrorChange:6.651878E-5, TrainAccuracy: 0.0
+Epoch:4, Time:9689ms, TrainError:2.3046575, TrainErrorChange:2.3841858E-6, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:12485ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:11950ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Epoch:3, Time:11951ms, TrainError:2.304655, TrainErrorChange:6.651878E-5, TrainAccuracy: 0.0
+Epoch:4, Time:11906ms, TrainError:2.3046575, TrainErrorChange:2.3841858E-6, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:11162ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:10268ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Epoch:3, Time:10482ms, TrainError:2.304655, TrainErrorChange:6.651878E-5, TrainAccuracy: 0.0
+Epoch:4, Time:10529ms, TrainError:2.3046575, TrainErrorChange:2.3841858E-6, TrainAccuracy: 0.0
+Epoch:5, Time:10221ms, TrainError:2.3046575, TrainErrorChange:0.0, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Creating image data set...
+Loaded 10 labels
+Loaded 5000 images
+Number of images by label/class
+0 : 465
+1 : 558
+2 : 501
+3 : 510
+4 : 501
+5 : 449
+6 : 500
+7 : 519
+8 : 503
+9 : 484
+Splitting data set: [0.7, 0.3]
+------------------------------------------------
+CREATING NEURAL NETWORK
+------------------------------------------------
+Input Layer { width:28, height:28, depth:3 }
+Convolutional Layer { filter width:5, filter height: 5, channels: 12, stride: 1, activation: RELU}
+Max Pooling Layer { filter width:2, filter height: 2, stride:2}
+Fully Connected Layer { width:18 activation:RELU}
+Output Layer { width:10, activation:SOFTMAX}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:13324ms, TrainError:2.3098297, TrainErrorChange:2.3098297, TrainAccuracy: 0.0
+Epoch:2, Time:13620ms, TrainError:2.3045886, TrainErrorChange:-0.0052411556, TrainAccuracy: 0.0
+Epoch:3, Time:13497ms, TrainError:2.304655, TrainErrorChange:6.651878E-5, TrainAccuracy: 0.0
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:13659ms, TrainError:2.854555, TrainErrorChange:2.854555, TrainAccuracy: 0.0
+Epoch:2, Time:12479ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Epoch:3, Time:13606ms, TrainError:2.3934903, TrainErrorChange:-0.19932437, TrainAccuracy: 0.0
+Epoch:4, Time:12966ms, TrainError:2.1984575, TrainErrorChange:-0.19503284, TrainAccuracy: 0.03611111
+Epoch:5, Time:12825ms, TrainError:1.7024758, TrainErrorChange:-0.4959817, TrainAccuracy: 0.16209266
+Epoch:6, Time:12733ms, TrainError:0.93226457, TrainErrorChange:-0.7702112, TrainAccuracy: 0.56224334
+Epoch:7, Time:12949ms, TrainError:0.5840663, TrainErrorChange:-0.3481983, TrainAccuracy: 0.7023342
+
+TRAINING COMPLETED
+Total Training Time: 107619ms
+------------------------------------------------------------------------
+------------------------------------------------
+Classification performance measure
+
+TOTAL AVERAGE
+Accuracy: 0.6603922
+Precision: 0.8910443
+F1Score: 0.8910443
+Recall: 0.8910443
+
+By Class
+Class 0:
+TrueNegative: 0.0
+Accuracy: 0.8333333
+FalsePositive: 4.0
+FalseNegative: 2.0
+Precision: 0.88235295
+F1Score: 0.88235295
+TruePositive: 30.0
+Recall: 0.88235295
+
+----------------
+Class 1:
+TrueNegative: 0.0
+Accuracy: 0.875
+FalsePositive: 6.0
+FalseNegative: 0.0
+Precision: 0.875
+F1Score: 0.875
+TruePositive: 42.0
+Recall: 0.875
+
+----------------
+Class 2:
+TrueNegative: 0.0
+Accuracy: 0.7297297
+FalsePositive: 3.0
+FalseNegative: 7.0
+Precision: 0.9
+F1Score: 0.9
+TruePositive: 27.0
+Recall: 0.9
+
+----------------
+Class 3:
+TrueNegative: 0.0
+Accuracy: 0.7222222
+FalsePositive: 0.0
+FalseNegative: 10.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 26.0
+Recall: 1.0
+
+----------------
+Class 4:
+TrueNegative: 0.0
+Accuracy: 0.53333336
+FalsePositive: 26.0
+FalseNegative: 2.0
+Precision: 0.55172414
+F1Score: 0.55172414
+TruePositive: 32.0
+Recall: 0.55172414
+
+----------------
+Class 5:
+TrueNegative: 0.0
+Accuracy: 0.5
+FalsePositive: 0.0
+FalseNegative: 12.0
+Precision: 1.0
+F1Score: 1.0
+TruePositive: 12.0
+Recall: 1.0
+
+----------------
+Class 6:
+TrueNegative: 0.0
+Accuracy: 0.8717949
+FalsePositive: 3.0
+FalseNegative: 2.0
+Precision: 0.9189189
+F1Score: 0.9189189
+TruePositive: 34.0
+Recall: 0.9189189
+
+----------------
+Class 7:
+TrueNegative: 0.0
+Accuracy: 0.71428573
+FalsePositive: 2.0
+FalseNegative: 8.0
+Precision: 0.9259259
+F1Score: 0.9259259
+TruePositive: 25.0
+Recall: 0.9259259
+
+----------------
+Class 8:
+TrueNegative: 0.0
+Accuracy: 0.62857145
+FalsePositive: 1.0
+FalseNegative: 12.0
+Precision: 0.95652175
+F1Score: 0.95652175
+TruePositive: 22.0
+Recall: 0.95652175
+
+----------------
+Class 9:
+TrueNegative: 0.0
+Accuracy: 0.19565217
+FalsePositive: 1.0
+FalseNegative: 36.0
+Precision: 0.9
+F1Score: 0.9
+TruePositive: 9.0
+Recall: 0.9
+
+----------------
+Loading images...
+Loaded 1 labels
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Training convolutional network with MNIST data set
+Loading images...
+Loaded 10 labels
+Loaded 1000 images
+Splitting data set: [0.65, 0.35]
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:15221ms, TrainError:2.854555, TrainErrorChange:2.854555, TrainAccuracy: 0.0
+Epoch:2, Time:14936ms, TrainError:2.5928147, TrainErrorChange:-0.2617402, TrainAccuracy: 0.0
+Epoch:3, Time:14966ms, TrainError:2.3934903, TrainErrorChange:-0.19932437, TrainAccuracy: 0.0
+Epoch:4, Time:15979ms, TrainError:2.1984575, TrainErrorChange:-0.19503284, TrainAccuracy: 0.03611111

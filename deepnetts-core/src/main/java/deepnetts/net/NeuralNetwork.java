@@ -24,7 +24,7 @@ package deepnetts.net;
 import deepnetts.core.DeepNetts;
 import deepnetts.data.DataSet;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -135,7 +135,7 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         trainer.train(trainingSet);
     }
 
-    public PerformanceMeasure test(DataSet<?> testSet) {
+    public EvaluationMetrics test(DataSet<?> testSet) {
         // zakljuci koji ti evaluator treba na osnovu loss i output funkcije
         // check the loss and output function and use appropriate classifier
         if (getLossFunction() instanceof CrossEntropyLoss ||
@@ -181,10 +181,10 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
     public OutputLayer getOutputLayer() {
         return outputLayer;
     }
-
-    public void setOutputLabels(String[] outputLabels) {
+  
+    public void setOutputLabels(String... outputLabels) {
         this.outputLabels = outputLabels;
-    }
+    }    
 
     public String[] getOutputLabels() {
         return outputLabels;

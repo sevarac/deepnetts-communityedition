@@ -29,7 +29,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.loss.LossType;
 import java.io.File;
 import java.io.IOException;
@@ -39,14 +39,14 @@ import org.apache.logging.log4j.Logger;
 
 public class Clouds {
 
-    int imageWidth = 125;
-    int imageHeight = 125;
+    int imageWidth = 64; //125
+    int imageHeight = 64; // 125
 
     //String labelsFile = "/home/zoran/datasets/cifar10/train/labels.txt";
     String labelsFile = "D:\\datasets\\clouds\\swimcat\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
     //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\clouds\\swimcat\\train.txt";
+    String trainingFile = "D:\\datasets\\clouds\\swimcat\\index.txt";
    // String testFile = "datasets/cifar10/test.txt";
 
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
@@ -57,50 +57,50 @@ public class Clouds {
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile));
 //        imageSet.invert();
-        imageSet.zeroMean();
+    //    imageSet.zeroMean();
         imageSet.shuffle();
 
         int labelsCount = imageSet.getLabelsCount();
 
-        ImageSet[] imageSets = imageSet.split(0.6, 0.4);
+        ImageSet[] imageSets = imageSet.split(0.7, 0.3);
 
         LOGGER.info("Creating neural network...");
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight)
-                                        .addConvolutionalLayer(3, 3, 6)
+                                        .addConvolutionalLayer(3, 3, 32)
                                         .addMaxPoolingLayer(2, 2, 2)
-                                        .addConvolutionalLayer(3, 3, 12)
+                                        .addConvolutionalLayer(3, 3, 64)
                                         .addMaxPoolingLayer(2, 2, 2)
-////                                        .addConvolutionalLayer(3, 3, 24)
+////                                        .addConvolutionalLayer(3, 3, 12)
 ////                                        .addMaxPoolingLayer(2, 2, 2)
-//                                     //   .addFullyConnectedLayer(30)
-                                        .addFullyConnectedLayer(20)
-                                        .addFullyConnectedLayer(10)
+////                                     //   .addFullyConnectedLayer(30)
+//                                        .addFullyConnectedLayer(16)
+                                        .addFullyConnectedLayer(16)
+                                        .addFullyConnectedLayer(9)
                                         .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                                         .hiddenActivationFunction(ActivationType.TANH)
                                         .lossFunction(LossType.CROSS_ENTROPY)
                                         .build();
 
-        LOGGER.info("Training neural network");
-
+        
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-        trainer.setLearningRate(0.01f);
+        trainer.setLearningRate(0.005f);
         trainer.setMaxError(0.1f);
-        trainer.setMaxEpochs(6);
+        trainer.setMaxEpochs(1000);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.SGD);   // sa momentumom raste greska!!!
         trainer.train(imageSets[0]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, imageSets[1]);
+        EvaluationMetrics pm = evaluator.evaluate(neuralNet, imageSets[1]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure"+System.lineSeparator());
         LOGGER.info("TOTAL AVERAGE");
         LOGGER.info(evaluator.getTotalAverage());
         LOGGER.info("By Class");
-        Map<String, PerformanceMeasure>  byClass = evaluator.getPerformanceByClass();
+        Map<String, EvaluationMetrics>  byClass = evaluator.getPerformanceByClass();
         byClass.entrySet().stream().forEach((entry) -> {
                                         LOGGER.info("Class " + entry.getKey() + ":");
                                         LOGGER.info(entry.getValue());

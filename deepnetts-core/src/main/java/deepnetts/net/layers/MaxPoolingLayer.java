@@ -63,7 +63,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     int maxIdx[][][][];
 
-    private boolean multithreaded = false;
+    private transient boolean multithreaded = false;
     private transient List<Callable<Void>> forwardTasks;
     private transient List<Callable<Void>> backwardTasks;    
     private transient List<Callable<Void>> backwardConvTasks;    

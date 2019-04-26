@@ -39,6 +39,6 @@ public interface Evaluator<MODEL_CLASS, DATASET_CLASS> {
      * @param testSet Data to use for evaluation
      * @return performance measures of a model for the specified test set
      */ 
-    public PerformanceMeasure evaluatePerformance(MODEL_CLASS model, DATASET_CLASS testSet);
+    public EvaluationMetrics evaluate(MODEL_CLASS model, DATASET_CLASS testSet);
     
 }

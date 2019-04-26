@@ -17,9 +17,9 @@ public class Evaluators {
      * @param testSet
      * @return regression performance measures
      */
-    public static PerformanceMeasure evaluateRegressor(NeuralNetwork<?> neuralNet, DataSet<?> testSet) {
+    public static EvaluationMetrics evaluateRegressor(NeuralNetwork<?> neuralNet, DataSet<?> testSet) {
         RegresionEvaluator eval = new RegresionEvaluator();
-        return eval.evaluatePerformance(neuralNet, testSet);
+        return eval.evaluate(neuralNet, testSet);
     }
 
     /**
@@ -28,9 +28,9 @@ public class Evaluators {
      * @param testSet
      * @return classification performance measure
      */
-    public static PerformanceMeasure evaluateClassifier(NeuralNetwork<?> neuralNet, DataSet<?> testSet) {
+    public static EvaluationMetrics evaluateClassifier(NeuralNetwork<?> neuralNet, DataSet<?> testSet) {
         ClassifierEvaluator eval = new ClassifierEvaluator();
-        return eval.evaluatePerformance(neuralNet, testSet);
+        return eval.evaluate(neuralNet, testSet);
     }
 
 }

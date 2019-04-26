@@ -24,7 +24,7 @@ package deepnetts.examples;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -92,11 +92,11 @@ public class IrisClassificationMoreUserFriendlyAPI {
 //        trainer.train(neuralNet, dataSets[0]);
         
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[1]);
+        EvaluationMetrics pm = evaluator.evaluate(neuralNet, dataSets[1]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info(pm);
-        Map<String, PerformanceMeasure> byClass = evaluator.getPerformanceByClass();
+        Map<String, EvaluationMetrics> byClass = evaluator.getPerformanceByClass();
         byClass.entrySet().stream().forEach((entry) -> {
             LOGGER.info("Class " + entry.getKey() + ":");
             LOGGER.info(entry.getValue());

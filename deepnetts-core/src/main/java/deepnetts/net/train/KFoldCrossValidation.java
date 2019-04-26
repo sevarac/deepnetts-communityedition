@@ -4,7 +4,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.Evaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.NeuralNetwork;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +34,8 @@ public class KFoldCrossValidation {
     // podeli data set na k jednakih foldova
     // sa k-1 treniraj sa onim preostalim testiraj i izracunaj prosecne mere  performansi (MSE i klasifikacija)
 
-    public PerformanceMeasure runCrossValidation() {
-        List<PerformanceMeasure> measures = new ArrayList<>();
+    public EvaluationMetrics runCrossValidation() {
+        List<EvaluationMetrics> measures = new ArrayList<>();
         DataSet[] folds = dataSet.split(splitsNum);
 
         for (int testFoldIdx = 0; testFoldIdx < splitsNum; testFoldIdx++) {
@@ -51,7 +51,7 @@ public class KFoldCrossValidation {
             NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
 
             trainer.train(trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
-            PerformanceMeasure pe = evaluator.evaluatePerformance(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
+            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
             measures.add(pe);
             trainedNetworks.add(neuralNet);
         }

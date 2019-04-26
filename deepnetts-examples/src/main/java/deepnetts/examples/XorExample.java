@@ -41,6 +41,7 @@ public class XorExample {
     public static void main(String[] args) throws DeepNettsException {
 
         DataSet dataSet = ExampleDataSets.xor();
+        dataSet.setColumnNames(new String[] {"col1", "col2", "col3"});
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(2)
@@ -51,13 +52,14 @@ public class XorExample {
                 .build();
         
 //        neuralNet.getTrainer().setLearningRate(0.9f);
+        neuralNet.setOutputLabels("output");
         
-        neuralNet.train(dataSet);
+//        neuralNet.train(dataSet);
 
-//        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
-//        trainer.setMaxError(0.01f);
-//        trainer.setLearningRate(0.9f);
-//        trainer.train(dataSet);
+        BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
+        trainer.setMaxError(0.01f);
+        trainer.setLearningRate(0.9f);
+        trainer.train(dataSet);
     }
 
 

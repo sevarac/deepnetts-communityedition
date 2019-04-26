@@ -68,7 +68,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     /**
      * Performance measures for each class, used for multi class classification
      */
-    private HashMap<String, PerformanceMeasure> performanceByClass;
+    private HashMap<String, EvaluationMetrics> performanceByClass;
 
     /**
      * Classification threshold
@@ -83,7 +83,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         } else { // for multi class classification
             confusionMatrix = new ConfusionMatrix(classLabels.toArray(new String[classLabels.size()]));
             classLabels.forEach((label) -> {
-                performanceByClass.put(label, new PerformanceMeasure());
+                performanceByClass.put(label, new EvaluationMetrics());
             });
         }
     }
@@ -95,7 +95,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
      * @return 
      */
     @Override
-    public PerformanceMeasure evaluatePerformance(NeuralNetwork neuralNet, DataSet<?> testSet) {
+    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<?> testSet) {
         classLabels.clear();
         classLabels.add(0, LABEL_NONE); // da li da dodajem negativnu klasu, vidi kako radi sci kit learn
         for(String label : testSet.getOutputLabels()) { // ali nek uradi ovo samo jednom a ne za svaku epohu
@@ -123,8 +123,8 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     }
 
     
-    private PerformanceMeasure createBinaryPerformanceMeasures() {
-        PerformanceMeasure pm = new PerformanceMeasure();
+    private EvaluationMetrics createBinaryPerformanceMeasures() {
+        EvaluationMetrics pm = new EvaluationMetrics();
 
         int tp = confusionMatrix.getTruePositive();
         int tn = confusionMatrix.getTrueNegative();
@@ -144,18 +144,18 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         pm.set("TotalCorrect", tp + tn);
         pm.set("TotalIncorrect", fp + fn);
 
-        pm.set(PerformanceMeasure.ACCURACY, cm.getAccuracy());
-        pm.set(PerformanceMeasure.PRECISION, cm.getPrecision());
-        pm.set(PerformanceMeasure.RECALL, cm.getRecall());
-        pm.set(PerformanceMeasure.F1SCORE, cm.getF1Score());
+        pm.set(EvaluationMetrics.ACCURACY, cm.getAccuracy());
+        pm.set(EvaluationMetrics.PRECISION, cm.getPrecision());
+        pm.set(EvaluationMetrics.RECALL, cm.getRecall());
+        pm.set(EvaluationMetrics.F1SCORE, cm.getF1Score());
 
         return pm;
     }
 
-    private Map<String, PerformanceMeasure> createMultiClassPerformanceMeasures() {
+    private Map<String, EvaluationMetrics> createMultiClassPerformanceMeasures() {
         performanceByClass = new HashMap();
         for (int clsIdx = 1; clsIdx < classLabels.size(); clsIdx++) {
-            PerformanceMeasure pm = new PerformanceMeasure();
+            EvaluationMetrics pm = new EvaluationMetrics();
 
             int tp = confusionMatrix.getTruePositive(clsIdx);
             int tn = confusionMatrix.getTrueNegative(clsIdx);
@@ -169,10 +169,10 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
 
             ClassificationMetrics cm = new ClassificationMetrics(tn, fp, fn, tp);
 
-            pm.set(PerformanceMeasure.ACCURACY, cm.getAccuracy());
-            pm.set(PerformanceMeasure.PRECISION, cm.getPrecision());
-            pm.set(PerformanceMeasure.RECALL, cm.getRecall());
-            pm.set(PerformanceMeasure.F1SCORE, cm.getF1Score());
+            pm.set(EvaluationMetrics.ACCURACY, cm.getAccuracy());
+            pm.set(EvaluationMetrics.PRECISION, cm.getPrecision());
+            pm.set(EvaluationMetrics.RECALL, cm.getRecall());
+            pm.set(EvaluationMetrics.F1SCORE, cm.getF1Score());
 
             performanceByClass.put(classLabels.get(clsIdx), pm);
         }
@@ -236,24 +236,24 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         this.threshold = threshold;
     }
 
-    public PerformanceMeasure getTotalAverage() {
+    public EvaluationMetrics getTotalAverage() {
         float accuracy = 0, precision = 0, recall = 0, f1score = 0;
 
-        for (PerformanceMeasure pm : performanceByClass.values()) {
-            accuracy += pm.get(PerformanceMeasure.ACCURACY);
-            recall += pm.get(PerformanceMeasure.RECALL);
-            precision += pm.get(PerformanceMeasure.PRECISION);
-            f1score += pm.get(PerformanceMeasure.F1SCORE);
+        for (EvaluationMetrics pm : performanceByClass.values()) {
+            accuracy += pm.get(EvaluationMetrics.ACCURACY);
+            recall += pm.get(EvaluationMetrics.RECALL);
+            precision += pm.get(EvaluationMetrics.PRECISION);
+            f1score += pm.get(EvaluationMetrics.F1SCORE);
             // todo: sum tp, tn, fp, fn
         }
 
         int count = performanceByClass.values().size();
 
-        PerformanceMeasure total = new PerformanceMeasure();
-        total.set(PerformanceMeasure.ACCURACY, accuracy / count);
-        total.set(PerformanceMeasure.PRECISION, precision / count);
-        total.set(PerformanceMeasure.RECALL, recall / count);
-        total.set(PerformanceMeasure.F1SCORE, f1score / count);
+        EvaluationMetrics total = new EvaluationMetrics();
+        total.set(EvaluationMetrics.ACCURACY, accuracy / count);
+        total.set(EvaluationMetrics.PRECISION, precision / count);
+        total.set(EvaluationMetrics.RECALL, recall / count);
+        total.set(EvaluationMetrics.F1SCORE, f1score / count);
 
         return total;
     }
@@ -267,28 +267,28 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
      * @param measures
      * @return
      */
-    public static PerformanceMeasure averagePerformance(List<PerformanceMeasure> measures) {
+    public static EvaluationMetrics averagePerformance(List<EvaluationMetrics> measures) {
         float accuracy = 0, precision = 0, recall = 0, f1score = 0;
 
-        for (PerformanceMeasure pm : measures) {
-            accuracy += pm.get(PerformanceMeasure.ACCURACY);
-            recall += pm.get(PerformanceMeasure.RECALL);
-            precision += pm.get(PerformanceMeasure.PRECISION);
-            f1score += pm.get(PerformanceMeasure.F1SCORE);
+        for (EvaluationMetrics pm : measures) {
+            accuracy += pm.get(EvaluationMetrics.ACCURACY);
+            recall += pm.get(EvaluationMetrics.RECALL);
+            precision += pm.get(EvaluationMetrics.PRECISION);
+            f1score += pm.get(EvaluationMetrics.F1SCORE);
         }
 
         int count = measures.size();
 
-        PerformanceMeasure total = new PerformanceMeasure();
-        total.set(PerformanceMeasure.ACCURACY, accuracy / count);
-        total.set(PerformanceMeasure.PRECISION, precision / count);
-        total.set(PerformanceMeasure.RECALL, recall / count);
-        total.set(PerformanceMeasure.F1SCORE, f1score / count);
+        EvaluationMetrics total = new EvaluationMetrics();
+        total.set(EvaluationMetrics.ACCURACY, accuracy / count);
+        total.set(EvaluationMetrics.PRECISION, precision / count);
+        total.set(EvaluationMetrics.RECALL, recall / count);
+        total.set(EvaluationMetrics.F1SCORE, f1score / count);
 
         return total;
     }
 
-    public Map<String, PerformanceMeasure> getPerformanceByClass() {
+    public Map<String, EvaluationMetrics> getPerformanceByClass() {
         return performanceByClass;
     }
 
@@ -308,7 +308,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         sb.append("Results by labels").append(System.lineSeparator());
 
         for (String label : performanceByClass.keySet()) {
-            PerformanceMeasure result = performanceByClass.get(label);
+            EvaluationMetrics result = performanceByClass.get(label);
 //            if (result.get("TotalCorrect") == 0 && result.get("TotalIncorrect") == 0) {
 //                continue; // if some of them is negative or nan dont show it
 //            }

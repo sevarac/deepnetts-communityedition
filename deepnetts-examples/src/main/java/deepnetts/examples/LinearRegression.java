@@ -25,7 +25,7 @@ import deepnetts.examples.util.CsvFile;
 import deepnetts.examples.util.Plot;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -68,7 +68,7 @@ public class LinearRegression {
 
             // train network using loaded data set
             neuralNet.train(dataSet);
-            PerformanceMeasure pe = neuralNet.test(dataSet);
+            EvaluationMetrics pe = neuralNet.test(dataSet);
             System.out.println(pe);
 
             // print out learned model

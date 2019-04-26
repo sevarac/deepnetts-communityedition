@@ -25,7 +25,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -73,7 +73,7 @@ public class SweedenAutoInsurance {
 
        // Performance evaluation for the given test set
        // PerformanceMeasure pe = Evaluators.evaluateRegressor(neuralNet, dataSet);
-       PerformanceMeasure pe = neuralNet.test(dataSet);
+       EvaluationMetrics pe = neuralNet.test(dataSet);
        System.out.println(pe);
 
        // use model for prediction

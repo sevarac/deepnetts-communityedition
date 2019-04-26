@@ -96,7 +96,7 @@ public class JavaOneSponsors {
 
         // deserialize and evaluate neural network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        evaluator.evaluatePerformance(javaOneNet, imageSet);
+        evaluator.evaluate(javaOneNet, imageSet);
         System.out.println(evaluator);
 
 //        BufferedImage image = ImageIO.read(new File("/home/zoran/Desktop/JavaOneSet/java/java1.jpg"));

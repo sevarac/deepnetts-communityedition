@@ -28,7 +28,8 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.ConfusionMatrix;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -110,8 +111,11 @@ public class DukeDetector {
 
         // to evaluate recognizer with image set
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure  pm =  evaluator.evaluatePerformance(convNet, imageSet);
+        EvaluationMetrics  pm =  evaluator.evaluate(convNet, imageSet);
         System.out.println(pm);
+        
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+         System.out.println(cm);     
 
         // to use recognizer for single image
 //        BufferedImage image = ImageIO.read(new File("/home/zoran/datasets/DukeSet/duke/duke7.jpg"));

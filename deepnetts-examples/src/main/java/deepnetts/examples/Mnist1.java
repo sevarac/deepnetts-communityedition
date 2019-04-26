@@ -29,7 +29,7 @@ import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
@@ -103,7 +103,7 @@ public class Mnist1 {
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
                 .setMomentum(0.9f)
-                .setMaxError(0.03f)
+                .setMaxError(0.02f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.SGD);
@@ -111,13 +111,13 @@ public class Mnist1 {
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, imageSets[1]);
+        EvaluationMetrics pm = evaluator.evaluate(neuralNet, imageSets[1]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info("TOTAL AVERAGE");
         LOGGER.info(evaluator.getTotalAverage());
         LOGGER.info("By Class");
-        Map<String, PerformanceMeasure> byClass = evaluator.getPerformanceByClass();
+        Map<String, EvaluationMetrics> byClass = evaluator.getPerformanceByClass();
         byClass.entrySet().stream().forEach((entry) -> {
             LOGGER.info("Class " + entry.getKey() + ":");
             LOGGER.info(entry.getValue());

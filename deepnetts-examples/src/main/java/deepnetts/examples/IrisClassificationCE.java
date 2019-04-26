@@ -26,7 +26,7 @@ import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -61,20 +61,20 @@ public class IrisClassificationCE {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = neuralNet.getTrainer();
-        trainer.setMaxError(0.05f);
-        trainer.setLearningRate(0.1f);
-       // trainer.setBatchMode(true);
-     //   trainer.setBatchSize(97);
-    //    trainer.setMomentum(0.1f);
-        trainer.setOptimizer(OptimizerType.SGD);
-        trainer.setMaxEpochs(100);
+        trainer.setMaxError(0.07f);
+        trainer.setLearningRate(0.01f);
+        trainer.setBatchMode(true);
+        trainer.setBatchSize(97);
+        trainer.setMomentum(0.9f);
+        trainer.setOptimizer(OptimizerType.MOMENTUM);
+  //      trainer.setMaxEpochs(1000);
 
         neuralNet.train(trainTestSet[0]);
     //    PerformanceMeasure pe = neuralNet.test(trainTestSet[1]);
      //   System.out.println(pe);
         
        ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, trainTestSet[1]);
+        EvaluationMetrics pm = evaluator.evaluate(neuralNet, trainTestSet[1]);
         System.out.println(pm);
         System.out.println("CONFUSION MATRIX");
         ConfusionMatrix cm = evaluator.getConfusionMatrix();

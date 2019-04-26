@@ -27,7 +27,7 @@ import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -70,7 +70,7 @@ public class IrisClassificationCE3 {
         neuralNet.train(dataSetParts[0]);
         
         // test neural network
-        PerformanceMeasure pm = neuralNet.test(dataSetParts[1]);                
+        EvaluationMetrics pm = neuralNet.test(dataSetParts[1]);                
         System.out.println("Classification performance measure");
         System.out.println(pm);
         

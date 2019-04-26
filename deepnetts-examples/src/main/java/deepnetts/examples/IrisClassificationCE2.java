@@ -22,11 +22,10 @@
 package deepnetts.examples;
 
 import deepnetts.core.DeepNetts;
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -78,7 +77,7 @@ public class IrisClassificationCE2 {
         trainer.train(dataSets[0], dataSets[1]);
 
 
-        PerformanceMeasure pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
+        EvaluationMetrics pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
         //ClassifierEvaluator evaluator = new ClassifierEvaluator();
         //PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);
         LOGGER.info("------------------------------------------------");

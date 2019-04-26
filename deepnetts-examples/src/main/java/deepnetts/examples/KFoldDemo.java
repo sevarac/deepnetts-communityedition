@@ -3,7 +3,7 @@ package deepnetts.examples;
 import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.PerformanceMeasure;
+import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -49,7 +49,7 @@ public class KFoldDemo {
                                         .build();
 
         // ispisi srednju vrednost i standardnu devijaciju po uzoru na jasona
-        PerformanceMeasure pm = kfcv.runCrossValidation();
+        EvaluationMetrics pm = kfcv.runCrossValidation();
         System.out.println(pm);
     }
 
