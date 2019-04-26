@@ -16,6 +16,7 @@ public final class SgdOptimizer implements Optimizer, Serializable  {
         this.learningRate = layer.getLearningRate();
     }
     
+        // index is not used!
     @Override
     public float calculateDeltaWeight(final float gradient, final int... index) { // obican SGD
         return -learningRate * gradient;

@@ -36,7 +36,7 @@ public final class LeakyRelu implements ActivationFunction, Serializable {
 
     @Override
     public float getPrime(final float y) {
-         return ( y > 0 ? 1 : 0.01f);
+         return ( y > 0 ? 1 : a);
     }
     
 }

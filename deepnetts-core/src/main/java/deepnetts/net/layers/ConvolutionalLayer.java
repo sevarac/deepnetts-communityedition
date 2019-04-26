@@ -29,6 +29,8 @@ import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
 import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.net.train.opt.Optimizer;
+import deepnetts.net.train.opt.SgdOptimizer;
 import deepnetts.util.DeepNettsThreadPool;
 import java.util.ArrayList;
 import java.util.List;
@@ -227,6 +229,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 }                                
             }
         }
+        
+
 
     }
 
@@ -313,6 +317,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
+                 optim = new SgdOptimizer(this);
         if (nextLayer instanceof FullyConnectedLayer) {
             backwardFromFullyConnected();
         }
@@ -472,6 +477,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
         calculateDeltaWeightsForChannel(fz);
     }    
 
+    private Optimizer optim;
+    
     /**
      * Calculates delta weights for the specified channel ch in this
      * convolutional layer.
@@ -484,7 +491,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
             deltaBiases[ch] = 0;
         }
 
-        final float divisor = width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
+        final float divisor =1f;// width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
 
         // assumes that deltas from the next layer are allready propagated
         // 2. calculate weight changes in filters
@@ -504,11 +511,12 @@ public final class ConvolutionalLayer extends AbstractLayer {
                             // da li ovde ispod nedostaje kanal cs? ne kanal je fz - to je dubina filtera i to ide kroz svekanale
                             final float input = inputs.get(inRow, inCol, fz); // get input for this output and weight; padding?  da li ovde imam kanal?
                             final float grad = deltas.get(deltaRow, deltaCol, ch) * input;
-
+                            
                             float deltaWeight = 0;  // DODO: put optimizaer instances here!!!
                             switch (optimizerType) {
                                 case SGD:
-                                    deltaWeight = Optimizers.sgd(learningRate, grad);
+                                   // deltaWeight = Optimizers.sgd(learningRate, grad);
+                                      deltaWeight = optim.calculateDeltaWeight(grad);
                                     break;
                                 case MOMENTUM:
                                     deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz)); // ovaj sa momentumom odmah izleti u NaN
@@ -526,7 +534,9 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 float deltaBias = 0;
                 switch (optimizerType) {
                     case SGD:
-                        deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
+                        //deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
+                         deltaBias = optim.calculateDeltaBias(deltas.get(deltaRow, deltaCol, ch), deltaCol);
+                         //deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
                         break;
                     case MOMENTUM:
 //                       deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
