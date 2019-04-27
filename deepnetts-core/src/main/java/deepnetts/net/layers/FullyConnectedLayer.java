@@ -53,8 +53,6 @@ public final class FullyConnectedLayer extends AbstractLayer {
 
     private static Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
-    private Optimizer optim;
-
     private boolean useDropout=false; //experimental
     private Tensor dropout;
     private transient boolean multithreaded=false;
@@ -163,7 +161,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
                Tensor.fill(biases, 0.1f);
         }
 
-        setOptimizerType(OptimizerType.SGD);
+      //  setOptimizerType(OptimizerType.SGD);
         
         
         int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
@@ -189,12 +187,11 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }                
     }
 
-    @Override
-    public void setOptimizerType(OptimizerType optimizer) {
-        super.setOptimizerType(optimizer);
-        optim = Optimizer.create(optimizer, this);
-    }
-
+//    @Override
+//    public void setOptimizerType(OptimizerType optType) {
+//        super.setOptimizerType(optType);
+//        optim = Optimizer.create(optType, this);
+//    }
 
 
     // TODO: idalno bi bilo da ova metoda ima samo jednu granu bez obzira na dimenzije prethodnog lejera,
@@ -267,11 +264,12 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
         // apply activation function to all weigthed sums stored in outputs
         outputs.set(outCol, activation.getValue(outputs.get(outCol)));
+       // outputs.apply(activation::getValue); // ovo bi vise puta primenilo na sve!
     }
     
     @Override
     public void backward() {
-        if (!batchMode) { // if online mode reset deltaWeights and deltaBiases to zeros
+        if (!batchMode) { // if in online mode reset deltaWeights and deltaBiases to zeros
             deltaWeights.fill(0);
             Arrays.fill(deltaBiases, 0);
         }
@@ -427,7 +425,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
                     for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                         for (int inRow = 0; inRow < inputs.getRows(); inRow++) {
                             final float grad = deltas.get(deltaCol) * inputs.get(inRow, inCol, inDepth);  // da li je ovde greska treba ih sumitrati sve tri po dubini  // da li ove ulaze treba sabirati??? jer jedna celija ima ulaze iz tri prethodna kanala?
-                            gradients.set(inCol, inRow, inDepth, deltaCol, grad);   // da li ovo radi kada je fc sa obicnim input lyerom -  proveri??
+                            gradients.set(inCol, inRow, inDepth, deltaCol, grad);
                             //System.out.print(grad+", "); prints out many zeros... todo check why
                             final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, inRow, inDepth, deltaCol);
 
@@ -497,7 +495,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
                         break;
                 }
 */
-                float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
+                final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
                 deltaBiases[deltaCol] += deltaBias;
               
      }    

@@ -22,7 +22,6 @@
 package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
-import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
@@ -62,9 +61,12 @@ public class SoftmaxOutputLayer extends OutputLayer {
         biases = new float[width];
         deltaBiases = new float[width];
         prevDeltaBiases = new float[width];
-        RandomWeights.randomize(biases);
+        //RandomWeights.randomize(biases);
+        //Tensor.fill(biases, 0.1f);
+        RandomWeights.gaussian(biases, 0.1f, 0.05f);
+//        RandomWeights.randomize(biases);
         
-        setOptimizerType(OptimizerType.SGD);
+        //setOptimizerType(OptimizerType.SGD);
     }
 
     /**

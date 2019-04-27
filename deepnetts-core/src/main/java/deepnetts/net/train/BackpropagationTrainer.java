@@ -79,7 +79,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     /**
      * Optimization algorithm type
      */
-    private OptimizerType optimizer = OptimizerType.SGD;
+    private OptimizerType optType = OptimizerType.SGD;
 
     /**
      * Global momentum parameter
@@ -251,7 +251,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             layer.setRegularization(regL2);
             layer.setBatchMode(batchMode);
             layer.setBatchSize(batchSize);
-            layer.setOptimizerType(optimizer);
+            layer.setOptimizerType(optType);
         }
 
         lossFunction = neuralNet.getLossFunction();
@@ -522,11 +522,11 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
     public OptimizerType getOptimizer() {
-        return optimizer;
+        return optType;
     }
 
     public BackpropagationTrainer setOptimizer(OptimizerType optimizer) {
-        this.optimizer = optimizer;
+        this.optType = optimizer;
         return this;
     }
 
@@ -583,9 +583,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     public void setTrainingSnapshots(boolean trainingSnapshots) {
         this.trainingSnapshots = trainingSnapshots;
-    }
-
-    
+    }   
 
     public int getCheckpointEpochs() {
         return checkpointEpochs;
@@ -628,7 +626,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
         this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
         this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
+        this.optType = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
 
         // iterate properties keys?use reflection to set them?
    //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
@@ -664,8 +662,5 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         EvaluationMetrics pm = eval.evaluate(neuralNet, validationSet);
         return pm.get(EvaluationMetrics.ACCURACY);
     }
-
-
-
 
 }

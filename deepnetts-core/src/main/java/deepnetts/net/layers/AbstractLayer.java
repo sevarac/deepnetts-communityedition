@@ -26,6 +26,7 @@ import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
 import deepnetts.net.layers.activation.ActivationFunction;
+import deepnetts.net.train.opt.Optimizer;
 import deepnetts.net.weights.RandomWeightsType;
 
 /**
@@ -115,6 +116,8 @@ public abstract class AbstractLayer implements Layer, Serializable {
     protected float[] biases;
     protected float[] deltaBiases; 
     protected float[] prevDeltaBiases;
+    
+    protected Optimizer optim;
     
     protected RandomWeightsType randomWeightsType = RandomWeightsType.XAVIER;
 
@@ -289,8 +292,9 @@ public abstract class AbstractLayer implements Layer, Serializable {
         return optimizerType;
     }
 
-    public void setOptimizerType(OptimizerType optimizerType) {
-        this.optimizerType = optimizerType;
+    public void setOptimizerType(OptimizerType optType) {
+        this.optimizerType = optType;
+        optim = Optimizer.create(optType, this);
     }
 
     public ActivationType getActivationType() {

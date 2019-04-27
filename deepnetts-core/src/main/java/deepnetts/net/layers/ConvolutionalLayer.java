@@ -419,11 +419,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
     // peretpostavlja se da je sledeci sloj konvolucioni - ovo nije paralelizovano!!!
     private void backwardFromConvolutional() {
         deltas.fill(0); // reset all deltas in this layer (deltas are 3D)
-        
-//        for (int ch = 0; ch < this.depth; ch++) {
-//            backwardFromConvolutionalForChannel(ch);
-//        }
-        
+                
         if (!multithreaded) {
             for (int ch = 0; ch < this.depth; ch++) {
                 backwardFromConvolutionalForChannel(ch);
@@ -436,10 +432,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
             }
         }              
         
-//        for (int ch = 0; ch < this.depth; ch++) {
-//            // 2. calculate delta weights for this layer (this is same for all types of next layers)
-//            calculateDeltaWeightsForChannel(ch); // ovo je sad prebaceno u backwardFromConvolutionalForChannel radi identicno proverio sam
-//        }
     }
     
     private void backwardFromConvolutionalForChannel(int fz) {
@@ -477,7 +469,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
         calculateDeltaWeightsForChannel(fz);
     }    
 
-    private Optimizer optim;
     
     /**
      * Calculates delta weights for the specified channel ch in this
@@ -490,8 +481,9 @@ public final class ConvolutionalLayer extends AbstractLayer {
             deltaWeights[ch].fill(0); // reset all delta weights for the current channel - these are 4d matrices
             deltaBiases[ch] = 0;
         }
-
-        final float divisor =1f;// width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
+        // every cell gets de;lta from all other cells in filter so its averaged!
+        // ako stavim ovo na 1 momentum baca NaN
+         final float divisor = width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
 
         // assumes that deltas from the next layer are allready propagated
         // 2. calculate weight changes in filters
@@ -512,14 +504,17 @@ public final class ConvolutionalLayer extends AbstractLayer {
                             final float input = inputs.get(inRow, inCol, fz); // get input for this output and weight; padding?  da li ovde imam kanal?
                             final float grad = deltas.get(deltaRow, deltaCol, ch) * input;
                             
+                            
                             float deltaWeight = 0;  // DODO: put optimizaer instances here!!!
+                            //deltaWeight = optim.calculateDeltaWeight(grad, inCol, inRow, fz, deltaCol); //from fc
                             switch (optimizerType) {
                                 case SGD:
                                    // deltaWeight = Optimizers.sgd(learningRate, grad);
                                       deltaWeight = optim.calculateDeltaWeight(grad);
                                     break;
                                 case MOMENTUM:
-                                    deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz)); // ovaj sa momentumom odmah izleti u NaN
+                                    deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz));
+                                    //deltaWeight = optim.calculateDeltaWeight(grad, prevDeltaWeights[ch].get(fr, fc, fz));  
                                     break;
                                 case ADAGRAD:
                                     prevGradSums[ch].add(fr, fc, fz, grad * grad);
