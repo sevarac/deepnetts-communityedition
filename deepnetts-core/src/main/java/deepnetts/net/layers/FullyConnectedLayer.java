@@ -28,8 +28,6 @@ import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
 import java.util.logging.Logger;
-import deepnetts.net.train.opt.Optimizer;
-import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.RandomGenerator;

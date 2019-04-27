@@ -68,9 +68,9 @@ public class Clouds {
 
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
                                         .addInputLayer(imageWidth, imageHeight)
-                                        .addConvolutionalLayer(3, 3, 32)
+                                        .addConvolutionalLayer(3, 3, 8)
                                         .addMaxPoolingLayer(2, 2, 2)
-                                        .addConvolutionalLayer(3, 3, 64)
+                                        .addConvolutionalLayer(3, 3, 16)
                                         .addMaxPoolingLayer(2, 2, 2)
 ////                                        .addConvolutionalLayer(3, 3, 12)
 ////                                        .addMaxPoolingLayer(2, 2, 2)

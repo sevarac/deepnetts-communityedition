@@ -82,9 +82,9 @@ public class JavaOneSponsors {
         BackpropagationTrainer trainer = new BackpropagationTrainer(javaOneNet);
         trainer.setLearningRate(0.01f)
                .setMomentum(0.7f)
-               .setMaxError(0.3f)
+               .setMaxError(0.4f)
                .setMaxEpochs(10)
-               .setOptimizer(OptimizerType.SGD);
+               .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSet);
 
         // Serialize network

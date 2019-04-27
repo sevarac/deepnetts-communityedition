@@ -23,8 +23,8 @@ package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-import deepnetts.net.train.opt.Optimizer;
-import deepnetts.net.train.opt.OptimizerType;
+//import deepnetts.net.train.opt.Optimizer;
+//import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.Arrays;
@@ -40,7 +40,7 @@ public class OutputLayer extends AbstractLayer {
     protected float[] outputErrors;
     protected final String[] labels;
     protected LossType lossType;
-    protected Optimizer optim;
+  //  protected Optimizer optim;
 
     /**
      * Creates an instance of output layer with specified width (number of outputs)
@@ -121,11 +121,11 @@ public class OutputLayer extends AbstractLayer {
         this.lossType = lossType;
     }
 
-    @Override
-    public void setOptimizerType(OptimizerType optimizer) {
-        super.setOptimizerType(optimizer);
-        optim = Optimizer.create(optimizer, this);
-    }
+//    @Override
+//    public void setOptimizerType(OptimizerType optimizer) {
+//        super.setOptimizerType(optimizer);
+//        optim = Optimizer.create(optimizer, this);
+//    }
 
     @Override
     public void init() {
@@ -146,7 +146,7 @@ public class OutputLayer extends AbstractLayer {
         prevDeltaBiases = new float[width];
         RandomWeights.randomize(biases);
 
-        setOptimizerType(OptimizerType.SGD);
+//        setOptimizerType(OptimizerType.SGD);
     }
 
     /**

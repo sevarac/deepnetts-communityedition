@@ -72,7 +72,7 @@ public class RunLegoPeople {
         trainer.setLearningRate(0.01f);
      //   trainer.setMomentum(0.7f);
         trainer.setMaxError(0.07f);
-        trainer.setOptimizer(OptimizerType.SGD);
+        trainer.setOptimizer(OptimizerType.MOMENTUM);
      //   trainer.setBatchMode(true).setBatchSize(10);
         trainer.train(imageSets[0]);
 

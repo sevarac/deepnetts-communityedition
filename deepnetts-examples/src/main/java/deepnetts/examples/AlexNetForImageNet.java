@@ -46,7 +46,7 @@ public class AlexNetForImageNet {
     String labelsFile = "D:\\datasets\\cifar10\\train\\labels.txt";
     //String trainingFile = "datasets/cifar10/train.txt";
     //String trainingFile = "/home/zoran/datasets/cifar10/train/train.txt";
-    String trainingFile = "D:\\datasets\\cifar10\\train\\train.txt";
+    String trainingFile = "D:\\datasets\\cifar10\\train\\index.txt";
     // String testFile = "datasets/cifar10/test.txt";
 
     static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());

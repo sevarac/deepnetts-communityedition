@@ -29,8 +29,8 @@ import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
 import deepnetts.net.layers.activation.ActivationFunction;
-import deepnetts.net.train.opt.Optimizer;
-import deepnetts.net.train.opt.SgdOptimizer;
+//import deepnetts.net.train.opt.Optimizer;
+//import deepnetts.net.train.opt.SgdOptimizer;
 import deepnetts.util.DeepNettsThreadPool;
 import java.util.ArrayList;
 import java.util.List;
@@ -317,7 +317,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-                 optim = new SgdOptimizer(this);
+            //     optim = new SgdOptimizer(this);
         if (nextLayer instanceof FullyConnectedLayer) {
             backwardFromFullyConnected();
         }
@@ -514,11 +514,11 @@ public final class ConvolutionalLayer extends AbstractLayer {
                                     break;
                                 case MOMENTUM:
                                     deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz));
-                                    //deltaWeight = optim.calculateDeltaWeight(grad, prevDeltaWeights[ch].get(fr, fc, fz));  
+                                   // deltaWeight = optim.calculateDeltaWeight(grad, prevDeltaWeights[ch].get(fr, fc, fz));  
                                     break;
                                 case ADAGRAD:
                                     prevGradSums[ch].add(fr, fc, fz, grad * grad);
-                                    deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSums[ch].get(fr, fc, fz));
+                                  //  deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSums[ch].get(fr, fc, fz));
                                     break;
                             }
                             deltaWeight /= divisor;  // da li je ovo matematicki tacno? momentum baca nana ako ovog nema
