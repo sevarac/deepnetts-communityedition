@@ -117,7 +117,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
                         final float weight = weights.get(row, col); // we're testing gradient for this weight
 
                         nnet.setInput(dataSetItem.getInput());  // ovaj odmah uradi forward pass
-                        float[] outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput());
+                        float[] outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         nnet.setOutputError(outputError);
                         nnet.backward();
                         nnet.getLossFunction().reset(); // reset loss to zero
@@ -127,7 +127,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
                         // calculate loss fo (w+eps)
                         weights.set(row, col, weight + EPSILON);
                         nnet.setInput(dataSetItem.getInput());
-                        outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput());
+                        outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         nnet.setOutputError(outputError);
                         nnet.backward();
                         float lossPlusEps = nnet.getLossFunction().getTotal();
@@ -136,7 +136,7 @@ public class Linear_1_1_1_FeedForwardGradientChecker1 {
                         // calculate loss for (w-eps)
                         weights.set(row, col, weight - EPSILON);
                         nnet.setInput(dataSetItem.getInput());
-                        outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput());
+                        outputError = nnet.getLossFunction().addPatternError(nnet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         nnet.setOutputError(outputError);
                         nnet.backward();
                         float lossMinusEps = nnet.getLossFunction().getTotal();

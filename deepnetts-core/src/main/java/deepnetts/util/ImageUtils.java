@@ -59,7 +59,7 @@ public class ImageUtils {
     public static BufferedImage scaleImage(BufferedImage img, int newWidth, int newHeight) {    
         // problem je sto je ovaj iz awt paketa
         Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);        
-        BufferedImage resultImg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB); // img.getType()
+        BufferedImage resultImg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB); // img.getType()
         resultImg.getGraphics().drawImage(scaledImg, 0, 0, null);
                     
         return resultImg;        

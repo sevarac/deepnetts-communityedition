@@ -4,13 +4,16 @@ package deepnetts.data;
  * Generic interface for all data sets.
  * Data Set is an ordered collection of elements used to train a machine learning algorithm.
  *
+ * TODO: implement DataSet from visrec-api
+ * 
  * @author Zoran Sevarac
  * @param <ITEM_TYPE> type of elements in data set
  */
 public interface DataSet <ITEM_TYPE extends DataSetItem> extends Iterable<ITEM_TYPE> {
 
     /**
-     *
+     * Add data set item.
+     * 
      * @param item
      */
     public void add(ITEM_TYPE item);

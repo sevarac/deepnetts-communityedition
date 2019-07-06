@@ -111,7 +111,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
         for (DataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
             final float[] predictedOut = neuralNet.getOutput();
-            processResult(item.getTargetOutput(), predictedOut);
+            processResult(item.getTargetOutput().getValues(), predictedOut);
         }
 
         if (classLabels.size() == 2) {  // for binary classification

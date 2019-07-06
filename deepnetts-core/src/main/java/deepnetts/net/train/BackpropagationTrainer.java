@@ -164,10 +164,6 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     //regularization l1 or l2 add to loss
     private float regL2, regL1;
-    // flag to save network weights during training
-//    private boolean saveTrainingWeights = false;
-
-
 
 
     private transient final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
@@ -287,7 +283,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput());   // set network input and automaticaly trigger  forward pass
-                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput()); // get output error from loss function
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues()); // get output error from loss function
                 neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
                 neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
 
@@ -316,11 +312,8 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             }
 
             totalTrainingLoss = lossFunction.getTotal(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
-
             totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
-
             prevTotalLoss = totalTrainingLoss;
-
             trainAccuracy = calculateAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?            
             
             // use validation set here instead of test set
@@ -331,7 +324,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             }
 
             epochTime = endEpoch - startEpoch;
-            // todo: validation error change!!!
+            // todo: validation error change!!! or validation  stall - decrease learning rate - create a bunch of listeners/rules that can influence training
 //            StringBuilder logMsgBuilder = new StringBuilder();
 //            logMsgBuilder.append("Epoch:" + epoch);
 //            logMsgBuilder.append(logMsgBuilder);
@@ -378,7 +371,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         endTraining = System.currentTimeMillis();
         trainingTime = endTraining - startTraining;
 
-        LOGGER.info(System.lineSeparator() + "TRAINING COMPLETED");
+        LOGGER.info(System.lineSeparator() + "TRAINING COMPLETED"); // or training interupted
         LOGGER.info("Total Training Time: " + trainingTime + "ms");
         LOGGER.info("------------------------------------------------------------------------");
 
@@ -446,22 +439,25 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         for (TrainingListener l : listeners) {
             l.handleEvent(new TrainingEvent(this, type));
         }
-        if (type == TrainingEvent.Type.STOPPED) {
-            listeners.clear(); // remove alllisteners if training has stopped
-        }
-        
+//        if (type == TrainingEvent.Type.STOPPED) {
+//            listeners.clear(); // remove alllisteners if training has stopped
+//        }        
     }
 
     public void addListener(TrainingListener listener) {
         Objects.requireNonNull(listener, "Training listener cannot be null!");
 
-        if (!listeners.contains(listener)) {
-            listeners.add(listener);
+        synchronized(listeners) {
+            if (!listeners.contains(listener)) {
+                listeners.add(listener);
+            }
         }
     }
 
-    public void removeListener(TrainingListener listener) {
-        listeners.remove(listener);
+    public synchronized void removeListener(TrainingListener listener) {
+        synchronized(listeners) {        
+            listeners.remove(listener);
+        }
     }
 
     public boolean isBatchMode() {

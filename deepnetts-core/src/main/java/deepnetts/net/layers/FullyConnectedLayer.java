@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.RandomGenerator;
+import deepnetts.util.Tensors;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
@@ -502,14 +503,14 @@ public final class FullyConnectedLayer extends AbstractLayer {
     public void applyWeightChanges() {
         if (batchMode) { // podeli Delta weights sa brojem uzoraka odnosno backward passova
             deltaWeights.div(batchSize);
-            Tensor.div(deltaBiases, batchSize);
+            Tensors.div(deltaBiases, batchSize);
         }
 
         Tensor.copy(deltaWeights, prevDeltaWeights); // save as prev delta weight
         Tensor.copy(deltaBiases, prevDeltaBiases);
 
         weights.add(deltaWeights);
-        Tensor.add(biases, deltaBiases);
+        Tensors.add(biases, deltaBiases);
 
         if (batchMode) {
             deltaWeights.fill(0);
@@ -536,7 +537,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
                 forwardFrom3DLayerForCell(cell);
             }
 
-            cb.await();
+        //    cb.await();
             return null;
         }
     }
@@ -559,7 +560,7 @@ public final class FullyConnectedLayer extends AbstractLayer {
                 backwardTo3DLayerForCell(cell);
             }
 
-            cb.await();
+        //    cb.await();
             return null;
         }
     }  

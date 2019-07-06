@@ -16,13 +16,14 @@ public class DeepNettsThreadPool {
     private static DeepNettsThreadPool instance;
     private ExecutorService es;
     private final int threadCount;
-
+    private List<Future<?>> results;
+    
     private DeepNettsThreadPool() {
         threadCount = PhysicalCores.physicalCoreCount()-1;//Runtime.getRuntime().availableProcessors()-1; // or use DeepNetts configuration if autodo autodetect
         es = Executors.newFixedThreadPool(threadCount);
     }
     
-    public static DeepNettsThreadPool getInstance() {
+    public static DeepNettsThreadPool getInstance() { // getDefault()
         if (instance==null) instance = new DeepNettsThreadPool();
         
         // if es was shutdown create new es
@@ -32,8 +33,13 @@ public class DeepNettsThreadPool {
         return instance; 
     }
     
+    // posto ovaj radi sa invokeAll, moze da se koristi umesto one zavrzaleme sa cyclic barriers verovatno - istestiraj
     public void run(Collection<Callable<Void>> tasks) throws InterruptedException {
-        es.invokeAll(tasks);
+         es.invokeAll(tasks); // da vracaju boolean
+    }
+    
+    public void cancelRunningTasks() {
+        // 
     }
         
     /**
@@ -56,9 +62,14 @@ public class DeepNettsThreadPool {
     public void shutdown() {
         es.shutdown();
     }
+    
+    public void shutdownNow() {
+        es.shutdownNow();
+    }    
 
     final public int getThreadCount() {
         return threadCount;
     }
+
     
  }

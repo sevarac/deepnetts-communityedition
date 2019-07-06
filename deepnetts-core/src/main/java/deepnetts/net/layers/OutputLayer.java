@@ -27,6 +27,7 @@ import deepnetts.net.loss.LossType;
 //import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
+import deepnetts.util.Tensors;
 import java.util.Arrays;
 
 /**
@@ -215,7 +216,7 @@ public class OutputLayer extends AbstractLayer {
     public void applyWeightChanges() {
         if (batchMode) { // if batch mode calculate average delta weights using batch samples (mini batch)
             deltaWeights.div(batchSize);
-            Tensor.div(deltaBiases, batchSize);
+            Tensors.div(deltaBiases, batchSize);
         }
 
         // save current as prev delta weights (required for momentum)
@@ -226,7 +227,7 @@ public class OutputLayer extends AbstractLayer {
         // save current as prev delta biases
         Tensor.copy(deltaBiases, prevDeltaBiases);
         // apply(add) delta bias
-        Tensor.add(biases, deltaBiases);
+        Tensors.add(biases, deltaBiases);
 
         if (batchMode) {    // for batch mode set all delta weights and biases to zero after applying changes. For online mode they are reseted in backward pass
             deltaWeights.fill(0);

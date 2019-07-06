@@ -24,7 +24,10 @@ package deepnetts.data;
 import deepnetts.util.ColorUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -48,7 +51,7 @@ public class ExampleImage implements DataSetItem {
     /**
      * Desired network output - maybe its better to use  int - output index with 1 ? lesss memory for huge data sets - TODO: use int here
      */
-    private float[] targetOutput; // output vector depends on number of classes- this could be int in order to save memory
+    private Tensor targetOutput; // output vector depends on number of classes- this could be int in order to save memory
 
     /**
      * Transformed RGB values of Image pixels
@@ -65,18 +68,18 @@ public class ExampleImage implements DataSetItem {
      * Creates an instance of new example image with specified image and label
      * Loads image from specified file and creates matrix structures with color information
      *
-     * @param file image file
+     * @param imgFile image file
      * @param label image label
      * @throws IOException if file is not found or reading file fails from some reason.
      */
-    public ExampleImage(File file, String label) throws IOException {
+    public ExampleImage(File imgFile, String label) throws IOException {
         this.label = label;
-        this.file = file;
-        BufferedImage image = ImageIO.read(file);
+        this.file = imgFile;
+        BufferedImage image = ImageIO.read(imgFile);
         width = image.getWidth();
         height = image.getHeight();
 
-        extractPixelColors(image);
+        createInputFromPixels(image);
     }
 
     public ExampleImage(BufferedImage image, String label) throws IOException {
@@ -84,67 +87,68 @@ public class ExampleImage implements DataSetItem {
         width = image.getWidth();
         height = image.getHeight();
 
-        extractPixelColors(image);
+        createInputFromPixels(image);
     }
     
     public ExampleImage(BufferedImage image, String label, int targetWidth, int targetHeight) throws IOException {
         this.label = label;
+        width = targetWidth;
+        height = targetHeight;  
         
         // if specified image does not fit given dimsnsions scale image
         if (image.getWidth() != targetWidth || image.getHeight() != targetHeight) {
             image = ImageUtils.scaleImage(image, targetWidth, targetHeight);
         }
-       
-        width = image.getWidth();
-        height = image.getHeight();            
-               
-        extractPixelColors(image);
+      
+        createInputFromPixels(image);
     }    
-
-    public ExampleImage(BufferedImage image) {
-        this.label = null;
-        width = image.getWidth();
-        height = image.getHeight();
-
-        extractPixelColors(image);
-    }
-
-    private void extractPixelColors(BufferedImage image ) {
-        int[][][] pixels = new int[height][width][3]; // da li ovde mogu da koristim Raster ili DataBuffer?
+    
+    private void createInputFromPixels(BufferedImage image) {
         rgbVector = new float[width * height * 3];
+
+        // ako image nije sRGB
+        if (image.getType() != BufferedImage.TYPE_INT_ARGB) {
+            BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            imageCopy.getGraphics().drawImage(image, 0, 0, null);
+            image = imageCopy;
+        }
+        Raster raster = image.getRaster();
+        float[] pixel = null;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int color = image.getRGB(x, y);
+                //  int color = image.getRGB(x, y);
 
-                pixels[y][x][0] = ColorUtils.getBlue(color);
-                pixels[y][x][1] = ColorUtils.getGreen(color);
-                pixels[y][x][2] = ColorUtils.getRed(color);
+                pixel = raster.getPixel(x, y, pixel); // get as butes
 
-                rgbVector[y * width + x] = pixels[y][x][0] / 255.0f;// - 0.5;   normalize & translate // TODO: proveri da li ovo radi dobro!!!
-                rgbVector[width * height + y * width + x] = pixels[y][x][1] / 255.0f;// - 0.5;
-                rgbVector[2 * width * height + y * width + x] = pixels[y][x][2] / 255.0f;// - 0.5;
+                rgbVector[y * width + x] = pixel[0] / 255.0f;
+                rgbVector[width * height + y * width + x] = pixel[1] / 255.0f;
+                rgbVector[2 * width * height + y * width + x] = pixel[2] / 255.0f;
+
             }
         }
 
         rgbTensor = new Tensor(height, width, 3, rgbVector);
     }
-
-    @Override
-    public float[] getTargetOutput() {
-        return targetOutput;
+    
+    public void invert() {
+        for (int i = 0; i < rgbVector.length; i++) {
+            rgbVector[i] = 1 - rgbVector[i];
+        }
     }
 
-    public void setRgbVector(float[] array) {
-        rgbVector = array;
+    @Override
+    public Tensor getTargetOutput() {
+        return targetOutput;
     }
 
     public float[] getRgbVector() {
         return rgbVector;
     }
 
-    public final void setTargetOutput(float[] desiredOutput) {
-        this.targetOutput = desiredOutput;
+    // set this internally using utility method
+    public final void setTargetOutput(Tensor targetOutput) {
+        this.targetOutput = targetOutput;
     }
 
     public int getWidth() {

@@ -28,8 +28,7 @@ import deepnetts.util.Tensor;
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public interface DataSetItem {
-        
+public interface DataSetItem {        
         public Tensor getInput();
-        public float[] getTargetOutput();
+        public Tensor getTargetOutput(); // float[]
 }

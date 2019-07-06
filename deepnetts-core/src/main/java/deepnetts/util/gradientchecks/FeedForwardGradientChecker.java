@@ -116,7 +116,7 @@ public class FeedForwardGradientChecker {
                         final float weight = weights.get(row, col); // we're testing gradient for this weight
 
                         neuralNet.setInput(dataSetItem.getInput());  // ovaj odmah uradi forward pass
-                        float[] outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput());
+                        float[] outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         neuralNet.setOutputError(outputError);
                         neuralNet.backward();
                         neuralNet.getLossFunction().reset(); // reset loss to zero
@@ -126,7 +126,7 @@ public class FeedForwardGradientChecker {
                         // calculate loss fo (w+eps)
                         weights.set(row, col, weight + EPSILON);
                         neuralNet.setInput(dataSetItem.getInput());
-                        outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput());
+                        outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         neuralNet.setOutputError(outputError);
                         neuralNet.backward();
                         float lossPlusEps = neuralNet.getLossFunction().getTotal();
@@ -135,7 +135,7 @@ public class FeedForwardGradientChecker {
                         // calculate loss for (w-eps)
                         weights.set(row, col, weight - EPSILON);
                         neuralNet.setInput(dataSetItem.getInput());
-                        outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput());
+                        outputError = neuralNet.getLossFunction().addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
                         neuralNet.setOutputError(outputError);
                         neuralNet.backward();
                         float lossMinusEps = neuralNet.getLossFunction().getTotal();

@@ -336,7 +336,8 @@ public final class MaxPoolingLayer extends AbstractLayer {
 
         final int fromCh, toCh;
         CyclicBarrier cb;
-
+        // Consumer<Integer> methodReference    https://dzone.com/articles/java-lambda-method-reference
+        // mozda i da bude predikat da vraca boolean ukoliko je zavrsio, a false ako je prekinut
         public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
             this.fromCh= fromCh;
             this.toCh = toCh;
@@ -350,7 +351,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
                forwardForChannel(ch);
            }
 
-            cb.await(); // wait other thread before completing this layer and going to next one
+        //    cb.await(); // wait other thread before completing this layer and going to next one
             return null;
         }
     }
@@ -373,7 +374,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
                backwardFromConvolutionalForChannel(ch);
            }
 
-            cb.await(); // wait other thread before completing this layer and going to next one
+        //    cb.await(); // wait other thread before completing this layer and going to next one
             return null;
         }
     }  
@@ -397,7 +398,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
                backwardFromFullyConnectedForChannel(ch);
            }
 
-            cb.await(); // wait other thread before completing this layer and going to next one
+        //    cb.await(); // wait other thread before completing this layer and going to next one
             return null;
         }
     }    

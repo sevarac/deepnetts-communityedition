@@ -32,14 +32,14 @@ import java.util.Arrays;
 public class BasicDataSetItem  implements DataSetItem {
     
     private final Tensor input; // network input
-    private final float[] targetOutput; // for classifiers target can be index, int 
+    private final Tensor targetOutput; // for classifiers target can be index, int 
         
     public BasicDataSetItem(float[] in, float[] targetOutput) {
         this.input = new Tensor(in);
-        this.targetOutput = targetOutput;
+        this.targetOutput = new Tensor(targetOutput);
     }    
     
-    public BasicDataSetItem(Tensor input, float[] targetOutput) {
+    public BasicDataSetItem(Tensor input, Tensor targetOutput) {
         this.input = input;
         this.targetOutput = targetOutput;
     }
@@ -50,7 +50,7 @@ public class BasicDataSetItem  implements DataSetItem {
     }
 
     @Override
-    public float[] getTargetOutput() {
+    public Tensor getTargetOutput() {
         return targetOutput;
     }
     
@@ -60,7 +60,7 @@ public class BasicDataSetItem  implements DataSetItem {
 
     @Override
     public String toString() {
-        return "BasicDataSetItem{" + "input=" + input + ", targetOutput=" + Arrays.toString(targetOutput) + '}';
+        return "BasicDataSetItem{" + "input=" + input + ", targetOutput=" + targetOutput + '}';
     }
         
 }

@@ -156,16 +156,6 @@ public class ImageSetTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of invert method, of class ImageSet.
-     */
-    @Ignore
-    public void testInvert() {
-        System.out.println("invert");
-        ImageSet instance = null;
-        instance.invert();
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getOutputLabels method, of class ImageSet.

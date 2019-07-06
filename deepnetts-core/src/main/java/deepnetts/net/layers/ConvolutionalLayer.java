@@ -32,6 +32,7 @@ import deepnetts.net.layers.activation.ActivationFunction;
 //import deepnetts.net.train.opt.Optimizer;
 //import deepnetts.net.train.opt.SgdOptimizer;
 import deepnetts.util.DeepNettsThreadPool;
+import deepnetts.util.Tensors;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -462,6 +463,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                             }
                         }
                    // }
+                   deltas.div(nextConvLayer.filterWidth*nextConvLayer.filterHeight*nextConvLayer.filterDepth); // make this average for all filter positions from next layer
                 }
             }
         }    
@@ -555,7 +557,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
     public void applyWeightChanges() {
 
         if (batchMode) {    // divide biases with batch samples if it is in batch mode
-            Tensor.div(deltaBiases, batchSize);
+            Tensors.div(deltaBiases, batchSize);
         }
 
         Tensor.copy(deltaBiases, prevDeltaBiases);  // save this for momentum
@@ -660,6 +662,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
         private final int fromCh, toCh;
         private final CyclicBarrier cb;
 
+        // izbaciti cb, a parametar neka bude metoda koja se poziva sa vrdnostima redom - method reference. to ce smanjiti broj klasa znacajno
         public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb) {
             this.fromCh = fromCh;
             this.toCh = toCh;
@@ -673,7 +676,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 forwardForChannel(ch);
             }
 
-            cb.await();
+     //       cb.await();
             return null;
         }
     }
@@ -696,7 +699,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 backwardFromConvolutionalForChannel(ch);   // ovde sad zavisi koji je sledeci pa njegovu metodu poziva. Da li da imam 3 threada ili da mi proledjujem referencu nametodu?
             }
 
-            cb.await();
+        //    cb.await();
             return null;
         }
     }    
@@ -719,7 +722,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 backwardFromMaxPoolingForChannel(ch);   // ovde sad zavisi koji je sledeci pa njegovu metodu poziva. Da li da imam 3 threada ili da mi proledjujem referencu nametodu?
             }
 
-            cb.await();
+        //    cb.await();
             return null;
         }
     }
@@ -742,7 +745,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 backwardFromFullyConnectedForChannel(ch);
             }
 
-            cb.await();
+        //    cb.await();
             return null;
         }
     }    

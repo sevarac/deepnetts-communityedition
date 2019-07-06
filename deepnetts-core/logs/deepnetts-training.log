@@ -1,0 +1,28 @@
+Could not find labels file: D:\datasets\fruits\fruits-360\train\labels.txt
+java.io.FileNotFoundException: D:\datasets\fruits\fruits-360\train\labels.txt (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.io.FileInputStream.open(FileInputStream.java:196) ~[?:?]
+	at java.io.FileInputStream.<init>(FileInputStream.java:139) ~[?:?]
+	at java.io.FileReader.<init>(FileReader.java:72) ~[?:?]
+	at deepnetts.data.ImageSet.loadLabels(ImageSet.java:422) [classes/:?]
+	at deepnetts.util.DebugImaheLoading.main(DebugImaheLoading.java:18) [classes/:?]
+Loaded 103 labels
+javax.imageio.IIOException: Can't read input file!
+Loaded 103 labels
+javax.imageio.IIOException: Can't read input file!
+Loaded 103 labels
+Loaded 616 images
+Loaded 103 labels
+javax.imageio.IIOException: Can't create an ImageOutputStream!
+Loaded 103 labels
+javax.imageio.IIOException: Can't create an ImageOutputStream!
+Loaded 103 labels
+javax.imageio.IIOException: Can't create an ImageOutputStream!
+Loaded 103 labels
+Loaded 616 images
+Loaded 103 labels
+Loaded 103 labels
+Loaded 103 labels
+Loaded 103 labels
+Loaded 103 labels
+Loaded 103 labels

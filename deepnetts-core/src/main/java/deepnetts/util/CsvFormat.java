@@ -3,11 +3,13 @@ package deepnetts.util;
 import java.util.Arrays;
 
 public class CsvFormat {
-    String delimiter;
-    boolean hasHeader;
-    String[] columnNames;
-    ColumnType[] columnTypes;
-
+    private String delimiter;
+    private boolean hasHeader;
+    private String[] columnNames;
+    private ColumnType[] columnTypes;
+    private int numColumns;
+    
+    // todo add numColumns
     public String getDelimiter() {
         return delimiter;
     }
@@ -30,6 +32,7 @@ public class CsvFormat {
 
     public void setColumnNames(String[] columnNames) {
         this.columnNames = columnNames;
+        this.numColumns = columnNames.length;
     }
 
     public ColumnType[] getColumnTypes() {
@@ -39,6 +42,12 @@ public class CsvFormat {
     public void setColumnTypes(ColumnType[] columnTypes) {
         this.columnTypes = columnTypes;
     }
+
+    public int getNumColumns() {
+        return numColumns;
+    }
+    
+    
 
     @Override
     public String toString() {

@@ -3,8 +3,9 @@ package deepnetts.eval;
 import java.util.HashMap;
 
 /**
- *
- * @author Zoran
+ * Wrapper for constants and values for classifier and regressor evaluation metrics.
+ * 
+ * @author Zoran Sevarac
  */
 public class EvaluationMetrics {
 
@@ -15,12 +16,29 @@ public class EvaluationMetrics {
     */
     public final static String MEAN_ABSOLUTE_ERROR      = "MeanAbsoluteError";
     public final static String MEAN_SQUARED_ERROR       = "MeanSquaredError";
-    public final static String ROOT_MEAN_SQUARED_ERROR  = "RootMeanSquaredError";   // Use RSE instead
-    public final static String RESIDUAL_SQUARE_SUM      = "ResidualSquareSum";
+    public final static String ROOT_MEAN_SQUARED_ERROR  = "RootMeanSquaredError";
+    public final static String RESIDUAL_SQUARE_SUM      = "ResidualSquareSum"; // RSS
 
-    public final static String RESIDUAL_STANDARD_ERROR  = "ResidualStandardError"; // Smaller is better. Average error of estimated/predicted outputs of the regression model. (or standard deviation of errors)
-    public final static String R2                       = "RSquared"; //  Bigger is better. Percent of variation explained by the regression model
-    public final static String F_STAT                   = "FStatistics";
+    /**
+     * Estimation of standard deviation of prediction errors for some given data set.
+     * Smaller is better.
+     */
+    public final static String RESIDUAL_STANDARD_ERROR = "ResidualStandardError";
+
+    /**
+     * Percent of variation explained by the regression model.
+     * 1 is good , 0 is bad, bigger is better.
+     */
+    public final static String R_SQUARED = "RSquared";
+
+    /**
+     * Is there a relationship between inputs and predictions(outputs) at all.
+     * If there is a relationship, this value is greater then 1. 
+     * When there is now relationship, this value is around 1.
+     */
+    public final static String F_STAT = "FStatistics";
+
+    // p value? t statistics
 
     // Classification Metrics
     public final static String ACCURACY     = "Accuracy";

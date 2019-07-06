@@ -537,6 +537,12 @@ public class Tensor implements Serializable {
             values[i] -= t.values[i];
         }
     }
+    
+    public final void sub(final float val) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] -= val;
+        }
+    }    
 
     /**
      * Subtracts tensor t2 from t1. The result is t1.
@@ -560,6 +566,13 @@ public class Tensor implements Serializable {
             values[i] /= value;
         }
     }
+    
+    // element wise division
+    public final void div(final float[] divisors) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] /= divisors[i];
+        }
+    }    
 
     /**
      * Fills the entire tensor with specified value.
@@ -578,24 +591,21 @@ public class Tensor implements Serializable {
         }
     }
 
-    public static void div(final float[] array, final float val) {
-        for (int i = 0; i < array.length; i++) {
-            array[i] /= val;
+    
+    public final void div(Tensor t) {
+        for (int i = 0; i < values.length; i++) {
+            this.values[i] = this.values[i] / t.values[i];
         }
     }
-
-    public static final void sub(final float[] array1, final float[] array2) {
-        for (int i = 0; i < array1.length; i++) {
-            array1[i] -= array2[i];
-        }
+    
+    // TODO: fix number of dimensions
+    public Tensor copy() {
+        Tensor newTensor = new Tensor(rows, cols,  depth, fourthDim);    
+        System.arraycopy(this.values, 0, newTensor.values, 0, this.values.length);                
+        return newTensor;
     }
-
-    public static final void add(final float[] array1, final float[] array2) {
-        for (int i = 0; i < array1.length; i++) {
-            array1[i] += array2[i];
-        }
-    }
-
+    
+    // TODO: also set dimensions for dst
     public static final void copy(final Tensor src, final Tensor dest) {
         System.arraycopy(src.values, 0, dest.values, 0, src.values.length);
     }
@@ -754,6 +764,12 @@ public class Tensor implements Serializable {
     public void multiply(float m) {
         for(int i=0; i<values.length; i++) {
             values[i] *= m;
+        }
+    }
+
+    public void sqrt() {
+        for (int i = 0; i < values.length; i++) {
+            values[i] = (float)Math.sqrt(values[i]);
         }
     }
 

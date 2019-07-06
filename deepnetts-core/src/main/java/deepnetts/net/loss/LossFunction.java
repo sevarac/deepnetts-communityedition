@@ -77,7 +77,7 @@ public interface LossFunction {
         for(DataSetItem tsItem : testSet) {
             nnet.setInput(tsItem.getInput());
             float[] output = nnet.getOutput();
-            addPatternError(output, tsItem.getTargetOutput());
+            addPatternError(output, tsItem.getTargetOutput().getValues());
         }
         return getTotal();
     }

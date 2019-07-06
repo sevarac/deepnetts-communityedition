@@ -470,32 +470,6 @@ public class TensorTest {
     }
 
     @Test
-    public void testDiv_floatArr_float() {
-        float[] array = new float[] {0.2f, 0.4f, 0.6f, 0.8f};        
-        float[] expResult = new float[] {0.1f, 0.2f, 0.3f, 0.4f};
-        Tensor.div(array, 2.0f);
-        assertArrayEquals(expResult, array, 0.0f);
-    }
-
-    @Test
-    public void testSub_floatArr_floatArr() {
-        float[] array1 = new float[] {0.2f, 0.4f, 0.6f, 0.8f};        
-        float[] array2 = new float[] {0.1f, 0.2f, 0.3f, 0.2f};        
-        float[] expResult = new float[] {0.1f, 0.2f, 0.3f, 0.6f};
-        Tensor.sub(array1, array2);
-        assertArrayEquals(expResult, array1, 0.0f);        
-    }
-
-    @Test
-    public void testAdd_floatArr_floatArr() {
-        float[] array1 = new float[] {0.2f, 0.4f, 0.6f, 0.5f};        
-        float[] array2 = new float[] {0.1f, 0.2f, 0.3f, 0.2f};        
-        float[] expResult = new float[] {0.3f, 0.6f, 0.9f, 0.7f};
-        Tensor.add(array1, array2);
-        assertArrayEquals(expResult, array1, 1e-7f);          
-    }
-
-    @Test
     public void testCopy_Tensor_Tensor() {
         Tensor src = new Tensor(new float[] {0.2f, 0.4f, 0.6f, 0.8f});        
         Tensor dest = new Tensor(4); 

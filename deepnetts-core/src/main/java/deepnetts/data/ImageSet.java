@@ -22,6 +22,7 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
+import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.ImageSetUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
@@ -34,13 +35,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.tools.jstat.Alignment;
 
 /**
  * Data set with images that will be used to train convolutional neural network.
@@ -48,19 +55,21 @@ import sun.tools.jstat.Alignment;
  * @author Zoran Sevarac
  */
 public class ImageSet extends BasicDataSet<ExampleImage> {
-               //     extends DataSet<ExampleImage>  ?
+    //     extends DataSet<ExampleImage>  ?
+
     private final int imageWidth;
     private final int imageHeight;
     private boolean scaleImages = true;
+    private boolean invertImages = false;
     private Tensor mean;
-    
+    private String delimiter = " ";
+
     // TODO: method load which takes path to folder with images. May constructor
     // create image and laels index if they are not present
     // mozda ImageDataSetBuilder
     // ukljuci broj slika , index fajlove i sve ostalo
-    
-    private static String NEGATIVE_LABEL="negative";
-    
+    private static String NEGATIVE_LABEL = "negative";
+
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
     // ovi ne mogu svi da budu u memoriji odjednom...
@@ -75,11 +84,13 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         super();
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
-        
+
         ImageSetUtils.createImageIndex(imageDirPath);
         ImageSetUtils.createLabelsIndex(imageDirPath);
         setScaleImages(true);
-    }    
+    }
+
+    final private Object LOCK = new Object();
 
     /**
      * Adds image to this image set.
@@ -92,7 +103,9 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         if (exImage == null) {
             throw new DeepNettsException("Example image cannot be null!");
         }
-        items.add(exImage);
+        synchronized (LOCK) {
+            items.add(exImage);
+        }
 
 //        if ((exImage.getWidth() == imageWidth) && (exImage.getHeight() == imageHeight)) {
 //            items.add(exImage);
@@ -101,44 +114,43 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //        }
     }
 
-     public void loadImages(String imageIdxFile) throws FileNotFoundException {
-         loadImages(new File(imageIdxFile));
-     }
-           
+    public void loadImages(String imageIdxFile) throws FileNotFoundException {
+        loadImages(new File(imageIdxFile));
+    }
+
     /**
      * Loads example images with corresponding labels from the specified file.
      *
      *
-     * @param imageIdxFile Plain text file that contains space delimited image paths and labels
+     * @param imageIdxFile Plain text file that contains space delimited image
+     * paths and labels
      * @throws java.io.FileNotFoundException if imageIdxFile was not found
      */
     public void loadImages(File imageIdxFile) throws FileNotFoundException {
-     // TODO: First load entire image index, then load and preprocess image in
-     // multithreaded way TODO2: load images in batches  verovtano neki iterator nextBatch() 
-        
-     Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");
-     if (columnNames == null) {
-          throw new DeepNettsException("Error: Labels are not loaded. In order to load images correctly you have to load labels first using ImageSet.loadLabels method.");
-     }               
-     
-     // use paths of the image index file as root path for image categories 
-     final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
-     
-     final String delimiter = " ";
-     String imgFileName = null;
-     String label = null;
-     final String[] fColumnNames = columnNames;
+        // TODO: First load entire image index, then load and preprocess image in
+        // multithreaded way TODO2: load images in batches  verovtano neki iterator nextBatch()
+
+        Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");
+        if (columnNames == null) {
+            throw new DeepNettsException("Error: Labels are not loaded. In order to load images correctly you have to load labels first using ImageSet.loadLabels method.");
+        }
+
+        // use paths of the image index file as root path for image categories
+        final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
+
+        String imgFileName = null;
+        String label = null;
+
+        List<BufferedImage> images = new LinkedList<>();
+        List<String> labels = new LinkedList<>();
 
         // TODO: da radi u batch-u. Da ima interni brojac dokle je stigao. Ili da drzi otvoren stream da iam metodu loadNextBatch() mozda to najbolje u posebnoj metodi ako je mod za trening batch.
-        
-       // ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
-
         // TODO: napravi ovo asinhrono da ucitava i preprocesira u posebnim threadovima, u perspektivi u batchovima, ne sve odjendnom
         // ucitaj prvo indeks slika a onda ucitavanje i preprocrsiranje slika parelelizuj da jedan thread radi ucitavanje a drugi preprocsiranje onoga sto je ucitano
-        try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
-            int lineCount=0;
-          //  List<Future<?>> results = new LinkedList<>();
+            int lineCount = 0;
+            //  List<Future<?>> results = new LinkedList<>();
             // we can also catch and log FileNotFoundException, IOException in this loop
             while ((line = br.readLine()) != null) {
                 lineCount++;
@@ -146,54 +158,27 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                     continue;
                 }
                 String[] parts = line.split(delimiter); // parse file and class label from current line - sta ako naziv fajla sadrzi space? - to ne sme ili detektuj nekako sa lastIndex
-                if (parts.length >2) throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line "+lineCount);
-                
+                if (parts.length > 2) {
+                    throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line " + lineCount);
+                }
+
                 imgFileName = parts[0];
 
-                if (parts.length == 2) { // use specified label if it is available 
+                if (parts.length == 2) { // use specified label if it is available
                     label = parts[1];
                 } else if (parts.length == 1) {  // otherwise use name of parent folder as label
                     final int labelEndIdx = imgFileName.lastIndexOf(File.separator); // assumes one top directory which corresponds to category label
                     label = imgFileName.substring(0, labelEndIdx);
-                } 
-
-                imgFileName = rootPath + File.separator + imgFileName;
-                
-                // todo: ucitavaj slike u ovom a preprocesiraj u psebnom threadu, najbolje submituj preprocesiranje na neki thread pool
-                BufferedImage image = ImageIO.read(new File(imgFileName));
-                if (scaleImages) {
-                    image = ImageUtils.scaleImage(image, imageWidth, imageHeight);
                 }
-                final ExampleImage exImg = new ExampleImage(image, label);
-                exImg.setTargetOutput(oneHotEncode(label, fColumnNames));
-                add(exImg);
+                //  String shortFileName = parts[0].substring(parts[0].indexOf(File.separator)+1);
+                imgFileName = rootPath + File.separator + imgFileName;
 
-//                Future<?> result = es.submit(() -> {
-//                    try {
-//                        final ExampleImage exImg = new ExampleImage(image, flabel);
-//                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-//                        add(exImg);
-//                        return true;
-//                    } catch (IOException ex) {
-//                        java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    return false;
-//                    // make sure all images are the same size
-////                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
-//                });
-             //   results.add(result);
+                BufferedImage image = ImageIO.read(new File(imgFileName));
+                images.add(image);
+                labels.add(label);
             }
 
-//            results.forEach((f) -> {
-//                try {
-//                    f.get();
-//                } catch (InterruptedException ex) {
-//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (ExecutionException ex) {
-//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            });
-//            es.shutdown();
+            processImages(images, labels);
 
             if (isEmpty()) {
                 throw new DeepNettsException("Zero images loaded!");
@@ -214,31 +199,30 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     }
 
     /**
-     * Loads specified number of example images with corresponding labels from the specified file.
-     * 
+     * Loads specified number of example images with corresponding labels from
+     * the specified file.
+     *
      * @param imageIdxFile Plain text file which contains space delimited image
      * file paths and label
      * @param numOfImages number of images to load
      */
     public void loadImages(File imageIdxFile, int numOfImages) throws DeepNettsException {
-        Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");        
-        
+        Objects.requireNonNull(imageIdxFile, "Index file cannot be null!");
+
         if (columnNames == null) {
             throw new DeepNettsException("Error: Labels are not loaded. In order to load images correctly you have to load labels first using ImageSet.loadLabels method.");
-        }        
+        }
 
-        final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));        
-        
+        final String rootPath = imageIdxFile.getPath().substring(0, imageIdxFile.getPath().lastIndexOf(File.separator));
+
         String imgFileName = null;
         String label = null;
-        final String[] fColumnNames = columnNames;
-        final String delimiter = " ";
 
-      //  ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() - 1);
-      //  List<Future<?>> results = new LinkedList<>();
+        List<BufferedImage> images = new LinkedList<>();
+        List<String> labels = new LinkedList<>();
 
         // ako je numOfImages manji od broja slika u fajlu logovati
-        try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
 
             for (int i = 0; i < numOfImages; i++) {
@@ -247,73 +231,25 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                     continue;
                 }
                 String[] parts = line.split(delimiter); // parse file and class label from line
-                
-                if (parts.length >2) throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line "+i);
-                
+
+                if (parts.length > 2) {
+                    throw new DeepNettsException("Bad file format: image paths and labels should not contain spaces! At line " + i);
+                }
+
                 imgFileName = parts[0];
 
-                if (parts.length == 2) { // use specified label if it is available 
+                if (parts.length == 2) { // use specified label if it is available
                     label = parts[1];
                 } else if (parts.length == 1) {  // otherwise use name of parent folder as label
                     final int labelEndIdx = imgFileName.lastIndexOf(File.separator); // assumes one top directory which corresponds to category label
                     label = imgFileName.substring(0, labelEndIdx);
-                }                 
-
-//                try {
-//                // ucitavaj slike u ovom a preprocesiraj u posebnom threadu, najbolje submituj preprocesiranje na neki thread pool
-//                    final BufferedImage image = ImageIO.read(new File(imgFileName));
-//                    final String flabel = label;
-//                    final ExampleImage exImg;
-//
-//                    exImg = new ExampleImage(image, flabel);
-//                    exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-//                    add(exImg);
-//                } catch (IOException ex) {
-//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                    throw new DeepNettsException("Image loading error!", ex);
-//                }
+                }
 
                 imgFileName = rootPath + File.separator + imgFileName;
-                
                 final BufferedImage image = ImageIO.read(new File(imgFileName));
-                final String flabel = label;
-
-               // Future<?> result = es.submit(() -> {
-
-                        final ExampleImage exImg = new ExampleImage(image, flabel);
-                        exImg.setTargetOutput(oneHotEncode(flabel, fColumnNames));
-                        add(exImg); // ovaj add i kolekcija bi morali da budu sinhronizovani ...
-                 //       return true;
-
-              //      return false;
-                    // make sure all images are the same size
-//                if ((exImg.getWidth() != imageWidth) || (exImg.getHeight() != imageHeight)) throw new DeepNettsException("Bad image size for "+exImg.getFile().getName());
-          //      });
-          //      results.add(result);
+                images.add(image);
+                labels.add(label);
             }
-
-//            results.forEach((f) -> {
-//                try {
-//                    f.get();
-//                } catch (InterruptedException ex) {
-//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (ExecutionException ex) {
-//                    java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            });
-//            es.shutdown();
-//            try {
-//                es.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-//            } catch (InterruptedException ex) {
-//                java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-
-            // sacekaj da pool zavrsi
-            if (isEmpty()) {
-                throw new DeepNettsException("Zero images loaded!");
-            }
-            LOGGER.info("Loaded " + size() + " images");
-
         } catch (FileNotFoundException ex) {
             LOGGER.error(ex);
             throw new DeepNettsException("Could not find image file: " + imgFileName, ex);
@@ -321,13 +257,79 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             LOGGER.error(ex);
             throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
         }
+
+        processImages(images, labels);
+
+        // sacekaj da pool zavrsi
+        if (isEmpty()) {
+            throw new DeepNettsException("Zero images loaded!");
+        }
+        LOGGER.info("Loaded " + size() + " images");
+    }
+
+    private void processImages(List<BufferedImage> images, List<String> labels) {
+        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
+        List<Callable<Boolean>> workers = new ArrayList<>();
+        int imagesPerWorker = images.size() / threadCount;
+        int start = 0, end = 0;
+        for (int t = 0; t < threadCount; t++) {
+            end = start + imagesPerWorker;
+            if (end > images.size() || end < images.size()) {
+                end = images.size();
+            }
+
+            ImageProcessor imgProc = new ImageProcessor(images, labels, start, end);
+            workers.add(imgProc);
+            start = end;
+        }
+        ExecutorService es = Executors.newFixedThreadPool(threadCount);
+        try {
+            List<Future<Boolean>> results = es.invokeAll(workers);
+        } catch (InterruptedException ex) {
+            java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private class ImageProcessor implements Callable<Boolean> {
+
+        private final List<BufferedImage> images;
+        private final List<String> labels;
+        private final int start;
+        private final int end;
+
+        public ImageProcessor(List<BufferedImage> images, List<String> labels, int start, int end) {
+            this.images = images;
+            this.labels = labels;
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public Boolean call() throws IOException {
+            Iterator<String> li = labels.iterator();
+            for (int i = start; i < end; i++) {
+                BufferedImage img = images.get(i);
+                String lbl = li.next();
+                if (scaleImages) img = ImageUtils.scaleImage(img, imageWidth, imageHeight);
+                
+                final ExampleImage exImg = new ExampleImage(img, lbl);
+                exImg.setTargetOutput(new Tensor(oneHotEncode(lbl, columnNames)));
+                if (invertImages) exImg.invert();
+                add(exImg); // vratiti kao batch rezultata
+            }
+
+            return Boolean.TRUE;
+        }
     }
 
     /**
-     * Creates and returns binary array for specified label using one-hot-encoding scheme.
-     * Each position in array corresponds to one label, position with label given as parameter  is 1, while other positions are zero. 
-     * Returns all zeros for label 'negative'.
+     * Creates and returns binary array for specified label using
+     * one-hot-encoding scheme. Each position in array corresponds to one label,
+     * position with label given as parameter is 1, while other positions are
+     * zero. Returns all zeros for label 'negative'.
      *
+     * TODO: maybe to greate map and just get corresponding vector for each
+     * 
      * @param label specific tabel to encode with 1 in return vector
      * @param labels all available labels
      * @return
@@ -376,7 +378,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         if (partsSum > 1) {
             throw new IllegalArgumentException("Sum of parts/percents cannot be larger than 1!");
         }
-        
+
         LOGGER.info("Splitting data set: " + Arrays.toString(partSizes));
 
         ImageSet[] subSets = new ImageSet[partSizes.length];
@@ -400,36 +402,40 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     }
 
     /**
-     * Loads and returns image labels to train neural network from the specified file.
-     * These labels will be used to label network's outputs.
-     * 
+     * Loads and returns image labels to train neural network from the specified
+     * file. These labels will be used to label network's outputs.
+     *
      * @param filePath
      * @return
-     * @throws DeepNettsException 
+     * @throws DeepNettsException
      */
     public String[] loadLabels(String filePath) throws DeepNettsException {
         return loadLabels(new File(filePath));
     }
 
     /**
-     * Loads and returns image labels to train neural network from the specified file.These labels will be used to label network's outputs.
+     * Loads and returns image labels to train neural network from the specified
+     * file.These labels will be used to label network's outputs.
      *
      * @param file file to load labels from
      * @return
-     * @throws DeepNettsException 
-     */    
+     * @throws DeepNettsException
+     */
     public String[] loadLabels(File file) throws DeepNettsException {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = null;
             List<String> labelsList = new ArrayList<>(); // temporary labels list
             while ((line = br.readLine()) != null) {
-                if (line.isEmpty()) continue;
+                if (line.isEmpty()) continue; // skip empty lines
+                
                 line = line.trim();
-                if (line.contains(" ")) throw new DeepNettsException("Bad label format: Labels should not contain space characters! For label:"+line);
+                if (line.contains(" ")) {
+                    throw new DeepNettsException("Bad label format: Labels should not contain space characters! For label:" + line);
+                }
                 labelsList.add(line);
             }
             this.columnNames = labelsList.toArray(new String[labelsList.size()]);
-            LOGGER.info("Loaded "+labelsList.size()+" labels");
+            LOGGER.info("Loaded " + labelsList.size() + " labels");
             return columnNames;
         } catch (FileNotFoundException ex) {
             LOGGER.error("Could not find labels file: " + file.getAbsolutePath(), ex);
@@ -441,7 +447,8 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     }
 
     /**
-     * Applies zero mean normalization to entire dataset, and returns mean tensor.
+     * Applies zero mean normalization to entire dataset, and returns mean
+     * tensor.
      *
      * @return mean Tensor for the entire dataset
      */
@@ -449,37 +456,42 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         mean = new Tensor(imageHeight, imageWidth, 3);
 
         // sum all matrices
-        for (ExampleImage image : items) {
-            mean.add(image.getInput());
-        }
+        items.forEach((img) ->  mean.add(img.getInput()));
 
         // divide by number of images
         mean.div(items.size());
 
+        
+        //List<Callable<Boolean>> workers = new ArrayList<>();
+                
         // subtract mean from each image
         for (ExampleImage image : items) {
             image.getInput().sub(mean);
         }
+        
+//        items.parallelStream().forEach((item)->image.getInput().sub(mean));
 
         return mean;
     }
 
     /**
-     * Inverts pixels of all images.
-     * Usefull when white bacground should be ignored.
+     * Inverts pixels of all images. Usefull when white bacground should be
+     * ignored.
      */
-    public void invert() {
-        for (ExampleImage image : items) {
-            float[] rgbVector = image.getRgbVector();
-            for (int i = 0; i < rgbVector.length; i++) {
-                rgbVector[i] = 1 - rgbVector[i];
-            }
-        }
-    }
+//    public void invert() {
+//        for (ExampleImage image : items) {
+//            float[] rgbVector = image.getRgbVector();
+//            for (int i = 0; i < rgbVector.length; i++) {
+//                rgbVector[i] = 1 - rgbVector[i];
+//            }
+//        }
+//    }
 
     /**
-     * Returns flag that indicates wheather images should be scaled to specified dimensions while creating image set.
-     * @return 
+     * Returns flag that indicates wheather images should be scaled to specified
+     * dimensions while creating image set.
+     *
+     * @return
      */
     public boolean getScaleImages() {
         return scaleImages;
@@ -488,34 +500,55 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
     public final void setScaleImages(boolean scaleImages) {
         this.scaleImages = scaleImages;
     }
-        
+
+    public boolean getInvertImages() {
+        return invertImages;
+    }
+
+    public void setInvertImages(boolean invertImages) {
+        this.invertImages = invertImages;
+    }
+
+    
+    
     /**
      * Returns output/image labels.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String[] getOutputLabels() {
         return columnNames;
     }
-    
+
     public Map<String, Integer> countByClasses() {
         HashMap<String, Integer> map = new HashMap<>();
-        
-        for(ExampleImage item  :  items)  {
+
+        for (ExampleImage item : items) {
             if (map.containsKey(item.getLabel())) {
                 final String key = item.getLabel();
-                map.put(key, map.get(key)+1);
+                map.put(key, map.get(key) + 1);
             } else {
                 map.put(item.getLabel(), 0);
             }
         }
-        
+
         LOGGER.info("Number of images by label/class");
-        for(String key : map.keySet()) {
-            LOGGER.info(key +" : "+map.get(key));
+        for (String key : map.keySet()) {
+            LOGGER.info(key + " : " + map.get(key));
         }
-                
+
         return map;
     }
+
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+    
+    
 
 }
