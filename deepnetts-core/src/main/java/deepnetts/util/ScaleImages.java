@@ -36,10 +36,10 @@ import javax.imageio.ImageIO;
  */
 public class ScaleImages {
 
-    String sourcePath = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet\\negative\\";  // moraju na kraju da se stave \\ ispravi to
-    String targetPath = "D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256\\negative\\";
-    int targetWidth=256,
-        targetHeight=256;
+    String sourcePath = "D:\\datasets\\DukesChoiceDemo\\duke\\";  // moraju na kraju da se stave \\ ispravi to
+    String targetPath = "D:\\datasets\\DukesChoiceDemo\\duke-scaled\\";
+    int targetWidth=96,
+        targetHeight=96;
 
     String imageIndexFileFile =""; // index.txt
     String labelsFile =""; // labels.txt

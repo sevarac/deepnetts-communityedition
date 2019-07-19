@@ -28,6 +28,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -45,15 +46,15 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class LeNet {
+public class MnistAsDl4j {
 
     int imageWidth = 28;
     int imageHeight = 28;
 
-    //String labelsFile = "/home/zoran/datasets/mnist/train/labels.txt";
+    //String labelsFile   = "/home/zoran/datasets/mnist/train/labels.txt";
     String labelsFile = "D:\\datasets\\mnist\\train\\labels.txt";
-    // String trainingFile = "datasets/mnist/train2.txt"; // 1000 cifara - probaj sa 10 000
-    // String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; 
+    //   String trainingFile = "datasets/mnist/train2.txt"; // 1000 cifara - probaj sa 10 000
+    //     String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; // 1000 cifara - probaj sa 10 000
     String trainingFile = "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 000
 
     private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
@@ -61,52 +62,54 @@ public class LeNet {
     public void run() throws DeepNettsException, IOException {
 
         LOGGER.info("Training convolutional network with MNIST data set");
-        LOGGER.info("Loading images...");
+        LOGGER.info("Creating image data set...");
 
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.setInvertImages(true);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), 1000); //50000
-        imageSet.zeroMean();
+        imageSet.loadImages(new File(trainingFile), 10000); //50000
+      //  imageSet.zeroMean();
         imageSet.shuffle();
 
-        ImageSet[] imageSets = imageSet.split(0.65, 0.35);
+        imageSet.countByClasses();      
+        
+        ImageSet[] imageSets = imageSet.split(0.7, 0.3);
         int labelsCount = imageSet.getLabelsCount();
 
-        LOGGER.info("Creating neural network...");
+        LOGGER.info("------------------------------------------------");
+        LOGGER.info("CREATING NEURAL NETWORK");
+        LOGGER.info("------------------------------------------------");
 
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
-                .addInputLayer(imageWidth, imageHeight)
-                .addConvolutionalLayer(5, 6)
+                .addInputLayer(imageWidth, imageHeight, 3)
+                .addConvolutionalLayer(5, 5, 20)
                 .addMaxPoolingLayer(2, 2)
-                .addConvolutionalLayer(5, 16)
+                .addConvolutionalLayer(5, 5, 50)
                 .addMaxPoolingLayer(2, 2)
-                .addConvolutionalLayer(5, 120)
-                .addFullyConnectedLayer(84)
+                .addFullyConnectedLayer(500)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
                 .hiddenActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
-
-        LOGGER.info("Training neural network");
-
+        
+        LOGGER.info(neuralNet);        
+        
         // create a trainer and train network
         BackpropagationTrainer trainer = new BackpropagationTrainer(neuralNet);
         trainer.setLearningRate(0.01f)
-                .setMomentum(0.7f)
-                .setMaxError(0.05f)
-                .setBatchMode(true)
-                .setBatchSize(64)
+                .setMomentum(0.9f)
+                .setMaxError(0.02f)
+//                .setBatchMode(true)
+//                .setBatchSize(100)
                 .setOptimizer(OptimizerType.MOMENTUM);
-        
-        trainer.train(imageSets[0]);
+        trainer.train(imageSets[0], 0.2);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        EvaluationMetrics pm = evaluator.evaluate(neuralNet, imageSets[1]);
+        EvaluationMetrics em = evaluator.evaluate(neuralNet, imageSets[1]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info("TOTAL AVERAGE");
@@ -118,6 +121,10 @@ public class LeNet {
             LOGGER.info(entry.getValue());
             LOGGER.info("----------------");
         });
+        
+         LOGGER.info("CONFUSION MATRIX");
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+        LOGGER.info(cm);
 
         // Save network to file as json
         //FileIO.writeToFile(neuralNet, "mnistDemo.dnet");
@@ -125,6 +132,8 @@ public class LeNet {
     }
 
     public static void main(String[] args) throws IOException {
-        (new LeNet()).run();
+        (new MnistAsDl4j()).run();
     }
+
+
 }

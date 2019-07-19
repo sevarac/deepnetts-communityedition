@@ -21,16 +21,14 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.eval.Evaluators;
 import deepnetts.eval.EvaluationMetrics;
+import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -56,6 +54,7 @@ public class SweedenAutoInsurance {
         int outputsNum = 1;
 
         DataSet dataSet = DataSets.readCsv(datasetFile, inputsNum, outputsNum);
+        DataSet[] trainAndTestSet = dataSet.split(0.7, 0.3);
         // TODO: train/test split
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -69,15 +68,13 @@ public class SweedenAutoInsurance {
                .setMaxEpochs(100)
                .setLearningRate(0.1f);
 
-        neuralNet.train(dataSet);
+        neuralNet.train(trainAndTestSet[0]);
 
-       // Performance evaluation for the given test set
-       // PerformanceMeasure pe = Evaluators.evaluateRegressor(neuralNet, dataSet);
-       EvaluationMetrics pe = neuralNet.test(dataSet);
-       System.out.println(pe);
+       EvaluationMetrics em = Evaluators.evaluateRegressor(neuralNet, trainAndTestSet[1]);
+       System.out.println(em);
 
        // use model for prediction
-       float[] predictedOutput = neuralNet.predict(new float[]{0.18548387f});
+       float[] predictedOutput = neuralNet.predict(new float[]{0.153225806f});
        System.out.println(Arrays.toString(predictedOutput));
 
     }

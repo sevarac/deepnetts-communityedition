@@ -64,9 +64,9 @@ public class MnistFromJson {
         // create a data set from images and labels
         // load data set properties
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
+        imageSet.setInvertImages(true);        
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), 40000);
-        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
 

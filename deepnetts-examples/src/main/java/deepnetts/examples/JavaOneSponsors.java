@@ -51,13 +51,14 @@ public class JavaOneSponsors {
     public void run() throws DeepNettsException, IOException {
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
-
+        imageSet.setInvertImages(true);
+        
         LOGGER.info("Loading images...");
 
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile));
 
-        imageSet.invert();
+
         imageSet.zeroMean(); // standardize zero mean 1 variation
         imageSet.shuffle();
 

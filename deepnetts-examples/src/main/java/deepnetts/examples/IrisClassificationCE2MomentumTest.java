@@ -52,7 +52,7 @@ public class IrisClassificationCE2MomentumTest {
     public static void main(String[] args) throws DeepNettsException, IOException {
         // load iris data  set
         DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true, ",");
-        DataSet[] dataSets = dataSet.split(0.6, 0.1, 0.3); // provide random generator in order to do spliting the same way
+        DataSet[] trainTestSet = dataSet.split(0.6, 0.4); // provide random generator in order to do spliting the same way
         // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
 
         // create instance of multi addLayer percetpron using builder
@@ -74,10 +74,10 @@ public class IrisClassificationCE2MomentumTest {
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
         trainer.setMaxEpochs(10000);
-        trainer.train(dataSets[0], dataSets[1]);
+        trainer.train(trainTestSet[0]);
 
 
-        EvaluationMetrics pm = Evaluators.evaluateClassifier(neuralNet, dataSets[2]);
+        EvaluationMetrics pm = Evaluators.evaluateClassifier(neuralNet, trainTestSet[1]);
         //ClassifierEvaluator evaluator = new ClassifierEvaluator();
         //PerformanceMeasure pm = evaluator.evaluatePerformance(neuralNet, dataSets[2]);
         LOGGER.info("------------------------------------------------");

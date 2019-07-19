@@ -46,26 +46,30 @@ public class BostonHouses {
             int inputsNum = 1;
             int outputsNum = 1;
             String csvFilename = "datasets/bostonsredjen-2kolone.csv";
+            // kako da g aucitam celog i da biramkoje cu kolone da tweakujem? da setujem koje su kolone ulazi a koje izlazi  useAsOutputs(4, 5, 6)
 
             // load and create data set from csv file
             DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum, true);
-            DataSet[] dataSetParts = dataSet.split(0.6);
+            DataSet[] trainAndTestSet = dataSet.split(0.6);
 
             // create neural network using network specific builder
             FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                     .addInputLayer(inputsNum)
+                    .addFullyConnectedLayer(3, ActivationType.TANH)
                     .addOutputLayer(outputsNum, ActivationType.LINEAR)
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
+            
+            neuralNet.getTrainer().setMaxError(0.008f);
 
-            neuralNet.train(dataSetParts[0]);
+            neuralNet.train(trainAndTestSet[0]);
 
-            EvaluationMetrics pm = Evaluators.evaluateRegressor(neuralNet, dataSetParts[1]);
+            EvaluationMetrics pm = Evaluators.evaluateRegressor(neuralNet, trainAndTestSet[1]);
             System.out.println(pm);
 
             // perform prediction for some input value
             neuralNet.setInput(Tensor.create(1, 1, new float[] {0.2f}));
-            System.out.println("Predicted price of the house is for 8 :" + neuralNet.getOutput()[0]*50);
+            System.out.println("Predicted price of the house is for 8 :" + neuralNet.getOutput()[0]);//*50);
     }
 
 }

@@ -26,6 +26,7 @@ import deepnetts.examples.util.Plot;
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.EvaluationMetrics;
+import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -86,6 +87,9 @@ public class LinearRegression {
 
             // plot predictions for some random data
             plotPredictions(neuralNet);
+            
+            EvaluationMetrics pm = Evaluators.evaluateRegressor(neuralNet, dataSet);
+            System.out.println(pm);
     }
 
 

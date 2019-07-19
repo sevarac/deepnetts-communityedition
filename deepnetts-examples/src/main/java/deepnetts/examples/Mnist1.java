@@ -66,9 +66,10 @@ public class Mnist1 {
 
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
+        imageSet.setInvertImages(true);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), 2000); //50000
-        imageSet.invert();
+        imageSet.loadImages(new File(trainingFile), 3000); //50000
+
       //  imageSet.zeroMean();
         imageSet.shuffle();
 
@@ -92,7 +93,7 @@ public class Mnist1 {
                 .addFullyConnectedLayer(30)
                 .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .hiddenActivationFunction(ActivationType.TANH)
+                .hiddenActivationFunction(ActivationType.LEAKY_RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();

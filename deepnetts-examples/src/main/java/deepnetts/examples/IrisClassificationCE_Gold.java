@@ -52,7 +52,7 @@ public class IrisClassificationCE_Gold {
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-            //    .addFullyConnectedLayer(8, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
+                .addFullyConnectedLayer(8, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addFullyConnectedLayer(5, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
@@ -62,7 +62,7 @@ public class IrisClassificationCE_Gold {
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = neuralNet.getTrainer();
         trainer.setMaxError(0.09f);
-        trainer.setLearningRate(0.01f);
+        trainer.setLearningRate(0.1f);
         trainer.setBatchMode(true);
         trainer.setBatchSize(97);
         trainer.setMomentum(0.9f);

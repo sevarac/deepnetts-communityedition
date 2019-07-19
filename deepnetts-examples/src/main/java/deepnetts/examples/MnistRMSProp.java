@@ -65,9 +65,9 @@ public class MnistRMSProp {
 
         // create a data set from images and labels
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
+        imageSet.setInvertImages(true);        
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), 1000); //50000
-        imageSet.invert();
         imageSet.zeroMean();
         imageSet.shuffle();
 

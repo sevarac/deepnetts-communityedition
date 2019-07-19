@@ -40,11 +40,12 @@ import javax.visrec.ml.classification.Classifier;
  */
 public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
 
-   // private final ConvolutionalNetwork convNet;
+    private ConvolutionalNetwork convNet;
 
     public DeepNettsImageClassifier(ConvolutionalNetwork convNet) {
       //TODO: has to beable to specify model instance also
-      // super(BufferedImage.class);
+       super(BufferedImage.class, convNet);
+     // super(convNet);
     }
 
     /**
@@ -57,7 +58,7 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
         HashMap<String, Float> results = new HashMap<>();
         ConvolutionalNetwork convNet = getModel();
 
-        convNet.setInput((new ExampleImage(image)).getInput());
+       // convNet.setInput((new ExampleImage(image)).getInput());
         convNet.forward();
         float[] outputs = convNet.getOutput();
 
@@ -107,9 +108,9 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
 //       return results;
 //    }
 
-    @Override
-    public Classifier build(Properties prop) {
-        // build classifier from specified propertiers
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public Classifier build(Properties prop) {
+//        // build classifier from specified propertiers
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }
