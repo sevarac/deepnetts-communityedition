@@ -93,7 +93,7 @@ public class Mnist1 {
                 .addFullyConnectedLayer(30)
                 .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .hiddenActivationFunction(ActivationType.LEAKY_RELU)
+                .hiddenActivationFunction(ActivationType.RELU)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
@@ -107,7 +107,7 @@ public class Mnist1 {
                 .setMaxError(0.02f)
                 .setBatchMode(false)
           //      .setBatchSize(32)
-                .setOptimizer(OptimizerType.MOMENTUM);
+                .setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0], 0.2);
 
         // Test trained network

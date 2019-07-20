@@ -1,1 +1,5 @@
-[ERROR] 2019-04-27 20:32:39.019 [main] DeepNetts - deepnetts.util.DeepNettsException: NaN value during training!
+[ERROR] 2019-07-19 16:48:43.562 [main] DeepNetts - javax.imageio.IIOException: Unsupported Image Type
+[ERROR] 2019-07-19 16:52:05.373 [main] DeepNetts - javax.imageio.IIOException: Unsupported Image Type
+[ERROR] 2019-07-19 16:52:05.373 [main] DeepNetts - deepnetts.util.DeepNettsException: Error loading image file: D:\datasets\JavaOneSponsors2\negative/noisy_21.jpg
+[ERROR] 2019-07-19 16:52:24.154 [main] DeepNetts - javax.imageio.IIOException: Unsupported Image Type
+[ERROR] 2019-07-19 16:52:24.155 [main] DeepNetts - deepnetts.util.DeepNettsException: Error loading image file: D:\datasets\JavaOneSponsors2\negative/noisy_21.jpg

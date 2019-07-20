@@ -38,8 +38,8 @@ import javax.imageio.ImageIO;
 public class CenterOnWhiteBackground {
 
     public static void main(String[] args) throws IOException {
-        String sourcePath = "/home/zoran/Desktop/JavaOneSponsors/logos";
-        String targetPath = "/home/zoran/Desktop/JavaOneSponsors/centered";
+        String sourcePath = "/home/user/source";
+        String targetPath = "/home/user/dest";
         int width = 148, height = 148, padding=20;
 
         HashMap<File, BufferedImage> objects = ImageUtils.loadFileImageMapFromDirectory(new File(sourcePath));

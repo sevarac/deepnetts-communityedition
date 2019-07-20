@@ -97,7 +97,7 @@ public class MnistRMSProp {
                 .setMaxError(0.02f)
                 .setBatchMode(true)
                 .setBatchSize(16)
-                .setOptimizer(OptimizerType.RMSPROP);
+                .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 
         // Test trained network

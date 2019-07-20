@@ -28,15 +28,6 @@ import java.io.Serializable;
  * Mean Squared Error Loss function. Sum squared errors over all patterns and
  * all outputs. Should be used for regression problems.
  *
- * Math formula:
- *                     N   K 
- *      E = 1/(2*N) * SUM(SUM(y-t)^2)
- *              N*K ?
- *
- * where N is number of patterns and K is dimension of output vector.
- *  
- * Bishop, pg. 89, eq. 3.34
- *
  * @see LossFunction
  * @see CrossEntropyLoss
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>

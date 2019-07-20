@@ -22,7 +22,7 @@
 package deepnetts.net.layers;
 
 /**
- * Enum for supported types of layers.
+ * Supported types of layers.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */

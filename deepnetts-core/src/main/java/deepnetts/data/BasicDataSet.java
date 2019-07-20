@@ -29,7 +29,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -37,10 +36,6 @@ import java.util.Random;
 
 /**
  * A collection of data set items that will be used by deep learning algorithm.
- *
- * TODO: make this class thread safe
- *
- * add a builder using .builder()   so you can build complex data set import from csv, specif columns names and stuff
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <ITEM_TYPE>
@@ -71,10 +66,10 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
      * @param inputsNum number of input features
      * @param outputsNum number of output features
      */
-    public BasicDataSet(int inputs, int outputs) {
+    public BasicDataSet(int inputsNum, int outputsNum) {
         this();
-        this.inputsNum = inputs;
-        this.outputsNum = outputs;
+        this.inputsNum = inputsNum;
+        this.outputsNum = outputsNum;
     }
 
     @Override
@@ -126,10 +121,6 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     public void setId(String id) {
         this.id = id;
     }
-
-
-
-    // TODO: da moze da bude fromCSV ali da to bude i URL   BasicCSV.fromCSV(URL, 4, 3) detektuj da li je putanja fajla ili url i otvori input stream
 
 
     /**
@@ -250,7 +241,4 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
             items.add(item);
         }
     }
-
-
-
 }

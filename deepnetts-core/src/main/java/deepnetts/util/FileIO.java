@@ -221,9 +221,6 @@ public class FileIO {
         // switch network type here and use corresponding builder
         ConvolutionalNetwork.Builder builder = new ConvolutionalNetwork.Builder();
 
-        List<String> allWeights = new ArrayList<>();
-        List<double[]> allBiases = new ArrayList<>(); // still not implemented
-
         int width, height, channels, filterWidth, filterHeight, stride;
         String activation;
 
@@ -244,17 +241,6 @@ public class FileIO {
                         channels = layerObj.getInt("channels");
                         activation = layerObj.getString("activation").toUpperCase();
 
-//                        if (layerObj.has("filters")) {
-//                            JSONArray filters = layerObj.getJSONArray("filters");
-//                            StringBuilder sb = new StringBuilder();
-//                            for (Object filter : filters) {
-//                                sb.append(filter).append(";");
-//                            }
-//                            allWeights.add(sb.toString());
-//                        }
-
-                        // todo: add biases from json too
-
                         builder.addConvolutionalLayer(filterWidth, filterHeight, channels, stride, ActivationType.valueOf(activation));
                 break;
                 case MAXPOOLING :
@@ -266,19 +252,11 @@ public class FileIO {
                 case FULLY_CONNECTED :
                         width = layerObj.getInt("width");
                         activation = layerObj.getString("activation").toUpperCase();
-                         if (layerObj.has("weights")) {
-                            String weights = layerObj.getString("weights");
-                            allWeights.add(weights);
-                         }
                         builder.addFullyConnectedLayer(width, ActivationType.valueOf(activation));
                 break;
                 case OUTPUT :
                         width = layerObj.getInt("width");
                         activation = layerObj.getString("activation").toUpperCase();
-                        if (layerObj.has("weights")) {
-                            String weights = layerObj.getString("weights");
-                            allWeights.add(weights);
-                        }
 
                         if (activation.equals(ActivationType.SIGMOID.toString())) {
                             builder.addOutputLayer(width, OutputLayer.class);
@@ -296,8 +274,6 @@ public class FileIO {
         builder.lossFunction(LossType.valueOf(lossFunction));
 
         ConvolutionalNetwork neuralNet = builder.build();
-
-       // neuralNet.setWeights(allWeights); // if weights are loaded override random init
 
         return neuralNet;
     }
@@ -347,8 +323,6 @@ public class FileIO {
         builder.lossFunction(LossType.valueOf(lossFunction));
 
         FeedForwardNetwork neuralNet = builder.build();
-
-       // neuralNet.setWeights(allWeights); // if weights are loaded override random init
 
         return neuralNet;
     }

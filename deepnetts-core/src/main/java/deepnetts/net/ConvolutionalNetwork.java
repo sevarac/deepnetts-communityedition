@@ -326,7 +326,6 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
         return weightsList;
     }
 
-    // returns outputs for all layers
     public List<String> getAllOutputs() {
         List outputsList = new ArrayList();
         for (AbstractLayer layer : getLayers()) {

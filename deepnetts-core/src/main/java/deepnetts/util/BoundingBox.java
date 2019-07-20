@@ -23,6 +23,7 @@ package deepnetts.util;
 
 
 /**
+ * A rectangle to mark object in image including  position, size, score and label.
  * 
  * @author Zoran Sevarac
  */

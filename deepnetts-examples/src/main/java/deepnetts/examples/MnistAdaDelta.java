@@ -97,7 +97,7 @@ public class MnistAdaDelta {
                 .setMaxError(0.02f)
                 .setBatchMode(true)
                 .setBatchSize(16)
-                .setOptimizer(OptimizerType.ADADELTA);
+                .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 
         // Test trained network

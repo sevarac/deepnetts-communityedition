@@ -91,7 +91,7 @@ public class AlexNet {
         trainer.setMomentum(0.7f);
                // .setBatchMode(true)
           //      .setBatchSize(128);
-        trainer.setOptimizer(OptimizerType.MOMENTUM);
+        trainer.setOptimizer(OptimizerType.SGD);
         trainer.train(imageSets[0]);
 
         // Test trained network

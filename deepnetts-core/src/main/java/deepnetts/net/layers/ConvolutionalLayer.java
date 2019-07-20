@@ -23,30 +23,19 @@ package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.core.DeepNetts;
-import deepnetts.net.train.opt.Optimizers;
 import deepnetts.util.DeepNettsException;
 import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import java.util.logging.Logger;
 import deepnetts.net.layers.activation.ActivationFunction;
-//import deepnetts.net.train.opt.Optimizer;
-//import deepnetts.net.train.opt.SgdOptimizer;
-import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.Tensors;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
+
 
 /**
  * Convolutional layer performs image convolution operation on outputs of a
  * previous layer using filters. This filtering operation is similar like
  * applying image filters in photoshop, but this filters can also be trained to
  * learn image features of interest.
- *
- * Layer include parameters: filter's width, heigh Number of filters / depth
- * Step when applying filters : stride Padding, which is an image border to keep
- * the size of image and avoid information loss padding Stride defaults to 1
  *
  * @author Zoran Sevarac
  */
@@ -93,11 +82,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
     int[][][][] maxIdx;
 
-    private transient List<Callable<Void>> forwardTasks;
-    private transient List<Callable<Void>> backwardFromPoolingTasks;
-    private transient List<Callable<Void>> backwardFromConvolutionalTasks;
-    private transient List<Callable<Void>> backwardFromFullyConnectedTasks;
-    private boolean multithreaded = false;
 
     private static final Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
@@ -111,8 +95,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
      * @param channels
      */
     public ConvolutionalLayer(int filterWidth, int filterHeight, int channels) {
-        // sve mora da bude pozitivno. filteri motaju da budu  neparni - validacija
-
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;
         this.depth = channels; // ovo je isto kao i depth, broj feature mapa
@@ -130,7 +112,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
         this.activation = ActivationFunction.create(activationType);
     }
 
-    // todo: move stride after channels parameter to be consistent
     public ConvolutionalLayer(int filterWidth, int filterHeight, int channels, int stride, ActivationType activationType) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;
@@ -165,11 +146,10 @@ public final class ConvolutionalLayer extends AbstractLayer {
         // init output cells, deltas and derivative buffer
         outputs = new Tensor(height, width, depth);
         deltas = new Tensor(height, width, depth);
-//        derivatives = new Tensor(height, width, depth);
 
         // init filters(weights) - broj filtera je isti kao i broj kanala/dubina prethodnog lejera
         filterDepth = prevLayer.getDepth();
-        filters = new Tensor[depth]; // depth of the filters should be configurable - its a hyper param!
+        filters = new Tensor[depth]; 
         deltaWeights = new Tensor[depth];
         prevDeltaWeights = new Tensor[depth];
         prevGradSums = new Tensor[depth];
@@ -179,86 +159,32 @@ public final class ConvolutionalLayer extends AbstractLayer {
         // kreiraj pojedinacne filtere ovde
         for (int ch = 0; ch < filters.length; ch++) {
             filters[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
-            RandomWeights.uniform(filters[ch].getValues(), inputCount); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija...
-            // uniform ali skaliran u odnosu na broj ulaza
-            //RandomWeights.normal(filters[ch].getValues()); // vidi koji algoritam da koristim ovde: uzmi u obzir broj kanala i dimenzije filtera pa da im suma bude 1 ili sl. neka gausova distribucija...
+            RandomWeights.uniform(filters[ch].getValues(), inputCount); 
+            //RandomWeights.normal(filters[ch].getValues()); 
 
             deltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
             prevDeltaWeights[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
             prevGradSums[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
         }
 
-        // and biases               // svaki kanal ima svoj filter i svoj bias - sta ako prethodni sloj ima vise biasa? mislim da bi tada svaki filter trebalo da ima svoj bias ovo bi znaci trebalo da bude 2D biases[depth][prevLayerDepth]
-        biases = new float[depth]; // biasa ima koliko ima kanala - svaki FM ima jedan bias - mozda i vise... ili ce svaki filter imati svoj bias? - tako bi trebalo...
-        // svaki kanal u ovom sloju ima filtera onoliko kolik ima kanala u prethodnom sloji. i Svi ti filteri imaju jedan bias
+        // and biases              
+        biases = new float[depth]; 
         deltaBiases = new float[depth];
         prevDeltaBiases = new float[depth];
         prevBiasSqrSum = new Tensor(depth);
         //RandomWeights.randomize(biases);        // sometimes the init to 0 fir relu 0.1
         Tensor.fill(biases, 0.1f);
         
-        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
-        if (threadCount > 1) {
-            multithreaded = true;
-            int[] channelsPerThread = calculateChannelsPerThread(threadCount);
-            
-            forwardTasks = new ArrayList<>();
-            backwardFromPoolingTasks = new ArrayList<>();
-            backwardFromFullyConnectedTasks = new ArrayList<>();
-            backwardFromConvolutionalTasks = new ArrayList<>();
-
-            // ako nije deljivo onda neka PRVI!! thread dobije vise - on ce imati najvise vremena zda zavrsi jer prvi krece???
-            CyclicBarrier fcb = new CyclicBarrier(threadCount);    // all forward threads share the same cyclic barrier
-            CyclicBarrier bcb = new CyclicBarrier(threadCount);    // all backward threads share the same cyclic barrier
-            int fromCh = 0, toCh = 0;
-            for (int i = 0; i < threadCount; i++) {
-                fromCh = toCh;
-                toCh = fromCh + channelsPerThread[i];
-                        
-                ForwardCallable ftask = new ForwardCallable(fromCh, toCh, fcb);
-                forwardTasks.add(ftask);
-
-                if (nextLayer instanceof MaxPoolingLayer) {
-                    BackwardFromPoolingCallable btask = new BackwardFromPoolingCallable(fromCh, toCh, bcb);
-                    backwardFromPoolingTasks.add(btask);
-                } else if (nextLayer instanceof FullyConnectedLayer) {
-                    BackwardFromFullyConnectedCallable bfctask = new BackwardFromFullyConnectedCallable(fromCh, toCh, bcb);
-                    backwardFromFullyConnectedTasks.add(bfctask);
-                } else if (nextLayer instanceof ConvolutionalLayer) {
-                    BackwardFromConvolutionalCallable bctask = new BackwardFromConvolutionalCallable(fromCh, toCh, bcb);
-                    backwardFromConvolutionalTasks.add(bctask);
-                }                                
-            }
-        }
-        
-
-
     }
 
     /**
      * Forward pass for convolutional layer. Performs convolution operation on
      * output from previous layer using filters in this layer, on all channels.
-     * Each channel from prev layer has its own filter (3D filter), and every
-     * channel in this layer has its 3D filter used to scan all channels in prev
-     * layer.
-     *
-     * Previous layers can be: Input, MaxPooling or Convolutional.
-     *
-     * For more about convolution see
-     * http://www.songho.ca/dsp/convolution/convolution.html
      */
     @Override
     public void forward() {
-        if (!multithreaded) {
-            for (int ch = 0; ch < this.depth; ch++) {
-                forwardForChannel(ch);
-            }
-        } else {
-            try {
-                DeepNettsThreadPool.getInstance().run(forwardTasks);
-            } catch (InterruptedException ex) {
-                LOG.warning(ex.getMessage());
-            }
+        for (int ch = 0; ch < this.depth; ch++) {
+            forwardForChannel(ch);
         }
     }
 
@@ -268,28 +194,26 @@ public final class ConvolutionalLayer extends AbstractLayer {
      * @param ch channel to calculate
      */
     private void forwardForChannel(int ch) {
-        int outRow = 0, outCol = 0; // reset indexes for current output's row and col
+        int outRow = 0, outCol = 0;
 
-        for (int inRow = 0; inRow < inputs.getRows(); inRow += stride) { // iterate all input rows
-            outCol = 0; // every time when input goes in next row, output does too, so reset column idx
+        for (int inRow = 0; inRow < inputs.getRows(); inRow += stride) { 
+            outCol = 0; 
 
-            for (int inCol = 0; inCol < inputs.getCols(); inCol += stride) { // iterate all input cols
-                outputs.set(outRow, outCol, ch, biases[ch]); // sum will be added to bias - I can set entire matrix to bias initial values  above
+            for (int inCol = 0; inCol < inputs.getCols(); inCol += stride) { 
+                outputs.set(outRow, outCol, ch, biases[ch]); 
 
-                // apply filter to all channnels in previous layer
-                for (int fz = 0; fz < filterDepth; fz++) { // iterate filter by depth - number of channels in previous layer
-                    for (int fr = 0; fr < filterHeight; fr++) { // iterate filter by height/rows
-                        for (int fc = 0; fc < filterWidth; fc++) { // iterate filter by width / columns
-                            final int cr = inRow + (fr - fCenterY); // convolved row idx
-                            final int cc = inCol + (fc - fCenterX); // convolved col idx
+                for (int fz = 0; fz < filterDepth; fz++) { 
+                    for (int fr = 0; fr < filterHeight; fr++) { 
+                        for (int fc = 0; fc < filterWidth; fc++) { 
+                            final int cr = inRow + (fr - fCenterY); 
+                            final int cc = inCol + (fc - fCenterX); 
 
-                            // skip input indexes which are out of bounds
                             if (cr < 0 || cr >= inputs.getRows() || cc < 0 || cc >= inputs.getCols()) {
                                 continue;
                             }
 
-                            final float out = inputs.get(cr, cc, fz) * filters[ch].get(fr, fc, fz); // output of a single conv filter cell
-                            outputs.add(outRow, outCol, ch, out); // accumulate filters from all channels
+                            final float out = inputs.get(cr, cc, fz) * filters[ch].get(fr, fc, fz);
+                            outputs.add(outRow, outCol, ch, out); 
                         }
                     }
                 }
@@ -297,28 +221,18 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 // apply activation function
                 final float out = activation.getValue(outputs.get(outRow, outCol, ch));
                 outputs.set(outRow, outCol, ch, out);
-                outCol++; // move to next col in out layer after each filter position
+                outCol++; 
             }
-            outRow++; // every time input goes to next row (inR), output does too
+            outRow++; 
         }
     }
 
     /**
      * Backward pass for convolutional layer tweaks the weights in filters.
      *
-     * Next layer can be: FC, MaxPooling, Conv, (output same as FC), 1D or 3D
-     * Prev layer can: Input, pool, conv, all 2D or 3D - all can be as
-     * generalized 3D
-     *
-     * U 2 koraka:
-     *
-     * 1. povuci delte iz sledeceg lejera, i izracunaj tezinsku sumu delta za
-     * sve neurone/outpute u ovom sloju 2. izracunaj promene tezina za sve veze
-     * iz prethodnog lejera za svaki neuron/output u ovom sloju
      */
     @Override
     public void backward() {
-            //     optim = new SgdOptimizer(this);
         if (nextLayer instanceof FullyConnectedLayer) {
             backwardFromFullyConnected();
         }
@@ -328,37 +242,22 @@ public final class ConvolutionalLayer extends AbstractLayer {
         }
 
         if (nextLayer instanceof ConvolutionalLayer) {
-            // NOTE: average weights for the filter and biases? - koliko ima pozicija i kanala??? negde sam procitao da treba da se sabiraju...
             backwardFromConvolutional();
         }
     }
 
     /**
      * Backward pass when next layer is fully connected.
-     *
-     * Calculates deltas for this layer
-     *
      */
     private void backwardFromFullyConnected() {
-        deltas.fill(0); // reset deltas for all units
-
-        // CHECK: posle ovog backwarda ima dosta nula u deltas sto je cudno
-        if (!multithreaded) {
-            for (int ch = 0; ch < this.depth; ch++) { // iteriraj sve kanale/feature mape u ovom lejeru - razbij kanale sa fork join frejmvorkom
-                backwardFromFullyConnectedForChannel(ch);
-            }
-        } else {
-            try {
-                DeepNettsThreadPool.getInstance().run(backwardFromFullyConnectedTasks);
-            } catch (InterruptedException ex) {
-                LOG.warning(ex.getMessage());
-            }
-        }           
+        deltas.fill(0); 
+        for (int ch = 0; ch < this.depth; ch++) {
+            backwardFromFullyConnectedForChannel(ch);
+        }
     }
     
 
     private void backwardFromFullyConnectedForChannel(int ch) {
-        // 1. Propagate deltas from the next FC layer
         for (int row = 0; row < this.height; row++) {
             for (int col = 0; col < this.width; col++) {
                 final float actDerivative = activation.getPrime(outputs.get(row, col, ch)); // dy/ds
@@ -367,30 +266,19 @@ public final class ConvolutionalLayer extends AbstractLayer {
                     deltas.add(row, col, ch, delta);
                 }
             }
-        } // end back propagate deltas
+        } 
 
-        // 2. calculate weight changes for this layer - ako je batch mode ona ne racunati nego samo akumulirati delte
         calculateDeltaWeightsForChannel(ch); 
     }  
 
     private void backwardFromMaxPooling() {
         final MaxPoolingLayer nextPoolLayer = (MaxPoolingLayer) nextLayer;
-        maxIdx = nextPoolLayer.maxIdx; // uzmi index neurona koji je poslao max output na tekucu poziciju filtera
-        // proveri da li ovo da radim za svaki poseban kanal
-        deltas.fill(0); // reset all deltas
+        maxIdx = nextPoolLayer.maxIdx; 
+        deltas.fill(0);
 
-        
-        if (!multithreaded) {
-            for (int ch = 0; ch < this.depth; ch++) {
-                backwardFromMaxPoolingForChannel(ch);
-            }
-        } else {
-            try {
-                DeepNettsThreadPool.getInstance().run(backwardFromPoolingTasks);
-            } catch (InterruptedException ex) {
-                LOG.warning(ex.getMessage());
-            }
-        }        
+        for (int ch = 0; ch < this.depth; ch++) {
+            backwardFromMaxPoolingForChannel(ch);
+        }
     }
 
 
@@ -400,47 +288,34 @@ public final class ConvolutionalLayer extends AbstractLayer {
      * @param ch 
      */
     private void backwardFromMaxPoolingForChannel(int ch) {
-        // 1. Propagate deltas from next layer for max outputs from this layer
-        for (int dr = 0; dr < nextLayer.deltas.getRows(); dr++) { // sledeci lejer delte po visini
-            for (int dc = 0; dc < nextLayer.deltas.getCols(); dc++) { // sledeci lejer delte po sirini
+        for (int dr = 0; dr < nextLayer.deltas.getRows(); dr++) { 
+            for (int dc = 0; dc < nextLayer.deltas.getCols(); dc++) { 
 
-                final float nextLayerDelta = nextLayer.deltas.get(dr, dc, ch); // uzmi deltu iz sledeceg sloja za tekuci neuron sledeceg sloja
+                final float nextLayerDelta = nextLayer.deltas.get(dr, dc, ch); 
                 final int maxR = maxIdx[ch][dr][dc][0];
                 final int maxC = maxIdx[ch][dr][dc][1];
 
                 final float derivative = activation.getPrime(outputs.get(maxR, maxC, ch));
                 deltas.set(maxR, maxC, ch, nextLayerDelta * derivative);
             }
-        } // end propagate deltas
+        } 
 
         calculateDeltaWeightsForChannel(ch);
     }
 
-    // TODO: ovajnije paralelizovan!!!
-    // peretpostavlja se da je sledeci sloj konvolucioni - ovo nije paralelizovano!!!
     private void backwardFromConvolutional() {
-        deltas.fill(0); // reset all deltas in this layer (deltas are 3D)
-                
-        if (!multithreaded) {
-            for (int ch = 0; ch < this.depth; ch++) {
-                backwardFromConvolutionalForChannel(ch);
-            }
-        } else {
-            try {
-                DeepNettsThreadPool.getInstance().run(backwardFromConvolutionalTasks);
-            } catch (InterruptedException ex) {
-                LOG.warning(ex.getMessage());
-            }
-        }              
-        
+        deltas.fill(0);
+
+        for (int ch = 0; ch < this.depth; ch++) {
+            backwardFromConvolutionalForChannel(ch);
+        }
     }
     
     private void backwardFromConvolutionalForChannel(int fz) {
-        ConvolutionalLayer nextConvLayer = (ConvolutionalLayer) nextLayer;  // ovo u atribut i init metodu!!!
+        ConvolutionalLayer nextConvLayer = (ConvolutionalLayer) nextLayer;  
         int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
         int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
         
-        // 1. Propagate deltas from next conv layer for max outputs from this layer
         for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) {
             for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // iteriraj delte sledeceg lejera po visini
                 for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // iteriraj delte sledeceg lejera po sirini
@@ -480,12 +355,11 @@ public final class ConvolutionalLayer extends AbstractLayer {
      */
     private void calculateDeltaWeightsForChannel(int ch) {
         if (!batchMode) {
-            deltaWeights[ch].fill(0); // reset all delta weights for the current channel - these are 4d matrices
+            deltaWeights[ch].fill(0); 
             deltaBiases[ch] = 0;
         }
-        // every cell gets de;lta from all other cells in filter so its averaged!
-        // ako stavim ovo na 1 momentum baca NaN
-         final float divisor = width * height; //  tezine u filteru racunari kao prosek sa svih pozicija u feature mapi
+
+         final float divisor = width * height; 
 
         // assumes that deltas from the next layer are allready propagated
         // 2. calculate weight changes in filters
@@ -502,26 +376,18 @@ public final class ConvolutionalLayer extends AbstractLayer {
                             if (inRow < 0 || inRow >= inputs.getRows() || inCol < 0 || inCol >= inputs.getCols()) {
                                 continue;
                             }
-                            // da li ovde ispod nedostaje kanal cs? ne kanal je fz - to je dubina filtera i to ide kroz svekanale
+
                             final float input = inputs.get(inRow, inCol, fz); // get input for this output and weight; padding?  da li ovde imam kanal?
                             final float grad = deltas.get(deltaRow, deltaCol, ch) * input;
                             
                             
-                            float deltaWeight = 0;  // DODO: put optimizaer instances here!!!
-                            //deltaWeight = optim.calculateDeltaWeight(grad, inCol, inRow, fz, deltaCol); //from fc
+                            float deltaWeight = 0;  
                             switch (optimizerType) {
                                 case SGD:
-                                   // deltaWeight = Optimizers.sgd(learningRate, grad);
                                       deltaWeight = optim.calculateDeltaWeight(grad);
                                     break;
-                                case MOMENTUM:
-                                    deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights[ch].get(fr, fc, fz));
-                                   // deltaWeight = optim.calculateDeltaWeight(grad, prevDeltaWeights[ch].get(fr, fc, fz));  
-                                    break;
-                                case ADAGRAD:
-                                    prevGradSums[ch].add(fr, fc, fz, grad * grad);
-                                  //  deltaWeight = Optimizers.adaGrad(learningRate, grad, prevGradSums[ch].get(fr, fc, fz));
-                                    break;
+                                default:
+                                    throw new DeepNettsException("Optimizer not supported!");
                             }
                             deltaWeight /= divisor;  // da li je ovo matematicki tacno? momentum baca nana ako ovog nema
                             deltaWeights[ch].add(fr, fc, fz, deltaWeight);
@@ -531,23 +397,15 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 float deltaBias = 0;
                 switch (optimizerType) {
                     case SGD:
-                        //deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
                          deltaBias = optim.calculateDeltaBias(deltas.get(deltaRow, deltaCol, ch), deltaCol);
-                         //deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
                         break;
-                    case MOMENTUM:
-//                       deltaBias = Optimizers.sgd(learningRate, deltas.get(deltaRow, deltaCol, ch));
-                        deltaBias = Optimizers.momentum(learningRate, deltas.get(deltaRow, deltaCol, ch), momentum, prevDeltaBiases[ch]);
-                        break;
-                    case ADAGRAD:
-                        deltaBias = Optimizers.adaGrad(learningRate, deltas.get(deltaRow, deltaCol, ch), prevBiasSqrSum.get(ch));
-                        prevBiasSqrSum.add(ch, deltas.get(deltaRow, deltaCol, ch) * deltas.get(deltaRow, deltaCol, ch));
-                        break;
+                    default:
+                         throw new DeepNettsException("Optimizer not supported!");
                 }
                 deltaBiases[ch] /= divisor;
                 deltaBiases[ch] += deltaBias;
             }
-        } // end calculate weight changes in filter   }
+        }
     }
 
     /**
@@ -626,129 +484,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
     public Tensor[] getFilterDeltaWeights() {
         return deltaWeights;
     }
-
-    /**
-     * Calculates how many channels should be assigned in each thread in multithreaded mode.
-     * 
-     * @param threadCount
-     * @return 
-     */
-    private int[] calculateChannelsPerThread(int threadCount) {
-        int[] threads = new int[threadCount];
-        int chpt = depth / threadCount;
-        
-        for(int i=0; i<threadCount; i++) {
-            threads[i] = chpt;
-        }
-                        
-        if (depth % threadCount !=0) {
-            int rest = depth % threadCount;
-            
-            for(int i=0; i< rest; i++) {
-                threads[i] = threads[i] + 1;
-            }
-        }
-        
-        return threads;
-    }
-
-    /**
-     * Task to parallelize channel calculation using executors thread pool.
-     * Also provide synchronization for all threads to wait before next layer.
-     * using  CyclicBarrier.
-     */
-    private class ForwardCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;
-
-        // izbaciti cb, a parametar neka bude metoda koja se poziva sa vrdnostima redom - method reference. to ce smanjiti broj klasa znacajno
-        public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb) {
-            this.fromCh = fromCh;
-            this.toCh = toCh;
-            this.cb = cb;
-        }
-        
-        @Override
-        public Void call() throws Exception {
-
-            for (int ch = fromCh; ch < toCh; ch++) {
-                forwardForChannel(ch);
-            }
-
-     //       cb.await();
-            return null;
-        }
-    }
-
-    private class BackwardFromConvolutionalCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;
-
-        public BackwardFromConvolutionalCallable(int fromCh, int toCh, CyclicBarrier cb) {
-            this.fromCh = fromCh;
-            this.toCh = toCh;
-            this.cb = cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-            for (int ch = fromCh; ch < toCh; ch++) {
-                backwardFromConvolutionalForChannel(ch);   // ovde sad zavisi koji je sledeci pa njegovu metodu poziva. Da li da imam 3 threada ili da mi proledjujem referencu nametodu?
-            }
-
-        //    cb.await();
-            return null;
-        }
-    }    
-    
-    private class BackwardFromPoolingCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;
-
-        public BackwardFromPoolingCallable(int fromCh, int toCh, CyclicBarrier cb) {
-            this.fromCh = fromCh;
-            this.toCh = toCh;
-            this.cb = cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-            for (int ch = fromCh; ch < toCh; ch++) {
-                backwardFromMaxPoolingForChannel(ch);   // ovde sad zavisi koji je sledeci pa njegovu metodu poziva. Da li da imam 3 threada ili da mi proledjujem referencu nametodu?
-            }
-
-        //    cb.await();
-            return null;
-        }
-    }
-    
-    private class BackwardFromFullyConnectedCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;
-
-        public BackwardFromFullyConnectedCallable(int fromCh, int toCh, CyclicBarrier cb) {
-            this.fromCh = fromCh;
-            this.toCh = toCh;
-            this.cb = cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-            for (int ch = fromCh; ch < toCh; ch++) {
-                backwardFromFullyConnectedForChannel(ch);
-            }
-
-        //    cb.await();
-            return null;
-        }
-    }    
 
     @Override
     public String toString() {

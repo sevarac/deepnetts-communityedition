@@ -23,8 +23,6 @@ package deepnetts.net.layers;
 
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
-//import deepnetts.net.train.opt.Optimizer;
-//import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.net.weights.RandomWeights;
 import deepnetts.util.Tensor;
 import deepnetts.util.Tensors;
@@ -158,7 +156,7 @@ public class OutputLayer extends AbstractLayer {
     @Override
     public void forward() {
         outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
-        // mnozenje vektora (input) matricom (weights) i smestanje u outputs vector
+
         for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                 outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
@@ -170,9 +168,6 @@ public class OutputLayer extends AbstractLayer {
 
     /**
      * This method implements backward pass for the output layer.
-     *
-     * http://peterroelants.github.io/posts/neural_network_implementation_intermezzo01/
-     * http://neuralnetworksanddeeplearning.com/chap3.html#introducing_the_cross-entropy_cost_function
      */
     @Override
     public void backward() {

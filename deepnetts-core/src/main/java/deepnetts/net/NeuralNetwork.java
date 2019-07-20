@@ -21,7 +21,6 @@
 
 package deepnetts.net;
 
-import deepnetts.core.DeepNetts;
 import deepnetts.data.DataSet;
 import deepnetts.eval.Evaluators;
 import deepnetts.eval.EvaluationMetrics;
@@ -97,9 +96,7 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
 
 
     protected NeuralNetwork() {
-        // if license is not valid this will throw exception
-        DeepNetts.checkLicense(); // OVO JE PROBLEM KO TESTIRANJA!!! osmisli nesto drugo...
-        layers = new ArrayList();
+       layers = new ArrayList();
     }
 
 
@@ -136,8 +133,6 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
     }
 
     public EvaluationMetrics test(DataSet<?> testSet) {
-        // zakljuci koji ti evaluator treba na osnovu loss i output funkcije
-        // check the loss and output function and use appropriate classifier
         if (getLossFunction() instanceof CrossEntropyLoss ||
             getLossFunction() instanceof BinaryCrossEntropyLoss) {
           return Evaluators.evaluateClassifier(this, testSet);

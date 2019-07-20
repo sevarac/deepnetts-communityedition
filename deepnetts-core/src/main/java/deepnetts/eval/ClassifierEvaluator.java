@@ -25,24 +25,12 @@ import deepnetts.data.DataSet;
 import deepnetts.data.DataSetItem;
 import deepnetts.net.NeuralNetwork;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Evaluation method for binary and multi-class classifiers.
- * Calculates classification performance metrics, how good is it at predicting class of something.
- *
- * http://www.ritchieng.com/machine-learning-evaluate-classification-model/
- * http://scikit-learn.org/stable/modules/model_evaluation.html
- * http://notesbyanerd.com/2014/12/17/multi-class-performance-measures/
- * https://en.wikipedia.org/wiki/Confusion_matrix
- * https://stats.stackexchange.com/questions/21551/how-to-compute-precision-recall-for-multiclass-multilabel-classification
- * http://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix
- *
- * Micro and macro averaging: https://datascience.stackexchange.com/questions/15989/micro-average-vs-macro-average-performance-in-a-multiclass-classification-settin
- * I'm doing macro
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */                                         // Evaluator<Classifier, AbstractClassifier, annotate NeuralNetwork instance to become a Classifier
@@ -97,17 +85,14 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
     @Override
     public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<?> testSet) {
         classLabels.clear();
-        classLabels.add(0, LABEL_NONE); // da li da dodajem negativnu klasu, vidi kako radi sci kit learn
-        for(String label : testSet.getOutputLabels()) { // ali nek uradi ovo samo jednom a ne za svaku epohu
+        classLabels.add(0, LABEL_NONE); 
+        for(String label : testSet.getOutputLabels()) { 
             classLabels.add(label);
         }
         
         // if class labels are empty create class1, class2, classk ....
         init();
 
-        //  wrap neural network with classifier interface, setInput from param, and return output
-        // I need a method that wraps modelinto a classifier Classifier.fromNeuralNetwork(neuralNet)
-        // so this method can accept classifier as aparam
         for (DataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
             final float[] predictedOut = neuralNet.getOutput();

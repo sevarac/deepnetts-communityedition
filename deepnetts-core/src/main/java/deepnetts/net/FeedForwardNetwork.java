@@ -55,7 +55,7 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
     }
 
     public void setInput(float[] inputs) {
-        inputTensor.setValues(inputs); // also set size / diemnsions / shape of this vector - da li ova metoda da bude ovde??? mozda samo ff ne i zconv!
+        inputTensor.setValues(inputs); 
         setInput(inputTensor);
     }
 
@@ -68,15 +68,6 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
         setInput(inputs);
         return getOutput();
     }
-
- /*
-    public FeedForwardNetwork(ActivationType activation, LossType loss, int[] layerWidths) {
-        builder().addInputLayer(layerWidths[0]);
-//        builder().addOutputLayer(0, activation)
-        builder().withActivationFunction(activation);
-        builder().withLossFunction(loss);
-    }
-*/
 
     /**
      * Returns builder for Feed Forward Network
@@ -191,24 +182,6 @@ public final class FeedForwardNetwork extends NeuralNetwork<BackpropagationTrain
             setDefaultActivation = true;
             return this;
         }
-
-        /**
-         * Adds specified loss function to the network. Loss Function can be MSE
-         * or CE
-         *
-         * @param clazz
-         * @return
-         */
-//        public Builder withLossFunction(Class<? extends LossFunction> clazz) {
-//            try {
-//                LossFunction loss = clazz.getDeclaredConstructor(NeuralNetwork.class).newInstance(network);
-//                network.setLossFunction(loss);
-//            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-//                Logger.getLogger(ConvolutionalNetwork.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            return this;
-//        }
 
         public Builder lossFunction(LossType lossType) {
             LossFunction loss = null;

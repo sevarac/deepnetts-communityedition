@@ -22,7 +22,6 @@
 package deepnetts.data;
 
 import deepnetts.util.Tensor;
-import java.util.Arrays;
 
 /**
  * Represents a basic data set item (single row) with input tensor and target vector in a data set. 

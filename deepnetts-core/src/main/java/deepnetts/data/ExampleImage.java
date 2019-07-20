@@ -21,12 +21,9 @@
 
 package deepnetts.data;
 
-import deepnetts.util.ColorUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;

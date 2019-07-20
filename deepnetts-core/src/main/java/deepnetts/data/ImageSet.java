@@ -22,7 +22,6 @@ package deepnetts.data;
 
 import deepnetts.core.DeepNetts;
 import deepnetts.util.DeepNettsException;
-import deepnetts.util.DeepNettsThreadPool;
 import deepnetts.util.ImageSetUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
@@ -250,6 +249,8 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
                 images.add(image);
                 labels.add(label);
             }
+            
+            processImages(images, labels);            
         } catch (FileNotFoundException ex) {
             LOGGER.error(ex);
             throw new DeepNettsException("Could not find image file: " + imgFileName, ex);
@@ -258,7 +259,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
             throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
         }
 
-        processImages(images, labels);
+
 
         // sacekaj da pool zavrsi
         if (isEmpty()) {
@@ -267,27 +268,17 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
         LOGGER.info("Loaded " + size() + " images");
     }
 
-    private void processImages(List<BufferedImage> images, List<String> labels) {
-        int threadCount = DeepNettsThreadPool.getInstance().getThreadCount();
-        List<Callable<Boolean>> workers = new ArrayList<>();
-        int imagesPerWorker = images.size() / threadCount;
-        int start = 0, end = 0;
-        for (int t = 0; t < threadCount; t++) {
-            end = start + imagesPerWorker;
-            if (end > images.size() || end < images.size()) {
-                end = images.size();
+    private void processImages(List<BufferedImage> images, List<String> labels) throws IOException {
+            for (int i = 0; i < images.size(); i++) {
+                BufferedImage img = images.get(i);
+                final  String lbl = labels.get(i);
+                if (scaleImages) img = ImageUtils.scaleImage(img, imageWidth, imageHeight);
+                
+                final ExampleImage exImg = new ExampleImage(img, lbl);
+                exImg.setTargetOutput(new Tensor(oneHotEncode(lbl, columnNames)));
+                if (invertImages) exImg.invert();
+                add(exImg);
             }
-
-            ImageProcessor imgProc = new ImageProcessor(images, labels, start, end);
-            workers.add(imgProc);
-            start = end;
-        }
-        ExecutorService es = Executors.newFixedThreadPool(threadCount);
-        try {
-            List<Future<Boolean>> results = es.invokeAll(workers);
-        } catch (InterruptedException ex) {
-            java.util.logging.Logger.getLogger(ImageSet.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private class ImageProcessor implements Callable<Boolean> {

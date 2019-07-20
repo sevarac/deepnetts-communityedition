@@ -1,0 +1,44 @@
+Loading images...
+Loaded 1 labels
+Loaded 93 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:1344ms, TrainError:0.7883124, TrainErrorChange:0.7883124, TrainAccuracy: 0.47311828
+Epoch:2, Time:1020ms, TrainError:0.7723685, TrainErrorChange:-0.015943885, TrainAccuracy: 0.47311828
+Epoch:3, Time:1015ms, TrainError:0.7252587, TrainErrorChange:-0.047109783, TrainAccuracy: 0.8817204
+Epoch:4, Time:1091ms, TrainError:0.56719005, TrainErrorChange:-0.15806866, TrainAccuracy: 0.8924731
+Epoch:5, Time:1138ms, TrainError:0.3364557, TrainErrorChange:-0.23073435, TrainAccuracy: 0.9569892
+Epoch:6, Time:1044ms, TrainError:0.2507856, TrainErrorChange:-0.08567011, TrainAccuracy: 0.8817204
+Epoch:7, Time:1016ms, TrainError:0.12301052, TrainErrorChange:-0.12777507, TrainAccuracy: 0.9677419
+
+TRAINING COMPLETED
+Total Training Time: 9555ms
+------------------------------------------------------------------------
+Loading images...
+Loaded 1 labels
+Loaded 93 images
+Creating neural network...
+Training neural network
+------------------------------------------------------------------------------------------------------------------------------------------------
+TRAINING NEURAL NETWORK
+------------------------------------------------------------------------------------------------------------------------------------------------
+Epoch:1, Time:1301ms, TrainError:0.7883124, TrainErrorChange:0.7883124, TrainAccuracy: 0.47311828
+Epoch:2, Time:1074ms, TrainError:0.7723685, TrainErrorChange:-0.015943885, TrainAccuracy: 0.47311828
+Epoch:3, Time:1036ms, TrainError:0.7252587, TrainErrorChange:-0.047109783, TrainAccuracy: 0.8817204
+Epoch:4, Time:1202ms, TrainError:0.56719005, TrainErrorChange:-0.15806866, TrainAccuracy: 0.8924731
+Epoch:5, Time:1086ms, TrainError:0.3364557, TrainErrorChange:-0.23073435, TrainAccuracy: 0.9569892
+Epoch:6, Time:1050ms, TrainError:0.2507856, TrainErrorChange:-0.08567011, TrainAccuracy: 0.8817204
+Epoch:7, Time:1060ms, TrainError:0.12301052, TrainErrorChange:-0.12777507, TrainAccuracy: 0.9677419
+Epoch:8, Time:1040ms, TrainError:0.16915539, TrainErrorChange:0.046144865, TrainAccuracy: 0.9569892
+Epoch:9, Time:1037ms, TrainError:0.21038166, TrainErrorChange:0.041226268, TrainAccuracy: 0.9892473
+Epoch:10, Time:1109ms, TrainError:0.06362, TrainErrorChange:-0.14676166, TrainAccuracy: 0.9892473
+Epoch:11, Time:1087ms, TrainError:0.058960818, TrainErrorChange:-0.0046591833, TrainAccuracy: 0.9892473
+Epoch:12, Time:1052ms, TrainError:0.05389012, TrainErrorChange:-0.0050706975, TrainAccuracy: 0.9892473
+Epoch:13, Time:1024ms, TrainError:0.047098823, TrainErrorChange:-0.0067912973, TrainAccuracy: 1.0
+
+TRAINING COMPLETED
+Total Training Time: 17707ms
+------------------------------------------------------------------------

@@ -33,8 +33,6 @@ import deepnetts.net.weights.RandomWeightsType;
  * Base class for different types of layers (except data/input layer) Provides
  * common functionality for all type of layers
  *
- * Convolutional & Pooling?
- *
  * @author Zoran Sevarac
  */
 public abstract class AbstractLayer implements Layer, Serializable {
@@ -112,7 +110,6 @@ public abstract class AbstractLayer implements Layer, Serializable {
     protected int width, height, depth; // layer dimensions - width and height
 
     // biases are used by output, fully connected and convolutional layers
-    //  Note: Tensor biases,  deltaBiases; all these below can be Tensor
     protected float[] biases;
     protected float[] deltaBiases; 
     protected float[] prevDeltaBiases;
@@ -257,13 +254,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
         this.learningRate = learningRate;
     }
 
-//    initialisation after deserialization goes here
-//    private void readObject(java.io.ObjectInputStream in)
-//        throws IOException, ClassNotFoundException {
-//        in.defaultReadObject();
-//
-//    }
-    
+   
     public boolean isBatchMode() {
         return batchMode;
     }

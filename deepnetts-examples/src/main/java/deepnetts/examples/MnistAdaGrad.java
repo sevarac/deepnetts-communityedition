@@ -102,7 +102,7 @@ public class MnistAdaGrad {
                 .setMaxError(0.02f)
                 .setBatchMode(true)
                 .setBatchSize(16)
-                .setOptimizer(OptimizerType.ADAGRAD);
+                .setOptimizer(OptimizerType.MOMENTUM);
         trainer.train(imageSets[0]);
 
         // Test trained network

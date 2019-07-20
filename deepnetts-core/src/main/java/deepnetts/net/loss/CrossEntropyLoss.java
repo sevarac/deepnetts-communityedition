@@ -22,23 +22,11 @@
 package deepnetts.net.loss;
 
 import deepnetts.net.NeuralNetwork;
-import deepnetts.net.layers.OutputLayer;
 import java.io.Serializable;
 
 /**
  * Represents Average Cross Entropy Loss function.
  * This function is used as a loss function for a multi class classification problems.
- * 
- * E = -1/n * SUM(SUM(t*ln(y)))
- * 
- * Since its 1-of-n classification scheme, all outputs but target are zeros so it comes down to  E = -1/n * SUM(ln(y_targetIdx))
- * 
- * Sum over all outputs and training samples
- * Bishop, pg. 245, eq. 6.185
- * 
- * dE/ds = (y - t)     (when Softmax activation is used)
- * 
- * http://peterroelants.github.io/posts/neural_network_implementation_intermezzo02/
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */

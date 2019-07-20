@@ -112,11 +112,7 @@ public class SoftmaxOutputLayer extends OutputLayer {
 
         deltas.copyFrom(outputErrors);
 
-        // ovo je softmax za u kombinaciji sa cross entropy loss funkcijom, nisam siguran da li je dobra u kombinaciji sa sigmoidnom? Mada tada ide BinaryCE i obican output layer
         for (int outCol = 0; outCol < outputs.getCols(); outCol++) { // iterate all output neurons / deltas
-            // da li delta treba da s emnozi sa izvodom? izgleda da ne treba
-            // prema ovome ne mora file:///D:/DeepNettsSredjivanje/Books%20and%20Tuts/PetersNotes%20CE%20Softmax%20Derivation/Peter's%20NotesCE.html
-            // http://neuralnetworksanddeeplearning.com/chap3.html
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) { // prev layer is allways Dense. iterate all inputs/weights for the current neuron
                 final float grad = deltas.get(outCol) * inputs.get(inCol); 
                 gradients.set(inCol, outCol, grad); // a delta weight mnozi sa inputom

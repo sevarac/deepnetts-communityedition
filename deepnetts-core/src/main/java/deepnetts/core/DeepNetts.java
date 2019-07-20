@@ -21,7 +21,6 @@
  */
 package deepnetts.core;
 
-import deepnetts.util.LicenseChecker;
 import java.util.Properties;
 
 /**
@@ -54,15 +53,6 @@ public final class DeepNetts {
 
     public String getProperty(String name) {
         return prop.getProperty(name);
-    }
-
-    public static void checkLicense() {
-        LicenseChecker checker = new LicenseChecker();
-        try {
-            checker.checkLicense();
-        } catch(NullPointerException npe) {
-            throw new LicenseChecker.LicenceException("License not found!");
-        }
     }
 
     public String version() {
