@@ -30,7 +30,6 @@ import java.io.IOException;
 public class CreateImageIndex {
     public static void main(String[] args) throws IOException {
        //ImageSetUtils.createImageIndex("D:\\datasets\\mnist\\train");
-       ImageSetUtils.createImageIndex("D:\\datasets\\JavaLogos");
        //ImageSetUtils.createImageIndex("D:\\datasets\\clouds\\swimcat");
     //   ImageSetUtils.createImageIndex("D:\\datasets\\CERTH_ImageBlurDataset\\TrainingSet256");
     }

@@ -34,7 +34,7 @@ public final class MomentumOptimizer implements Optimizer, Serializable {
     
     private float momentum;
     private float learningRate;        
-    private final Tensor prevDeltaWeights;  // ove moraju da budu posebne za svaki kanal u conv layeru su u nizu mora da bude niz tensora ili tensor da ima jos jednu dimenziju!!!
+    private final Tensor prevDeltaWeights;  
     private final float[] prevDeltaBiases;
     
     AbstractLayer layer;
@@ -60,30 +60,8 @@ public final class MomentumOptimizer implements Optimizer, Serializable {
         }
         else
             return -learningRate * grad + momentum * prevDeltaWeights.get(idxs[ROW_IDX], idxs[COL_IDX]); 
-        //  -learningRate * gradient + momentum * prevDeltaWeight;
-        // ovako se poziva:  optim.calculateDeltaWeight(grad, inCol, inRow, inDepth, deltaCol); depth i delta col dimenzije se ni ne koriste!!!!!!!
-                                                           // inCol, inRow, inDepth, deltaCol        
+         
     }
-//    
-//   public float calculateParamDelta(final float grad, final int row, final int col, final int depth, final int fourth) {    // momentum
-//        return -learningRate * grad + momentum * prevDeltaWeights.get(row, col, depth, fourth);  // inCol, inRow, inDepth, deltaCol
-//    }    
-//    
-//
-//  //  @Override
-//    public float calculateParamDelta(final float grad, final int row, final int col) {    // momentum
-//        return -learningRate * grad + momentum * prevDeltaWeights.get(row, col); 
-//    }
-//
-// //   @Override
-//    public float calculateParamDelta(final float grad, final int col) {  // momentum for biases
-//        return -learningRate * grad + momentum * prevDeltaWeights.get(col);  // ovde prev biases
-//    }
-//
-// //   @Override
-//    public float calculateParamDelta(final float grad) { // obican SGD
-//        return -learningRate * grad;
-//    }
 
     @Override
     public float calculateDeltaBias(float gradient, int idx) {

@@ -16,7 +16,7 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>
  */
 
 package deepnetts.net.weights;
@@ -48,8 +48,7 @@ public class RandomWeights {
           
     public static void widrowHoff(float[] array, float input, float hidden) {         
         randomize(array);
-        float beta = 0.7f * (float)Math.pow(hidden, 1/input);   //1/input* 
-        
+        float beta = 0.7f * (float)Math.pow(hidden, 1/input);        
         float weightsNorm =0;
         for (int i = 0; i < array.length; i++) {
             weightsNorm += array[i]*array[i];
@@ -105,8 +104,6 @@ public class RandomWeights {
      * @param weights
      * @param numIn  size of the previous layer (number of inputs)
      * @param numOut size of initialized layer (number of outputs)
-     * 
-     * https://towardsdatascience.com/weight-initialization-techniques-in-neural-networks-26c649eb3b78
      */
     public static void xavier(float[] weights, int numIn, int numOut) {
         float min = (float)-Math.sqrt( 6 / (float)(numIn+numOut));

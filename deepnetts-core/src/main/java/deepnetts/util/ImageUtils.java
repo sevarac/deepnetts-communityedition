@@ -57,7 +57,6 @@ public class ImageUtils {
      * @return 
      */
     public static BufferedImage scaleImage(BufferedImage img, int newWidth, int newHeight) {    
-        // problem je sto je ovaj iz awt paketa
         Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);        
         BufferedImage resultImg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB); // img.getType()
         resultImg.getGraphics().drawImage(scaledImg, 0, 0, null);
@@ -88,7 +87,6 @@ public class ImageUtils {
             scaleFactor = imgWidth / (float)(targetWidth-2*padding);
         } else { // imgHeight < imgWidth
             scaleFactor = imgHeight / (float)(targetHeight-2*padding);
-
         }
 
         int newWidth = (int) (imgWidth / scaleFactor);
@@ -209,7 +207,6 @@ public class ImageUtils {
     }
     
     
-    // hardcoded for lego replace with DataSetUtils
     public static void createIndexFile(HashMap<File, BufferedImage> imageMap, String imageFile, boolean useAbsPath) throws IOException {
         // dodaj regex pomocu koga ce da ih ubacuje uklas?
         try (BufferedWriter out = new BufferedWriter(new FileWriter(imageFile))) {
@@ -218,9 +215,9 @@ public class ImageUtils {
 
             for (File file : imageMap.keySet()) {
                 if (!useAbsPath) 
-                    out.write(file.getName() + " legoman"); // TODO: how to get image label?
+                    out.write(file.getName());
                 else
-                    out.write(file.getPath() + " legoman");
+                    out.write(file.getPath());
                 
                 if (i < fileCount - 1) {
                     out.write(System.lineSeparator());
@@ -241,13 +238,10 @@ public class ImageUtils {
      * @return 
      */
     public static BufferedImage[] randomTranslateImage(BufferedImage img, int stepCount, int stepSize) {
-        // u krug za dati radijus
-        // random distance
         BufferedImage[] images = new BufferedImage[stepCount*4];  
         AffineTransform[] trans = new AffineTransform[4];
         
         for(int i = 0; i < stepCount; i++) {
-            // pomeri na sve cetiri strane po count * step pixela
             trans[0] = AffineTransform.getTranslateInstance(i*stepSize, 0);
             trans[1] = AffineTransform.getTranslateInstance(-i*stepSize, 0);
             trans[2] = AffineTransform.getTranslateInstance(0, i*stepSize);

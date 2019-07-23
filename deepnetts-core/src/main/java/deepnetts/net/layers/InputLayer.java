@@ -42,7 +42,7 @@ public class InputLayer extends AbstractLayer {
     public InputLayer(int width, int height, int depth) {
         this.width = width;
         this.height = height;
-        this.depth = depth;  // number of input channels / depth
+        this.depth = depth;  
         init();
     }
 
@@ -55,7 +55,7 @@ public class InputLayer extends AbstractLayer {
     public InputLayer(int width, int height) {
         this.width = width;
         this.height = height;
-        this.depth = 1; // using single input channel
+        this.depth = 1; 
         init();
     }
 
@@ -77,7 +77,7 @@ public class InputLayer extends AbstractLayer {
     @Override
     public final void init() {
         inputs = new Tensor(height, width, depth);
-        outputs = inputs;  // for input layer outputs are pointing to the same tensor as inputs
+        outputs = inputs;  
     }
 
     /**

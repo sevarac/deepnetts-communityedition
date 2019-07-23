@@ -68,8 +68,6 @@ public class CsvFormat {
         return numColumns;
     }
     
-    
-
     @Override
     public String toString() {
         return "CsvFormat{" + "delimiter=" + delimiter + ", hasHeader=" + hasHeader + ", columnNames=" + Arrays.toString(columnNames) + ", columnTypes=" + Arrays.toString(columnTypes) + '}';

@@ -50,7 +50,6 @@ public class SoftmaxOutputLayer extends OutputLayer {
         outputErrors = new float[width];
         deltas = new Tensor(width);
 
-        // height je koliko ima neurona u prethodnom FC lejeru  - pretpostavka je da moze samo FC lejer da bude iza
         int prevLayerWidth = prevLayer.getWidth();
         weights = new Tensor(prevLayerWidth, width);
         deltaWeights = new Tensor(prevLayerWidth, width);
@@ -66,7 +65,6 @@ public class SoftmaxOutputLayer extends OutputLayer {
         RandomWeights.gaussian(biases, 0.1f, 0.05f);
 //        RandomWeights.randomize(biases);
         
-        //setOptimizerType(OptimizerType.SGD);
     }
 
     /**
@@ -75,34 +73,29 @@ public class SoftmaxOutputLayer extends OutputLayer {
      */
     @Override
     public void forward() {
-        // find max weightedSum
         float maxWs = Float.NEGATIVE_INFINITY;
 
-        //  compute weighted sums (activations) and find max weighted sum
-        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {                    // for all neurons in this layer
-            outputs.set(outCol, biases[outCol]);                                        // first add bias
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {                    // iterate all inputs
-                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum of inputs
+        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {                    
+            outputs.set(outCol, biases[outCol]);                                        
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) {                    
+                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    
             }
 
-            if (outputs.get(outCol) > maxWs) { // find max weighted sum
+            if (outputs.get(outCol) > maxWs) { 
                 maxWs = outputs.get(outCol);
             }
         }
 
-        // calculate outputs and denominator sum (use max for numerical stability)
         float denSum = 0;
         for (int col = 0; col < outputs.getCols(); col++) {
-            outputs.set(col, (float) Math.exp(outputs.get(col) - maxWs)); // maxWs used for numerical stability
+            outputs.set(col, (float) Math.exp(outputs.get(col) - maxWs)); 
             denSum += outputs.get(col);
         }
 
-        outputs.div(denSum); // scale all outputs to sum to 1
+        outputs.div(denSum);
     }
 
-    /**
-     *
-     */
+
     @Override
     public void backward() {
         if (!batchMode) {
@@ -112,12 +105,12 @@ public class SoftmaxOutputLayer extends OutputLayer {
 
         deltas.copyFrom(outputErrors);
 
-        for (int outCol = 0; outCol < outputs.getCols(); outCol++) { // iterate all output neurons / deltas
-            for (int inCol = 0; inCol < inputs.getCols(); inCol++) { // prev layer is allways Dense. iterate all inputs/weights for the current neuron
+        for (int outCol = 0; outCol < outputs.getCols(); outCol++) { 
+            for (int inCol = 0; inCol < inputs.getCols(); inCol++) { 
                 final float grad = deltas.get(outCol) * inputs.get(inCol); 
-                gradients.set(inCol, outCol, grad); // a delta weight mnozi sa inputom
+                gradients.set(inCol, outCol, grad); 
                 final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, outCol);   
-                deltaWeights.add(inCol, outCol, deltaWeight); //
+                deltaWeights.add(inCol, outCol, deltaWeight); 
             }
             
             final float deltaBias = optim.calculateDeltaBias(deltas.get(outCol), outCol); 

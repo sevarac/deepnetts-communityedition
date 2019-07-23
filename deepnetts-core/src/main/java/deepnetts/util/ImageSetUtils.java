@@ -121,7 +121,6 @@ public class ImageSetUtils {
     return imageSet;
   }
 
-  // ovo i prethodnu metodi najbolje na kraju staviti u neku klasu koja sve to radi, ili napraviti onaj pipeline
   public static void createRandomlyCroppedImages(String srcPath, String destPath, int targetWidth, int targetHeight, int num) throws IOException {
    List<String> labels = labelsFromSubDirectories(srcPath);
     List<String> imgIndex = new ArrayList<>();
@@ -150,22 +149,8 @@ public class ImageSetUtils {
 
             ImageUtils.writeImages(randomlyCropedImages, destPath, targetFile, imgType);
 
-
-//ImageIO.write(scaledImage, imgType, new File(targetFile)); // ovde pisi i png fajlocve aimenaim numerisi sa 123
-
-            // and put it in image index (add labels to generated files too)
-//            if (useAbsolutePaths) {
-//                imgIndex.add(targetFile + " " + label);
-//            } else {
-//                imgIndex.add(label + File.separator + fileName + " " + label);
-//            }
-
-            // create augmented images here?
-            //
-
             LOGGER.info(targetFile + " done!");
         }
-        // new index cn be created here with separate method
     }
   }
 

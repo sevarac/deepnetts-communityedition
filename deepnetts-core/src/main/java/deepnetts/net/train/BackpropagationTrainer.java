@@ -156,10 +156,6 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private float prevCheckpointTestLoss=100f;
 
 
-
-    /**
-     * Ovaj inicijalizovati ili na ovo ili na RMSE
-     */
     private transient Evaluator<NeuralNetwork, DataSet<?>> eval = new ClassifierEvaluator();
 
     //regularization l1 or l2 add to loss
@@ -191,8 +187,6 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
 
-    // da li da eksplicitno navedem validation set ili samo procenat trening koji se koristi za validaciju? odnos 2:1
-    // moze i jedna i druga varijanta
     /**
      * Run training using specified training and validation sets.
      * Training set is used to train model, while validation set is used to check model accuracy with unseen data in order to prevent overfitting.
@@ -272,30 +266,27 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             trainAccuracy=0;
             valAccuracy=0;
 
-            if (shuffle) {  // maybe remove this from here, dont autoshuffle, for time series not needed - settings for Trainer
-                trainingSet.shuffle(); // dataset should be shuffled before each epoch http://ruder.io/optimizing-gradient-descent/index.html#adadelta
+            if (shuffle) {  
+                trainingSet.shuffle(); 
             }
             int sampleCounter = 0;
 
             startEpoch = System.currentTimeMillis();
 
-            // maybe generate a sequence of random indexes instead of foreach, so i dontneed to shuffle in every epoch?
             for (DataSetItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
-                neuralNet.setInput(dataSetItem.getInput());   // set network input and automaticaly trigger  forward pass
-                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues()); // get output error from loss function
-                neuralNet.setOutputError(outputError); //mozda bi ovo moglao da bude uvek isti niz/reference pa ne mora da se seuje
-                neuralNet.backward(); // do the backward propagation using current outputError - should I use outputError as a param here?
+                neuralNet.setInput(dataSetItem.getInput()); 
+                outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
+                neuralNet.setOutputError(outputError); 
+                neuralNet.backward(); 
 
-                // weight update for online mode after each training pattern
-                if (!isBatchMode()) { // for online training update weight changes after each pass
+                if (!isBatchMode()) {
                     neuralNet.applyWeightChanges();
-                } else if (sampleCounter % batchSize == 0) { // mini batch
+                } else if (sampleCounter % batchSize == 0) {
                     neuralNet.applyWeightChanges();
-                    // do we need to reset lossFunction for mini batch - we probably should - saw it in tensorflow, ali ne ovde nego na pocetki batch-a
+
                     float miniBatchError = lossFunction.getTotal();
                     LOGGER.info("Epoch:" + epoch + ", Mini Batch:" + sampleCounter / batchSize + ", Batch Loss:" + miniBatchError);
-                    // da se ne ceka prvise dugo ako ima 60 000 slika nego da sve vreme prikazuje gresku
                 }
                 fireTrainingEvent(TrainingEvent.Type.ITERATION_FINISHED); // BATCH_FINISHED?
 
@@ -306,31 +297,25 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             endEpoch = System.currentTimeMillis();
 
-            //   batch weight update after entire data set - ako vrlicina dataseta nije deljiva sa batchSize - ostatak
-            if (isBatchMode() && (trainingSamplesCount % batchSize != 0)) { // full batch. zarga ovaj gore ne pokriva?
+            if (isBatchMode() && (trainingSamplesCount % batchSize != 0)) {
                 neuralNet.applyWeightChanges();
             }
 
-            totalTrainingLoss = lossFunction.getTotal(); // - da li total error za ceo data set ili samo za mini  batch? lossFunction.getTotalError()
-            totalLossChange = totalTrainingLoss - prevTotalLoss; // todo: pamti istoriju ovoga i crtaj funkciju, to je brzina konvergencije na 10, 100, 1000 iteracija paterna - ovo treba meriti. Ovo moze i u loss funkciji
+            totalTrainingLoss = lossFunction.getTotal(); 
+            totalLossChange = totalTrainingLoss - prevTotalLoss; 
             prevTotalLoss = totalTrainingLoss;
-            trainAccuracy = calculateAccuracy(this.trainingSet);  // ovo zameniti sa RMSE za regresiju i gore iznad // ako nije zadat valdiation set nemoj ni da pises?            
+            trainAccuracy = calculateAccuracy(this.trainingSet); 
             
-            // use validation set here instead of test set
-            if (validationSet != null) {    // kako da znam da li je klasifikacija ili regresija? mozda da imam neki setting, flag?
+            if (validationSet != null) {    
                 prevValLoss = valLoss;
-                valLoss = validationLoss(validationSet);   // pre je i test loss
-                valAccuracy = calculateAccuracy(validationSet);// da li ovo da radim ovde ili na event. bolje ovde zbog sinhronizacije
+                valLoss = validationLoss(validationSet);  
+                valAccuracy = calculateAccuracy(validationSet);
             }
 
             epochTime = endEpoch - startEpoch;
-            // todo: validation error change!!! or validation  stall - decrease learning rate - create a bunch of listeners/rules that can influence training
-//            StringBuilder logMsgBuilder = new StringBuilder();
-//            logMsgBuilder.append("Epoch:" + epoch);
-//            logMsgBuilder.append(logMsgBuilder);
 
             if (validationSet != null)
-                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy + ", ValError:" + valLoss + ", ValAccuracy: "+valAccuracy);// dodaj train i val accuracy
+                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy + ", ValError:" + valLoss + ", ValAccuracy: "+valAccuracy);
             else
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
 
@@ -343,35 +328,34 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
                 if (prevCheckpointTestLoss - valLoss < earlyStoppingMinDelta) {
                     if (earlyStoppingCheckpointCount == earlyStoppingPatience) {
-                        stop(); // stop if test change between two checkpoints is smaller than minDeltaLoss, (that is test loss is growing, stagnating or lowering too slow)
+                        stop(); 
                     } else {
-                        earlyStoppingCheckpointCount++;    // count how many checkpoints have validation loss stagnated or grown?
+                        earlyStoppingCheckpointCount++;    
                     }
                 } else {
-                    earlyStoppingCheckpointCount = 0;  // reset counter for loss growth or stagnation
+                    earlyStoppingCheckpointCount = 0; 
                 }
 
                 // save network at this checkpoint since loss if going down
                 prevCheckpointTestLoss = valLoss;
             }
 
-            // make training snapshots every snapshotEpochs
             if (trainingSnapshots && (epoch > 0 && epoch % snapshotEpochs == 0)) {
-                try { // save to some tmp file only if test loss was smaller
-                    FileIO.writeToFile(neuralNet, snapshotPath + "_epoch_" + epoch + ".dnet"); // TODO: use constant for extension
-                } catch (IOException ex) { // Catching
+                try { 
+                    FileIO.writeToFile(neuralNet, snapshotPath + "_epoch_" + epoch + ".dnet");
+                } catch (IOException ex) { 
                     LOGGER.catching(ex);
                 }                
             }
             
             stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));          
             
-        } while (!stopTraining); // main training loop
+        } while (!stopTraining); 
 
         endTraining = System.currentTimeMillis();
         trainingTime = endTraining - startTraining;
 
-        LOGGER.info(System.lineSeparator() + "TRAINING COMPLETED"); // or training interupted
+        LOGGER.info(System.lineSeparator() + "TRAINING COMPLETED");
         LOGGER.info("Total Training Time: " + trainingTime + "ms");
         LOGGER.info("------------------------------------------------------------------------");
 
@@ -437,10 +421,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private void fireTrainingEvent(TrainingEvent.Type type) {
         for (TrainingListener l : listeners) {
             l.handleEvent(new TrainingEvent(this, type));
-        }
-//        if (type == TrainingEvent.Type.STOPPED) {
-//            listeners.clear(); // remove alllisteners if training has stopped
-//        }        
+        }    
     }
 
     public void addListener(TrainingListener listener) {
@@ -541,19 +522,6 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         this.earlyStopping = earlyStopping;
     }
 
-    /**
-     * Save weights during training on specified number of epochs
-     *
-     * @param epochs
-     */
-//    public void setSaveTrainingWeightsEpochs(int epochs) {
-//        if (epochs == 0) {
-//            this.saveTrainingWeights = false;
-//        } else {
-//            this.saveTrainingWeights = true;
-//            this.saveTrainingWeightsEpochs = epochs;
-//        }
-//    }
 
     public BackpropagationTrainer setSnapshotPath(String snapshotPath) {
         this.snapshotPath = snapshotPath;

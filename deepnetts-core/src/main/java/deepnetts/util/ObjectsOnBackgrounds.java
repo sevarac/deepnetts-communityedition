@@ -37,9 +37,9 @@ import javax.imageio.ImageIO;
 public class ObjectsOnBackgrounds {
 
     public static void main(String[] args) throws IOException {
-        String objectSourcePath = "/home/zoran/Desktop/JavaOneSponsors/logos";
-        String bgSourcePath = "/home/zoran/Desktop/JavaOneSponsors/bg";
-        String targetPath = "/home/zoran/Desktop/JavaOneSponsors/centered";
+        String objectSourcePath = "objectSourcePath";
+        String bgSourcePath = "bgSourcePath";
+        String targetPath = "targetPath";
 
         HashMap<File, BufferedImage> objects = ImageUtils.loadFileImageMapFromDirectory(new File(objectSourcePath));
         HashMap<File, BufferedImage> backgrounds = ImageUtils.loadFileImageMapFromDirectory(new File(bgSourcePath));

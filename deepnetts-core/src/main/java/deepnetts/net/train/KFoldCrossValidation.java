@@ -40,18 +40,13 @@ import org.apache.commons.lang3.SerializationUtils;
  */
 public class KFoldCrossValidation {
 
-    private int splitsNum; //number of folds, typically  5 or 10 used, pg. 184    // numSplits
-    private NeuralNetwork neuralNetwork; // arhitektura neuronske mreze
-    private BackpropagationTrainer trainer; // algoritam za trening sa svim svojim podesavanjima podesenim
-    private DataSet<?> dataSet; // data set koji se deli
-    private Evaluator<NeuralNetwork, DataSet<?>> evaluator; // mogao bi u logu da ispisuje rezultate evaluacije kao json
+    private int splitsNum; 
+    private NeuralNetwork neuralNetwork; 
+    private BackpropagationTrainer trainer; 
+    private DataSet<?> dataSet; 
+    private Evaluator<NeuralNetwork, DataSet<?>> evaluator; 
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
-    // posto treba da radi multi threaded training, najbolje da ovo radi u istom thread-u, da ne bi rasipao threadove
-    // najbolje da kreira trening i test set od foldova
-
-    // podeli data set na k jednakih foldova
-    // sa k-1 treniraj sa onim preostalim testiraj i izracunaj prosecne mere  performansi (MSE i klasifikacija)
 
     public EvaluationMetrics runCrossValidation() {
         List<EvaluationMetrics> measures = new ArrayList<>();
@@ -66,15 +61,14 @@ public class KFoldCrossValidation {
                 trainingSet.addAll(folds[trainFoldIdx]);
             }
 
-            // clone the original network each time before training - create a new instace that will be added to trainedNetworks
             NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
 
-            trainer.train(trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
-            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
+            trainer.train(trainingSet); 
+            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); 
             measures.add(pe);
             trainedNetworks.add(neuralNet);
         }
-        // get final evaluation results - avg performnce of all test sets - use some static method to get that
+
         return ClassifierEvaluator.averagePerformance(measures);
     }
 

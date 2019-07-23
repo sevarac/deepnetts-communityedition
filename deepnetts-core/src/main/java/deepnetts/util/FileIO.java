@@ -36,7 +36,6 @@ import deepnetts.net.layers.LayerType;
 import deepnetts.net.layers.MaxPoolingLayer;
 import deepnetts.net.layers.OutputLayer;
 import deepnetts.net.layers.SoftmaxOutputLayer;
-import deepnetts.net.loss.LossFunction;
 import deepnetts.net.loss.LossType;
 import java.io.BufferedReader;
 import java.io.File;

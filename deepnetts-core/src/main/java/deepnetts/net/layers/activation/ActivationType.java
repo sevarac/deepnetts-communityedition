@@ -33,7 +33,5 @@ public enum ActivationType {
     TANH,
     RELU,
     LEAKY_RELU,
-    SOFTMAX;
-    // SOFTPLUS?
-     
+    SOFTMAX;     
 }

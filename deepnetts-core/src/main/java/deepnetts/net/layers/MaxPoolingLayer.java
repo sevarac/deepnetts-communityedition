@@ -80,15 +80,15 @@ public final class MaxPoolingLayer extends AbstractLayer {
 
         inputs = prevLayer.outputs;
 
-        width = (inputs.getCols() - filterWidth) / stride + 1; // ovo mora biti ceo broj strude veci od 2, 3 je suvise destruktivan
+        width = (inputs.getCols() - filterWidth) / stride + 1; 
         height = (inputs.getRows() - filterHeight) / stride + 1;
-        depth = prevLayer.getDepth(); // depth of pooling layer is always same as in previous convolutional layer
+        depth = prevLayer.getDepth(); 
 
         outputs = new Tensor(height, width, depth);
         deltas = new Tensor(height, width,  depth);
 
         // used in fprop to save idx position of max value
-        maxIdx = new int[depth][height][width][2]; // svakoj poziciji filtera odgovara jedna [row, col] celija u outputu idx 0 je col, idx 1 je row
+        maxIdx = new int[depth][height][width][2];
 
     }
 
@@ -98,7 +98,7 @@ public final class MaxPoolingLayer extends AbstractLayer {
      */
     @Override
     public void forward() {
-        for (int ch = 0; ch < this.depth; ch++) {  // iteriraj sve kanale/feature mape u ovom lejeru
+        for (int ch = 0; ch < this.depth; ch++) {  
             forwardForChannel(ch);
         }
     }
@@ -127,26 +127,20 @@ public final class MaxPoolingLayer extends AbstractLayer {
                     }
                 }
 
-                // zapamti indexe neurona iz prethodnog lejera koji su propustili max (koristice se u bacward pass-u)
                 maxIdx[ch][outRow][outCol][0] = maxR; // height idx (row)
                 maxIdx[ch][outRow][outCol][1] = maxC; // width idx (col)
 
                 outputs.set(outRow, outCol, ch, max); // set max value as output
-                outCol++;   // increase output col by one for each input (stride) step
+                outCol++;   
             } // scan col
-            outRow++; // increase output row by one for each input (stride) step
+            outRow++; 
         } // scan row
     }
 
     /**
-     * backward pass for a max(x, y) operation has a simple interpretation as
+     * Backward pass for a max(x, y) operation has a simple interpretation as
      * only routing the gradient to the input that had the highest value in the
-     * forward pass. Hence, during the forward pass of a pooling layer it is
-     * common to keep track of the index of the max activation (sometimes also
-     * called the switches) so that gradient routing is efficient during
-     * backpropagation.
-     *
-     * backward error pass samo kroz index oji je prosao forward pass
+     * forward pass.
      *
      */
     @Override
@@ -184,24 +178,22 @@ public final class MaxPoolingLayer extends AbstractLayer {
     private void backwardFromConvolutional() {
         deltas.fill(0);
 
-        for (int ch = 0; ch < depth; ch++) { // iteriraj i 3-cu dimeziju sledeceg sloja odnosno kanale ovog sloja
+        for (int ch = 0; ch < depth; ch++) {
             backwardFromConvolutionalForChannel(ch);
         }
     }
     
-    // fz je ch iz ovog lejera a treca diemnziaj filtera iz narednog lejera
     private void backwardFromConvolutionalForChannel(int fz) {
         final ConvolutionalLayer nextConvLayer = (ConvolutionalLayer) nextLayer;
         final int filterCenterX = (nextConvLayer.filterWidth - 1) / 2;
         final int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
 
         // 1. Propagate deltas from next conv layer for max outputs from this layer
-        for (int ndz = 0; ndz < nextLayer.deltas.getDepth(); ndz++) { // iteriraj i 3-cu dimeziju sledeceg sloja odnosno kanale ovog sloja
-            for (int ndr = 0; ndr < nextLayer.deltas.getRows(); ndr++) { // sledeci lejer delte po visini
-                for (int ndc = 0; ndc < nextLayer.deltas.getCols(); ndc++) { // sledeci lejer delte po sirini
-                    final float nextLayerDelta = nextLayer.deltas.get(ndr, ndc, ndz); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja
+        for (int ndz = 0; ndz < nextLayer.deltas.getDepth(); ndz++) { 
+            for (int ndr = 0; ndr < nextLayer.deltas.getRows(); ndr++) { 
+                for (int ndc = 0; ndc < nextLayer.deltas.getCols(); ndc++) { 
+                    final float nextLayerDelta = nextLayer.deltas.get(ndr, ndc, ndz); 
 
-                    //   for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) { umesto fz ide ch kao parametar
                     for (int fr = 0; fr < nextConvLayer.filterHeight; fr++) {
                         for (int fc = 0; fc < nextConvLayer.filterWidth; fc++) {
                             final int outRow = ndr * nextConvLayer.stride + (fr - filterCenterY);
@@ -211,17 +203,12 @@ public final class MaxPoolingLayer extends AbstractLayer {
                                 continue;
                             }
 
-                            // deltas ima dosta medju nula
                             deltas.add(outRow, outCol, fz, nextLayerDelta * nextConvLayer.filters[ndz].get(fr, fc, fz)); // da li se ovde preo z preklapaju?
                         }
                     }
-                    // }
                 }
             }
         }
-        // FIX:
-//           float divisor = nextConvLayer.filterWidth * nextConvLayer.filterHeight;  
-//           deltas.div(divisor); // da li da delim sa dimenzijama filtera??? mnist radi bolje a cloud i cifar10 ne   ima slican efekat kao smanjivanje learning rate-a                
     }
 
 
@@ -244,103 +231,6 @@ public final class MaxPoolingLayer extends AbstractLayer {
         return stride;
     }
     
-    /**
-     * Calculates how many channels should be assigned in each thread in multithreaded mode.
-     * 
-     * @param threadCount
-     * @return 
-     */
-    private int[] calculateChannelsPerThread(int threadCount) {
-        int[] threads = new int[threadCount];
-        int chpt = depth / threadCount;
-        
-        for(int i=0; i<threadCount; i++) {
-            threads[i] = chpt;
-        }
-                        
-        if (depth % threadCount !=0) {
-            int rest = depth % threadCount;
-            
-            for(int i=0; i< rest; i++) {
-                threads[i] = threads[i] + 1;
-            }
-        }
-        
-        return threads;
-    }    
-
-  private class ForwardCallable implements Callable<Void> {
-
-        final int fromCh, toCh;
-        CyclicBarrier cb;
-        // Consumer<Integer> methodReference    https://dzone.com/articles/java-lambda-method-reference
-        // mozda i da bude predikat da vraca boolean ukoliko je zavrsio, a false ako je prekinut
-        public ForwardCallable(int fromCh, int toCh, CyclicBarrier cb ) {
-            this.fromCh= fromCh;
-            this.toCh = toCh;
-            this.cb=cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-           for (int ch = fromCh; ch < toCh; ch++) {
-               forwardForChannel(ch);
-           }
-
-        //    cb.await(); // wait other thread before completing this layer and going to next one
-            return null;
-        }
-    }
-  
-  private class BackwardFromConvolutionalCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;    
-
-        public BackwardFromConvolutionalCallable(int fromCh, int toCh, CyclicBarrier cb ) {
-            this.fromCh= fromCh;
-            this.toCh = toCh;
-            this.cb=cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-           for (int ch = fromCh; ch < toCh; ch++) {
-               backwardFromConvolutionalForChannel(ch);
-           }
-
-        //    cb.await(); // wait other thread before completing this layer and going to next one
-            return null;
-        }
-    }  
-  
-  private class BackwardFromFullyConnectedCallable implements Callable<Void> {
-
-        private final int fromCh, toCh;
-        private final CyclicBarrier cb;
-
-
-        public BackwardFromFullyConnectedCallable(int fromCh, int toCh, CyclicBarrier cb ) {
-            this.fromCh= fromCh;
-            this.toCh = toCh;
-            this.cb=cb;
-        }
-
-        @Override
-        public Void call() throws Exception {
-
-           for (int ch = fromCh; ch < toCh; ch++) {
-               backwardFromFullyConnectedForChannel(ch);
-           }
-
-        //    cb.await(); // wait other thread before completing this layer and going to next one
-            return null;
-        }
-    }    
-
-
     @Override
     public String toString() {
         return "Max Pooling Layer { filter width:"+filterWidth+", filter height: "+filterHeight+", stride:"+stride+"}";

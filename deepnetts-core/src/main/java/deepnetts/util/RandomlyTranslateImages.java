@@ -40,8 +40,8 @@ import javax.imageio.ImageIO;
  */
 public class RandomlyTranslateImages {
     
-    String sourcePath = "/home/zoran/Desktop/JavaOneSponsors/";
-    String targetPath = "/home/zoran/Desktop/JavaOneSponsors/translated/"; 
+    String sourcePath = "/sourcePath/";
+    String targetPath = "/sourcePath/"; 
     
     String imageIndexFileFile ="";
     String labelsFile ="";

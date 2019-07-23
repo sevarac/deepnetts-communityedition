@@ -39,7 +39,6 @@ public class OutputLayer extends AbstractLayer {
     protected float[] outputErrors;
     protected final String[] labels;
     protected LossType lossType;
-  //  protected Optimizer optim;
 
     /**
      * Creates an instance of output layer with specified width (number of outputs)
@@ -120,12 +119,6 @@ public class OutputLayer extends AbstractLayer {
         this.lossType = lossType;
     }
 
-//    @Override
-//    public void setOptimizerType(OptimizerType optimizer) {
-//        super.setOptimizerType(optimizer);
-//        optim = Optimizer.create(optimizer, this);
-//    }
-
     @Override
     public void init() {
         inputs = prevLayer.outputs;
@@ -145,7 +138,6 @@ public class OutputLayer extends AbstractLayer {
         prevDeltaBiases = new float[width];
         RandomWeights.randomize(biases);
 
-//        setOptimizerType(OptimizerType.SGD);
     }
 
     /**
@@ -155,15 +147,15 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void forward() {
-        outputs.copyFrom(biases);  // reset output to bias value, so weighted sum is added to biases
+        outputs.copyFrom(biases);  
 
-        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  // for all neurons in this layer   ForkJoin split this in two until you reach size which makes sense: number of calculations = inputCols * outputCols
+        for (int outCol = 0; outCol < outputs.getCols(); outCol++) {  
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
-                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));    // add weighted sum
+                outputs.add(outCol, inputs.get(inCol) * weights.get(inCol, outCol));
             }
         }
 
-        outputs.apply(activation::getValue);    // apply activation function to all outputs
+        outputs.apply(activation::getValue); 
     }
 
     /**
@@ -171,36 +163,29 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void backward() {
-        if (!batchMode) {   // reset delta weights and deltaBiases to zero in each iteration if not in batch/minibatch mode
+        if (!batchMode) {   
             deltaWeights.fill(0);
             Arrays.fill(deltaBiases, 0);
         }
 
-        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // iterate all output neurons / deltas
+        for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { 
             if (lossType == LossType.MEAN_SQUARED_ERROR) {
-                final float delta = outputErrors[deltaCol] * activation.getPrime(outputs.get(deltaCol)); // delta = e*dE/ds
+                final float delta = outputErrors[deltaCol] * activation.getPrime(outputs.get(deltaCol)); 
                 deltas.set(deltaCol, delta);
-            } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { // ovo samo za binary cross entropy, single sigmoid output
-                deltas.set(deltaCol, outputErrors[deltaCol]); // Bishop, pg. 231, eq.6.125, imenilac od dE/dy i izvod sigmoidne se skrate
-            } // ... slucaj Cross entropy sa softmax je resen u SoftMaxLayer
+            } else if (activationType == ActivationType.SIGMOID && lossType == LossType.CROSS_ENTROPY) { 
+                deltas.set(deltaCol, outputErrors[deltaCol]); 
+            } 
 
             for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                final float grad = deltas.get(deltaCol) * inputs.get(inCol);
-             //   final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 2 * regularization * weights.get(inCol, deltaCol); // gradient dE/dw + regularization l2
-//                final float grad = deltas.get(deltaCol) * inputs.get(inCol) + 0.01f * ( weights.get(inCol, deltaCol)>=0? 1 : -1 ); // gradient dE/dw + regularization l2
+               gradients.set(inCol, deltaCol, grad);
 
-                gradients.set(inCol, deltaCol, grad);
-
-                //final float deltaWeight = Optimizers.sgd(learningRate, grad);
-                //final float deltaWeight = Optimizers.momentum(learningRate, grad, momentum, prevDeltaWeights.get(inCol, dCol));
-
-                final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol);
-                deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
+               final float deltaWeight = optim.calculateDeltaWeight(grad, inCol, deltaCol);
+               deltaWeights.add(inCol, deltaCol, deltaWeight); // sum deltaWeight for batch mode
             }
 
             final float deltaBias = optim.calculateDeltaBias(deltas.get(deltaCol), deltaCol);
-            deltaBiases[deltaCol] += deltaBias; //Optimizers.sgd(learningRate, deltas.get(deltaCol));
-//          deltaBiases[dCol] += Optimizers.momentum(learningRate, deltas.get(dCol), momentum, prevDeltaBiases[dCol]);
+            deltaBiases[deltaCol] += deltaBias;
         }
     }
 
@@ -209,22 +194,18 @@ public class OutputLayer extends AbstractLayer {
      */
     @Override
     public void applyWeightChanges() {
-        if (batchMode) { // if batch mode calculate average delta weights using batch samples (mini batch)
+        if (batchMode) { 
             deltaWeights.div(batchSize);
             Tensors.div(deltaBiases, batchSize);
         }
 
-        // save current as prev delta weights (required for momentum)
         Tensor.copy(deltaWeights, prevDeltaWeights);
-        // apply(add) delta weights
         weights.add(deltaWeights);
 
-        // save current as prev delta biases
         Tensor.copy(deltaBiases, prevDeltaBiases);
-        // apply(add) delta bias
         Tensors.add(biases, deltaBiases);
 
-        if (batchMode) {    // for batch mode set all delta weights and biases to zero after applying changes. For online mode they are reseted in backward pass
+        if (batchMode) {   
             deltaWeights.fill(0);
             Tensor.fill(deltaBiases, 0);
         }

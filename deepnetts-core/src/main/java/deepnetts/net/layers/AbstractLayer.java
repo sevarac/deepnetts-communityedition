@@ -50,12 +50,9 @@ public abstract class AbstractLayer implements Layer, Serializable {
     protected AbstractLayer nextLayer;
 
     /**
-     * Input weight matrix / connectivity matrix for previous layer Koristi se
-     * samo u FullyConnected i OutputLayer-u MaxPooling nema Weights
-     * ConvolutionalLayer ima weights u filterima
-     *
+     * Input weight matrix / connectivity matrix for previous layer 
      */
-    protected Tensor weights;  // not used by convolutional and pooling layers, maybe it shoul dbe removed from here? only for  fully connected and output layers layers
+    protected Tensor weights;
 
     /**
      * Inputs to this layer (a reference to outputs matrix in prev layer, or
@@ -97,8 +94,7 @@ public abstract class AbstractLayer implements Layer, Serializable {
     protected float regularization = 0f;
 
     /**
-     * Activation function for this layer Use function reference for activation
-     * functions instead? Function activation;
+     * Activation function type for this layer.
      */
     protected ActivationType activationType;
 
@@ -213,8 +209,6 @@ public abstract class AbstractLayer implements Layer, Serializable {
     public float[] getPrevDeltaBiases() {
         return prevDeltaBiases;
     }
-    
-    
 
     public float[] getDeltaBiases() {
         return deltaBiases;
@@ -243,8 +237,6 @@ public abstract class AbstractLayer implements Layer, Serializable {
     public void setActivation(ActivationFunction activation) {
         this.activation = activation;
     }
-    
-    
 
     public float getLearningRate() {
         return learningRate;
@@ -254,7 +246,6 @@ public abstract class AbstractLayer implements Layer, Serializable {
         this.learningRate = learningRate;
     }
 
-   
     public boolean isBatchMode() {
         return batchMode;
     }

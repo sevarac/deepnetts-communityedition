@@ -199,9 +199,9 @@ public final class FullyConnectedLayer extends AbstractLayer {
         }
 
         if ((prevLayer instanceof FullyConnectedLayer)
-                || ((prevLayer instanceof InputLayer) && (prevLayer.height == 1 && prevLayer.depth == 1))) { // ili 1d Input Layer, dodati uslov
+                || ((prevLayer instanceof InputLayer) && (prevLayer.height == 1 && prevLayer.depth == 1))) { 
 
-            for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { // this iterates neurons (weights depth)
+            for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) { 
                 for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
                     final float grad = deltas.get(deltaCol) * inputs.get(inCol);
                     gradients.set(inCol, deltaCol, grad);

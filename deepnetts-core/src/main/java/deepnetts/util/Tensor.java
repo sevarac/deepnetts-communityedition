@@ -26,8 +26,7 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 /**
- * This class represents multidimensional array/matrix (can be 1D, 2D, 3D or
- * 4D). https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html
+ * This class represents multidimensional array/matrix (can be 1D, 2D, 3D or 4D).
  *
  * @author Zoran Sevarac
  */
@@ -35,27 +34,15 @@ public class Tensor implements Serializable {
 
     // tensor dimensions - better use shape
     private final int cols, rows, depth, fourthDim, dimensions;
-    // todo & benchmark shape max dimenzije 4 da podrzi na postojece atribute
     private final int[] shape = new int[4];
-    private int rank; // how many dimensions in shape - shape.length ; same as dimensions
-    private int size; // broj elemenata u nizu - kad se izmnoze sve dimenzije
-    // dimensions = shape.length;
-    // column first order
-    // poslednja dimenzija se uvek najbrze vrti, prva najsporije (kao i kod prirodnih brojeva)
-    // ako je poslednja dimenzija najsporija onda dodatne dimenzije idu napred
-    // col - shape[0]
-    // row, col - shape[1], shape[0] ? ili shape[0], shape[1] ? posto je poslednji najbrzi column je poslednjii treba da bude najbrzi
-    // depth, row, col
-    // forth, depth, row, col   -    ato je sve za column first, odnosno kolona je najbrzadimenzija i tako bih resio ono sa DenseLayer i weights indexom
+    private int rank; 
+    private int size; 
 
-    // u ndim indexu col je 0, row je 1, z je 2, fourth je 3 (to je stride)
-    // good explanation and formulas for indexing
-    // https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html
     /**
      * Values stored in this tensor make it final , only input layer and tests
      * sets values
      */
-    private float values[]; // todo: use ByteBuffer instead of array in order to avoid range checking
+    private float values[];
 
     /**
      * Creates a single row tensor with specified values.
@@ -84,7 +71,6 @@ public class Tensor implements Serializable {
         this.dimensions = 2;
         this.values = new float[rows * cols];
 
-        // copyFrom array to single dim
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 set(row, col, vals[row][col]);
@@ -106,7 +92,6 @@ public class Tensor implements Serializable {
         this.dimensions = 3;
         this.values = new float[rows * cols * depth];
 
-        // copyFrom array
         for (int z = 0; z < depth; z++) {
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
@@ -126,7 +111,6 @@ public class Tensor implements Serializable {
         this.dimensions = 4;
         this.values = new float[rows * cols * depth * fourthDim];
 
-        // copyFrom array
         for (int f = 0; f < fourthDim; f++) {
             for (int z = 0; z < depth; z++) {
                 for (int row = 0; row < rows; row++) {
@@ -156,7 +140,6 @@ public class Tensor implements Serializable {
         values = new float[cols];
     }
 
-    // ovaj najbolje preko factory metode
     public Tensor(int cols, float val) {
         if (cols < 0) {
             throw new IllegalArgumentException("Number of cols cannot be negative: " + cols);
@@ -309,21 +292,6 @@ public class Tensor implements Serializable {
         this.values = values;
     }
 
-//    public Tensor(float[] values, int ... shape ) {
-//        if (shape.length > 4) throw new IllegalArgumentException("Tensor can have max 4 dimensions");
-//        this.dimensions = shape.length;
-//
-//        if (dimensions == 1) this.cols = shape[1];
-//
-//        this.rows = shape[0];
-//
-//        if (dimensions > 2)
-//
-//        this.depth = shape[2];
-//        this.fourthDim = shape[3];
-//
-//        this.values = values;
-//    }
     private Tensor(Tensor t) {
         this.cols = t.cols;
         this.rows = t.rows;
@@ -356,7 +324,6 @@ public class Tensor implements Serializable {
         return values[idx] = val;
     }
 
-    // make sure this method gets inlined - final?   keeping hot methods small (35 bytecodes or less) final migh help, it will get inlined if its a hotspot - frequent calls
     /**
      * Returns matrix value at row, col
      *
@@ -409,11 +376,7 @@ public class Tensor implements Serializable {
         values[idx] = val;
     }
 
-    // still under development dont use it!
-    // pretpostavi d je dim
     public final float getWithStride(final int[] idxs) {
-        // final int idx = idxs[3] * shape[2] * shape[1] * shape[0] + idxs[2] * shape[1] * shape[0] + idxs[1] * shape[0] + idxs[0];
-        // final int idx = fourth * rows * cols * depth             + z * rows * cols               + row * cols         + col;
         final int idx = idxs[0] * shape[1] * shape[2] * shape[3] + idxs[1] * shape[2] * shape[3] + idxs[2] * shape[3] + idxs[3];
         return values[idx];
     }

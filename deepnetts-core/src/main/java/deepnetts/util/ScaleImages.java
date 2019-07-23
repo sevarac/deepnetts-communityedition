@@ -36,31 +36,29 @@ import javax.imageio.ImageIO;
  */
 public class ScaleImages {
 
-    String sourcePath = "D:\\datasets\\DukesChoiceDemo\\duke\\";  // moraju na kraju da se stave \\ ispravi to
-    String targetPath = "D:\\datasets\\DukesChoiceDemo\\duke-scaled\\";
+    String sourcePath = "D:\\datasets\\sourcePath\\"; 
+    String targetPath = "D:\\datasets\\targetPath\\";
     int targetWidth=96,
         targetHeight=96;
 
-    String imageIndexFileFile =""; // index.txt
-    String labelsFile =""; // labels.txt
-    // ovo treba da radi bez ucitavanja celog direktorijuma nego protocno
+    String imageIndexFileFile =""; 
+    String labelsFile =""; 
+
     public void run() {
         try {
-            HashMap<File, BufferedImage> images = ImageUtils.loadFileImageMapFromDirectory(new File(sourcePath)); // da ne ucitava nista sto nije png, jpg i jpeg
+            HashMap<File, BufferedImage> images = ImageUtils.loadFileImageMapFromDirectory(new File(sourcePath));
 
             int i = 0;
             for(File file : images.keySet()) {
                 BufferedImage scaledImage = ImageUtils.scaleAndCenter(images.get(file), targetWidth, targetHeight, 0, Color.WHITE);
                 String fileName = file.getName();
-                String imgType = fileName.substring(fileName.lastIndexOf(".")+1); // da podrzi i png slike!
+                String imgType = fileName.substring(fileName.lastIndexOf(".")+1);
 
                 ImageIO.write(scaledImage, imgType, new File(targetPath + ""+file.getName()));
                 i++;
             }
 
             ImageUtils.createIndexFile(images, targetPath + "imageIndex.txt", true);
-            // create labels file too
-            // create the directory structure - all classes in same
 
         } catch (IOException ex) {
             Logger.getLogger(ScaleImages.class.getName()).log(Level.SEVERE, null, ex);

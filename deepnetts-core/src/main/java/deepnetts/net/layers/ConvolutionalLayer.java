@@ -42,7 +42,7 @@ import deepnetts.util.Tensors;
 public final class ConvolutionalLayer extends AbstractLayer {
 
     Tensor[] filters;           // each filter corresponds to a single channel. Each filter can be 3D, where 3rd dimension coreesponds to depth in previous layer. TODO: the depth pf th efilter should be tunable
-    Tensor[] deltaWeights;      //ovo za sada ovako dok proradi. Posle mozda ubaciti jos jednu dimenziju u matricu - niz za kanale. i treba da overriduje polje jer su weights u filterima za sve prethdne kanale
+    Tensor[] deltaWeights;      
     Tensor[] prevDeltaWeights;  // delta weights from previous iteration (used for momentum)
     Tensor[] prevGradSums;  // delta weights from previous iteration (used for momentum)
 
@@ -97,9 +97,9 @@ public final class ConvolutionalLayer extends AbstractLayer {
     public ConvolutionalLayer(int filterWidth, int filterHeight, int channels) {
         this.filterWidth = filterWidth;
         this.filterHeight = filterHeight;
-        this.depth = channels; // ovo je isto kao i depth, broj feature mapa
+        this.depth = channels;
         this.stride = 1;
-        this.activationType = ActivationType.TANH; // use relu as default?
+        this.activationType = ActivationType.TANH;
         this.activation = ActivationFunction.create(activationType);
     }
 
@@ -147,7 +147,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
         outputs = new Tensor(height, width, depth);
         deltas = new Tensor(height, width, depth);
 
-        // init filters(weights) - broj filtera je isti kao i broj kanala/dubina prethodnog lejera
+        // init filters(weights)
         filterDepth = prevLayer.getDepth();
         filters = new Tensor[depth]; 
         deltaWeights = new Tensor[depth];
@@ -156,7 +156,6 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
         int inputCount = (filterWidth * filterHeight + 1) * filterDepth;
 
-        // kreiraj pojedinacne filtere ovde
         for (int ch = 0; ch < filters.length; ch++) {
             filters[ch] = new Tensor(filterHeight, filterWidth, filterDepth);
             RandomWeights.uniform(filters[ch].getValues(), inputCount); 
@@ -172,9 +171,8 @@ public final class ConvolutionalLayer extends AbstractLayer {
         deltaBiases = new float[depth];
         prevDeltaBiases = new float[depth];
         prevBiasSqrSum = new Tensor(depth);
-        //RandomWeights.randomize(biases);        // sometimes the init to 0 fir relu 0.1
-        Tensor.fill(biases, 0.1f);
-        
+        //RandomWeights.randomize(biases);        // sometimes the init to 0 for relu 0.1
+        Tensor.fill(biases, 0.1f);        
     }
 
     /**
@@ -317,28 +315,24 @@ public final class ConvolutionalLayer extends AbstractLayer {
         int filterCenterY = (nextConvLayer.filterHeight - 1) / 2;
         
         for (int ndZ = 0; ndZ < nextLayer.deltas.getDepth(); ndZ++) {
-            for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) { // iteriraj delte sledeceg lejera po visini
-                for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { // iteriraj delte sledeceg lejera po sirini
-                    final float nextLayerDelta = nextLayer.deltas.get(ndRow, ndCol, ndZ); // uzmi deltu iz sledeceg sloja za tekuci neuron (dx, dy, dz) sledeceg sloja, da li treba d ase sabiraju?
+            for (int ndRow = 0; ndRow < nextLayer.deltas.getRows(); ndRow++) {
+                for (int ndCol = 0; ndCol < nextLayer.deltas.getCols(); ndCol++) { 
+                    final float nextLayerDelta = nextLayer.deltas.get(ndRow, ndCol, ndZ); 
 
-                   // for (int fz = 0; fz < nextConvLayer.filterDepth; fz++) {    //!! pa da li je ovo isto kao i prvi loop - da li je dupliranje???!!! kao ovaj prvi ch!!! mislim da tu ima nepotrebnog preklapanja /dupliranja. kada filter ne bude iseo preko svih u prethodnom lejeru onda nece biti preklapanja
                         for (int fr = 0; fr < nextConvLayer.filterHeight; fr++) {
                             for (int fc = 0; fc < nextConvLayer.filterWidth; fc++) {
-                                final int row = ndRow * nextConvLayer.stride + (fr - filterCenterY); // proveri da li ovo dobro racuna
+                                final int row = ndRow * nextConvLayer.stride + (fr - filterCenterY); 
                                 final int col = ndCol * nextConvLayer.stride + (fc - filterCenterX);
 
                                 if (row < 0 || row >= outputs.getRows() || col < 0 || col >= outputs.getCols()) {
                                     continue;
                                 }
 
-                                // Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.
-                                final float derivative = activation.getPrime(outputs.get(row, col, fz)); // ne pozivati ovu funkciju ovde u petlji  vec optimizovati nekako. Mnoziti van petlje nakon zavrsetka sabiranja. Izracunati izvode u jednom prolazu, pa onda mnoziti  ane za svaku celiju.
-                                //   ... ovde treba razjasniti kako se mnozi sa weightsomm? da li ih treba sabirati
+                                final float derivative = activation.getPrime(outputs.get(row, col, fz)); 
                                 deltas.add(row, col, fz, nextLayerDelta * nextConvLayer.filters[ndZ].get(fr, fc, fz) * derivative);
                             }
                         }
-                   // }
-                   deltas.div(nextConvLayer.filterWidth*nextConvLayer.filterHeight*nextConvLayer.filterDepth); // make this average for all filter positions from next layer
+                   deltas.div(nextConvLayer.filterWidth*nextConvLayer.filterHeight*nextConvLayer.filterDepth);
                 }
             }
         }    
@@ -362,7 +356,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
          final float divisor = width * height; 
 
         // assumes that deltas from the next layer are allready propagated
-        // 2. calculate weight changes in filters
+        // calculate weight changes in filters
         for (int deltaRow = 0; deltaRow < deltas.getRows(); deltaRow++) {
             for (int deltaCol = 0; deltaCol < deltas.getCols(); deltaCol++) {
                 // iterate all weights in filter for filter depth
@@ -414,18 +408,18 @@ public final class ConvolutionalLayer extends AbstractLayer {
     @Override
     public void applyWeightChanges() {
 
-        if (batchMode) {    // divide biases with batch samples if it is in batch mode
+        if (batchMode) {
             Tensors.div(deltaBiases, batchSize);
         }
 
         Tensor.copy(deltaBiases, prevDeltaBiases);  // save this for momentum
 
         for (int ch = 0; ch < depth; ch++) {
-            if (batchMode) { // podeli Delta weights sa brojem uzoraka odnosno backward passova
+            if (batchMode) { 
                 deltaWeights[ch].div(batchSize);
             }
 
-            Tensor.copy(deltaWeights[ch], prevDeltaWeights[ch]); // da li ovo treba pre ilo posle prethodnog kad aje u batch mode-u?, ok je d abude posle jer se prienjuje pojedinacno
+            Tensor.copy(deltaWeights[ch], prevDeltaWeights[ch]); 
 
             filters[ch].add(deltaWeights[ch]);
             biases[ch] += deltaBiases[ch];
@@ -451,7 +445,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
 
     public void setFilters(String filtersStr) {
 
-        String[] strVals = filtersStr.split(";"); // ; is hardcoded filter separator see FileIO // also can be splited at "
+        String[] strVals = filtersStr.split(";"); 
         int filterSize = filterWidth * filterHeight * filterDepth;
 
         for (int i = 0; i < filters.length; i++) {
@@ -461,7 +455,7 @@ public final class ConvolutionalLayer extends AbstractLayer {
                 filterValues[k] = Float.parseFloat(vals[k]);
             }
 
-            filters[i].setValues(filterValues); // ovde je tensor 5x5x3 a imamomo samo 25 vrednosti
+            filters[i].setValues(filterValues); 
         }
     }
 
