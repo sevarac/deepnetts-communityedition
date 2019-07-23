@@ -4,7 +4,7 @@ import deepnetts.examples.util.CsvFile;
 import deepnetts.examples.util.Plot;
 import java.io.FileNotFoundException;
 
-public class RandomLinearData3 {
+public class RandomLinearDataGenerator {
 
     static final int X = 0;
     static final int Y = 1;

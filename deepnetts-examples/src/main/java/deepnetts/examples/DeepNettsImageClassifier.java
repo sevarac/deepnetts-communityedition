@@ -21,17 +21,14 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.ExampleImage;
 import deepnetts.net.ConvolutionalNetwork;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.visrec.AbstractImageClassifier;
-import javax.visrec.ml.classification.Classifier;
 
 /**
  * Example how to create image classifier using ConvolutionalNetwork
@@ -43,7 +40,6 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
     private ConvolutionalNetwork convNet;
 
     public DeepNettsImageClassifier(ConvolutionalNetwork convNet) {
-      //TODO: has to beable to specify model instance also
        super(BufferedImage.class, convNet);
      // super(convNet);
     }

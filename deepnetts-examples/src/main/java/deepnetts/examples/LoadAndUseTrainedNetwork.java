@@ -42,7 +42,7 @@ public class LoadAndUseTrainedNetwork {
             ConvolutionalNetwork neuralNet =  FileIO.createFromFile("javaOneSponsors.net", ConvolutionalNetwork.class);
 
             DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(neuralNet);    // this image recognize shoul dbe used from visrec api
-            Map<String, Float> results = imageClassifier.classify(new File("/home/zoran/Desktop/JavaOneSponsors/redhat.png"));
+            Map<String, Float> results = imageClassifier.classify(new File("/home/zoran/Desktop/imageFile.png"));
             System.out.println(results.toString());
 
         } catch (IOException | ClassNotFoundException ioe) {

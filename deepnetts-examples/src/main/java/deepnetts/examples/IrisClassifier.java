@@ -21,12 +21,11 @@
  */
 package deepnetts.examples;
 
-import deepnetts.core.DeepNetts;
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSet;
+import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.Evaluators;
+import deepnetts.eval.ConfusionMatrix;
 import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -34,50 +33,49 @@ import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
-import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Iris Classification Problem. This example is using Softmax activation in
- * output addLayer and Cross Entropy Loss function.
+ * output layer and Cross Entropy Loss function. Overfits the iris data set
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class IrisClassificationCE3 {
-
-    private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
+public class IrisClassifier {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
+
         // load iris data  set
         DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
-        //DataSets.normalizeMax(dataSet, true); // perform inplace normalization        
-        DataSet[] dataSetParts = dataSet.split(0.6, 0.4); // provide random generator in order to do spliting the same way
-        // dataSet.normalize();// Norm.MAX Norm.RANGE Norm.ZSCORE, i overload gde kao parametar prihvata normalizator? assumes that all data are numeric
+        // split loaded data into 70 : 30% ratio
+        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.65);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addFullyConnectedLayer(3, ActivationType.TANH)
+                .addFullyConnectedLayer(3, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .randomSeed(123).
-                build();
+                .randomSeed(456)
+                .build();
+
+        // create and configure instanceof backpropagation trainer
+        BackpropagationTrainer trainer = neuralNet.getTrainer();
+        trainer.setMaxError(0.09f);
+        trainer.setLearningRate(0.1f);
+        trainer.setBatchMode(true);
+        trainer.setBatchSize(97);
+        trainer.setMomentum(0.9f);
+        trainer.setOptimizer(OptimizerType.MOMENTUM);
+
+        neuralNet.train(trainTestSet[0]);
         
-        //train  neural network
-        neuralNet.train(dataSetParts[0]);
-        
-        // test neural network
-        EvaluationMetrics pm = neuralNet.test(dataSetParts[1]);                
-        System.out.println("Classification performance measure");
+       ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        EvaluationMetrics pm = evaluator.evaluate(neuralNet, trainTestSet[1]);
         System.out.println(pm);
-        
-        // use it for prediction
-        //neuralNet.setInput(inputs);
-        //neuralNet.getOutput();
-        
+        System.out.println("CONFUSION MATRIX");
+        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+        System.out.println(cm);        
     }
 
 }
