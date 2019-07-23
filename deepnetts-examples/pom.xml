@@ -31,24 +31,4 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <name>deepnetts-examples</name>
-    <description>Run options for debugging inlining
-
--XX:+PrintCompilation
--XX:+UnlockDiagnosticVMOptions
--XX:+PrintInlining
--XX:MaxInlineSize=80
-
-
-----------------------------
-For JitWatch
-
--XX:+UnlockDiagnosticVMOptions
--XX:MaxInlineSize=80
--XX:+LogCompilation
--XX:+TraceClassLoading
--XX:+RangeCheckElimination
--XX:+TraceClassLoading
-
-
-</description>
 </project>
