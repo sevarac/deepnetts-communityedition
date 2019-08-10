@@ -47,11 +47,13 @@ public class SpamClassifier {
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(57)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
-                .addOutputLayer(1, ActivationType.SOFTMAX)
+                .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)
-                .randomSeed(456)
+                .randomSeed(123)
                 .build();
 
+        neuralNet.getTrainer().setLearningRate(0.001f);
+        
         // start training
         neuralNet.train(dataSet);
         
