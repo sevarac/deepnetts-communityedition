@@ -320,7 +320,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
 
 
-            if (Float.isNaN(totalTrainingLoss)) throw new DeepNettsException("NaN value during training!");
+            if (Float.isNaN(totalTrainingLoss)) stopTraining = true;
 
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
