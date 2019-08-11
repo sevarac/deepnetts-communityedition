@@ -1,4 +1,0 @@
-[ERROR] 2019-03-10 12:42:01.836 [main] DeepNetts - java.lang.NullPointerException
-[ERROR] 2019-03-10 12:43:49.354 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
-[ERROR] 2019-03-10 13:15:02.095 [main] DeepNetts - java.lang.NullPointerException
-[ERROR] 2019-03-10 13:16:54.988 [main] DeepNetts - javax.imageio.IIOException: Can't read input file!
