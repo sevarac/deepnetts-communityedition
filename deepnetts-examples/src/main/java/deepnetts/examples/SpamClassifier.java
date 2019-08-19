@@ -42,7 +42,10 @@ public class SpamClassifier {
 
         // load spam data  set from csv file
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", 57, 1, true);             
-
+        
+        // split data set into train and test set
+        DataSet[] trainTestSplit = dataSet.split(0.6);
+        
         // create instance of feed forward neural network its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(57)
@@ -52,13 +55,13 @@ public class SpamClassifier {
                 .randomSeed(123)
                 .build();
 
-        neuralNet.getTrainer().setLearningRate(0.001f);
+        neuralNet.getTrainer().setLearningRate(0.01f);
         
         // start training
-        neuralNet.train(dataSet);
+        neuralNet.train(trainTestSplit[0]);
         
         // test network /  evaluate classification accuracy
-        EvaluationMetrics em = neuralNet.test(dataSet);
+        EvaluationMetrics em = neuralNet.test(trainTestSplit[0]);
         System.out.println(em);
     }
 }
