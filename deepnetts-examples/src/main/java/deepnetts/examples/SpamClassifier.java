@@ -23,6 +23,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
+import deepnetts.data.util.MaxNormalizer;
 import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -42,11 +43,16 @@ public class SpamClassifier {
 
         // load spam data  set from csv file
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", 57, 1, true);             
-        
+
         // split data set into train and test set
-        DataSet[] trainTestSplit = dataSet.split(0.6);
+        DataSet[] trainTest = dataSet.split(0.6);
         
-        // create instance of feed forward neural network its builder
+        // normalize data
+        MaxNormalizer norm = new MaxNormalizer(trainTest[0]);
+        norm.normalize(trainTest[0]);
+        norm.normalize(trainTest[1]);
+        
+        // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(57)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
@@ -55,13 +61,15 @@ public class SpamClassifier {
                 .randomSeed(123)
                 .build();
 
-        neuralNet.getTrainer().setLearningRate(0.01f);
+        // set training settings
+        neuralNet.getTrainer().setMaxError(0.2f)
+                              .setLearningRate(0.01f);
         
         // start training
-        neuralNet.train(trainTestSplit[0]);
+        neuralNet.train(trainTest[0]);
         
         // test network /  evaluate classification accuracy
-        EvaluationMetrics em = neuralNet.test(trainTestSplit[0]);
+        EvaluationMetrics em = neuralNet.test(trainTest[1]);
         System.out.println(em);
     }
 }
