@@ -71,7 +71,6 @@ public class Mnist {
         imageSet.loadImages(new File(trainingFile), 3000); //50000
 
       //  imageSet.zeroMean();
-        imageSet.shuffle();
 
         imageSet.countByClasses();      
         
@@ -93,7 +92,7 @@ public class Mnist {
                 .addFullyConnectedLayer(30)
                 .addFullyConnectedLayer(20)
                 .addOutputLayer(labelsCount, ActivationType.SOFTMAX)
-                .hiddenActivationFunction(ActivationType.RELU)
+                .hiddenActivationFunction(ActivationType.TANH)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
@@ -108,7 +107,7 @@ public class Mnist {
                 .setBatchMode(false)
           //      .setBatchSize(32)
                 .setOptimizer(OptimizerType.SGD);
-        trainer.train(imageSets[0], 0.2);
+        trainer.train(imageSets[0]);
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();

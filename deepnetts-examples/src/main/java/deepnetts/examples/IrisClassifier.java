@@ -22,7 +22,6 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSet;
-import deepnetts.data.BasicDataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
@@ -48,12 +47,12 @@ public class IrisClassifier {
         // load iris data  set
         DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
         // split loaded data into 70 : 30% ratio
-        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.65);
+        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.6);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(4)
-                .addFullyConnectedLayer(3, ActivationType.TANH) // 20 hid 28 epochs, 10 51, 30 hid, 35 epochs, 15 hid 46 epochs, 5 hid 62 epochs, 3 hid 41 epochs
+                .addFullyConnectedLayer(5, ActivationType.TANH)
                 .addOutputLayer(3, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(456)
@@ -61,10 +60,8 @@ public class IrisClassifier {
 
         // create and configure instanceof backpropagation trainer
         BackpropagationTrainer trainer = neuralNet.getTrainer();
-        trainer.setMaxError(0.09f);
-        trainer.setLearningRate(0.1f);
-        trainer.setBatchMode(true);
-        trainer.setBatchSize(97);
+        trainer.setMaxError(0.04f);
+        trainer.setLearningRate(0.01f);
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
 
