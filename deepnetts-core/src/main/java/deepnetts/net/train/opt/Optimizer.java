@@ -34,6 +34,8 @@ public interface Optimizer {
         switch (type) {
             case SGD:
                 return new SgdOptimizer(layer);
+            case MOMENTUM:
+                return new MomentumOptimizer(layer);
             default:
                 throw new DeepNettsException("Unknown optimizer:" + type);
         }
