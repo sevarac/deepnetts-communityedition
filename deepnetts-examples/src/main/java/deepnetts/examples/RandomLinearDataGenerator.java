@@ -21,13 +21,13 @@ public class RandomLinearDataGenerator {
 
         // generate random points with underlying linear trend as specified in method linear
         for(int i=0; i<dataPoints.length; i++) {
-           dataPoints[i][X] =  0.5-Math.random();                     // X values are random numbers from [0, 1]
+           dataPoints[i][X] =  0.5-Math.random();                // X values are random numbers from [0, 1]
            double noise = Math.random() / NOISE_FACTOR;          // generate random noise
-           dataPoints[i][Y] = linear(dataPoints[i][X]) + noise; // add noise to underlying linear function
+           dataPoints[i][Y] = linear(dataPoints[i][X]) + noise;  // add noise to underlying linear function
         }
 
         Plot.scatter(dataPoints);
-        CsvFile.write(dataPoints, "linear3.csv");
+        CsvFile.write(dataPoints, "linear.csv");
     }
 
     public static double linear(double x) {

@@ -21,15 +21,15 @@
  */
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.data.util.MaxNormalizer;
-import deepnetts.eval.EvaluationMetrics;
+import deepnetts.data.norm.MaxNormalizer;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.DeepNettsException;
 import java.io.IOException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Spam  Classification Problem. This example is using Softmax activation in

@@ -30,7 +30,7 @@ import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.loss.LossType;
 import java.io.File;
 import java.io.IOException;

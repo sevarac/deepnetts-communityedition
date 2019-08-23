@@ -21,9 +21,8 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -31,6 +30,7 @@ import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import java.io.IOException;
 import java.util.Arrays;
+import javax.visrec.ml.data.DataSet;
 
 
 /**

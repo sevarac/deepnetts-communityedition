@@ -29,7 +29,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
 import java.io.File;
@@ -89,7 +89,7 @@ public class DukeDetector {
                 .build();
 
 
-        convNet.setOutputLabels(imageSet.getOutputLabels());
+        convNet.setOutputLabels(imageSet.getTargetNames());
 
         LOGGER.info("Training neural network");
 

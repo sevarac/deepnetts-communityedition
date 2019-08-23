@@ -23,9 +23,8 @@ package deepnetts.examples;
 
 import deepnetts.examples.util.CsvFile;
 import deepnetts.examples.util.Plot;
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -34,6 +33,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.Tensor;
 import java.io.IOException;
 import java.util.Arrays;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Minimal example for linear regression using FeedForwardNetwork.

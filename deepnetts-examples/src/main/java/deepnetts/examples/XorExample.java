@@ -20,15 +20,12 @@
  */
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSetItem;
-import deepnetts.data.BasicDataSet;
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Solve XOR problem to confirm that backpropagation is working, and that it can

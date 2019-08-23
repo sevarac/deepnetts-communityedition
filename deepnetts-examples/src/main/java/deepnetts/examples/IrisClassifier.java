@@ -21,11 +21,10 @@
  */
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
@@ -33,6 +32,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import java.io.IOException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Iris Classification Problem. This example is using Softmax activation in
@@ -47,7 +47,8 @@ public class IrisClassifier {
         // load iris data  set
         DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
         // split loaded data into 70 : 30% ratio
-        DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.6);
+      //  DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.6);
+        DataSet[] trainTestSet = dataSet.split(0.6, 0.4);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -67,7 +68,7 @@ public class IrisClassifier {
 
         neuralNet.train(trainTestSet[0]);
         
-       ClassifierEvaluator evaluator = new ClassifierEvaluator();
+        ClassifierEvaluator evaluator = new ClassifierEvaluator();
         EvaluationMetrics pm = evaluator.evaluate(neuralNet, trainTestSet[1]);
         System.out.println(pm);
         System.out.println("CONFUSION MATRIX");

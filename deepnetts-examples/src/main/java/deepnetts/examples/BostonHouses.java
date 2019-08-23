@@ -21,15 +21,15 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.Tensor;
 import java.io.IOException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Minimal example for linear regression using FeedForwardNetwork.

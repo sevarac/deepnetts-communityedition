@@ -1,8 +1,7 @@
 package deepnetts.examples;
 
-import deepnetts.data.DataSet;
 import deepnetts.data.DataSets;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -11,6 +10,7 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
 import java.io.IOException;
+import javax.visrec.ml.data.DataSet;
 
 /**
  * Iris Classification Problem. This example is using Softmax activation in

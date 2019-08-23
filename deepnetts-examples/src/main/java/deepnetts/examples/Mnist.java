@@ -16,8 +16,7 @@
  * Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <https://www.gnu.org/licenses/>.package
- * deepnetts.core;
+ * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 package deepnetts.examples;
 
@@ -29,7 +28,7 @@ import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.FileIO;
@@ -68,7 +67,7 @@ public class Mnist {
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.setInvertImages(true);
         imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), 3000); //50000
+        imageSet.loadImages(new File(trainingFile), 1000); //50000
 
       //  imageSet.zeroMean();
 

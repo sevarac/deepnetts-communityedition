@@ -21,7 +21,7 @@
 
 package deepnetts.examples;
 
-import deepnetts.data.BasicDataSet;
+import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -38,7 +38,7 @@ public class Regression {
     
     public static void main(String[] args) {
         
-        BasicDataSet dataSet = null;// get dataset from somewhere
+        DeepNettsBasicDataSet dataSet = null;// get dataset from somewhere
         
         NeuralNetwork neuralNet = FeedForwardNetwork.builder()
                                     .addInputLayer(5)
