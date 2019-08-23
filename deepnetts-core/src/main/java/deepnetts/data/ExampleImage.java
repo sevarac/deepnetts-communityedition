@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
  * This class represents example image to train the network.
  * It contains image and label information.
  */
-public class ExampleImage implements DataSetItem {
+public class ExampleImage implements DeepNettsDataSetItem {
 
     /**
      * Image dimensions - width and height
@@ -61,6 +61,7 @@ public class ExampleImage implements DataSetItem {
     private File file;
 
 
+    
     /**
      * Creates an instance of new example image with specified image and label
      * Loads image from specified file and creates matrix structures with color information
@@ -79,13 +80,17 @@ public class ExampleImage implements DataSetItem {
         createInputFromPixels(image);
     }
 
-    public ExampleImage(BufferedImage image, String label) throws IOException {
+    public ExampleImage(BufferedImage image, String label) {
         this.label = label;
         width = image.getWidth();
         height = image.getHeight();
 
         createInputFromPixels(image);
     }
+    
+    public ExampleImage(BufferedImage image) {
+        this(image, null);
+    }    
     
     public ExampleImage(BufferedImage image, String label, int targetWidth, int targetHeight) throws IOException {
         this.label = label;

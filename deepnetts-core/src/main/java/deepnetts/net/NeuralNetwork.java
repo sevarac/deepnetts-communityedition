@@ -21,9 +21,7 @@
 
 package deepnetts.net;
 
-import deepnetts.data.DataSet;
 import deepnetts.eval.Evaluators;
-import deepnetts.eval.EvaluationMetrics;
 import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.layers.InputLayer;
 import deepnetts.net.layers.OutputLayer;
@@ -38,6 +36,9 @@ import deepnetts.util.Tensor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.eval.EvaluationMetrics;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Base class for all neural networks in DeepNetts.
@@ -128,11 +129,11 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         outputLayer.setOutputErrors(outputErrors);
     }
 
-    public void train(DataSet<?> trainingSet) {
+    public void train(DataSet<? extends DeepNettsDataSetItem> trainingSet) {
         trainer.train(trainingSet);
     }
 
-    public EvaluationMetrics test(DataSet<?> testSet) {
+    public EvaluationMetrics test(DataSet<DeepNettsDataSetItem> testSet) {
         if (getLossFunction() instanceof CrossEntropyLoss ||
             getLossFunction() instanceof BinaryCrossEntropyLoss) {
           return Evaluators.evaluateClassifier(this, testSet);

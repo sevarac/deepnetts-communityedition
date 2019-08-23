@@ -20,14 +20,14 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.util;
+package deepnetts.data.norm;
 
-import deepnetts.data.BasicDataSetItem;
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
 import deepnetts.util.Tensor;
 import deepnetts.util.Tensors;
 import java.io.Serializable;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.data.Normalizer;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Performs max normalization, rescales data to corresponding max value in each column.
@@ -36,7 +36,7 @@ import java.io.Serializable;
  * 
  * @author Zoran Sevarac
  */
-public final class MaxNormalizer implements Normalizer, Serializable {
+public final class MaxNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem>>, Serializable {
     private Tensor maxInputs;
     private Tensor maxOutputs;
                 
@@ -45,13 +45,13 @@ public final class MaxNormalizer implements Normalizer, Serializable {
      * 
      * @param dataSet 
      */
-    public MaxNormalizer(DataSet<BasicDataSetItem> dataSet) {
+    public MaxNormalizer(DataSet<DeepNettsDataSetItem> dataSet) {
         // find max values for each component of input and output tensor/vector
         maxInputs = dataSet.get(0).getInput().copy();
         maxOutputs = dataSet.get(0).getTargetOutput().copy();
         
         // find max values for all components of input and output vectors
-        for(BasicDataSetItem item : dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             maxInputs = Tensors.absMax(item.getInput(), maxInputs); 
             maxOutputs = Tensors.absMax(item.getTargetOutput(), maxOutputs);
         }        
@@ -63,9 +63,9 @@ public final class MaxNormalizer implements Normalizer, Serializable {
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<?> dataSet) {
+    public void normalize(DataSet<DeepNettsDataSetItem> dataSet) {
         // todo: prevent/catch division by zero
-        for(DataSetItem item : dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             item.getInput().div(maxInputs);   // kad je absMaxInput postao 1 1 1 1 posle pre iteracije!!!
             item.getTargetOutput().div(maxOutputs); 
         }    

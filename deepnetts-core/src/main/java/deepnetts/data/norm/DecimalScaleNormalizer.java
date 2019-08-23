@@ -20,13 +20,16 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.util;
+package deepnetts.data.norm;
 
-import deepnetts.data.BasicDataSetItem;
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
+
+
+import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.util.Tensors;
 import java.io.Serializable;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.data.Normalizer;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Decimal scale normalization for the given data set.
@@ -34,8 +37,8 @@ import java.io.Serializable;
  * 
  * @author Zoran Sevarac
  */
-public class DecimalScaleNormalizer implements Normalizer, Serializable {
-    private float[] inputDivisor;   // TODO: make these tensors
+public class DecimalScaleNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem>>, Serializable {
+    private float[] inputDivisor;
     private float[] outputDivisor;
                 
     /**
@@ -43,19 +46,19 @@ public class DecimalScaleNormalizer implements Normalizer, Serializable {
      * 
      * @param dataSet 
      */
-    public DecimalScaleNormalizer(DataSet<BasicDataSetItem> dataSet) {
+    public DecimalScaleNormalizer(DataSet<DeepNettsDataSetItem> dataSet) {
         // find max values for each component of input and output tensor/vector
         inputDivisor = dataSet.get(0).getInput().copy().getValues();
         outputDivisor = dataSet.get(0).getTargetOutput().copy().getValues();
         
         // nadji maksimume za sve kolone
-        for(BasicDataSetItem item : dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             inputDivisor = Tensors.absMax(item.getInput().getValues(), inputDivisor);
             outputDivisor = Tensors.absMax(item.getTargetOutput().getValues(), outputDivisor);
         }   
         
         // onda za svaki vektor nadji decimalnu skalu, 1, 10, 100, 1000 while (x>1) { x = x / 10.0f; scale++;}        
-        for(BasicDataSetItem item : dataSet) { 
+        for(DeepNettsDataSetItem item : dataSet) { 
             // i za svaku komponentu ulaznog ili izlaznog vektora
             inputDivisor = getDecimalScaleFor(item.getInput().getValues());
             outputDivisor = getDecimalScaleFor(item.getTargetOutput().getValues());        
@@ -90,8 +93,8 @@ public class DecimalScaleNormalizer implements Normalizer, Serializable {
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<?> dataSet) {
-        for(DataSetItem item : dataSet) {
+    public void normalize(DataSet<DeepNettsDataSetItem> dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             item.getInput().div(inputDivisor);
             item.getTargetOutput().div(outputDivisor);
         }    

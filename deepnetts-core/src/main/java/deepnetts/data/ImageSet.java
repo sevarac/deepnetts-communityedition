@@ -45,6 +45,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
+import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,8 +54,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Zoran Sevarac
  */
-public class ImageSet extends BasicDataSet<ExampleImage> {
-    //     extends DataSet<ExampleImage>  ?
+public class ImageSet extends DeepNettsBasicDataSet<ExampleImage> {
 
     private final int imageWidth;
     private final int imageHeight;
@@ -98,7 +98,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * @throws DeepNettsException if image is empty or has wrong dimensions.
      */
     @Override
-    public void add(ExampleImage exImage) throws DeepNettsException {
+    public DataSet<ExampleImage> add(ExampleImage exImage) throws DeepNettsException {
         if (exImage == null) {
             throw new DeepNettsException("Example image cannot be null!");
         }
@@ -111,6 +111,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
 //        } else {
 //            throw new DeepNettsException("Wrong image dimensions for this data set. All images should be "+imageWidth + "x"  + imageHeight);
 //        }
+        return this;
     }
 
     public void loadImages(String imageIdxFile) throws FileNotFoundException {
@@ -508,7 +509,7 @@ public class ImageSet extends BasicDataSet<ExampleImage> {
      * @return
      */
     @Override
-    public String[] getOutputLabels() {
+    public String[] getTargetNames() {
         return columnNames;
     }
 

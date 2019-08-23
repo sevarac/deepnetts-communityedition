@@ -21,107 +21,52 @@
  */
 package deepnetts.data;
 
-import deepnetts.util.DeepNettsException;
 import deepnetts.util.RandomGenerator;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import deepnetts.util.Tensor;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
+import javax.visrec.ml.data.DataSet;
 
 /**
- * A collection of data set items that will be used by deep learning algorithm.
- *
+ * Basic data set used for training neural networks in deep netts.
+ * 
+ * Note: implements DataSet from visrec api, and specify data set elements. Extends BasicDataSet from visrec.ml layer
+ * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
- * @param <ITEM_TYPE>
+ * @param <E> Type of elements in this data set.
  */
-public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM_TYPE> {
+public class DeepNettsBasicDataSet<T extends DeepNettsDataSetItem> extends javax.visrec.ml.data.BasicDataSet<T> {
 
-    /**
-     * List of data set items in this data set
-     */
-    protected List<ITEM_TYPE> items;
+    private int numInputs, numOutputs; // number of inputs and outputs / target values
 
-    private int inputsNum, outputsNum; // number of inputs and outputs
+    protected String[] columnNames; // column names
 
-    protected String[] columnNames; // - data set ce uvek biti importovan iz nekog fajla ili baze
-
-    /**
-     * Data set ID / name / label
-     */
-    private String id;
-
-    // TODO: constructor with vector dimensions annd capacity?
-    protected BasicDataSet() {
+    // TODO: do we need constructor with vector dimensions annd capacity?
+    
+    protected DeepNettsBasicDataSet() {
         items = new ArrayList<>();
     }
 
     /**
-     * Create a new instance of BasicDataSet with specified length of input and output.
-     * @param inputsNum number of input features
-     * @param outputsNum number of output features
+     * Create a new instance of BasicDataSet with specified size of input and output.
+     * 
+     * @param numInputs number of input features
+     * @param numOutputs number of output features
      */
-    public BasicDataSet(int inputsNum, int outputsNum) {
+    public DeepNettsBasicDataSet(int numInputs, int numOutputs) {
         this();
-        this.inputsNum = inputsNum;
-        this.outputsNum = outputsNum;
+        this.numInputs = numInputs;
+        this.numOutputs = numOutputs;
     }
 
-    @Override
-    public Iterator<ITEM_TYPE> iterator() {
-        return items.iterator();
+    public int getNumInputs() {
+        return numInputs;
     }
 
-    @Override
-    public void add(ITEM_TYPE item) {
-        items.add(item);
+    public int getNumOutputs() {
+        return numOutputs;
     }
-
-    @Override
-    public ITEM_TYPE get(int index) {
-        return items.get(index);
-    }
-
-    @Override
-    public void clear() {
-        items.clear();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return items.isEmpty();
-    }
-
-    @Override
-    public int size() {
-        return items.size();
-    }
-
-    public int getInputsNum() {
-        return inputsNum;
-    }
-
-    public int getOutputsNum() {
-        return outputsNum;
-    }
-
-    public List<ITEM_TYPE> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     /**
      * Split data set into specified number of part of equal sizes.
@@ -174,12 +119,12 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
             throw new IllegalArgumentException("Sum of parts cannot be larger than 1!");
         }
 
-        DataSet[] subSets = new BasicDataSet[parts.length];
+        DataSet[] subSets = new DeepNettsBasicDataSet[parts.length];
         int itemIdx = 0;
 
         this.shuffle(); // shuffle before splting, using global random seed
         for (int p = 0; p < parts.length; p++) {
-            DataSet subSet = new BasicDataSet(this.inputsNum, this.outputsNum);
+            DeepNettsBasicDataSet subSet = new DeepNettsBasicDataSet(this.numInputs, this.numOutputs);
             subSet.setColumnNames(this.columnNames);
             int itemsCount = (int) (size() * parts[p]);
 
@@ -216,6 +161,7 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
         Collections.shuffle(items, rnd);
     }
 
+    @Override
     public String[] getColumnNames() {
         return columnNames;
     }
@@ -226,19 +172,56 @@ public class BasicDataSet<ITEM_TYPE extends DataSetItem> implements DataSet<ITEM
     }
 
     @Override
-    public String[] getOutputLabels() {
-        String[] outputLabels = new String[outputsNum];
-        for (int i = 0; i < outputsNum; i++) {
-            outputLabels[i] = columnNames[inputsNum + i];
+    public String[] getTargetNames() {
+        String[] targetLabels = new String[numOutputs];
+        for (int i = 0; i < numOutputs; i++) {
+            targetLabels[i] = columnNames[numInputs + i];
         }
 
-        return outputLabels;
+        return targetLabels;
     }
+    
+    /**
+     * Represents a basic data set item (single row) with input tensor and
+     * target vector in a data set.
+     *
+     * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+     */
+    public static class Item implements DeepNettsDataSetItem {
 
-    @Override
-    public void addAll(DataSet<ITEM_TYPE> moreItems) {
-        for (ITEM_TYPE item : moreItems) {
-            items.add(item);
+        private final Tensor input; // network input
+        private final Tensor targetOutput; // for classifiers target can be index, int 
+
+        public Item(float[] in, float[] targetOutput) {
+            this.input = new Tensor(in);
+            this.targetOutput = new Tensor(targetOutput);
         }
+
+        public Item(Tensor input, Tensor targetOutput) {
+            this.input = input;
+            this.targetOutput = targetOutput;
+        }
+
+        @Override
+        public Tensor getInput() {
+            return input;
+        }
+
+        @Override
+        public Tensor getTargetOutput() {
+            return targetOutput;
+        }
+
+        public int size() {
+            return input.getCols();
+        }
+
+        @Override
+        public String toString() {
+            return "BasicDataSetItem{" + "input=" + input + ", targetOutput=" + targetOutput + '}';
+        }
+
     }
+    
+    
 }

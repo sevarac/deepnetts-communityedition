@@ -21,27 +21,29 @@
  */
 package deepnetts.eval;
 
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
 import deepnetts.net.NeuralNetwork;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.Evaluator;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Evaluation method for binary and multi-class classifiers.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
- */                                         // Evaluator<Classifier, AbstractClassifier, annotate NeuralNetwork instance to become a Classifier
-public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> { // use Classifier as a generic, wrap convolutional network with classifier
+ */                                         
+public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> { // use Classifier as a generic, wrap convolutional network with classifier
 
     /**
      * Constants used as labels for binary classification
      */
     private final static String LABEL_POSITIVE = "positive";
     private final static String LABEL_NEGATIVE = "negative";
-    private final static String LABEL_NONE = "none";
+    private final static String LABEL_NONE     = "none";
 
     /**
      * Class labels
@@ -83,17 +85,17 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<?>>
      * @return 
      */
     @Override
-    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<?> testSet) {
+    public  EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<? extends DeepNettsDataSetItem> testSet) { // NeuralNetwork, DataSet<?>
         classLabels.clear();
         classLabels.add(0, LABEL_NONE); 
-        for(String label : testSet.getOutputLabels()) { 
+        for(String label : testSet.getTargetNames()) { 
             classLabels.add(label);
         }
         
         // if class labels are empty create class1, class2, classk ....
         init();
 
-        for (DataSetItem item : testSet) {
+        for (DeepNettsDataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
             final float[] predictedOut = neuralNet.getOutput();
             processResult(item.getTargetOutput().getValues(), predictedOut);

@@ -22,15 +22,16 @@
 
 package deepnetts.net.train;
 
-import deepnetts.data.BasicDataSet;
-import deepnetts.data.DataSet;
+import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.Evaluator;
-import deepnetts.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.Evaluator;
+import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.NeuralNetwork;
 import java.util.ArrayList;
 import java.util.List;
+import javax.visrec.ml.data.DataSet;
 import org.apache.commons.lang3.SerializationUtils;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Split data set into k parts of equal sizes (folds)
@@ -43,19 +44,19 @@ public class KFoldCrossValidation {
     private int splitsNum; 
     private NeuralNetwork neuralNetwork; 
     private BackpropagationTrainer trainer; 
-    private DataSet<?> dataSet; 
-    private Evaluator<NeuralNetwork, DataSet<?>> evaluator; 
+    private DataSet<DeepNettsDataSetItem> dataSet; 
+    private Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator; 
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
 
     public EvaluationMetrics runCrossValidation() {
         List<EvaluationMetrics> measures = new ArrayList<>();
-        DataSet[] folds = dataSet.split(splitsNum);
+        DataSet[] folds = (DataSet[]) dataSet.split(splitsNum);
 
         for (int testFoldIdx = 0; testFoldIdx < splitsNum; testFoldIdx++) {
             DataSet testSet = folds[testFoldIdx];
-            DataSet trainingSet = new BasicDataSet(((BasicDataSet)dataSet).getInputsNum(), ((BasicDataSet)dataSet).getOutputsNum());
-            trainingSet.setColumnNames( ((BasicDataSet)dataSet).getColumnNames());
+            DeepNettsBasicDataSet trainingSet = new DeepNettsBasicDataSet(((DeepNettsBasicDataSet)dataSet).getNumInputs(), ((DeepNettsBasicDataSet)dataSet).getNumOutputs());
+            trainingSet.setColumnNames(((DeepNettsBasicDataSet)dataSet).getColumnNames());
             for (int trainFoldIdx = 0; trainFoldIdx < splitsNum; trainFoldIdx++) {
                 if (trainFoldIdx == testFoldIdx) continue;
                 trainingSet.addAll(folds[trainFoldIdx]);
@@ -104,7 +105,7 @@ public class KFoldCrossValidation {
             return this;
         }
 
-        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<?>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }

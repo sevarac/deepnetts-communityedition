@@ -22,9 +22,11 @@
 
 package deepnetts.eval;
 
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
 import deepnetts.net.NeuralNetwork;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.Evaluator;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Evaluates regressor neural network for specified data set.
@@ -32,10 +34,10 @@ import deepnetts.net.NeuralNetwork;
  * 
  * @author Zoran Sevarac
  */
-public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> {
+public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> {
 
     @Override
-    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<?> testSet) {
+    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<DeepNettsDataSetItem> testSet) {
         EvaluationMetrics pe = new EvaluationMetrics();
 
         MeanSquaredError mse = new MeanSquaredError();
@@ -44,7 +46,7 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> 
         int numItems= testSet.size();
         float targetMean = mean(testSet);
 
-        for (DataSetItem item : testSet) {
+        for (DeepNettsDataSetItem item : testSet) {
             neuralNet.setInput(item.getInput());
             float[] predicted = neuralNet.getOutput();
             mse.add(predicted, item.getTargetOutput().getValues());
@@ -68,9 +70,9 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<?>> 
         return pe;
     }
 
-    private float mean(DataSet<? extends DataSetItem> testSet) {
+    private float mean(DataSet<? extends DeepNettsDataSetItem> testSet) {
         float mean=0;
-        for(DataSetItem ditem : testSet) {
+        for(DeepNettsDataSetItem ditem : testSet) {
             mean += ditem.getTargetOutput().get(0);
         }
         return mean / testSet.size();

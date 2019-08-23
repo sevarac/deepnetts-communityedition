@@ -21,9 +21,10 @@
  */
 package deepnetts.net.loss;
 
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
+
 import deepnetts.net.NeuralNetwork;
+import javax.visrec.ml.data.DataSet;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Base Interface for all loss functions.
@@ -73,8 +74,8 @@ public interface LossFunction {
      * @param testSet
      * @return
      */
-    default public float valueFor(NeuralNetwork nnet, DataSet<? extends DataSetItem> testSet) {
-        for(DataSetItem tsItem : testSet) {
+    default public float valueFor(NeuralNetwork nnet, DataSet<? extends DeepNettsDataSetItem> testSet) {
+        for(DeepNettsDataSetItem tsItem : testSet) {
             nnet.setInput(tsItem.getInput());
             float[] output = nnet.getOutput();
             addPatternError(output, tsItem.getTargetOutput().getValues());

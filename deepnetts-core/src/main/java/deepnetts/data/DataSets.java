@@ -22,6 +22,7 @@
 
 package deepnetts.data;
 
+import deepnetts.data.norm.MaxNormalizer;
 import deepnetts.util.ColumnType;
 import deepnetts.util.CsvFormat;
 import java.io.File;
@@ -31,6 +32,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.regex.Pattern;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.data.Normalizer;
 
 
 /**
@@ -50,8 +53,8 @@ public class DataSets {
      * skipped
      *
      * @param csvFile CSV file
-     * @param inputsNum number of input values in a row
-     * @param outputsNum number of output values in a row
+     * @param numInputs number of input values in a row
+     * @param numOutputs number of output values in a row
      * @param hasColumnNames true if first row contains column names
      * @param delimiter delimiter used to separate values
      * @return instance of data set with values loaded from file
@@ -68,8 +71,8 @@ public class DataSets {
      * Autodetetect delimiter; header and column type
      *
      */
-    public static BasicDataSet readCsv(File csvFile, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
-        BasicDataSet dataSet = new BasicDataSet(inputsNum, outputsNum);
+    public static DataSet readCsv(File csvFile, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
+        DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(numInputs, numOutputs);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         String line=null;
         // auto detect column names - ako sadrzi slova onda ima imena. Sta ako su atributi nominalni? U ovoj fazi se pretpostavlja d anisu...
@@ -80,12 +83,12 @@ public class DataSets {
             // todo checsk number of col names
             dataSet.setColumnNames(colNames);
         } else {
-            String[] colNames = new String[inputsNum+outputsNum];
-            for(int i=0; i<inputsNum;i++)
+            String[] colNames = new String[numInputs+numOutputs];
+            for(int i=0; i<numInputs;i++)
                 colNames[i] = "in"+(i+1);
 
-            for(int j=0; j<outputsNum;j++)
-                colNames[inputsNum+j] = "out"+(j+1);
+            for(int j=0; j<numOutputs;j++)
+                colNames[numInputs+j] = "out"+(j+1);
 
             dataSet.setColumnNames(colNames);
         }
@@ -96,41 +99,41 @@ public class DataSets {
                 continue; // skip empty lines
             }
             String[] values = line.split(delimiter);
-            if (values.length != (inputsNum + outputsNum)) {
-                throw new DeepNettsException("Wrong number of values in the row " + (dataSet.size() + 1) + ": found " + values.length + " expected " + (inputsNum + outputsNum));
+            if (values.length != (numInputs + numOutputs)) {
+                throw new DeepNettsException("Wrong number of values in the row " + (dataSet.size() + 1) + ": found " + values.length + " expected " + (numInputs + numOutputs));
             }
-            float[] in = new float[inputsNum];
-            float[] out = new float[outputsNum];
+            float[] in = new float[numInputs];
+            float[] out = new float[numOutputs];
 
             try {
                 // these methods could be extracted into parse float vectors
-                for (int i = 0; i < inputsNum; i++) { //parse inputs
+                for (int i = 0; i < numInputs; i++) { //parse inputs
                     in[i] = Float.parseFloat(values[i]);
                 }
 
-                for (int j = 0; j < outputsNum; j++) { // parse outputs
-                    out[j] = Float.parseFloat(values[inputsNum + j]);
+                for (int j = 0; j < numOutputs; j++) { // parse outputs
+                    out[j] = Float.parseFloat(values[numInputs + j]);
                 }
             } catch (NumberFormatException nex) {
                 throw new DeepNettsException("Error parsing csv, number expected line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
             }
 
-            dataSet.add(new BasicDataSetItem(in, out));
+            dataSet.add(new DeepNettsBasicDataSet.Item(in, out));
         }
 
         return dataSet;
     }
 
-    public static BasicDataSet readCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames, String delimiter) throws IOException {
-         return readCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, delimiter);
+    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws IOException {
+         return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, delimiter);
     }
 
-    public static BasicDataSet readCsv(String fileName, int inputsNum, int outputsNum, boolean hasColumnNames) throws IOException {
-        return readCsv(new File(fileName), inputsNum, outputsNum, hasColumnNames, ",");
+    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames) throws IOException {
+        return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, ",");
     }
 
-    public static BasicDataSet readCsv(String fileName, int inputsNum, int outputsNum, String delimiter) throws IOException {
-        return readCsv(new File(fileName), inputsNum, outputsNum, false, delimiter);
+    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, String delimiter) throws IOException {
+        return readCsv(new File(fileName), numInputs, numOutputs, false, delimiter);
     }
 
     /**
@@ -138,13 +141,13 @@ public class DataSets {
      * header (column names) in first row.
      *
      * @param fileName  Name of the CSV file
-     * @param inputsNum Number of input columns
-     * @param outputsNum Number of output columns
+     * @param numInputs Number of input columns
+     * @param numOutputs Number of output columns
      * @return
      * @throws IOException
      */
-    public static BasicDataSet readCsv(String fileName, int inputsNum, int outputsNum) throws IOException {
-        return readCsv(new File(fileName), inputsNum, outputsNum, false, ",");
+    public static DataSet readCsv(String fileName, int numInputs, int numOutputs) throws IOException {
+        return readCsv(new File(fileName), numInputs, numOutputs, false, ",");
     }
 
     // delimiter, hasHeader, column names and columnTypes
@@ -249,9 +252,17 @@ public class DataSets {
 
     }
 
-    public static DataSet normalizeMax(DataSet dataSet, boolean inplace) {
-        // instantiate MaxNormalizer
-        return null;
+    /**
+     * Normalize specified data set and return used normalizer.
+     * 
+     * @param dataSet Data set to normalize
+     * @return normalizer used to normalize data set
+     */
+    public static Normalizer normalizeMax(DataSet dataSet) {
+        MaxNormalizer norm = new MaxNormalizer(dataSet);
+        norm.normalize(dataSet);
+        
+        return norm;
     }
 
     // encode single row
@@ -268,20 +279,9 @@ public class DataSets {
         return vect;
     }
 
-    public static DataSet[] trainTestSplit(DataSet dataSet, double split) {
+    public static DataSet<?>[] trainTestSplit(DataSet<?> dataSet, double split) {
         dataSet.shuffle();
         return dataSet.split(split, 1-split);
     }
-
-
-//    public static float[] oneHotEncode(final int i, final int categories) {
-//
-//    }
-
-//    public static DataSet random(int inputsNum, int outputsNum, inst size) {
-//
-//
-//    }
-
 
 }

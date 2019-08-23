@@ -22,9 +22,10 @@
 
 package deepnetts.net.train;
 
-import deepnetts.data.DataSet;
+import javax.visrec.ml.data.DataSet;
+import deepnetts.data.DeepNettsDataSetItem;
 
 
 public interface Trainer {
-        public void train(DataSet<?> trainingSet);
+        public void train(DataSet<? extends DeepNettsDataSetItem> trainingSet);
 }

@@ -19,26 +19,21 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.package deepnetts.core;
  */
     
-package deepnetts.eval;
+package deepnetts.data;
+
+import deepnetts.util.Tensor;
 
 /**
- * All evaluators implement this interface.
- * CONSIDER: using more specific model type instead of general model class? Classifier, Regressor?
+ * Single item in a Deep Netts data set that provides methods for accessing input and target output.
+ * This could be a marker interface (turn to annotation in future)
+ * for example @DataSetItem
+ * If somebody wants data set if custm objectsthey have to implement this interface for those objects and it should work
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
- * @param <MODEL_CLASS>
- * @param <DATASET_CLASS>
  */
-@FunctionalInterface
-public interface Evaluator<MODEL_CLASS, DATASET_CLASS> {
+public interface DeepNettsDataSetItem {        
     
-    /**
-     * Evaluate model with specified test set.
-     *
-     * @param model A model to evaluate
-     * @param testSet Data to use for evaluation
-     * @return performance measures of a model for the specified test set
-     */ 
-    public EvaluationMetrics evaluate(MODEL_CLASS model, DATASET_CLASS testSet);
-    
+        public Tensor getInput();
+        
+        public Tensor getTargetOutput();
 }

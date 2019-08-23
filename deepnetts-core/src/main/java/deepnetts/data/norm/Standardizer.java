@@ -20,13 +20,13 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.util;
+package deepnetts.data.norm;
 
-import deepnetts.data.BasicDataSetItem;
-import deepnetts.data.DataSet;
-import deepnetts.data.DataSetItem;
 import deepnetts.util.Tensor;
 import java.io.Serializable;
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.data.Normalizer;
+import deepnetts.data.DeepNettsDataSetItem;
 
 /**
  * Performs standardization in order to get desired statistical properties of the data set.
@@ -36,19 +36,19 @@ import java.io.Serializable;
  * 
  * @author Zoran Sevarac
  */
-public class Standardizer implements Normalizer, Serializable {
+public class Standardizer implements Normalizer<DataSet<DeepNettsDataSetItem>>, Serializable {
 // only appy to inputs, not binary values
     private final Tensor mean;
     private final Tensor std;
     
     
-    public Standardizer(DataSet<BasicDataSetItem> dataSet) {
+    public Standardizer(DataSet<DeepNettsDataSetItem> dataSet) {
         Tensor t = dataSet.get(0).getInput();
         // int dims = t.getDimensions();
         mean = new Tensor(t.getCols());
         std = new Tensor(t.getCols());
         
-        for(BasicDataSetItem item : dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             mean.add(item.getInput());
         }         
         mean.div((float)dataSet.size());
@@ -56,10 +56,10 @@ public class Standardizer implements Normalizer, Serializable {
         
         //std = sqrt(sum((x-m)^2)/n);
         
-        for(BasicDataSetItem item : dataSet) {
+        for(DeepNettsDataSetItem item : dataSet) {
             Tensor diff = item.getInput().copy();
-            diff.sub(mean); // ^2
-            diff.multiplyElementWise(diff);
+            diff.sub(mean);
+            diff.multiplyElementWise(diff);  // ^2
             std.add(diff);            
         }        
         std.div(dataSet.size()-1);
@@ -67,8 +67,8 @@ public class Standardizer implements Normalizer, Serializable {
     }
         
     @Override
-    public void normalize(DataSet<?> dataSet) {
-        for (DataSetItem item : dataSet) {
+    public void normalize(DataSet<DeepNettsDataSetItem> dataSet) {
+        for (DeepNettsDataSetItem item : dataSet) {
             item.getInput().sub(mean);
             item.getInput().div(std);
         }
