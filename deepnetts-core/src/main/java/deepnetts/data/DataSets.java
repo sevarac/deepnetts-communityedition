@@ -71,7 +71,7 @@ public class DataSets {
      * Autodetetect delimiter; header and column type
      *
      */
-    public static DataSet readCsv(File csvFile, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
+    public static DeepNettsBasicDataSet readCsv(File csvFile, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
         DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(numInputs, numOutputs);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         String line=null;
@@ -124,15 +124,15 @@ public class DataSets {
         return dataSet;
     }
 
-    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws IOException {
+    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws IOException {
          return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, delimiter);
     }
 
-    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames) throws IOException {
+    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, ",");
     }
 
-    public static DataSet readCsv(String fileName, int numInputs, int numOutputs, String delimiter) throws IOException {
+    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, String delimiter) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, false, delimiter);
     }
 
@@ -146,7 +146,7 @@ public class DataSets {
      * @return
      * @throws IOException
      */
-    public static DataSet readCsv(String fileName, int numInputs, int numOutputs) throws IOException {
+    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, false, ",");
     }
 
