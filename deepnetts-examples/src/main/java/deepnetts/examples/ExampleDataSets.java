@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
 import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.data.ImageSet;
 
 /**
  * TODO: add breast cancer, mnist  and other UCI stuff
@@ -14,13 +15,13 @@ import deepnetts.data.DeepNettsDataSetItem;
  */
 public class ExampleDataSets {
 
-    public static DataSet iris() throws IOException {
+    public static DeepNettsBasicDataSet iris() throws IOException {
        // TODO: apply some normalization here, as a param?
        return DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
-    public static DataSet xor() {
-        DataSet dataSet = new DeepNettsBasicDataSet(2, 1);
+    public static DeepNettsBasicDataSet xor() {
+        DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(2, 1);
 
         DeepNettsDataSetItem item1 = new DeepNettsBasicDataSet.Item(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);
@@ -38,7 +39,15 @@ public class ExampleDataSets {
     }
 
 
-    public static DataSet mnist() {
-        return null;
+    public static ImageSet mnist() {
+        String labelsFile = "D:\\datasets\\mnist\\train\\labels.txt";
+        String trainingFile = "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 00        
+        
+        ImageSet imageSet = new ImageSet(28, 28);
+        imageSet.setInvertImages(true);
+        imageSet.loadLabels(new File(labelsFile));
+        imageSet.loadImages(new File(trainingFile), 1000);
+        
+        return imageSet;
     }
 }
