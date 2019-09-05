@@ -22,9 +22,6 @@
 
 package deepnetts.data.norm;
 
-
-
-import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
