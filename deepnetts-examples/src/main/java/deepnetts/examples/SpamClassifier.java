@@ -23,8 +23,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSets;
 import deepnetts.data.norm.MaxNormalizer;
-import deepnetts.eval.ClassifierEvaluator;
-import deepnetts.eval.ConfusionMatrix;
+import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -51,7 +50,7 @@ public class SpamClassifier {
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set
-        DataSet[] trainTest = dataSet.split(0.6);
+        DataSet[] trainTest = dataSet.split(0.6, 0.4);
         
         // normalize data
         MaxNormalizer norm = new MaxNormalizer(trainTest[0]);
@@ -75,7 +74,7 @@ public class SpamClassifier {
         neuralNet.train(trainTest[0]);
         
         // test network /  evaluate classifier
-        EvaluationMetrics em = neuralNet.test(trainTest[1]);
+        EvaluationMetrics em = Evaluators.evaluateClassifier(neuralNet, trainTest[1]);
         System.out.println(em);
     }
 }
