@@ -24,7 +24,6 @@ package deepnetts.net.train;
 
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.core.DeepNetts;
-import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.AbstractLayer;
 
@@ -34,9 +33,7 @@ import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
-import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,7 +45,7 @@ import org.apache.logging.log4j.LogManager;
 import deepnetts.data.DeepNettsDataSetItem;
 
 /**
- * Backpropagation training algorithm for feed forward and convolutional neural networks.
+ * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
  * Backpropagation is a supervised machine learning algorithm which iteratively
  * reduces prediction error, by looking for the minimum of loss function.
  *
@@ -121,13 +118,19 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * Shuffle training set before each epoch during training
      */
     private boolean shuffle = false;
-
+    
+    /**
+     * Neural network to train
+     */
     private NeuralNetwork<?> neuralNet;
 
     private transient DataSet<? extends DeepNettsDataSetItem> trainingSet;
 
     private transient DataSet<? extends DeepNettsDataSetItem> validationSet;
 
+    /**
+     * Loss function used to calculate total network error
+     */
     private LossFunction lossFunction;
 
     private boolean trainingSnapshots = false;
@@ -179,19 +182,19 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     public BackpropagationTrainer(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
-//        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
-//        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
-//        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
-//        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
-//        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
-//        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
+        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
+        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
+        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
+        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
+        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
+        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
     }
 
 
     /**
      * Run training using specified training and validation sets.
-     * Training set is used to train model, while validation set is used to check model accuracy with unseen data in order to prevent overfitting.
+     * Training set is used to train model, while validation set is used to check model accuracy with unseen data 
+     * during training in order to prevent overfitting.
      * 
      * @param trainingSet
      * @param validationSet 
