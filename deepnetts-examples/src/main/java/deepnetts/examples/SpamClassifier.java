@@ -34,8 +34,9 @@ import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
 
 /**
- * Spam  Classification Problem. This example is using Softmax activation in
- * output layer and Cross Entropy Loss function. Overfits the iris data set
+ * Spam  Classification example.
+ * This example shows how to create binary classifier for spam classification, using Feed Forward neural network.
+ * Data is given as CSV file.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
@@ -43,8 +44,11 @@ public class SpamClassifier {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
 
+        int numInputs = 57;
+        int numOutputs = 1;
+        
         // load spam data  set from csv file
-        DataSet dataSet = DataSets.readCsv("datasets//spam.csv", 57, 1, true);             
+        DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set
         DataSet[] trainTest = dataSet.split(0.6);
@@ -56,9 +60,9 @@ public class SpamClassifier {
         
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(57)
+                .addInputLayer(numInputs)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
-                .addOutputLayer(1, ActivationType.SIGMOID)
+                .addOutputLayer(numOutputs, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
