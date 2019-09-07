@@ -35,26 +35,29 @@ import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
 
 /**
- * Iris Classification Problem. This example is using Softmax activation in
- * output layer and Cross Entropy Loss function. Overfits the iris data set
+ * Iris Flowers Classification Problem.
+ * Hello world classification example: classify flowers into one of 3 possible categories, 
+ * based on 4 input features which represent flower several flower dimensions.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class IrisFlowerClassifier {
+public class IrisFlowersClassifier {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
 
-        // load iris data  set
-        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3, true);
-        // split loaded data into 70 : 30% ratio
-      //  DataSet[] trainTestSet = DataSets.trainTestSplit(dataSet, 0.6);
+        int numInputs = 4;  // corresponds to number of input features
+        int numOutputs = 3; // corresponds to number of possible classes/categories
+        
+        // load iris data  set from csv file
+        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", numInputs, numOutputs, true);
+        // split loaded data into 60 : 40% ratio
         DataSet[] trainTestSet = dataSet.split(0.6, 0.4);
 
         // create instance of multi addLayer percetpron using builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(4)
+                .addInputLayer(numInputs)
                 .addFullyConnectedLayer(5, ActivationType.TANH)
-                .addOutputLayer(3, ActivationType.SOFTMAX)
+                .addOutputLayer(numOutputs, ActivationType.SOFTMAX)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(456)
                 .build();
@@ -66,9 +69,8 @@ public class IrisFlowerClassifier {
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
 
-        // start network training
         neuralNet.train(trainTestSet[0]);
-        
+         
         // evaluate/test classifier
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
         EvaluationMetrics em = evaluator.evaluate(neuralNet, trainTestSet[1]);
@@ -76,7 +78,6 @@ public class IrisFlowerClassifier {
         System.out.println(em);
         System.out.println("CONFUSION MATRIX");
         ConfusionMatrix cm = evaluator.getConfusionMatrix();
-        System.out.println(cm);        
+        System.out.println(cm);          
     }
-
 }

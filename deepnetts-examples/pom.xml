@@ -25,6 +25,12 @@
             <artifactId>xchart</artifactId>
             <version>3.5.2</version>
         </dependency>
+        <dependency>
+            <groupId>javax.visrec</groupId>
+            <artifactId>visrec-ri</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
