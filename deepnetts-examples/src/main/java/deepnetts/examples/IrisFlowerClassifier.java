@@ -40,7 +40,7 @@ import javax.visrec.ml.data.DataSet;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class IrisClassifier {
+public class IrisFlowerClassifier {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
 
@@ -66,11 +66,14 @@ public class IrisClassifier {
         trainer.setMomentum(0.9f);
         trainer.setOptimizer(OptimizerType.MOMENTUM);
 
+        // start network training
         neuralNet.train(trainTestSet[0]);
         
+        // evaluate/test classifier
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        EvaluationMetrics pm = evaluator.evaluate(neuralNet, trainTestSet[1]);
-        System.out.println(pm);
+        EvaluationMetrics em = evaluator.evaluate(neuralNet, trainTestSet[1]);
+        System.out.println("CLASSIFIER EVALUATION METRICS");
+        System.out.println(em);
         System.out.println("CONFUSION MATRIX");
         ConfusionMatrix cm = evaluator.getConfusionMatrix();
         System.out.println(cm);        
