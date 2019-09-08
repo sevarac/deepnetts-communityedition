@@ -30,6 +30,7 @@ import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.DeepNettsException;
 import java.io.IOException;
+import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
 import visrec.ri.ml.classification.BinaryClassifierNetwork;
 
@@ -79,14 +80,14 @@ public class SpamClassifier {
         System.out.println(em);
         
         // create binary classifier using trained network
-        BinaryClassifierNetwork bnc = new BinaryClassifierNetwork(neuralNet);
+        BinaryClassifier<float[]> binClassifier = new BinaryClassifierNetwork(neuralNet);
         
-        float[] testEmail = getExampleEmailToClassify();
-        Float result = bnc.classify(testEmail);
+        float[] testEmail = getTestEmailFeatures();
+        Float result = binClassifier.classify(testEmail);
         System.out.println("Spam probability: "+result);        
     }
     
-    static float[] getExampleEmailToClassify() {
+    static float[] getTestEmailFeatures() {
         float[] emailFeatures = new float[57];
         emailFeatures[56] = 1;
         return emailFeatures;
