@@ -47,7 +47,7 @@ public class KFoldCrossValidation {
     private NeuralNetwork neuralNetwork; 
     private BackpropagationTrainer trainer; 
     private DataSet<DeepNettsDataSetItem> dataSet; 
-    private Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator; 
+    private Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> evaluator;
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
 
@@ -115,7 +115,7 @@ public class KFoldCrossValidation {
             return this;
         }
 
-        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }
