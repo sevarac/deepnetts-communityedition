@@ -61,11 +61,7 @@ public class CrediCardFraud {
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(numInputs)                           // size of the input layer corresponds to number of inputs
-                .addFullyConnectedLayer(40, ActivationType.RELU) 
-                .addFullyConnectedLayer(30, ActivationType.RELU) 
-                .addFullyConnectedLayer(40, ActivationType.RELU) 
-                .addFullyConnectedLayer(8, ActivationType.RELU) 
-                .addFullyConnectedLayer(5, ActivationType.RELU) 
+                .addFullyConnectedLayer(40, ActivationType.TANH) 
                 .addOutputLayer(numOutputs, ActivationType.SIGMOID) // size of output layer corresponds to number of outputs, which is 1 for binary classification problems, and sigmoid transfer function is used for binary classification
                 .lossFunction(LossType.CROSS_ENTROPY) // cross entropy loss function is commonly used for classification problems
                 .build();
