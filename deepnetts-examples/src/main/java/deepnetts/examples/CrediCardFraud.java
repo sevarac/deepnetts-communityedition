@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.Map;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
+import visrec.ri.ml.classification.BinaryClassifierNetwork;
 
 /**
  * Spam  Classification Problem. This example is using  activation in
@@ -78,15 +79,16 @@ public class CrediCardFraud {
         System.out.println(em);
         
         
-//        BinaryClassifierNetwork bnc = new BinaryClassifierNetwork(neuralNet);
-//        
-//        float[] testEmail = getExampleEmailToClassify();
-//        Map<Boolean, Float> result = bnc.classify(testEmail);
-//        System.out.println("Spam probability: "+result.get(Boolean.TRUE));
+        // Example usage of the trained network
+        BinaryClassifierNetwork bnc = new BinaryClassifierNetwork(neuralNet);
+        
+        float[] testTransaction = getTestTransaction();
+        Float result = bnc.classify(testTransaction);
+        System.out.println("Fraud probability: "+result);
         
     }
     
-    static float[] getExampleEmailToClassify() {
+    static float[] getTestTransaction() {
         float[] emailFeatures = new float[57];
         emailFeatures[56] = 1;
         return emailFeatures;
