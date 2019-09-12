@@ -49,7 +49,7 @@ public class CrediCardFraud {
         boolean hasHeader = true;
 
         // load spam data  set from csv file
-        DataSet dataSet = DataSets.readCsv("d:\\datasets\\creditcardfraud\\CreditCardFraudSredjen.csv", numInputs, numOutputs, hasHeader);
+        DataSet dataSet = DataSets.readCsv("datasets/CreditCardFraud.csv", numInputs, numOutputs, hasHeader);
         
         // scale data to [0, 1] range
         DataSets.normalizeMax(dataSet);
@@ -89,9 +89,9 @@ public class CrediCardFraud {
     }
     
     static float[] getTestTransaction() {
-        float[] emailFeatures = new float[57];
-        emailFeatures[56] = 1;
-        return emailFeatures;
+        float[] transactionFetaures = new float[30];
+        transactionFetaures[30] = 1;
+        return transactionFetaures;
     }
     
 }
