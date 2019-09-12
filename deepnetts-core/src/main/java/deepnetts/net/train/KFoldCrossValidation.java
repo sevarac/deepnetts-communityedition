@@ -32,6 +32,8 @@ import java.util.List;
 import javax.visrec.ml.data.DataSet;
 import org.apache.commons.lang3.SerializationUtils;
 import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.eval.RegresionEvaluator;
+import javax.visrec.ml.regression.Regressor;
 
 /**
  * Split data set into k parts of equal sizes (folds)
@@ -62,15 +64,23 @@ public class KFoldCrossValidation {
                 trainingSet.addAll(folds[trainFoldIdx]);
             }
 
-            NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
-
-            trainer.train(trainingSet); 
-            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); 
+            // clone the original network each time before training - create a new instace that will be added to trainedNetworks
+            NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork); // ovde bi morao traineru da prosledjuje kloniranu mrezu
+            // ova mreza nije ni kreirana
+            trainer.train(trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
+            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
             measures.add(pe);
             trainedNetworks.add(neuralNet);
         }
-
-        return ClassifierEvaluator.averagePerformance(measures);
+        // get final evaluation results - avg performnce of all test sets - use some static method to get that
+        
+        if (evaluator instanceof ClassifierEvaluator) {
+            return ClassifierEvaluator.averagePerformance(measures);
+        } else {
+            return RegresionEvaluator.averagePerformance(measures);
+        }
+        
+        
     }
 
     public List<NeuralNetwork> getTrainedNetworks() {

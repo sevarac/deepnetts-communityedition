@@ -27,6 +27,7 @@ import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import javax.visrec.ml.eval.Evaluator;
 import deepnetts.data.DeepNettsDataSetItem;
+import java.util.List;
 
 /**
  * Evaluates regressor neural network for specified data set.
@@ -77,5 +78,26 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<Deep
         }
         return mean / testSet.size();
     }
+    
+    public static EvaluationMetrics averagePerformance(List<EvaluationMetrics> measures) {
+        float mse = 0, rse = 0, r2 = 0, fstat = 0;
+
+        for (EvaluationMetrics em : measures) {
+            mse += em.get(EvaluationMetrics.MEAN_SQUARED_ERROR);
+            r2 += em.get(EvaluationMetrics.RESIDUAL_STANDARD_ERROR);
+            rse += em.get(EvaluationMetrics.R_SQUARED);
+            fstat += em.get(EvaluationMetrics.F_STAT);
+        }
+
+        int count = measures.size();
+
+        EvaluationMetrics total = new EvaluationMetrics();
+        total.set(EvaluationMetrics.MEAN_SQUARED_ERROR, mse / count);
+        total.set(EvaluationMetrics.RESIDUAL_STANDARD_ERROR, rse / count);
+        total.set(EvaluationMetrics.R_SQUARED, r2 / count);
+        total.set(EvaluationMetrics.F_STAT, fstat / count);
+
+        return total;
+    }    
 
 }
