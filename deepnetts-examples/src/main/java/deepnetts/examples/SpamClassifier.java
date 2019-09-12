@@ -22,6 +22,7 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSets;
+import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.data.norm.MaxNormalizer;
 import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
@@ -52,7 +53,7 @@ public class SpamClassifier {
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set
-        DataSet[] trainTest = dataSet.split(0.6, 0.4);
+        DataSet<DeepNettsDataSetItem>[] trainTest = dataSet.split(0.6, 0.4);
         
         // normalize data
         MaxNormalizer norm = new MaxNormalizer(trainTest[0]);
@@ -82,14 +83,13 @@ public class SpamClassifier {
         // create binary classifier using trained network
         BinaryClassifier<float[]> binClassifier = new BinaryClassifierNetwork(neuralNet);
         
-        float[] testEmail = getTestEmailFeatures();
+        // get single feature array from test set
+        float[] testEmail = trainTest[1].get(0).getInput().getValues();
+        // feed the classifer and get result / spam probability
         Float result = binClassifier.classify(testEmail);
+        
         System.out.println("Spam probability: "+result);        
     }
     
-    static float[] getTestEmailFeatures() {
-        float[] emailFeatures = new float[57];
-        emailFeatures[56] = 1;
-        return emailFeatures;
-    }
+
 }

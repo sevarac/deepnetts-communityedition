@@ -23,6 +23,7 @@ package deepnetts.examples;
 
 
 import deepnetts.data.DataSets;
+import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -55,9 +56,9 @@ public class CrediCardFraud {
         DataSets.normalizeMax(dataSet);
         
         // split data into training and test set
-        DataSet[] trainTestSet = dataSet.split(0.6);
-        DataSet trainingSet = trainTestSet[0];
-        DataSet testSet = trainTestSet[1];
+        DataSet<DeepNettsDataSetItem>[] trainTestSet = dataSet.split(0.6);
+        DataSet<DeepNettsDataSetItem> trainingSet = trainTestSet[0];
+        DataSet<DeepNettsDataSetItem> testSet = trainTestSet[1];
         
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -82,16 +83,9 @@ public class CrediCardFraud {
         // Example usage of the trained network
         BinaryClassifierNetwork bnc = new BinaryClassifierNetwork(neuralNet);
         
-        float[] testTransaction = getTestTransaction();
-        Float result = bnc.classify(testTransaction);
+        Float result = bnc.classify(testSet.get(0).getInput().getValues());
         System.out.println("Fraud probability: "+result);
         
     }
-    
-    static float[] getTestTransaction() {
-        float[] transactionFetaures = new float[30];
-        transactionFetaures[30] = 1;
-        return transactionFetaures;
-    }
-    
+        
 }
