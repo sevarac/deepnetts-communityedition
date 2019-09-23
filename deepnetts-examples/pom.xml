@@ -37,4 +37,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <name>deepnetts-examples</name>
+    
+    <repositories>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>    
+        
 </project>
