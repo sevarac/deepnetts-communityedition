@@ -1,7 +1,7 @@
 # deepnetts-communityedition
 Deep Netts Engine Community Edition
 
-Maven dependencies and Snapshot repository
+To be able to use it add the following Maven dependencies and Snapshot repository to your pom.xml file
 
     <dependencies>
         <dependency>
