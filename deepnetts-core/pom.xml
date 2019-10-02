@@ -81,7 +81,7 @@
     </distributionManagement>    
     <build>
         <plugins>
-                        <plugin>
+            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.7</version>
@@ -102,11 +102,13 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>                
             </snapshots>
             <releases>
                 <enabled>false</enabled>
             </releases>
+      
         </repository>
-    </repositories>    
+    </repositories>
     
 </project>
