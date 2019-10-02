@@ -17,7 +17,7 @@ public class ExampleDataSets {
 
     public static DeepNettsBasicDataSet iris() throws IOException {
        // TODO: apply some normalization here, as a param?
-       return DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
+       return (DeepNettsBasicDataSet) DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
     public static DeepNettsBasicDataSet xor() {

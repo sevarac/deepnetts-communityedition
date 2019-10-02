@@ -68,11 +68,7 @@ public class Mnist {
         imageSet.setInvertImages(true);
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), 1000);
-
-      //  ImageSet imageSet = ExampleDataSets.mnist();
-
-      //  imageSet.zeroMean();
-
+        //  imageSet.zeroMean();
         imageSet.countByClasses();      
         
         ImageSet[] imageSets = imageSet.split(0.7, 0.3);
