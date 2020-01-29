@@ -43,6 +43,7 @@ import java.util.Properties;
 import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import deepnetts.data.DeepNettsDataSetItem;
+import java.io.ObjectInputStream;
 
 /**
  * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
@@ -167,7 +168,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private float regL2, regL1;
 
 
-    private transient final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
+    private transient List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
@@ -631,4 +632,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return pm.get(EvaluationMetrics.ACCURACY);
     }
 
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException 
+    {       
+         listeners = new ArrayList<>(); 
+    }    
+    
 }
