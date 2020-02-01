@@ -31,7 +31,7 @@ import deepnetts.util.Tensor;
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public interface DeepNettsDataSetItem {        
+public interface ExampleDataItem {        
     
         public Tensor getInput();
         

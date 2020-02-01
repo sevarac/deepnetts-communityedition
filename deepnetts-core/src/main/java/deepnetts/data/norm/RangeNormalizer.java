@@ -25,7 +25,7 @@ package deepnetts.data.norm;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.data.Normalizer;
-import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.data.ExampleDataItem;
 
 /**
  * Normalize data set to specified range.
@@ -35,7 +35,7 @@ import deepnetts.data.DeepNettsDataSetItem;
  * 
  * @author Zoran Sevarac
  */
-public class RangeNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem>>, Serializable {
+public class RangeNormalizer implements Normalizer<DataSet<ExampleDataItem>>, Serializable {
     private final float min;
     private final float max;
     
@@ -57,9 +57,9 @@ public class RangeNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem>
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<DeepNettsDataSetItem> dataSet) {
+    public void normalize(DataSet<ExampleDataItem> dataSet) {
         final float divisor = max-min;
-        for (DeepNettsDataSetItem item : dataSet) {
+        for (ExampleDataItem item : dataSet) {
             item.getInput().sub(min);   // todo: how to efficently perform sub and div in one line and only one pass through tensor
             item.getInput().div(divisor);
             item.getTargetOutput().sub(min);

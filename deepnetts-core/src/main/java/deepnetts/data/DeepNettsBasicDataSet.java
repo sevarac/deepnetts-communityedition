@@ -36,7 +36,7 @@ import javax.visrec.ml.data.DataSet;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <E> Type of elements in this data set.
  */
-public class DeepNettsBasicDataSet<T extends DeepNettsDataSetItem> extends javax.visrec.ml.data.BasicDataSet<T> {
+public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visrec.ml.data.BasicDataSet<T> {
 
     private int numInputs, numOutputs; // number of inputs and outputs / target values
 
@@ -187,7 +187,7 @@ public class DeepNettsBasicDataSet<T extends DeepNettsDataSetItem> extends javax
      *
      * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
      */
-    public static class Item implements DeepNettsDataSetItem {
+    public static class Item implements ExampleDataItem {
 
         private final Tensor input; // network input
         private final Tensor targetOutput; // for classifiers target can be index, int 

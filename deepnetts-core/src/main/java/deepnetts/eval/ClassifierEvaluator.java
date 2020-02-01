@@ -29,14 +29,14 @@ import java.util.Map;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import javax.visrec.ml.eval.Evaluator;
-import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.data.ExampleDataItem;
 
 /**
  * Evaluation method for binary and multi-class classifiers.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */                                         
-public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> { // use Classifier as a generic, wrap convolutional network with classifier
+public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> { // use Classifier as a generic, wrap convolutional network with classifier
 
     /**
      * Constants used as labels for binary classification
@@ -85,7 +85,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? e
      * @return 
      */
     @Override
-    public  EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<? extends DeepNettsDataSetItem> testSet) { // NeuralNetwork, DataSet<?>
+    public  EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<? extends ExampleDataItem> testSet) { // NeuralNetwork, DataSet<?>
         classLabels.clear();
         classLabels.add(0, LABEL_NONE); 
         for(String label : testSet.getTargetNames()) { 
@@ -95,7 +95,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? e
         // if class labels are empty create class1, class2, classk ....
         init();
 
-        for (DeepNettsDataSetItem item : testSet) {
+        for (ExampleDataItem item : testSet) {
             neuralNet.setInput(item.getInput());
             final float[] predictedOut = neuralNet.getOutput();
             processResult(item.getTargetOutput().getValues(), predictedOut);

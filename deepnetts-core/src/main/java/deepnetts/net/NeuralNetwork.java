@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
-import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.data.ExampleDataItem;
 
 /**
  * Base class for all neural networks in DeepNetts.
@@ -129,11 +129,11 @@ public class NeuralNetwork<T extends Trainer> implements TrainerProvider<T>, Ser
         outputLayer.setOutputErrors(outputErrors);
     }
 
-    public void train(DataSet<? extends DeepNettsDataSetItem> trainingSet) {
+    public void train(DataSet<? extends ExampleDataItem> trainingSet) {
         trainer.train(trainingSet);
     }
 
-    public EvaluationMetrics test(DataSet<DeepNettsDataSetItem> testSet) {
+    public EvaluationMetrics test(DataSet<ExampleDataItem> testSet) {
         if (getLossFunction() instanceof CrossEntropyLoss ||
             getLossFunction() instanceof BinaryCrossEntropyLoss) {
           return Evaluators.evaluateClassifier(this, testSet);

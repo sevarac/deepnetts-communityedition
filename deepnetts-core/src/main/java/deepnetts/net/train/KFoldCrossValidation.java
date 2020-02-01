@@ -31,9 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.visrec.ml.data.DataSet;
 import org.apache.commons.lang3.SerializationUtils;
-import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.eval.RegresionEvaluator;
 import javax.visrec.ml.regression.Regressor;
+import deepnetts.data.ExampleDataItem;
 
 /**
  * Split data set into k parts of equal sizes (folds)
@@ -46,8 +46,8 @@ public class KFoldCrossValidation {
     private int splitsNum; 
     private NeuralNetwork neuralNetwork; 
     private BackpropagationTrainer trainer; 
-    private DataSet<DeepNettsDataSetItem> dataSet; 
-    private Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> evaluator;
+    private DataSet<ExampleDataItem> dataSet; 
+    private Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> evaluator;
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
 
@@ -115,7 +115,7 @@ public class KFoldCrossValidation {
             return this;
         }
 
-        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }
