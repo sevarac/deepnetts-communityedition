@@ -22,7 +22,6 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSets;
-import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.data.norm.MaxNormalizer;
 import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
@@ -33,7 +32,8 @@ import deepnetts.util.DeepNettsException;
 import java.io.IOException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
-import visrec.ri.ml.classification.BinaryClassifierNetwork;
+import deepnetts.data.ExampleDataItem;
+import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
  * Spam  Classification example.
@@ -57,9 +57,9 @@ public class SpamClassifier {
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
-        DataSet<DeepNettsDataSetItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
-        DataSet<DeepNettsDataSetItem> trainingSet = trainAndTestSet[0];
-        DataSet<DeepNettsDataSetItem> testSet = trainAndTestSet[1];
+        DataSet<ExampleDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
+        DataSet<ExampleDataItem> trainingSet = trainAndTestSet[0];
+        DataSet<ExampleDataItem> testSet = trainAndTestSet[1];
                 
         // normalize data - Why normalize data? and learn more about common data preprocessing you need 
         MaxNormalizer norm = new MaxNormalizer(trainingSet);    //
@@ -87,7 +87,7 @@ public class SpamClassifier {
         System.out.println(em);
         
         // using trained network: create binary classifier using trained network
-        BinaryClassifier<float[]> binClassifier = new BinaryClassifierNetwork(neuralNet);
+        BinaryClassifier<float[]> binClassifier = new FeedForwardNetBinaryClassifier(neuralNet);
         
         // get single feature array from test set
         float[] testEmail = trainAndTestSet[1].get(0).getInput().getValues();

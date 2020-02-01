@@ -23,7 +23,6 @@ package deepnetts.examples;
 
 
 import deepnetts.data.DataSets;
-import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.eval.Evaluators;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -33,7 +32,10 @@ import java.io.IOException;
 import java.util.Map;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
-import visrec.ri.ml.classification.BinaryClassifierNetwork;
+import deepnetts.data.ExampleDataItem;
+import javax.visrec.ml.ClassificationException;
+import javax.visrec.ml.classification.BinaryClassifier;
+import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
  * Spam  Classification Problem. This example is using  activation in
@@ -43,7 +45,7 @@ import visrec.ri.ml.classification.BinaryClassifierNetwork;
  */
 public class CrediCardFraud {
 
-    public static void main(String[] args) throws DeepNettsException, IOException {
+    public static void main(String[] args) throws DeepNettsException, IOException, ClassificationException {
         
         int numInputs= 29;
         int numOutputs = 1;
@@ -56,9 +58,9 @@ public class CrediCardFraud {
         DataSets.normalizeMax(dataSet);
         
         // split data into training and test set
-        DataSet<DeepNettsDataSetItem>[] trainTestSet = dataSet.split(0.6);
-        DataSet<DeepNettsDataSetItem> trainingSet = trainTestSet[0];
-        DataSet<DeepNettsDataSetItem> testSet = trainTestSet[1];
+        DataSet<ExampleDataItem>[] trainTestSet = dataSet.split(0.6);
+        DataSet<ExampleDataItem> trainingSet = trainTestSet[0];
+        DataSet<ExampleDataItem> testSet = trainTestSet[1];
         
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
@@ -81,7 +83,7 @@ public class CrediCardFraud {
         
         
         // Example usage of the trained network
-        BinaryClassifierNetwork bnc = new BinaryClassifierNetwork(neuralNet);
+        BinaryClassifier<float[]> bnc = new FeedForwardNetBinaryClassifier(neuralNet);
         
         Float result = bnc.classify(testSet.get(0).getInput().getValues());
         System.out.println("Fraud probability: "+result);

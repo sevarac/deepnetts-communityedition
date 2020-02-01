@@ -41,7 +41,7 @@ public class LoadAndUseTrainedNetwork {
         try {
             ConvolutionalNetwork neuralNet =  FileIO.createFromFile("javaOneSponsors.net", ConvolutionalNetwork.class);
 
-            DeepNettsImageClassifier imageClassifier = new DeepNettsImageClassifier(neuralNet);    // this image recognize shoul dbe used from visrec api
+            ConvolutionalImageClassifier imageClassifier = new ConvolutionalImageClassifier(neuralNet);    // this image recognize shoul dbe used from visrec api
             Map<String, Float> results = imageClassifier.classify(new File("/home/zoran/Desktop/imageFile.png"));
             System.out.println(results.toString());
 

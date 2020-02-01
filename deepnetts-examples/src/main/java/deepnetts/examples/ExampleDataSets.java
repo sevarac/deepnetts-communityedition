@@ -6,8 +6,8 @@ import deepnetts.data.DataSets;
 import java.io.File;
 import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
-import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.data.ImageSet;
+import deepnetts.data.ExampleDataItem;
 
 /**
  * TODO: add breast cancer, mnist  and other UCI stuff
@@ -23,16 +23,16 @@ public class ExampleDataSets {
     public static DeepNettsBasicDataSet xor() {
         DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(2, 1);
 
-        DeepNettsDataSetItem item1 = new DeepNettsBasicDataSet.Item(new float[] {0, 0}, new float[] {0});
+        ExampleDataItem item1 = new DeepNettsBasicDataSet.Item(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);
 
-        DeepNettsDataSetItem item2 = new DeepNettsBasicDataSet.Item(new float[] {0, 1}, new float[] {1});
+        ExampleDataItem item2 = new DeepNettsBasicDataSet.Item(new float[] {0, 1}, new float[] {1});
         dataSet.add(item2);
 
-        DeepNettsDataSetItem item3 = new DeepNettsBasicDataSet.Item(new float[] {1, 0}, new float[] {1});
+        ExampleDataItem item3 = new DeepNettsBasicDataSet.Item(new float[] {1, 0}, new float[] {1});
         dataSet.add(item3);
 
-        DeepNettsDataSetItem item4 = new DeepNettsBasicDataSet.Item(new float[] {1, 1}, new float[] {0});
+        ExampleDataItem item4 = new DeepNettsBasicDataSet.Item(new float[] {1, 1}, new float[] {0});
         dataSet.add(item4);
 
         return dataSet;
