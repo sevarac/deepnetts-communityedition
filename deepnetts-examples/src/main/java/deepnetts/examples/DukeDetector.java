@@ -52,11 +52,8 @@ public class DukeDetector {
         int imageWidth = 64;
         int imageHeight = 64;
 
-        String trainingFile = "D:\\datasets\\DukeSet\\train.txt";
+        String trainingFile = "D:\\datasets\\DukeSet\\index.txt";
         String labelsFile = "D:\\datasets\\DukeSet\\labels.txt";
-//        String labelsFile = "datasets/DukeSet/labels.txt";
-//        String trainingFile = "datasets/DukeSet/train.txt";
-  //      String testFile = "datasets/DukeSet/test.txt";
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
 
@@ -96,9 +93,7 @@ public class DukeDetector {
         // create a set of convolutional networks and do training, crossvalidation and performance evaluation
         BackpropagationTrainer trainer = new BackpropagationTrainer(convNet);
         trainer.setMaxError(0.05f)
-               .setLearningRate(0.01f)
-               .setOptimizer(OptimizerType.MOMENTUM)
-               .setMomentum(0.9f);
+               .setLearningRate(0.01f);
         trainer.train(imageSet);
 
         // to save neural network to file on disk
