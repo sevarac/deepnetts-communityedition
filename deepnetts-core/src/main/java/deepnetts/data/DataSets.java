@@ -71,8 +71,8 @@ public class DataSets {
      * Autodetetect delimiter; header and column type
      *
      */
-    public static DeepNettsBasicDataSet readCsv(File csvFile, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
-        DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(numInputs, numOutputs);
+    public static TabularDataSet readCsv(File csvFile, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws FileNotFoundException, IOException {
+        TabularDataSet dataSet = new TabularDataSet(numInputs, numOutputs);
         BufferedReader br = new BufferedReader(new FileReader(csvFile));
         String line=null;
         // auto detect column names - ako sadrzi slova onda ima imena. Sta ako su atributi nominalni? U ovoj fazi se pretpostavlja d anisu...
@@ -118,21 +118,21 @@ public class DataSets {
                 throw new DeepNettsException("Error parsing csv, number expected line in " + (dataSet.size() + 1) + ": " + nex.getMessage(), nex);
             }
 
-            dataSet.add(new DeepNettsBasicDataSet.Item(in, out));
+            dataSet.add(new TabularDataSet.Item(in, out));
         }
 
         return dataSet;
     }
 
-    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws IOException {
+    public static TabularDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames, String delimiter) throws IOException {
          return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, delimiter);
     }
 
-    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames) throws IOException {
+    public static TabularDataSet readCsv(String fileName, int numInputs, int numOutputs, boolean hasColumnNames) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, hasColumnNames, ",");
     }
 
-    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs, String delimiter) throws IOException {
+    public static TabularDataSet readCsv(String fileName, int numInputs, int numOutputs, String delimiter) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, false, delimiter);
     }
 
@@ -146,7 +146,7 @@ public class DataSets {
      * @return
      * @throws IOException
      */
-    public static DeepNettsBasicDataSet readCsv(String fileName, int numInputs, int numOutputs) throws IOException {
+    public static TabularDataSet readCsv(String fileName, int numInputs, int numOutputs) throws IOException {
         return readCsv(new File(fileName), numInputs, numOutputs, false, ",");
     }
 

@@ -26,7 +26,7 @@ import deepnetts.util.Tensor;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.data.Normalizer;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * Performs standardization in order to get desired statistical properties of the data set.
@@ -36,19 +36,19 @@ import deepnetts.data.ExampleDataItem;
  * 
  * @author Zoran Sevarac
  */
-public class Standardizer implements Normalizer<DataSet<ExampleDataItem>>, Serializable {
+public class Standardizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
 // only appy to inputs, not binary values
     private final Tensor mean;
     private final Tensor std;
     
     
-    public Standardizer(DataSet<ExampleDataItem> dataSet) {
+    public Standardizer(DataSet<MLDataItem> dataSet) {
         Tensor t = dataSet.get(0).getInput();
         // int dims = t.getDimensions();
         mean = new Tensor(t.getCols());
         std = new Tensor(t.getCols());
         
-        for(ExampleDataItem item : dataSet) {
+        for(MLDataItem item : dataSet) {
             mean.add(item.getInput());
         }         
         mean.div((float)dataSet.size());
@@ -56,7 +56,7 @@ public class Standardizer implements Normalizer<DataSet<ExampleDataItem>>, Seria
         
         //std = sqrt(sum((x-m)^2)/n);
         
-        for(ExampleDataItem item : dataSet) {
+        for(MLDataItem item : dataSet) {
             Tensor diff = item.getInput().copy();
             diff.sub(mean);
             diff.multiplyElementWise(diff);  // ^2
@@ -67,8 +67,8 @@ public class Standardizer implements Normalizer<DataSet<ExampleDataItem>>, Seria
     }
         
     @Override
-    public void normalize(DataSet<ExampleDataItem> dataSet) {
-        for (ExampleDataItem item : dataSet) {
+    public void normalize(DataSet<MLDataItem> dataSet) {
+        for (MLDataItem item : dataSet) {
             item.getInput().sub(mean);
             item.getInput().div(std);
         }

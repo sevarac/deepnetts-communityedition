@@ -43,7 +43,7 @@ import java.util.Properties;
 import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import java.io.ObjectInputStream;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
@@ -125,9 +125,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      */
     private NeuralNetwork<?> neuralNet;
 
-    private transient DataSet<? extends ExampleDataItem> trainingSet;
+    private transient DataSet<? extends MLDataItem> trainingSet;
 
-    private transient DataSet<? extends ExampleDataItem> validationSet;
+    private transient DataSet<? extends MLDataItem> validationSet;
 
     /**
      * Loss function used to calculate total network error
@@ -162,7 +162,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private float prevCheckpointTestLoss=100f;
 
 
-    private transient Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> eval = new ClassifierEvaluator();
+    private transient Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> eval = new ClassifierEvaluator();
 
     //regularization l1 or l2 add to loss
     private float regL2, regL1;
@@ -200,7 +200,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * @param trainingSet
      * @param validationSet 
      */
-    public void train(DataSet<ExampleDataItem> trainingSet, DataSet<ExampleDataItem> validationSet) {
+    public void train(DataSet<MLDataItem> trainingSet, DataSet<MLDataItem> validationSet) {
         this.validationSet = validationSet;
         train(trainingSet);
     }
@@ -221,7 +221,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * @param trainingSet training data to build the model
      */
     @Override
-    public void train(DataSet<? extends ExampleDataItem> trainingSet) {
+    public void train(DataSet<? extends MLDataItem> trainingSet) {
 
         if (trainingSet == null) {
             throw new IllegalArgumentException("Argument trainingSet cannot be null!");
@@ -279,7 +279,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             startEpoch = System.currentTimeMillis();
 
-            for (ExampleDataItem dataSetItem : trainingSet) { // for all items in trainng set
+            for (MLDataItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput()); 
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
@@ -516,7 +516,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return validationSet;
     }
 
-    public void setTestSet(DataSet<ExampleDataItem> testSet) {
+    public void setTestSet(DataSet<MLDataItem> testSet) {
         this.validationSet = testSet;
     }
 
@@ -620,14 +620,14 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public static final String PROP_OPTIMIZER_TYPE = "optimizer";  // for mini batch
 
 
-    private float validationLoss(DataSet<? extends ExampleDataItem> validationSet) {
+    private float validationLoss(DataSet<? extends MLDataItem> validationSet) {
         lossFunction.reset();
         float validationLoss =  lossFunction.valueFor(neuralNet, validationSet);
         return validationLoss;
     }
 
     // only for classification problems
-    private float calculateAccuracy(DataSet<? extends ExampleDataItem> validationSet) {
+    private float calculateAccuracy(DataSet<? extends MLDataItem> validationSet) {
         EvaluationMetrics pm = eval.evaluate(neuralNet, validationSet);
         return pm.get(EvaluationMetrics.ACCURACY);
     }

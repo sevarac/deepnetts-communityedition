@@ -36,7 +36,7 @@ import javax.visrec.ml.data.DataSet;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <E> Type of elements in this data set.
  */
-public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visrec.ml.data.BasicDataSet<T> {
+public class TabularDataSet<T extends MLDataItem> extends javax.visrec.ml.data.BasicDataSet<T> {
 
     private int numInputs, numOutputs; // number of inputs and outputs / target values
 
@@ -44,7 +44,7 @@ public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visr
 
     // TODO: do we need constructor with vector dimensions annd capacity?
     
-    protected DeepNettsBasicDataSet() {
+    protected TabularDataSet() {
         items = new ArrayList<>();
     }
 
@@ -54,7 +54,7 @@ public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visr
      * @param numInputs number of input features
      * @param numOutputs number of output features
      */
-    public DeepNettsBasicDataSet(int numInputs, int numOutputs) {
+    public TabularDataSet(int numInputs, int numOutputs) {
         this();
         this.numInputs = numInputs;
         this.numOutputs = numOutputs;
@@ -119,12 +119,12 @@ public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visr
             throw new IllegalArgumentException("Sum of parts cannot be larger than 1!");
         }
 
-        DataSet[] subSets = new DeepNettsBasicDataSet[parts.length];
+        DataSet[] subSets = new TabularDataSet[parts.length];
         int itemIdx = 0;
 
         this.shuffle(); // shuffle before splting, using global random seed
         for (int p = 0; p < parts.length; p++) {
-            DeepNettsBasicDataSet subSet = new DeepNettsBasicDataSet(this.numInputs, this.numOutputs);
+            TabularDataSet subSet = new TabularDataSet(this.numInputs, this.numOutputs);
             subSet.setColumnNames(this.columnNames);
             int itemsCount = (int) (size() * parts[p]);
 
@@ -187,7 +187,7 @@ public class DeepNettsBasicDataSet<T extends ExampleDataItem> extends javax.visr
      *
      * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
      */
-    public static class Item implements ExampleDataItem {
+    public static class Item implements MLDataItem {
 
         private final Tensor input; // network input
         private final Tensor targetOutput; // for classifiers target can be index, int 

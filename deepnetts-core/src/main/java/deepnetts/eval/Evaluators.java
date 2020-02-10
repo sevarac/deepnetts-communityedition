@@ -25,7 +25,7 @@ package deepnetts.eval;
 import deepnetts.net.NeuralNetwork;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * This class provides various utility methods for evaluating machine learning models.
@@ -41,7 +41,7 @@ public class Evaluators {
      * @param testSet
      * @return regression performance measures
      */
-    public static EvaluationMetrics evaluateRegressor(NeuralNetwork<?> neuralNet, DataSet<ExampleDataItem> testSet) {
+    public static EvaluationMetrics evaluateRegressor(NeuralNetwork<?> neuralNet, DataSet<MLDataItem> testSet) {
         RegresionEvaluator eval = new RegresionEvaluator();
         return eval.evaluate(neuralNet, testSet);
     }
@@ -52,7 +52,7 @@ public class Evaluators {
      * @param testSet
      * @return classification performance measure
      */
-    public static EvaluationMetrics evaluateClassifier(NeuralNetwork<?> neuralNet, DataSet<ExampleDataItem> testSet) {
+    public static EvaluationMetrics evaluateClassifier(NeuralNetwork<?> neuralNet, DataSet<MLDataItem> testSet) {
         ClassifierEvaluator eval = new ClassifierEvaluator();
         return eval.evaluate(neuralNet, testSet);
     }

@@ -23,9 +23,9 @@
 package deepnetts.net.train;
 
 import javax.visrec.ml.data.DataSet;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 
 public interface Trainer {
-        public void train(DataSet<? extends ExampleDataItem> trainingSet);
+        public void train(DataSet<? extends MLDataItem> trainingSet);
 }

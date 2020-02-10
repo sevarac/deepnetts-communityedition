@@ -27,7 +27,7 @@ import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.data.Normalizer;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * Performs max normalization, rescales data to corresponding max value in each column.
@@ -36,7 +36,7 @@ import deepnetts.data.ExampleDataItem;
  * 
  * @author Zoran Sevarac
  */
-public final class MaxNormalizer implements Normalizer<DataSet<ExampleDataItem>>, Serializable {
+public final class MaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
     private Tensor maxInputs;
     private Tensor maxOutputs;
                 
@@ -45,13 +45,13 @@ public final class MaxNormalizer implements Normalizer<DataSet<ExampleDataItem>>
      * 
      * @param dataSet 
      */
-    public MaxNormalizer(DataSet<ExampleDataItem> dataSet) {
+    public MaxNormalizer(DataSet<MLDataItem> dataSet) {
         // find max values for each component of input and output tensor/vector
         maxInputs = dataSet.get(0).getInput().copy();
         maxOutputs = dataSet.get(0).getTargetOutput().copy();
         
         // find max values for all components of input and output vectors
-        for(ExampleDataItem item : dataSet) {
+        for(MLDataItem item : dataSet) {
             maxInputs = Tensors.absMax(item.getInput(), maxInputs); 
             maxOutputs = Tensors.absMax(item.getTargetOutput(), maxOutputs);
         }        
@@ -63,9 +63,9 @@ public final class MaxNormalizer implements Normalizer<DataSet<ExampleDataItem>>
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<ExampleDataItem> dataSet) {
+    public void normalize(DataSet<MLDataItem> dataSet) {
         // todo: prevent/catch division by zero
-        for(ExampleDataItem item : dataSet) {
+        for(MLDataItem item : dataSet) {
             item.getInput().div(maxInputs);   // kad je absMaxInput postao 1 1 1 1 posle pre iteracije!!!
             item.getTargetOutput().div(maxOutputs); 
         }    

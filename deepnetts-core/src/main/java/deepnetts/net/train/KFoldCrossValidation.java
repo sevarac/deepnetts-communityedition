@@ -22,7 +22,7 @@
 
 package deepnetts.net.train;
 
-import deepnetts.data.DeepNettsBasicDataSet;
+import deepnetts.data.TabularDataSet;
 import deepnetts.eval.ClassifierEvaluator;
 import javax.visrec.ml.eval.Evaluator;
 import javax.visrec.ml.eval.EvaluationMetrics;
@@ -33,7 +33,7 @@ import javax.visrec.ml.data.DataSet;
 import org.apache.commons.lang3.SerializationUtils;
 import deepnetts.eval.RegresionEvaluator;
 import javax.visrec.ml.regression.Regressor;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * Split data set into k parts of equal sizes (folds)
@@ -46,8 +46,8 @@ public class KFoldCrossValidation {
     private int splitsNum; 
     private NeuralNetwork neuralNetwork; 
     private BackpropagationTrainer trainer; 
-    private DataSet<ExampleDataItem> dataSet; 
-    private Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> evaluator;
+    private DataSet<MLDataItem> dataSet; 
+    private Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> evaluator;
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
 
@@ -57,8 +57,8 @@ public class KFoldCrossValidation {
 
         for (int testFoldIdx = 0; testFoldIdx < splitsNum; testFoldIdx++) {
             DataSet testSet = folds[testFoldIdx];
-            DeepNettsBasicDataSet trainingSet = new DeepNettsBasicDataSet(((DeepNettsBasicDataSet)dataSet).getNumInputs(), ((DeepNettsBasicDataSet)dataSet).getNumOutputs());
-            trainingSet.setColumnNames(((DeepNettsBasicDataSet)dataSet).getColumnNames());
+            TabularDataSet trainingSet = new TabularDataSet(((TabularDataSet)dataSet).getNumInputs(), ((TabularDataSet)dataSet).getNumOutputs());
+            trainingSet.setColumnNames(((TabularDataSet)dataSet).getColumnNames());
             for (int trainFoldIdx = 0; trainFoldIdx < splitsNum; trainFoldIdx++) {
                 if (trainFoldIdx == testFoldIdx) continue;
                 trainingSet.addAll(folds[trainFoldIdx]);
@@ -115,7 +115,7 @@ public class KFoldCrossValidation {
             return this;
         }
 
-        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends ExampleDataItem>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }
