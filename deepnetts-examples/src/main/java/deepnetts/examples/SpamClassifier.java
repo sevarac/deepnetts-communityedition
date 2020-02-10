@@ -22,6 +22,7 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSets;
+import deepnetts.data.MLDataItem;
 import deepnetts.data.norm.MaxNormalizer;
 import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
@@ -32,7 +33,6 @@ import deepnetts.util.DeepNettsException;
 import java.io.IOException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
-import deepnetts.data.ExampleDataItem;
 import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
@@ -57,9 +57,9 @@ public class SpamClassifier {
         DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
-        DataSet<ExampleDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
-        DataSet<ExampleDataItem> trainingSet = trainAndTestSet[0];
-        DataSet<ExampleDataItem> testSet = trainAndTestSet[1];
+        DataSet<MLDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
+        DataSet<MLDataItem> trainingSet = trainAndTestSet[0];
+        DataSet<MLDataItem> testSet = trainAndTestSet[1];
                 
         // normalize data - Why normalize data? and learn more about common data preprocessing you need 
         MaxNormalizer norm = new MaxNormalizer(trainingSet);    //

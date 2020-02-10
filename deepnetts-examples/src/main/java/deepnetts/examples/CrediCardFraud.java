@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Map;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
-import deepnetts.data.ExampleDataItem;
+import deepnetts.data.MLDataItem;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
@@ -58,9 +58,9 @@ public class CrediCardFraud {
         DataSets.normalizeMax(dataSet);
         
         // split data into training and test set
-        DataSet<ExampleDataItem>[] trainTestSet = dataSet.split(0.6);
-        DataSet<ExampleDataItem> trainingSet = trainTestSet[0];
-        DataSet<ExampleDataItem> testSet = trainTestSet[1];
+        DataSet<MLDataItem>[] trainTestSet = dataSet.split(0.6);
+        DataSet<MLDataItem> trainingSet = trainTestSet[0];
+        DataSet<MLDataItem> testSet = trainTestSet[1];
         
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()

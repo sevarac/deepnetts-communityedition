@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.visrec.AbstractImageClassifier;
 
@@ -72,9 +74,14 @@ public class ConvolutionalImageClassifier extends AbstractImageClassifier<Buffer
     }
 
     @Override
-     public Map<String, Float> classify(File imageFile) throws IOException {
-         BufferedImage image = ImageIO.read(imageFile);
-         return classify(image);
+     public Map<String, Float> classify(File imageFile) {
+        try {
+            BufferedImage image = ImageIO.read(imageFile);
+            return classify(image);
+        } catch (IOException ex) {
+            Logger.getLogger(ConvolutionalImageClassifier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new HashMap();
      }
 
 
