@@ -82,7 +82,6 @@ public class LinearRegression {
             float[] predictedOutput = neuralNet.predict(new float[] {0.2f});
             System.out.println("Predicted output for 0.2 :" + Arrays.toString(predictedOutput));
 
-
             plotTrainingData();
 
             // plot predictions for some random data
