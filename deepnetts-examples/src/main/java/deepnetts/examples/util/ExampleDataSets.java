@@ -1,4 +1,4 @@
-package deepnetts.examples;
+package deepnetts.examples.util;
 
 import deepnetts.data.DeepNettsBasicDataSet;
 

@@ -57,7 +57,7 @@ public class Cifar10 {
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile), 2000);
-//        imageSet.invert();
+        imageSet.setInvertImages(true);
         imageSet.zeroMean();
         imageSet.shuffle();
 
