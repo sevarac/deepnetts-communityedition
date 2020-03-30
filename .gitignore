@@ -5,3 +5,7 @@
 /target/
 /DeepNettsDevTests/target/
 /deepnetts-examples/logs/
+.idea/
+*.iml
+*.class
+
