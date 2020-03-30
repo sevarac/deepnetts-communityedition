@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.deepnetts</groupId>
@@ -7,37 +8,38 @@
         <version>1.1-SNAPSHOT</version>
     </parent>
     <artifactId>deepnetts-examples</artifactId>
+    <name>deepnetts-examples</name>
     <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>deepnetts-core-ce</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <type>jar</type>
+            <groupId>${parent.groupId}</groupId>
+            <artifactId>deepnetts-core</artifactId>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-b1</version>
         </dependency>
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-ri</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.knowm.xchart</groupId>
             <artifactId>xchart</artifactId>
             <version>3.5.2</version>
         </dependency>
     </dependencies>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-    <name>deepnetts-examples</name>
-    
+
     <repositories>
         <repository>
             <id>snapshots</id>
@@ -50,6 +52,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-    </repositories>    
-        
+    </repositories>
+
 </project>
