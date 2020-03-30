@@ -22,7 +22,7 @@
 
 package deepnetts.net.train;
 
-import deepnetts.data.DeepNettsBasicDataSet;
+import deepnetts.data.TabularDataSet;
 import deepnetts.eval.ClassifierEvaluator;
 import javax.visrec.ml.eval.Evaluator;
 import javax.visrec.ml.eval.EvaluationMetrics;
@@ -31,7 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.visrec.ml.data.DataSet;
 import org.apache.commons.lang3.SerializationUtils;
-import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.eval.RegresionEvaluator;
+import javax.visrec.ml.regression.Regressor;
+import deepnetts.data.MLDataItem;
 
 /**
  * Split data set into k parts of equal sizes (folds)
@@ -44,8 +46,8 @@ public class KFoldCrossValidation {
     private int splitsNum; 
     private NeuralNetwork neuralNetwork; 
     private BackpropagationTrainer trainer; 
-    private DataSet<DeepNettsDataSetItem> dataSet; 
-    private Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator; 
+    private DataSet<MLDataItem> dataSet; 
+    private Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> evaluator;
     private final List<NeuralNetwork> trainedNetworks = new ArrayList<>();
 
 
@@ -55,22 +57,30 @@ public class KFoldCrossValidation {
 
         for (int testFoldIdx = 0; testFoldIdx < splitsNum; testFoldIdx++) {
             DataSet testSet = folds[testFoldIdx];
-            DeepNettsBasicDataSet trainingSet = new DeepNettsBasicDataSet(((DeepNettsBasicDataSet)dataSet).getNumInputs(), ((DeepNettsBasicDataSet)dataSet).getNumOutputs());
-            trainingSet.setColumnNames(((DeepNettsBasicDataSet)dataSet).getColumnNames());
+            TabularDataSet trainingSet = new TabularDataSet(((TabularDataSet)dataSet).getNumInputs(), ((TabularDataSet)dataSet).getNumOutputs());
+            trainingSet.setColumnNames(((TabularDataSet)dataSet).getColumnNames());
             for (int trainFoldIdx = 0; trainFoldIdx < splitsNum; trainFoldIdx++) {
                 if (trainFoldIdx == testFoldIdx) continue;
                 trainingSet.addAll(folds[trainFoldIdx]);
             }
 
-            NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork);
-
-            trainer.train(trainingSet); 
-            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); 
+            // clone the original network each time before training - create a new instace that will be added to trainedNetworks
+            NeuralNetwork neuralNet = SerializationUtils.clone(this.neuralNetwork); // ovde bi morao traineru da prosledjuje kloniranu mrezu
+            // ova mreza nije ni kreirana
+            trainer.train(trainingSet); // napravi da trainer moze da sa istim parametrima pozove novu mrezu!!!!! ovo je problem, trainer zahteva novu instancu neuralNet ovde!!!
+            EvaluationMetrics pe = evaluator.evaluate(neuralNet, testSet); // Peturn an instance of PerformanceMeaseure here
             measures.add(pe);
             trainedNetworks.add(neuralNet);
         }
-
-        return ClassifierEvaluator.averagePerformance(measures);
+        // get final evaluation results - avg performnce of all test sets - use some static method to get that
+        
+        if (evaluator instanceof ClassifierEvaluator) {
+            return ClassifierEvaluator.averagePerformance(measures);
+        } else {
+            return RegresionEvaluator.averagePerformance(measures);
+        }
+        
+        
     }
 
     public List<NeuralNetwork> getTrainedNetworks() {
@@ -105,7 +115,7 @@ public class KFoldCrossValidation {
             return this;
         }
 
-        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> evaluator) {
+        public Builder evaluator(Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> evaluator) {
             kFoldCV.evaluator = evaluator;
             return this;
         }

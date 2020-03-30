@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.visrec.AbstractImageClassifier;
 
@@ -35,11 +37,11 @@ import javax.visrec.AbstractImageClassifier;
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
+public class ConvolutionalImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
 
     private ConvolutionalNetwork convNet;
 
-    public DeepNettsImageClassifier(ConvolutionalNetwork convNet) {
+    public ConvolutionalImageClassifier(ConvolutionalNetwork convNet) {
        super(BufferedImage.class, convNet);
      // super(convNet);
     }
@@ -49,7 +51,7 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
      * @param image
      * @return
      */
-    //@Override
+    @Override
     public Map<String, Float> classify(BufferedImage image) {
         HashMap<String, Float> results = new HashMap<>();
         ConvolutionalNetwork convNet = getModel();
@@ -72,9 +74,14 @@ public class DeepNettsImageClassifier extends AbstractImageClassifier<BufferedIm
     }
 
     @Override
-     public Map<String, Float> classify(File imageFile) throws IOException {
-         BufferedImage image = ImageIO.read(imageFile);
-         return classify(image);
+     public Map<String, Float> classify(File imageFile) {
+        try {
+            BufferedImage image = ImageIO.read(imageFile);
+            return classify(image);
+        } catch (IOException ex) {
+            Logger.getLogger(ConvolutionalImageClassifier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new HashMap();
      }
 
 

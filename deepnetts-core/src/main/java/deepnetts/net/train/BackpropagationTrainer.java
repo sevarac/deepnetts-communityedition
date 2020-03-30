@@ -24,7 +24,6 @@ package deepnetts.net.train;
 
 import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.core.DeepNetts;
-import deepnetts.data.DeepNettsBasicDataSet;
 import deepnetts.net.NeuralNetwork;
 import deepnetts.net.layers.AbstractLayer;
 
@@ -34,9 +33,7 @@ import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.loss.LossFunction;
-import deepnetts.util.DeepNettsException;
 import deepnetts.util.FileIO;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,10 +42,11 @@ import java.util.Objects;
 import java.util.Properties;
 import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
-import deepnetts.data.DeepNettsDataSetItem;
+import java.io.ObjectInputStream;
+import deepnetts.data.MLDataItem;
 
 /**
- * Backpropagation training algorithm for feed forward and convolutional neural networks.
+ * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
  * Backpropagation is a supervised machine learning algorithm which iteratively
  * reduces prediction error, by looking for the minimum of loss function.
  *
@@ -121,13 +119,19 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * Shuffle training set before each epoch during training
      */
     private boolean shuffle = false;
-
+    
+    /**
+     * Neural network to train
+     */
     private NeuralNetwork<?> neuralNet;
 
-    private transient DataSet<? extends DeepNettsDataSetItem> trainingSet;
+    private transient DataSet<? extends MLDataItem> trainingSet;
 
-    private transient DataSet<? extends DeepNettsDataSetItem> validationSet;
+    private transient DataSet<? extends MLDataItem> validationSet;
 
+    /**
+     * Loss function used to calculate total network error
+     */
     private LossFunction lossFunction;
 
     private boolean trainingSnapshots = false;
@@ -158,13 +162,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private float prevCheckpointTestLoss=100f;
 
 
-    private transient Evaluator<NeuralNetwork, DataSet<? extends DeepNettsDataSetItem>> eval = new ClassifierEvaluator();
+    private transient Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> eval = new ClassifierEvaluator();
 
     //regularization l1 or l2 add to loss
     private float regL2, regL1;
 
 
-    private transient final List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
+    private transient List<TrainingListener> listeners = new ArrayList<>(); // TODO: add WeakReference for all listeners
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
@@ -179,24 +183,24 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     public BackpropagationTrainer(Properties prop) {
         // setProperties(prop); // all this should be done in setProperties
-//        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
-//        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
-//        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
-//        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
-//        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
-//        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
-//        this.optimizer = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
+        this.maxError = Float.parseFloat(prop.getProperty(PROP_MAX_ERROR));
+        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
+        this.learningRate = Float.parseFloat(prop.getProperty(PROP_LEARNING_RATE));
+        this.momentum = Float.parseFloat(prop.getProperty(PROP_MOMENTUM));
+        this.batchMode = Boolean.parseBoolean(prop.getProperty(PROP_BATCH_MODE));
+        this.batchSize = Integer.parseInt(prop.getProperty(PROP_BATCH_SIZE));
     }
 
 
     /**
      * Run training using specified training and validation sets.
-     * Training set is used to train model, while validation set is used to check model accuracy with unseen data in order to prevent overfitting.
+     * Training set is used to train model, while validation set is used to check model accuracy with unseen data 
+     * during training in order to prevent overfitting.
      * 
      * @param trainingSet
      * @param validationSet 
      */
-    public void train(DataSet<DeepNettsDataSetItem> trainingSet, DataSet<DeepNettsDataSetItem> validationSet) {
+    public void train(DataSet<MLDataItem> trainingSet, DataSet<MLDataItem> validationSet) {
         this.validationSet = validationSet;
         train(trainingSet);
     }
@@ -217,7 +221,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * @param trainingSet training data to build the model
      */
     @Override
-    public void train(DataSet<? extends DeepNettsDataSetItem> trainingSet) {
+    public void train(DataSet<? extends MLDataItem> trainingSet) {
 
         if (trainingSet == null) {
             throw new IllegalArgumentException("Argument trainingSet cannot be null!");
@@ -275,7 +279,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             startEpoch = System.currentTimeMillis();
 
-            for (DeepNettsDataSetItem dataSetItem : trainingSet) { // for all items in trainng set
+            for (MLDataItem dataSetItem : trainingSet) { // for all items in trainng set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput()); 
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
@@ -512,7 +516,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         return validationSet;
     }
 
-    public void setTestSet(DataSet<DeepNettsDataSetItem> testSet) {
+    public void setTestSet(DataSet<MLDataItem> testSet) {
         this.validationSet = testSet;
     }
 
@@ -616,16 +620,22 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public static final String PROP_OPTIMIZER_TYPE = "optimizer";  // for mini batch
 
 
-    private float validationLoss(DataSet<? extends DeepNettsDataSetItem> validationSet) {
+    private float validationLoss(DataSet<? extends MLDataItem> validationSet) {
         lossFunction.reset();
         float validationLoss =  lossFunction.valueFor(neuralNet, validationSet);
         return validationLoss;
     }
 
     // only for classification problems
-    private float calculateAccuracy(DataSet<? extends DeepNettsDataSetItem> validationSet) {
+    private float calculateAccuracy(DataSet<? extends MLDataItem> validationSet) {
         EvaluationMetrics pm = eval.evaluate(neuralNet, validationSet);
         return pm.get(EvaluationMetrics.ACCURACY);
     }
 
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException 
+    {       
+         listeners = new ArrayList<>(); 
+    }    
+    
 }

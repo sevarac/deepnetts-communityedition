@@ -22,54 +22,80 @@
 package deepnetts.examples;
 
 import deepnetts.data.DataSets;
+import deepnetts.data.MLDataItem;
 import deepnetts.data.norm.MaxNormalizer;
+import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;
 import deepnetts.util.DeepNettsException;
 import java.io.IOException;
+import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
+import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
- * Spam  Classification Problem. This example is using Softmax activation in
- * output layer and Cross Entropy Loss function. Overfits the iris data set
+ * Spam  Classification example.
+ * Minimal example how to train a binary classifier for spam email  classification, using Feed Forward neural network.
+ * Data is given as CSV file.
  *
+ * <Link to tutorial>
+ * additional links to related  tutorials
+ * 
+ * Link to original data set
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class SpamClassifier {
 
     public static void main(String[] args) throws DeepNettsException, IOException {
 
-        // load spam data  set from csv file
-        DataSet dataSet = DataSets.readCsv("datasets//spam.csv", 57, 1, true);             
+        int numInputs = 57;
+        int numOutputs = 1;
+        
+        // load spam data  set from csv file - what is csv file?
+        DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
 
-        // split data set into train and test set
-        DataSet[] trainTest = dataSet.split(0.6);
+        // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
+        DataSet<MLDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
+        DataSet<MLDataItem> trainingSet = trainAndTestSet[0];
+        DataSet<MLDataItem> testSet = trainAndTestSet[1];
+                
+        // normalize data - Why normalize data? and learn more about common data preprocessing you need 
+        MaxNormalizer norm = new MaxNormalizer(trainingSet);    //
+        norm.normalize(trainingSet);
+        norm.normalize(testSet);
         
-        // normalize data
-        MaxNormalizer norm = new MaxNormalizer(trainTest[0]);
-        norm.normalize(trainTest[0]);
-        norm.normalize(trainTest[1]);
-        
-        // create instance of feed forward neural network using its builder
+        // create instance of feed forward neural network using its builder - link to article what are all these parameters and functions actually mean?
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
-                .addInputLayer(57)
+                .addInputLayer(numInputs)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
-                .addOutputLayer(1, ActivationType.SIGMOID)
+                .addOutputLayer(numOutputs, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)
                 .randomSeed(123)
                 .build();
 
-        // set training settings
+        // set training settings - how to set training parameters?
         neuralNet.getTrainer().setMaxError(0.2f)
                               .setLearningRate(0.01f);
         
-        // start training
-        neuralNet.train(trainTest[0]);
+        // run training
+        neuralNet.train(trainingSet);
         
-        // test network /  evaluate classification accuracy
-        EvaluationMetrics em = neuralNet.test(trainTest[1]);
+        // test network /  evaluate classifier - how to interpret results of classifier evaluation
+        EvaluationMetrics em = Evaluators.evaluateClassifier(neuralNet, testSet);
         System.out.println(em);
+        
+        // using trained network: create binary classifier using trained network
+        BinaryClassifier<float[]> binClassifier = new FeedForwardNetBinaryClassifier(neuralNet);
+        
+        // get single feature array from test set
+        float[] testEmail = trainAndTestSet[1].get(0).getInput().getValues();
+        // feed the classifer and get result / spam probability
+    //    Float result = binClassifier.classify(testEmail);
+        
+     //   System.out.println("Spam probability: "+result);        
     }
+    
+
 }

@@ -1,4 +1,4 @@
-package deepnetts.examples;
+package deepnetts.examples.util;
 
 import deepnetts.data.DeepNettsBasicDataSet;
 
@@ -6,8 +6,9 @@ import deepnetts.data.DataSets;
 import java.io.File;
 import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
-import deepnetts.data.DeepNettsDataSetItem;
 import deepnetts.data.ImageSet;
+import deepnetts.data.MLDataItem;
+import deepnetts.data.TabularDataSet;
 
 /**
  * TODO: add breast cancer, mnist  and other UCI stuff
@@ -15,24 +16,24 @@ import deepnetts.data.ImageSet;
  */
 public class ExampleDataSets {
 
-    public static DeepNettsBasicDataSet iris() throws IOException {
+    public static TabularDataSet iris() throws IOException {
        // TODO: apply some normalization here, as a param?
-       return DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
+       return (TabularDataSet) DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
     public static DeepNettsBasicDataSet xor() {
         DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(2, 1);
 
-        DeepNettsDataSetItem item1 = new DeepNettsBasicDataSet.Item(new float[] {0, 0}, new float[] {0});
+        MLDataItem item1 = new TabularDataSet.Item(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);
 
-        DeepNettsDataSetItem item2 = new DeepNettsBasicDataSet.Item(new float[] {0, 1}, new float[] {1});
+        MLDataItem item2 = new TabularDataSet.Item(new float[] {0, 1}, new float[] {1});
         dataSet.add(item2);
 
-        DeepNettsDataSetItem item3 = new DeepNettsBasicDataSet.Item(new float[] {1, 0}, new float[] {1});
+        MLDataItem item3 = new TabularDataSet.Item(new float[] {1, 0}, new float[] {1});
         dataSet.add(item3);
 
-        DeepNettsDataSetItem item4 = new DeepNettsBasicDataSet.Item(new float[] {1, 1}, new float[] {0});
+        MLDataItem item4 = new TabularDataSet.Item(new float[] {1, 1}, new float[] {0});
         dataSet.add(item4);
 
         return dataSet;

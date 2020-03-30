@@ -27,14 +27,14 @@ import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.data.Normalizer;
-import deepnetts.data.DeepNettsDataSetItem;
+import deepnetts.data.MLDataItem;
 
 /**
  * Performs Min Max normalization on the given data set.
  * 
  * @author Zoran Sevarac
  */
-public class MinMaxNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem>>, Serializable {
+public class MinMaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
     private Tensor minInput;
     private Tensor maxInput;
     private Tensor minOutput;   // ovo ne bi trebalo na outputs da se primenjuje???
@@ -45,14 +45,14 @@ public class MinMaxNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem
      * 
      * @param dataSet 
      */
-    public MinMaxNormalizer(DataSet<DeepNettsDataSetItem> dataSet) {
+    public MinMaxNormalizer(DataSet<MLDataItem> dataSet) {
         // find min and max values for each component of input and output tensor/vector
         minInput = dataSet.get(0).getInput().copy();
         maxInput = dataSet.get(0).getInput().copy();
         minOutput = dataSet.get(0).getTargetOutput().copy();
         maxOutput = dataSet.get(0).getTargetOutput().copy();
         
-        for(DeepNettsDataSetItem item : dataSet) {
+        for(MLDataItem item : dataSet) {
             minInput = Tensors.absMin(item.getInput(), minInput);
             maxInput = Tensors.absMax(item.getInput(), maxInput);
             minOutput = Tensors.absMin(item.getTargetOutput(), minOutput);
@@ -67,14 +67,14 @@ public class MinMaxNormalizer implements Normalizer<DataSet<DeepNettsDataSetItem
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<DeepNettsDataSetItem> dataSet) {
+    public void normalize(DataSet<MLDataItem> dataSet) {
         Tensor inDivider = maxInput.copy();
         maxInput.sub(minInput);
 
         Tensor outDivider = maxOutput.copy();
         maxOutput.sub(minOutput);
 
-        for (DeepNettsDataSetItem item : dataSet) {
+        for (MLDataItem item : dataSet) {
             item.getInput().sub(minInput);
             item.getInput().div(inDivider);
             item.getTargetOutput().sub(minInput);

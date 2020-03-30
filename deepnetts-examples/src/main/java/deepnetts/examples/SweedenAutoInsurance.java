@@ -55,7 +55,6 @@ public class SweedenAutoInsurance {
 
         DataSet dataSet = DataSets.readCsv(datasetFile, inputsNum, outputsNum);
         DataSet[] trainAndTestSet = dataSet.split(0.7, 0.3);
-        // TODO: train/test split
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(1)

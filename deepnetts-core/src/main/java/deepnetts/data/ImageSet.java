@@ -54,7 +54,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Zoran Sevarac
  */
-public class ImageSet extends DeepNettsBasicDataSet<ExampleImage> {
+public class ImageSet extends TabularDataSet<ExampleImage> {
 
     private final int imageWidth;
     private final int imageHeight;

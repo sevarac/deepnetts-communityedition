@@ -46,7 +46,6 @@ public class BostonHouses {
             int inputsNum = 1;
             int outputsNum = 1;
             String csvFilename = "datasets/bostonsredjen-2kolone.csv";
-            // kako da g aucitam celog i da biramkoje cu kolone da tweakujem? da setujem koje su kolone ulazi a koje izlazi  useAsOutputs(4, 5, 6)
 
             // load and create data set from csv file
             DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum, true);

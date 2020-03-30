@@ -26,7 +26,8 @@ import deepnetts.net.NeuralNetwork;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import javax.visrec.ml.eval.Evaluator;
-import deepnetts.data.DeepNettsDataSetItem;
+import java.util.List;
+import deepnetts.data.MLDataItem;
 
 /**
  * Evaluates regressor neural network for specified data set.
@@ -34,10 +35,10 @@ import deepnetts.data.DeepNettsDataSetItem;
  * 
  * @author Zoran Sevarac
  */
-public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<DeepNettsDataSetItem>> {
+public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<MLDataItem>> {
 
     @Override
-    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<DeepNettsDataSetItem> testSet) {
+    public EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<MLDataItem> testSet) {
         EvaluationMetrics pe = new EvaluationMetrics();
 
         MeanSquaredError mse = new MeanSquaredError();
@@ -46,7 +47,7 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<Deep
         int numItems= testSet.size();
         float targetMean = mean(testSet);
 
-        for (DeepNettsDataSetItem item : testSet) {
+        for (MLDataItem item : testSet) {
             neuralNet.setInput(item.getInput());
             float[] predicted = neuralNet.getOutput();
             mse.add(predicted, item.getTargetOutput().getValues());
@@ -70,12 +71,33 @@ public class RegresionEvaluator implements Evaluator<NeuralNetwork, DataSet<Deep
         return pe;
     }
 
-    private float mean(DataSet<? extends DeepNettsDataSetItem> testSet) {
+    private float mean(DataSet<? extends MLDataItem> testSet) {
         float mean=0;
-        for(DeepNettsDataSetItem ditem : testSet) {
+        for(MLDataItem ditem : testSet) {
             mean += ditem.getTargetOutput().get(0);
         }
         return mean / testSet.size();
     }
+    
+    public static EvaluationMetrics averagePerformance(List<EvaluationMetrics> measures) {
+        float mse = 0, rse = 0, r2 = 0, fstat = 0;
+
+        for (EvaluationMetrics em : measures) {
+            mse += em.get(EvaluationMetrics.MEAN_SQUARED_ERROR);
+            r2 += em.get(EvaluationMetrics.RESIDUAL_STANDARD_ERROR);
+            rse += em.get(EvaluationMetrics.R_SQUARED);
+            fstat += em.get(EvaluationMetrics.F_STAT);
+        }
+
+        int count = measures.size();
+
+        EvaluationMetrics total = new EvaluationMetrics();
+        total.set(EvaluationMetrics.MEAN_SQUARED_ERROR, mse / count);
+        total.set(EvaluationMetrics.RESIDUAL_STANDARD_ERROR, rse / count);
+        total.set(EvaluationMetrics.R_SQUARED, r2 / count);
+        total.set(EvaluationMetrics.F_STAT, fstat / count);
+
+        return total;
+    }    
 
 }

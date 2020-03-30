@@ -20,6 +20,7 @@
  */
 package deepnetts.examples;
 
+import deepnetts.examples.util.ExampleDataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
 import deepnetts.net.loss.LossType;

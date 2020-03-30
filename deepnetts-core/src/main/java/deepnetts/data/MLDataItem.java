@@ -24,14 +24,13 @@ package deepnetts.data;
 import deepnetts.util.Tensor;
 
 /**
- * Single item in a Deep Netts data set that provides methods for accessing input and target output.
- * This could be a marker interface (turn to annotation in future)
- * for example @DataSetItem
- * If somebody wants data set if custm objectsthey have to implement this interface for those objects and it should work
+ * Single data item for machine learning algorithms.
+ * Provides methods for accessing input and target output.
+ * To enable machine learning create for custom objects implement this interface for corresponding class and everything else should.
  * 
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
-public interface DeepNettsDataSetItem {        
+public interface MLDataItem {        
     
         public Tensor getInput();
         
