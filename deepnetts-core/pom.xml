@@ -3,12 +3,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-        <groupId>com.deepnetts</groupId>
-
-        <version>1.1</version>
-
+    <groupId>com.deepnetts</groupId>
     <artifactId>deepnetts-core</artifactId>
+    <version>1.1</version>
     <packaging>jar</packaging>
+
+    <name>com.deepnetts:deepnetts-core</name>
+    <description>Deep learning engine in pure Java</description>
+    <url>https://www.deepnetts.com</url>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://github.com/deepnetts/deepnetts-communityedition/blob/community-visrec/COPYING</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Zoran Sevarac</name>
+            <email>sevarac@gmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/deepnetts/deepnetts-communityedition.git</connection>
+        <developerConnection>scm:git:ssh://github.com:deepnetts/deepnetts-communityedition.git</developerConnection>
+        <url>http://github.com/deepnetts/deepnetts-communityedition/tree/master</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
