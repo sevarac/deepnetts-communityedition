@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
+
         <groupId>com.deepnetts</groupId>
-        <artifactId>DeepNetts</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
+
+        <version>1.1</version>
+
     <artifactId>deepnetts-core</artifactId>
     <packaging>jar</packaging>
 
@@ -69,8 +69,8 @@
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0.0-b1</version>
-            <scope>provided</scope>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
@@ -101,10 +101,10 @@
                         <configuration>
                             <!-- Prevent `gpg` from using pinentry programs -->
                             <!-- Disable gpgArguments temporary when signing locally -->
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
+                            <!--gpgArguments>
+                                <arg> pinentry-mode </arg>
                                 <arg>loopback</arg>
-                            </gpgArguments>
+                            </gpgArguments-->
                         </configuration>
                     </execution>
                 </executions>
