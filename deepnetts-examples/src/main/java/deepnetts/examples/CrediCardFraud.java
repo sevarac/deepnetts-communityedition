@@ -35,7 +35,7 @@ import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.data.MLDataItem;
 import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.BinaryClassifier;
-import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
+import javax.visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
  * Spam  Classification Problem. This example is using  activation in

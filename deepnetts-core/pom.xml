@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>com.deepnetts:deepnetts-core</name>
-    <description>Deep learning engine in pure Java</description>
+    <description>Deep Learning Engine in pure Java. Base for reference implementation of JSR381</description>
     <url>https://www.deepnetts.com</url>
 
     <licenses>

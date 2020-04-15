@@ -1,6 +1,6 @@
 package deepnetts.examples.util;
 
-import deepnetts.data.DeepNettsBasicDataSet;
+import deepnetts.data.TabularDataSet;
 
 import deepnetts.data.DataSets;
 import java.io.File;
@@ -21,8 +21,8 @@ public class ExampleDataSets {
        return (TabularDataSet) DataSets.readCsv("datasets/iris_data_normalised.txt", 4, 3);
     }
 
-    public static DeepNettsBasicDataSet xor() {
-        DeepNettsBasicDataSet dataSet = new DeepNettsBasicDataSet(2, 1);
+    public static TabularDataSet xor() {
+        TabularDataSet dataSet = new TabularDataSet(2, 1);
 
         MLDataItem item1 = new TabularDataSet.Item(new float[] {0, 0}, new float[] {0});
         dataSet.add(item1);

@@ -52,8 +52,8 @@ public class DukeDetector {
         int imageWidth = 64;
         int imageHeight = 64;
 
-        String trainingFile = "D:\\datasets\\DukeSet\\index.txt";
-        String labelsFile = "D:\\datasets\\DukeSet\\labels.txt";
+        String trainingFile = "C:\\Users\\Zoran\\Documents\\DukeSet\\index.txt";
+        String labelsFile = "C:\\Users\\Zoran\\Documents\\DukeSet\\labels.txt";
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
 
@@ -61,9 +61,9 @@ public class DukeDetector {
 
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile));
-        imageSet.zeroMean();
+        //imageSet.zeroMean();
 
-        //imageSet.invert();
+        imageSet.setInvertImages(true);
         imageSet.shuffle();
 
        // ImageSet[] trainAndTestSet = imageSet.split(0.7, 0.3);
@@ -74,12 +74,6 @@ public class DukeDetector {
                 .addInputLayer(imageWidth, imageHeight, 3)
                 .addConvolutionalLayer(3, 3, 3, ActivationType.TANH)
                 .addMaxPoolingLayer(2, 2, 2)
-                .addConvolutionalLayer(3, 3, 12, ActivationType.TANH)
-                .addMaxPoolingLayer(2, 2, 2)
-                .addConvolutionalLayer(3, 3, 24, ActivationType.TANH)
-                .addMaxPoolingLayer(2, 2, 2)
-                .addFullyConnectedLayer(30, ActivationType.TANH)
-                .addFullyConnectedLayer(20, ActivationType.TANH)
                 .addFullyConnectedLayer(10, ActivationType.TANH)
                 .addOutputLayer(1, ActivationType.SIGMOID)
                 .lossFunction(LossType.CROSS_ENTROPY)

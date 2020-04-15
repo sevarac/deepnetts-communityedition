@@ -33,7 +33,7 @@ import deepnetts.util.DeepNettsException;
 import java.io.IOException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ml.data.DataSet;
-import visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
+import javax.visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
 /**
  * Spam  Classification example.

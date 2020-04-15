@@ -2,13 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.deepnetts</groupId>
-        <artifactId>DeepNetts</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
+    <groupId>com.deepnetts</groupId>
+    <version>1.11</version>
     <artifactId>deepnetts-examples</artifactId>
-    <name>deepnetts-examples</name>
+    <name>com.deepnetts:deepnetts-examples</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -18,19 +15,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
+            <groupId>com.deepnetts</groupId>
             <artifactId>deepnetts-core</artifactId>
-            <version>${parent.version}</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0.0-b1</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-ri</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <type>jar</type>
         </dependency>
         <dependency>
