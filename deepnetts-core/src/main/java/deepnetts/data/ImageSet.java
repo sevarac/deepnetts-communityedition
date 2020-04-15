@@ -282,6 +282,10 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
             }
     }
 
+    public void invert() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private class ImageProcessor implements Callable<Boolean> {
 
         private final List<BufferedImage> images;
