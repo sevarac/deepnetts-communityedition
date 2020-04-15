@@ -54,7 +54,7 @@ public class SpamClassifier {
         int numOutputs = 1;
         
         // load spam data  set from csv file - what is csv file?
-        DataSet dataSet = DataSets.readCsv("datasets//spam.csv", numInputs, numOutputs, true);             
+        DataSet dataSet = DataSets.readCsv("datasets/spam.csv", numInputs, numOutputs, true);             
 
         // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
         DataSet<MLDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
@@ -91,10 +91,9 @@ public class SpamClassifier {
         
         // get single feature array from test set
         float[] testEmail = trainAndTestSet[1].get(0).getInput().getValues();
-        // feed the classifer and get result / spam probability
-    //    Float result = binClassifier.classify(testEmail);
-        
-     //   System.out.println("Spam probability: "+result);        
+        // feed the classifer and get result - spam probability
+        Float result = binClassifier.classify(testEmail);        
+        System.out.println("Spam probability: "+result);        
     }
     
 
