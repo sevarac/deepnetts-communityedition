@@ -36,7 +36,7 @@ import javax.visrec.ml.data.DataSet;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @param <E> Type of elements in this data set.
  */
-public class TabularDataSet<T extends MLDataItem> extends javax.visrec.ml.data.BasicDataSet<T> {
+public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.BasicDataSet<E> {
 
     private int numInputs, numOutputs; // number of inputs and outputs / target values
 
