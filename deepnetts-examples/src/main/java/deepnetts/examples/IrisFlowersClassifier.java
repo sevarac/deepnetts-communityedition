@@ -78,6 +78,6 @@ public class IrisFlowersClassifier {
         System.out.println(em);
         System.out.println("CONFUSION MATRIX");
         ConfusionMatrix cm = evaluator.getConfusionMatrix();
-        System.out.println(cm);          
+        System.out.println(cm);      
     }
 }
