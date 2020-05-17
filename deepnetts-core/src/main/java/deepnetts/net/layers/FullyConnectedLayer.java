@@ -147,6 +147,8 @@ public final class FullyConnectedLayer extends AbstractLayer {
 
     @Override
     public void forward() {
+        outputs.copyFrom(biases);
+        
         if (prevLayer instanceof FullyConnectedLayer || (prevLayer instanceof InputLayer && prevLayer.height == 1 && prevLayer.depth == 1)) {
             for (int outCol = 0; outCol < outputs.getCols(); outCol++) {
                 for (int inCol = 0; inCol < inputs.getCols(); inCol++) {
@@ -162,8 +164,6 @@ public final class FullyConnectedLayer extends AbstractLayer {
     }
 
     private void forwardFrom3DLayer() {
-        outputs.copyFrom(biases);
-
         for (int outCol = 0; outCol < outputs.getCols(); outCol++) {
             forwardFrom3DLayerForCell(outCol);
         }
