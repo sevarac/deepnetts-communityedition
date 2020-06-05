@@ -1,6 +1,6 @@
 # Deep Netts Community Edition
 
-To be able to use it in your Maven based Java project, add the following dependency into dependencies section of your *pom.xml* file:
+To be able to use Deep Netts in your Maven based Java project, add the following dependency into dependencies section of your *pom.xml* file:
 
         <dependency>
             <groupId>com.deepnetts</groupId>
