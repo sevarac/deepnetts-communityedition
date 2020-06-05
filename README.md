@@ -1,5 +1,4 @@
-# deepnetts-communityedition
-Deep Netts Engine Community Edition
+# Deep Netts Community Edition
 
 To be able to use it in your Maven based Java project, add the following dependency into dependencies section of your *pom.xml* file:
 
