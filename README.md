@@ -1,13 +1,12 @@
 # deepnetts-communityedition
 Deep Netts Engine Community Edition
 
-To be able to use it add the following Maven dependencies and Snapshot repository to your pom.xml file
+To be able to use it add the following Maven dependency to your pom.xml file
 
         <dependency>
             <groupId>com.deepnetts</groupId>
-            <artifactId>deepnetts-core-ce</artifactId>
+            <artifactId>deepnetts-core</artifactId>
             <version>1.12</version>
-            <type>jar</type>
         </dependency>
     
 Learn more about Deep Netts Community adition at https://www.deepnetts.com/blog/deep-netts-community-edition
