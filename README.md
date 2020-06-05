@@ -11,4 +11,10 @@ To be able to use it add the following Maven dependency to your pom.xml file
     
 Learn more about Deep Netts Community adition at https://www.deepnetts.com/blog/deep-netts-community-edition
 
-If you need more higher accuracy, faster training, tools, advanced features and professional support take a look at Deep Netts Professional Edition at https://www.deepnetts.com/product.html
+If you need 
+* faster training
+* higher accuracy
+* friendly development tools
+* advanced algorithms and features
+* professional technical support 
+take a look at [Deep Netts Professional Edition](https://www.deepnetts.com/product.html)
