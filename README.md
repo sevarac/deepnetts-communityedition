@@ -14,7 +14,8 @@ Learn more about Deep Netts Community adition at https://www.deepnetts.com/blog/
 If you need 
 * faster training
 * higher accuracy
-* friendly development tools
+* beginner-friendly development tools
 * advanced algorithms and features
 * professional technical support 
+
 take a look at [Deep Netts Professional Edition](https://www.deepnetts.com/product.html)
