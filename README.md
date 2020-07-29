@@ -1,37 +1,20 @@
-# deepnetts-communityedition
-Deep Netts Engine Community Edition
+# Deep Netts Community Edition
 
-To be able to use it add the following Maven dependencies and Snapshot repository to your pom.xml file
+To be able to use Deep Netts in your Maven based Java project, add the following dependency into dependencies section of your *pom.xml* file:
 
-    <dependencies>
         <dependency>
             <groupId>com.deepnetts</groupId>
-            <artifactId>deepnetts-core-ce</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <type>jar</type>
+            <artifactId>deepnetts-core</artifactId>
+            <version>1.12</version>
         </dependency>
-        <dependency>
-            <groupId>javax.visrec</groupId>
-            <artifactId>visrec-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.visrec</groupId>
-            <artifactId>visrec-ri</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
     
-    <repositories>
-        <repository>
-            <id>snapshots</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>  
+Learn more about Deep Netts Community adition at https://www.deepnetts.com/blog/deep-netts-community-edition
+
+If you need 
+* faster training
+* higher accuracy
+* beginner-friendly development tools
+* advanced algorithms and features
+* professional technical support 
+
+take a look at [Deep Netts Professional Edition](https://www.deepnetts.com/product.html)

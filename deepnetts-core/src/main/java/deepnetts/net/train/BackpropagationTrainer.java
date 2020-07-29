@@ -279,7 +279,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             startEpoch = System.currentTimeMillis();
 
-            for (MLDataItem dataSetItem : trainingSet) { // for all items in trainng set
+            for (MLDataItem dataSetItem : trainingSet) { // for all items in training set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput()); 
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
@@ -326,7 +326,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
 
 
-            if (Float.isNaN(totalTrainingLoss)) stopTraining = true;
+            if (Float.isNaN(totalTrainingLoss)) {
+                stopTraining = true;
+                LOGGER.info("Trainer was interrupted before completing all Epochs. Epochs completed: " + epoch + "/" + maxEpochs);
+            }
 
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 
