@@ -13,8 +13,9 @@ import java.io.IOException;
 import javax.visrec.ml.data.DataSet;
 
 /**
- * Iris Classification Problem. This example is using Softmax activation in
- * output layer and Cross Entropy Loss function. Overfits the iris data set
+ * Iris Classification Problem. An example of multi class classification using neural network.
+ * This example is using Softmax activation in output layer and Cross Entropy Loss function.
+ * Overfits the iris data set
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
