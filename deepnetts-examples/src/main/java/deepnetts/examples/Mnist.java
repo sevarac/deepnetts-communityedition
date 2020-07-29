@@ -24,7 +24,6 @@ import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.train.BackpropagationTrainer;
-import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.DeepNettsException;
 import deepnetts.eval.ClassifierEvaluator;
 import deepnetts.eval.ConfusionMatrix;
@@ -47,16 +46,16 @@ import org.apache.logging.log4j.Logger;
  */
 public class Mnist {
 
-    int imageWidth = 28;
-    int imageHeight = 28;
+    // input image dimensions
+    final int IMAGE_WIDTH = 28;
+    final int IMAGE_HEIGHT = 28;
 
-    //String labelsFile   = "/home/zoran/datasets/mnist/train/labels.txt";
-    String labelsFile = "D:\\datasets\\mnist\\train\\labels.txt";
-    //   String trainingFile = "datasets/mnist/train2.txt"; // 1000 cifara - probaj sa 10 000
-    //     String trainingFile = "/home/zoran/datasets/mnist/train/train.txt"; // 1000 cifara - probaj sa 10 000
-    String trainingFile = "D:\\datasets\\mnist\\train\\train.txt"; // 1000 cifara - probaj sa 10 000
+    // data set path and training files
+    final String DATA_SET_PATH = "D:/datasets/mnist/train";
+    final String LABELS_FILE = DATA_SET_PATH + "/labels.txt";
+    final String TRAINING_FILE = DATA_SET_PATH + "/train.txt";
 
-    private static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
+    static final Logger LOGGER = LogManager.getLogger(DeepNetts.class.getName());
 
     public void run() throws DeepNettsException, IOException {
 
@@ -64,10 +63,10 @@ public class Mnist {
         LOGGER.info("Creating image data set...");
 
         // create a data set from images and labels
-        ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
+        ImageSet imageSet = new ImageSet(IMAGE_WIDTH, IMAGE_HEIGHT);
         imageSet.setInvertImages(true);
-        imageSet.loadLabels(new File(labelsFile));
-        imageSet.loadImages(new File(trainingFile), 1000);
+        imageSet.loadLabels(new File(LABELS_FILE));
+        imageSet.loadImages(new File(TRAINING_FILE), 1000);
         //  imageSet.zeroMean();
         imageSet.countByClasses();      
         
@@ -80,7 +79,7 @@ public class Mnist {
 
         // create convolutional neural network architecture
         ConvolutionalNetwork neuralNet = ConvolutionalNetwork.builder()
-                .addInputLayer(imageWidth, imageHeight, 3)
+                .addInputLayer(IMAGE_WIDTH, IMAGE_HEIGHT, 3)
                 .addConvolutionalLayer(3, 3, 12)
                 .addMaxPoolingLayer(2, 2)
                 .addFullyConnectedLayer(30)
@@ -101,7 +100,7 @@ public class Mnist {
 
         // Test trained network
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        EvaluationMetrics em = evaluator.evaluate(neuralNet, imageSets[1]);
+        evaluator.evaluate(neuralNet, imageSets[1]);
         LOGGER.info("------------------------------------------------");
         LOGGER.info("Classification performance measure" + System.lineSeparator());
         LOGGER.info("TOTAL AVERAGE");
@@ -118,9 +117,8 @@ public class Mnist {
         ConfusionMatrix cm = evaluator.getConfusionMatrix();
         LOGGER.info(cm);
 
-        // Save network to file as json
-        //FileIO.writeToFile(neuralNet, "mnistDemo.dnet");
-        FileIO.writeToFileAsJson(neuralNet, "mnistDemo.json");
+        // Save network to file
+        FileIO.writeToFile(neuralNet, "mnistDemo.dnet");
     }
 
     public static void main(String[] args) throws IOException {

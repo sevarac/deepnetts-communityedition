@@ -66,7 +66,7 @@ public class SpamClassifier {
         norm.normalize(trainingSet);
         norm.normalize(testSet);
         
-        // create instance of feed forward neural network using its builder - link to article what are all these parameters and functions actually mean?
+        // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(numInputs)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
