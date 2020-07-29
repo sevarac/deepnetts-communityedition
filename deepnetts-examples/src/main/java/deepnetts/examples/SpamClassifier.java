@@ -52,7 +52,7 @@ public class SpamClassifier {
         // load spam data  set from csv file
         DataSet dataSet = DataSets.readCsv("datasets/spam.csv", numInputs, numOutputs, true);             
 
-        // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
+        // split data set into train and test set
         DataSet<MLDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
         DataSet<MLDataItem> trainingSet = trainAndTestSet[0];
         DataSet<MLDataItem> testSet = trainAndTestSet[1];
