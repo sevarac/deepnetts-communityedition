@@ -10,3 +10,5 @@
 *.class
 /deepnetts-core/logs/
 .DS_Store
+/*reduced*/
+*-reduced-pom*.xml
