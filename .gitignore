@@ -9,3 +9,4 @@
 *.iml
 *.class
 /deepnetts-core/logs/
+.DS_Store
