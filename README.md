@@ -53,10 +53,19 @@ java -cp target/deepnetts-examples-1.1-SNAPSHOT.jar deepnetts.examples.[Class na
 Here is a list of `Class name`s to select from:
 
 ```
-IrisClassification
+BostonHouses
+Cifar10
+ConvolutionalImageClassifier
+CrediCardFraud
+DukeDetector
+IrisFlowersClassifier
 LinearRegression
+LoadAndUseTrainedNetwork
 LogisticRegression
-MnistHandwrittenDigitClassification
+Mnist
+QuickStart
+RandomLinearDataGenerator
+SpamClassifier
 SweedenAutoInsurance
 XorExample
 ```
@@ -70,14 +79,14 @@ cd deepnetts-examples
 and then run one of these:
 
 ```
-mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisClassification
+mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisFlowersClassifier
 ```
 
 or 
 
 ```
-java -cp target/deepnetts-examples-1.1-SNAPSHOT.jar deepnetts.examples.IrisClassification
+java -cp target/deepnetts-examples-1.1-SNAPSHOT.jar deepnetts.examples.IrisFlowersClassifier
 ```
 
 
-will result in this [IrisClassification console output](deepnetts-examples/console-outputs/IrisClassification-example.log). You can find the console outputs of the other examples [here](./deepnetts-examples/console-outputs).
+will result in this [IrisFlowersClassifier console output](deepnetts-examples/console-outputs/IrisFlowersClassifier-example.log). You can find the console outputs of the other examples [here](./deepnetts-examples/console-outputs).
