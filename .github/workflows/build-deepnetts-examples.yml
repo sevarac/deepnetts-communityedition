@@ -7,7 +7,7 @@ name: build-deepnetts-examples
 on:
   push:
   pull_request:
-    branches: [ communityedition ]
+    branches: [ community-visrec ]
 
   # This workflow contains a single job called "build"
 jobs:
