@@ -47,7 +47,7 @@ mvn exec:java -Dexec.mainClass=deepnetts.examples.[Class name]
 or 
 
 cd deepnetts
-java -cp target/deepnetts-examples-1.1-SNAPSHOT.jar deepnetts.examples.[Class name]
+java -cp target/deepnetts-examples-1.12.jar deepnetts.examples.[Class name]
 ```
 
 Here is a list of `Class name`s to select from:
@@ -85,7 +85,7 @@ mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisFlowersClassifier
 or 
 
 ```
-java -cp target/deepnetts-examples-1.1-SNAPSHOT.jar deepnetts.examples.IrisFlowersClassifier
+java -cp target/deepnetts-examples-1.12.jar deepnetts.examples.IrisFlowersClassifier
 ```
 
 
