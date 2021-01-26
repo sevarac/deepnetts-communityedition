@@ -39,6 +39,10 @@ jobs:
            ls -lash 
            cd deepnetts-examples
            ls -lash
+      - name: Run deepnetts example "BostonHouses"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.BostonHouses
       - name: Run deepnetts example "IrisFlowersClassifier"
         run: |
            cd deepnetts-examples
@@ -46,13 +50,11 @@ jobs:
       - name: Run deepnetts example "LinearRegression"
         run: |
            cd deepnetts-examples
-           mvn exec:java -Dexec.mainClass=deepnetts.examples.LinearRegression \
-               || true && echo "Could not build and run this process successfully"
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.LinearRegression
       - name: Run deepnetts example "LogisticRegression"
         run: |
            cd deepnetts-examples
-           mvn exec:java -Dexec.mainClass=deepnetts.examples.LogisticRegression \
-               || true && echo "Could not build and run this process successfully"
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.LogisticRegression
       - name: Run deepnetts example "MnistHandwrittenDigitClassification"
         run: |
            cd deepnetts-examples
@@ -61,10 +63,8 @@ jobs:
       - name: Run deepnetts example "SweedenAutoInsurance"
         run: |
            cd deepnetts-examples
-           mvn exec:java -Dexec.mainClass=deepnetts.examples.SweedenAutoInsurance \
-               || true && echo "Could not build and run this process successfully"           
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.SweedenAutoInsurance
       - name: Run deepnetts example "XorExample"
         run: |
            cd deepnetts-examples
-           mvn exec:java -Dexec.mainClass=deepnetts.examples.XorExample \
-               || true && echo "Could not build and run this process successfully"
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.XorExample
