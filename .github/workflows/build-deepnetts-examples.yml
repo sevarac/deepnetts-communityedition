@@ -39,11 +39,10 @@ jobs:
            ls -lash 
            cd deepnetts-examples
            ls -lash
-      - name: Run deepnetts example "IrisClassification"
+      - name: Run deepnetts example "IrisFlowersClassifier"
         run: |
            cd deepnetts-examples
-           mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisClassification \
-               || true && echo "Could not build and run this process successfully"
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisFlowersClassifier
       - name: Run deepnetts example "LinearRegression"
         run: |
            cd deepnetts-examples
