@@ -49,7 +49,7 @@ public class LinearRegression {
 
             int inputsNum = 1;
             int outputsNum = 1;
-            String csvFilename = "linear.csv";
+            String csvFilename = "./datasets/linear.csv";
 
             // load and create data set from csv file
             DataSet dataSet = DataSets.readCsv(csvFilename , inputsNum, outputsNum);
@@ -105,7 +105,7 @@ public class LinearRegression {
     }
 
     public static void plotTrainingData() throws IOException {
-        double[][] dataPoints = CsvFile.read("linear.csv", 30);
+        double[][] dataPoints = CsvFile.read("./datasets/linear.csv", 30);
         Plot.scatter(dataPoints, "Training data");
     }
 
