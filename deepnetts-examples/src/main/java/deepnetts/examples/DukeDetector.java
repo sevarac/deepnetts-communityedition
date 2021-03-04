@@ -52,8 +52,8 @@ public class DukeDetector {
         int imageWidth = 64;
         int imageHeight = 64;
 
-        String trainingFile = "C:\\Users\\Zoran\\Documents\\DukeSet\\index.txt";
-        String labelsFile = "C:\\Users\\Zoran\\Documents\\DukeSet\\labels.txt";
+        String trainingFile = "datasets/DukeSet/train.txt";
+        String labelsFile = "datasets/DukeSet/labels.txt";
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
 
