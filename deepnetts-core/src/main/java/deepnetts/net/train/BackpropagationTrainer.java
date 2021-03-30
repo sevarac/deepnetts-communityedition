@@ -329,7 +329,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             if (Float.isNaN(totalTrainingLoss)) {
                 stopTraining = true;
-                LOGGER.info("Trainer was interrupted before completing all Epochs. Epochs completed: " + epoch + "/" + maxEpochs);
+                LOGGER.info("The training was interrupted due to NaN value before completing all Epochs. Epochs completed: " + epoch + "/" + maxEpochs);
             }
 
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);

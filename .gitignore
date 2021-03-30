@@ -8,4 +8,10 @@
 .idea/
 *.iml
 *.class
+.valohai
 /deepnetts-core/logs/
+.DS_Store
+/*reduced*/
+*-reduced-pom*.xml
+.ipynb_checkpoints
+*.jar
