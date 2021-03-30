@@ -30,11 +30,11 @@ import deepnetts.data.MLDataItem;
 import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
- * Performs Min Max normalization on the given data set.
+ * Performs Min Max scaling on the given data set.
  * 
  * @author Zoran Sevarac
  */
-public class MinMaxNormalizer implements Scaler<DataSet<MLDataItem>>, Serializable {
+public class MinMaxScaler implements Scaler<DataSet<MLDataItem>>, Serializable {
     private Tensor minInput;
     private Tensor maxInput;
     private Tensor minOutput;   // ovo ne bi trebalo na outputs da se primenjuje???
@@ -45,7 +45,7 @@ public class MinMaxNormalizer implements Scaler<DataSet<MLDataItem>>, Serializab
      * 
      * @param dataSet 
      */
-    public MinMaxNormalizer(DataSet<MLDataItem> dataSet) {
+    public MinMaxScaler(DataSet<MLDataItem> dataSet) {
         // find min and max values for each component of input and output tensor/vector
         minInput = dataSet.get(0).getInput().copy();
         maxInput = dataSet.get(0).getInput().copy();
