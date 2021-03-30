@@ -20,13 +20,13 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.norm;
+package deepnetts.data.preprocessing.scale;
 
 import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
 import deepnetts.data.MLDataItem;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
  * Decimal scale normalization for the given data set.
@@ -34,7 +34,7 @@ import deepnetts.data.MLDataItem;
  * 
  * @author Zoran Sevarac
  */
-public class DecimalScaleNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
+public class DecimalScaler implements Scaler<DataSet<MLDataItem>>, Serializable {
     private float[] inputDivisor;
     private float[] outputDivisor;
                 
@@ -43,7 +43,7 @@ public class DecimalScaleNormalizer implements Normalizer<DataSet<MLDataItem>>, 
      * 
      * @param dataSet 
      */
-    public DecimalScaleNormalizer(DataSet<MLDataItem> dataSet) {
+    public DecimalScaler(DataSet<MLDataItem> dataSet) {
         // find max values for each component of input and output tensor/vector
         inputDivisor = dataSet.get(0).getInput().copy().getValues();
         outputDivisor = dataSet.get(0).getTargetOutput().copy().getValues();
@@ -90,7 +90,7 @@ public class DecimalScaleNormalizer implements Normalizer<DataSet<MLDataItem>>, 
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<MLDataItem> dataSet) {
+    public void apply(DataSet<MLDataItem> dataSet) {
         for(MLDataItem item : dataSet) {
             item.getInput().div(inputDivisor);
             item.getTargetOutput().div(outputDivisor);

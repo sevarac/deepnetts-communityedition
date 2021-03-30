@@ -20,13 +20,13 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.norm;
+package deepnetts.data.preprocessing.scale;
 
 import deepnetts.util.Tensor;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
 import deepnetts.data.MLDataItem;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
  * Performs standardization in order to get desired statistical properties of the data set.
@@ -36,7 +36,7 @@ import deepnetts.data.MLDataItem;
  * 
  * @author Zoran Sevarac
  */
-public class Standardizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
+public class Standardizer implements Scaler<DataSet<MLDataItem>>, Serializable {
 // only appy to inputs, not binary values
     private final Tensor mean;
     private final Tensor std;
@@ -67,7 +67,7 @@ public class Standardizer implements Normalizer<DataSet<MLDataItem>>, Serializab
     }
         
     @Override
-    public void normalize(DataSet<MLDataItem> dataSet) {
+    public void apply(DataSet<MLDataItem> dataSet) {
         for (MLDataItem item : dataSet) {
             item.getInput().sub(mean);
             item.getInput().div(std);

@@ -20,14 +20,14 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.norm;
+package deepnetts.data.preprocessing.scale;
 
 import deepnetts.util.Tensor;
 import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
 import deepnetts.data.MLDataItem;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
  * Performs max normalization, rescales data to corresponding max value in each column.
@@ -36,7 +36,7 @@ import deepnetts.data.MLDataItem;
  * 
  * @author Zoran Sevarac
  */
-public final class MaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
+public final class MaxScaler implements Scaler<DataSet<MLDataItem>>, Serializable {
     private Tensor maxInputs;
     private Tensor maxOutputs;
                 
@@ -45,7 +45,7 @@ public final class MaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Ser
      * 
      * @param dataSet 
      */
-    public MaxNormalizer(DataSet<MLDataItem> dataSet) {
+    public MaxScaler(DataSet<MLDataItem> dataSet) {
         // find max values for each component of input and output tensor/vector
         maxInputs = dataSet.get(0).getInput().copy();
         maxOutputs = dataSet.get(0).getTargetOutput().copy();
@@ -58,12 +58,12 @@ public final class MaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Ser
     }
         
     /**
-     * Performs normalization on the given inputs.
+     * Performs max scaling on all columns of the given data set.
      * 
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<MLDataItem> dataSet) {
+    public void apply(DataSet<MLDataItem> dataSet) {
         // todo: prevent/catch division by zero
         for(MLDataItem item : dataSet) {
             item.getInput().div(maxInputs);   // kad je absMaxInput postao 1 1 1 1 posle pre iteracije!!!
@@ -100,5 +100,6 @@ public final class MaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Ser
     public void deNormalizeInputs(final Tensor inputs) {
         inputs.multiplyElementWise(maxInputs);
     }    
+
    
 }

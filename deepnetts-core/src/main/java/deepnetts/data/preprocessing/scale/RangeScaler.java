@@ -20,22 +20,22 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.norm;
+package deepnetts.data.preprocessing.scale;
 
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
 import deepnetts.data.MLDataItem;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
- * Normalize data set to specified range.
+ * Scale data set to specified range.
  * Using formula X = (X-MIN) / (MAX-MIN)
  * Effectively scales all inputs and outputs to specified [MIN,MAX] range
  * Normalizes inputs and outputs.
  * 
  * @author Zoran Sevarac
  */
-public class RangeNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
+public class RangeScaler implements Scaler<DataSet<MLDataItem>>, Serializable {
     private final float min;
     private final float max;
     
@@ -45,7 +45,7 @@ public class RangeNormalizer implements Normalizer<DataSet<MLDataItem>>, Seriali
      * @param min
      * @param max 
      */
-    public RangeNormalizer(float min, float max) {
+    public RangeScaler(float min, float max) {
         this.min = min;
         this.max = max;
     }
@@ -57,7 +57,7 @@ public class RangeNormalizer implements Normalizer<DataSet<MLDataItem>>, Seriali
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<MLDataItem> dataSet) {
+    public void apply(DataSet<MLDataItem> dataSet) {
         final float divisor = max-min;
         for (MLDataItem item : dataSet) {
             item.getInput().sub(min);   // todo: how to efficently perform sub and div in one line and only one pass through tensor

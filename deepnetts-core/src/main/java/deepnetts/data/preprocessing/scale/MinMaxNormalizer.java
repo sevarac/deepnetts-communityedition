@@ -20,21 +20,21 @@
  * deepnetts.core;
  */
 
-package deepnetts.data.norm;
+package deepnetts.data.preprocessing.scale;
 
 import deepnetts.util.Tensor;
 import deepnetts.util.Tensors;
 import java.io.Serializable;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
 import deepnetts.data.MLDataItem;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 /**
  * Performs Min Max normalization on the given data set.
  * 
  * @author Zoran Sevarac
  */
-public class MinMaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serializable {
+public class MinMaxNormalizer implements Scaler<DataSet<MLDataItem>>, Serializable {
     private Tensor minInput;
     private Tensor maxInput;
     private Tensor minOutput;   // ovo ne bi trebalo na outputs da se primenjuje???
@@ -67,7 +67,7 @@ public class MinMaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serial
      * @param dataSet data set to normalize
      */
     @Override
-    public void normalize(DataSet<MLDataItem> dataSet) {
+    public void apply(DataSet<MLDataItem> dataSet) {
         Tensor inDivider = maxInput.copy();
         maxInput.sub(minInput);
 
@@ -81,4 +81,6 @@ public class MinMaxNormalizer implements Normalizer<DataSet<MLDataItem>>, Serial
             item.getTargetOutput().sub(outDivider);
         }
     }
+    
+    // todo: da moze da uradi samo na odabranoj koloni! metoda za to scale i idx ili imekolone
 }

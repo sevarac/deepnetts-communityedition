@@ -44,6 +44,7 @@ import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import java.io.ObjectInputStream;
 import deepnetts.data.MLDataItem;
+import deepnetts.data.TabularDataSet;
 
 /**
  * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
@@ -231,7 +232,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         }
 
         this.trainingSet = trainingSet;
-        neuralNet.setOutputLabels(trainingSet.getTargetNames());
+        neuralNet.setOutputLabels(((TabularDataSet)trainingSet).getTargetNames());
 
         int trainingSamplesCount = trainingSet.size();
         stopTraining = false;
