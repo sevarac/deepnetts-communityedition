@@ -33,7 +33,6 @@ import java.util.Map;
 import javax.visrec.ml.data.DataSet;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.data.MLDataItem;
-import javax.visrec.ml.ClassificationException;
 import javax.visrec.ml.classification.BinaryClassifier;
 import javax.visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
 
@@ -45,7 +44,7 @@ import javax.visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
  */
 public class CrediCardFraud {
 
-    public static void main(String[] args) throws DeepNettsException, IOException, ClassificationException {
+    public static void main(String[] args) throws DeepNettsException, IOException {
         
         int numInputs= 29;
         int numOutputs = 1;
@@ -55,7 +54,7 @@ public class CrediCardFraud {
         DataSet dataSet = DataSets.readCsv("datasets/CreditCardFraud.csv", numInputs, numOutputs, hasHeader);
         
         // scale data to [0, 1] range
-        DataSets.normalizeMax(dataSet);
+        DataSets.scaleMax(dataSet);
         
         // split data into training and test set
         DataSet<MLDataItem>[] trainTestSet = dataSet.split(0.6);

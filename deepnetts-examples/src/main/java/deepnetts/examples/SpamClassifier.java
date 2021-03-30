@@ -23,7 +23,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSets;
 import deepnetts.data.MLDataItem;
-import deepnetts.data.norm.MaxNormalizer;
+import deepnetts.data.preprocessing.scale.MaxScaler;
 import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
@@ -58,9 +58,9 @@ public class SpamClassifier {
         DataSet<MLDataItem> testSet = trainAndTestSet[1];
                 
         // normalize data
-        MaxNormalizer norm = new MaxNormalizer(trainingSet);
-        norm.normalize(trainingSet);
-        norm.normalize(testSet);
+        MaxScaler scaler = new MaxScaler(trainingSet);
+        scaler.apply(trainingSet);
+        scaler.apply(testSet);
         
         // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()

@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.visrec.AbstractImageClassifier;
+import javax.visrec.ri.ml.classification.AbstractImageClassifier;
 
 /**
  * Example how to create image classifier using ConvolutionalNetwork
@@ -39,11 +39,8 @@ import javax.visrec.AbstractImageClassifier;
  */
 public class ConvolutionalImageClassifier extends AbstractImageClassifier<BufferedImage, ConvolutionalNetwork> {
 
-    private ConvolutionalNetwork convNet;
-
     public ConvolutionalImageClassifier(ConvolutionalNetwork convNet) {
        super(BufferedImage.class, convNet);
-     // super(convNet);
     }
 
     /**
@@ -73,7 +70,6 @@ public class ConvolutionalImageClassifier extends AbstractImageClassifier<Buffer
         return results;
     }
 
-    @Override
      public Map<String, Float> classify(File imageFile) {
         try {
             BufferedImage image = ImageIO.read(imageFile);
