@@ -171,7 +171,6 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
         this.columnNames = columnNames;
     }
 
-    @Override
     public String[] getTargetNames() {
         String[] targetLabels = new String[numOutputs];
         for (int i = 0; i < numOutputs; i++) {

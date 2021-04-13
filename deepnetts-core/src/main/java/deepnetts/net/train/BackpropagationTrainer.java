@@ -44,6 +44,7 @@ import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import java.io.ObjectInputStream;
 import deepnetts.data.MLDataItem;
+import deepnetts.data.TabularDataSet;
 
 /**
  * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
@@ -231,7 +232,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         }
 
         this.trainingSet = trainingSet;
-        neuralNet.setOutputLabels(trainingSet.getTargetNames());
+        neuralNet.setOutputLabels(((TabularDataSet)trainingSet).getTargetNames());
 
         int trainingSamplesCount = trainingSet.size();
         stopTraining = false;
@@ -279,7 +280,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             startEpoch = System.currentTimeMillis();
 
-            for (MLDataItem dataSetItem : trainingSet) { // for all items in trainng set
+            for (MLDataItem dataSetItem : trainingSet) { // for all items in training set
                 sampleCounter++;
                 neuralNet.setInput(dataSetItem.getInput()); 
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
@@ -326,7 +327,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
 
 
-            if (Float.isNaN(totalTrainingLoss)) stopTraining = true;
+            if (Float.isNaN(totalTrainingLoss)) {
+                stopTraining = true;
+                LOGGER.info("The training was interrupted due to NaN value before completing all Epochs. Epochs completed: " + epoch + "/" + maxEpochs);
+            }
 
             fireTrainingEvent(TrainingEvent.Type.EPOCH_FINISHED);
 

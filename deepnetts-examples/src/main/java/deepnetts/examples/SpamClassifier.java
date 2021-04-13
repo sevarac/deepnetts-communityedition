@@ -23,7 +23,7 @@ package deepnetts.examples;
 
 import deepnetts.data.DataSets;
 import deepnetts.data.MLDataItem;
-import deepnetts.data.norm.MaxNormalizer;
+import deepnetts.data.preprocessing.scale.MaxScaler;
 import deepnetts.eval.Evaluators;
 import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.FeedForwardNetwork;
@@ -39,11 +39,7 @@ import javax.visrec.ri.ml.classification.FeedForwardNetBinaryClassifier;
  * Spam  Classification example.
  * Minimal example how to train a binary classifier for spam email  classification, using Feed Forward neural network.
  * Data is given as CSV file.
- *
- * <Link to tutorial>
- * additional links to related  tutorials
  * 
- * Link to original data set
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class SpamClassifier {
@@ -53,20 +49,20 @@ public class SpamClassifier {
         int numInputs = 57;
         int numOutputs = 1;
         
-        // load spam data  set from csv file - what is csv file?
+        // load spam data  set from csv file
         DataSet dataSet = DataSets.readCsv("datasets/spam.csv", numInputs, numOutputs, true);             
 
-        // split data set into train and test set (- link to why splitting data into training and test set? what is basic machine learning workflow)
+        // split data set into train and test set
         DataSet<MLDataItem>[] trainAndTestSet = dataSet.split(0.6, 0.4);
         DataSet<MLDataItem> trainingSet = trainAndTestSet[0];
         DataSet<MLDataItem> testSet = trainAndTestSet[1];
                 
-        // normalize data - Why normalize data? and learn more about common data preprocessing you need 
-        MaxNormalizer norm = new MaxNormalizer(trainingSet);    //
-        norm.normalize(trainingSet);
-        norm.normalize(testSet);
+        // normalize data
+        MaxScaler scaler = new MaxScaler(trainingSet);
+        scaler.apply(trainingSet);
+        scaler.apply(testSet);
         
-        // create instance of feed forward neural network using its builder - link to article what are all these parameters and functions actually mean?
+        // create instance of feed forward neural network using its builder
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(numInputs)
                 .addFullyConnectedLayer(25, ActivationType.TANH)
@@ -75,14 +71,14 @@ public class SpamClassifier {
                 .randomSeed(123)
                 .build();
 
-        // set training settings - how to set training parameters?
+        // set training settings
         neuralNet.getTrainer().setMaxError(0.2f)
                               .setLearningRate(0.01f);
         
         // run training
         neuralNet.train(trainingSet);
         
-        // test network /  evaluate classifier - how to interpret results of classifier evaluation
+        // test network /  evaluate classifier
         EvaluationMetrics em = Evaluators.evaluateClassifier(neuralNet, testSet);
         System.out.println(em);
         

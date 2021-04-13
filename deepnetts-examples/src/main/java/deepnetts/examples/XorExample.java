@@ -20,6 +20,7 @@
  */
 package deepnetts.examples;
 
+import deepnetts.data.TabularDataSet;
 import deepnetts.examples.util.ExampleDataSets;
 import deepnetts.net.FeedForwardNetwork;
 import deepnetts.net.layers.activation.ActivationType;
@@ -38,8 +39,8 @@ public class XorExample {
 
     public static void main(String[] args) throws DeepNettsException {
 
-        DataSet dataSet = ExampleDataSets.xor();
-        dataSet.setColumnNames(new String[] {"col1", "col2", "col3"});
+        TabularDataSet dataSet = ExampleDataSets.xor();
+        dataSet.setColumnNames(new String[] {"input1", "input2", "output"});
 
         FeedForwardNetwork neuralNet = FeedForwardNetwork.builder()
                 .addInputLayer(2)
@@ -50,7 +51,7 @@ public class XorExample {
                 .build();
         
 //        neuralNet.getTrainer().setLearningRate(0.9f);
-        neuralNet.setOutputLabels("output");
+//        neuralNet.setOutputLabels("output");
         
 //        neuralNet.train(dataSet);
 

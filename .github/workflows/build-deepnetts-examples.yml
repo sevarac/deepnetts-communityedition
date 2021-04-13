@@ -1,0 +1,108 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build-deepnetts-examples
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch (or it's equivalent)
+on:
+  push:
+  pull_request:
+    branches: [ community-visrec ]
+
+  # This workflow contains a single job called "build"
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        java-version: [ 8, 9, 10, 11, 12, 13 ]
+    runs-on: ${{ matrix.os }}
+    name: Build deepnetts-examples (Java ${{ matrix.java-version }})
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@master
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install deepnetts-core library into local maven repository
+        run: mvn clean install
+      - name: Enlist content of current and deepnetts-examples folders
+        run: |
+           ls -lash 
+           cd deepnetts-examples
+           ls -lash
+      - name: Run deepnetts-example "BostonHouses"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.BostonHouses
+      - name: Run deepnetts-example "Cifar10"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.Cifar10 \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "ConvolutionalImageClassifier"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.ConvolutionalImageClassifier \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "CrediCardFraud"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.CrediCardFraud
+      - name: Run deepnetts-example "DukeDetector"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.DukeDetector \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "IrisFlowersClassifier"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.IrisFlowersClassifier
+      - name: Run deepnetts-example "LinearRegression"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.LinearRegression \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "LoadAndUseTrainedNetwork"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.LoadAndUseTrainedNetwork \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "LogisticRegression"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.LogisticRegression
+      - name: Run deepnetts-example "MnistHandwrittenDigitClassification"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.MnistHandwrittenDigitClassification \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "QuickStart"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.QuickStart
+      - name: Run deepnetts-example "RandomLinearDataGenerator"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.RandomLinearDataGenerator \
+               || true && echo "Could not build and run this process successfully"
+      - name: Run deepnetts-example "SpamClassifier"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.SpamClassifier
+      - name: Run deepnetts-example "SweedenAutoInsurance"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.SweedenAutoInsurance
+      - name: Run deepnetts-example "XorExample"
+        run: |
+           cd deepnetts-examples
+           mvn exec:java -Dexec.mainClass=deepnetts.examples.XorExample

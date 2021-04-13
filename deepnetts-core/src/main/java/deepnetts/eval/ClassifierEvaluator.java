@@ -88,7 +88,7 @@ public class ClassifierEvaluator implements Evaluator<NeuralNetwork, DataSet<? e
     public  EvaluationMetrics evaluate(NeuralNetwork neuralNet, DataSet<? extends MLDataItem> testSet) { // NeuralNetwork, DataSet<?>
         classLabels.clear();
         classLabels.add(0, LABEL_NONE); 
-        for(String label : testSet.getTargetNames()) { 
+        for(String label : testSet.getTargetColumnsNames()) { // ovaj treba ubaciti u data set getTargetLabels()
             classLabels.add(label);
         }
         

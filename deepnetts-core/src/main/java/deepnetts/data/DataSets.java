@@ -22,7 +22,8 @@
 
 package deepnetts.data;
 
-import deepnetts.data.norm.MaxNormalizer;
+import deepnetts.data.preprocessing.scale.MaxScaler;
+import deepnetts.data.preprocessing.scale.Standardizer;
 import deepnetts.util.ColumnType;
 import deepnetts.util.CsvFormat;
 import java.io.File;
@@ -33,7 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.regex.Pattern;
 import javax.visrec.ml.data.DataSet;
-import javax.visrec.ml.data.Normalizer;
+import javax.visrec.ml.data.preprocessing.Scaler;
 
 
 /**
@@ -258,12 +259,19 @@ public class DataSets {
      * @param dataSet Data set to normalize
      * @return normalizer used to normalize data set
      */
-    public static Normalizer normalizeMax(DataSet dataSet) {
-        MaxNormalizer norm = new MaxNormalizer(dataSet);
-        norm.normalize(dataSet);
+    public static Scaler scaleMax(DataSet dataSet) {
+        MaxScaler scaler = new MaxScaler(dataSet);
+        scaler.apply(dataSet);
         
-        return norm;
+        return scaler;
     }
+    
+    public static Scaler standardize(DataSet dataSet) {
+        Standardizer scaler = new Standardizer(dataSet);
+        scaler.apply(dataSet);
+        
+        return scaler;
+    }    
 
     // encode single row
     public static float[] oneHotEncode(final String label, final String[] labels) {   // different labels

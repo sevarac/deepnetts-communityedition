@@ -33,9 +33,9 @@ import javax.visrec.ml.data.DataSet;
 
 /**
  * Minimal example for linear regression using FeedForwardNetwork.
- * Fits a straight line through the data.
- Uses a single addLayer with one output and linear activation function, and Mean Squared Error for Loss function.
- You can use linear regression to roughly estimate a global trend in data.
+ * Fits a straight line (linear function y=k*x+n) through the data.
+ * Uses a single layer with one output and linear activation function, and Mean Squared Error for Loss function.
+ * Linear regression can be used to roughly estimate a general trend in data.
  *
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
@@ -59,7 +59,7 @@ public class BostonHouses {
                     .lossFunction(LossType.MEAN_SQUARED_ERROR)
                     .build();
             
-            neuralNet.getTrainer().setMaxError(0.008f);
+            neuralNet.getTrainer().setMaxError(0.006f);
 
             neuralNet.train(trainAndTestSet[0]);
 

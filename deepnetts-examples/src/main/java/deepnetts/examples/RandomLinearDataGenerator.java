@@ -27,7 +27,7 @@ public class RandomLinearDataGenerator {
         }
 
         Plot.scatter(dataPoints);
-        CsvFile.write(dataPoints, "linear.csv");
+        CsvFile.write(dataPoints, "./datasets/linear.csv");
     }
 
     public static double linear(double x) {
