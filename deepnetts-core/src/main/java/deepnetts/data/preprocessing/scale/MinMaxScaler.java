@@ -61,7 +61,7 @@ public class MinMaxScaler implements Scaler<DataSet<MLDataItem>>, Serializable {
     }
         
     /**
-     * Performs normalization on the given inputs.
+     * Performs scaling on the given data set.
      * x = (x-min) / (max-min)
      * 
      * @param dataSet data set to normalize
