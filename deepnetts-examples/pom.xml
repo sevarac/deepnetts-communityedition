@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.deepnetts</groupId>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
     <artifactId>deepnetts-examples</artifactId>
     <name>com.deepnetts:deepnetts-examples</name>
     <packaging>jar</packaging>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-ri</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.2</version>
             <type>jar</type>
             <exclusions>
                 <exclusion>
