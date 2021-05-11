@@ -5,7 +5,7 @@
 
     <groupId>com.deepnetts</groupId>
     <artifactId>deepnetts-core</artifactId>
-    <version>1.13.0</version>
+    <version>1.13.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>com.deepnetts:deepnetts-core</name>
@@ -91,7 +91,7 @@
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.4-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
     </dependencies>

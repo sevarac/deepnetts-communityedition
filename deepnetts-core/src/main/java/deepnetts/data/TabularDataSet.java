@@ -25,7 +25,9 @@ import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import javax.visrec.ml.data.Column;
 import javax.visrec.ml.data.DataSet;
 
 /**
@@ -99,7 +101,7 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
     @Override
     public DataSet[] split(double... parts) {
         if (parts.length < 1) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Number of split parts must be greater than one");
         } else if (parts.length == 1) {
             double[] newParts = new double[2];
             newParts[0] = parts[0];
@@ -123,9 +125,11 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
         int itemIdx = 0;
 
         this.shuffle(); // shuffle before splting, using global random seed
+        // todo: split so the subsets has similar distribution of values
         for (int p = 0; p < parts.length; p++) {
             TabularDataSet subSet = new TabularDataSet(this.numInputs, this.numOutputs);
             subSet.setColumnNames(this.columnNames);
+            subSet.setColumns(this.getColumns());
             int itemsCount = (int) (size() * parts[p]);
 
             for (int j = 0; j < itemsCount; j++) {
@@ -169,6 +173,12 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
     @Override
     public void setColumnNames(String[] columnNames) {
         this.columnNames = columnNames;
+        List<Column> columns= new ArrayList<>(columnNames.length);
+        for(int i=0; i<columnNames.length; i++) {
+            Column col = new Column(columnNames[i]);
+            columns.add(col);
+        }
+        super.setColumns(columns);
     }
 
     public String[] getTargetNames() {
