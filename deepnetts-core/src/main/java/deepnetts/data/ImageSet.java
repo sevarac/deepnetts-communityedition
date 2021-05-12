@@ -45,6 +45,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import javax.imageio.ImageIO;
+import javax.visrec.ml.data.Column;
 import javax.visrec.ml.data.DataSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -390,8 +391,11 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
             }
 
             subSets[p] = subSet;
-            subSets[p].columnNames = columnNames;
+            //subSets[p].columnNames = columnNames;
+            subSet.setColumnNames(this.columnNames);
+            subSet.setColumns(this.getColumns());                        
             // anything else? image dimensions?
+            subSet.setColumns(this.getColumns());
         }
 
         return subSets;
@@ -429,8 +433,10 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
                     throw new DeepNettsException("Bad label format: Labels should not contain space characters! For label:" + line);
                 }
                 labelsList.add(line);
+                this.getColumns().add(new Column(line, Column.Type.BINARY, true));
             }
             this.columnNames = labelsList.toArray(new String[labelsList.size()]);
+            
             LOGGER.info("Loaded " + labelsList.size() + " labels");
             return columnNames;
         } catch (FileNotFoundException ex) {
