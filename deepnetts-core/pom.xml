@@ -5,11 +5,7 @@
 
     <groupId>com.deepnetts</groupId>
     <artifactId>deepnetts-core</artifactId>
-<<<<<<< HEAD
     <version>1.13.1</version>
-=======
-    <version>1.13.1-SNAPSHOT</version>
->>>>>>> 32551d8c036946387301fd471682c2af9b4c6281
     <packaging>jar</packaging>
 
     <name>com.deepnetts:deepnetts-core</name>
@@ -95,11 +91,7 @@
         <dependency>
             <groupId>javax.visrec</groupId>
             <artifactId>visrec-api</artifactId>
-<<<<<<< HEAD
-            <version>1.0.3</version>
-=======
-            <version>1.0.4-SNAPSHOT</version>
->>>>>>> 32551d8c036946387301fd471682c2af9b4c6281
+            <version>1.0.4</version>
             <type>jar</type>
         </dependency>
     </dependencies>
