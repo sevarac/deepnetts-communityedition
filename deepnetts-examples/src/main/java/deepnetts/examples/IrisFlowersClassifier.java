@@ -49,7 +49,7 @@ public class IrisFlowersClassifier {
         int numOutputs = 3; // corresponds to number of possible classes/categories
         
         // load iris data  set from csv file
-        DataSet dataSet = DataSets.readCsv("datasets/iris_data_normalised.txt", numInputs, numOutputs, true);
+        DataSet dataSet = DataSets.readCsv("deepnetts-examples/datasets/iris_data_normalised.txt", numInputs, numOutputs, true);
         // split loaded data into 60 : 40% ratio
         DataSet[] trainTestSet = dataSet.split(0.6, 0.4);
 
@@ -63,21 +63,21 @@ public class IrisFlowersClassifier {
                 .build();
 
         // create and configure instanceof backpropagation trainer
-        BackpropagationTrainer trainer = neuralNet.getTrainer();
-        trainer.setMaxError(0.04f);
-        trainer.setLearningRate(0.01f);
-        trainer.setMomentum(0.9f);
-        trainer.setOptimizer(OptimizerType.MOMENTUM);
+//        BackpropagationTrainer trainer = neuralNet.getTrainer();
+//        trainer.setMaxError(0.04f);
+//        trainer.setLearningRate(0.01f);
+//        trainer.setMomentum(0.9f);
+//        trainer.setOptimizer(OptimizerType.MOMENTUM);
 
         neuralNet.train(trainTestSet[0]);
          
-        // evaluate/test classifier
-        ClassifierEvaluator evaluator = new ClassifierEvaluator();
-        EvaluationMetrics em = evaluator.evaluate(neuralNet, trainTestSet[1]);
-        System.out.println("CLASSIFIER EVALUATION METRICS");
-        System.out.println(em);
-        System.out.println("CONFUSION MATRIX");
-        ConfusionMatrix cm = evaluator.getConfusionMatrix();
-        System.out.println(cm);      
+//        // evaluate/test classifier
+//        ClassifierEvaluator evaluator = new ClassifierEvaluator();
+//        EvaluationMetrics em = evaluator.evaluate(neuralNet, trainTestSet[1]);
+//        System.out.println("CLASSIFIER EVALUATION METRICS");
+//        System.out.println(em);
+//        System.out.println("CONFUSION MATRIX");
+//        ConfusionMatrix cm = evaluator.getConfusionMatrix();
+//        System.out.println(cm);
     }
 }

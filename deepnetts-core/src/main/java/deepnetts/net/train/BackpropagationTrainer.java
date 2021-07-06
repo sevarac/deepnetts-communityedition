@@ -1,20 +1,20 @@
 /**
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
- *  based learning and image recognition.
- *
- *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
- *
+ * DeepNetts is pure Java Deep Learning Library with support for Backpropagation
+ * based learning and image recognition.
+ * <p>
+ * Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
+ * <p>
  * This file is part of DeepNetts.
- *
+ * <p>
  * DeepNetts is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * <p>
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
@@ -22,40 +22,39 @@
 
 package deepnetts.net.train;
 
-import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.core.DeepNetts;
-import deepnetts.net.NeuralNetwork;
-import deepnetts.net.layers.AbstractLayer;
-
+import deepnetts.data.MLDataItem;
 import deepnetts.eval.ClassifierEvaluator;
-import javax.visrec.ml.eval.Evaluator;
-import javax.visrec.ml.eval.EvaluationMetrics;
 import deepnetts.net.ConvolutionalNetwork;
 import deepnetts.net.FeedForwardNetwork;
+import deepnetts.net.NeuralNetwork;
+import deepnetts.net.layers.AbstractLayer;
 import deepnetts.net.loss.LossFunction;
+import deepnetts.net.train.opt.OptimizerType;
 import deepnetts.util.FileIO;
+import org.apache.logging.log4j.LogManager;
+
+import javax.visrec.ml.data.DataSet;
+import javax.visrec.ml.eval.EvaluationMetrics;
+import javax.visrec.ml.eval.Evaluator;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
-import javax.visrec.ml.data.DataSet;
-import org.apache.logging.log4j.LogManager;
-import java.io.ObjectInputStream;
-import deepnetts.data.MLDataItem;
-import deepnetts.data.TabularDataSet;
 
 /**
  * Backpropagation training algorithm for Feed Forward and Convolutional Neural Networks.
  * Backpropagation is a supervised machine learning algorithm which iteratively
  * reduces prediction error, by looking for the minimum of loss function.
  *
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  * @see FeedForwardNetwork
  * @see ConvolutionalNetwork
  * @see LossFunction
  * @see OptimizerType
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class BackpropagationTrainer implements Trainer, Serializable {
 
@@ -110,9 +109,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     /**
      * Value of loss function calculated on validation set
      */
-    private float valLoss=0, prevValLoss=0;
+    private float valLoss = 0, prevValLoss = 0;
 
-    private float trainAccuracy=0, valAccuracy=0;
+    private float trainAccuracy = 0, valAccuracy = 0;
 
     private float totalTrainingLoss;
 
@@ -120,7 +119,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
      * Shuffle training set before each epoch during training
      */
     private boolean shuffle = false;
-    
+
     /**
      * Neural network to train
      */
@@ -136,9 +135,9 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private LossFunction lossFunction;
 
     private boolean trainingSnapshots = false;
-    private int snapshotEpochs = 5;    
+    private int snapshotEpochs = 5;
     private String snapshotPath = ""; // snapshot path    
-    
+
     /**
      * Use early stopping setting.
      */
@@ -147,12 +146,12 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     /**
      * How many epochs for early stopping checkpoint.
      */
-    private int checkpointEpochs=1;
+    private int checkpointEpochs = 1;
 
     /**
      * Min delta between checkpoints to continue training
      */
-    private float earlyStoppingMinDelta=0.000001f;
+    private float earlyStoppingMinDelta = 0.000001f;
 
     /**
      * How many checkpoints to wait before stopping training
@@ -160,7 +159,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private int earlyStoppingPatience = 2;
     private int earlyStoppingCheckpointCount = 0; // checkpoint counter during training
 
-    private float prevCheckpointTestLoss=100f;
+    private float prevCheckpointTestLoss = 100f;
 
 
     private transient Evaluator<NeuralNetwork, DataSet<? extends MLDataItem>> eval = new ClassifierEvaluator();
@@ -176,6 +175,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     /**
      * Creates and instance of Backpropagation Trainer for the specified neural network.
+     *
      * @param neuralNet neural network to train using this instance of backpropagation algorithm
      */
     public BackpropagationTrainer(NeuralNetwork neuralNet) {
@@ -195,27 +195,27 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     /**
      * Run training using specified training and validation sets.
-     * Training set is used to train model, while validation set is used to check model accuracy with unseen data 
+     * Training set is used to train model, while validation set is used to check model accuracy with unseen data
      * during training in order to prevent overfitting.
-     * 
+     *
      * @param trainingSet
-     * @param validationSet 
+     * @param validationSet
      */
     public void train(DataSet<MLDataItem> trainingSet, DataSet<MLDataItem> validationSet) {
         this.validationSet = validationSet;
         train(trainingSet);
     }
-    
+
     public void train(DataSet<?> trainingSet, double valPart) {
-        DataSet[] trainValSets = (DataSet[]) trainingSet.split(1-valPart, valPart); // ali da moze i jedan parametar
+        DataSet[] trainValSets = (DataSet[]) trainingSet.split(1 - valPart, valPart); // ali da moze i jedan parametar
         this.validationSet = trainValSets[1];
         train(trainValSets[0]);
-    }    
+    }
 
 
     /**
      * Run training using specified training set.
-     *
+     * <p>
      * Make this pure function so it can run in multithreaded - can train
      * several nn in parallel put network as param
      *
@@ -232,7 +232,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         }
 
         this.trainingSet = trainingSet;
-        neuralNet.setOutputLabels(((TabularDataSet)trainingSet).getTargetNames());
+        neuralNet.setOutputLabels(trainingSet.getTargetColumnsNames());
 
         int trainingSamplesCount = trainingSet.size();
         stopTraining = false;
@@ -269,12 +269,12 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         do {
             epoch++;
             lossFunction.reset();
-            valLoss=0;
-            trainAccuracy=0;
-            valAccuracy=0;
+            valLoss = 0;
+            trainAccuracy = 0;
+            valAccuracy = 0;
 
-            if (shuffle) {  
-                trainingSet.shuffle(); 
+            if (shuffle) {
+                trainingSet.shuffle();
             }
             int sampleCounter = 0;
 
@@ -282,10 +282,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
             for (MLDataItem dataSetItem : trainingSet) { // for all items in training set
                 sampleCounter++;
-                neuralNet.setInput(dataSetItem.getInput()); 
+                neuralNet.setInput(dataSetItem.getInput());
                 outputError = lossFunction.addPatternError(neuralNet.getOutput(), dataSetItem.getTargetOutput().getValues());
-                neuralNet.setOutputError(outputError); 
-                neuralNet.backward(); 
+                neuralNet.setOutputError(outputError);
+                neuralNet.backward();
 
                 if (!isBatchMode()) {
                     neuralNet.applyWeightChanges();
@@ -300,7 +300,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 if (stopTraining) break; // if training was stoped externaly by calling stop() method
             }
 
-           if (regL2!=0) lossFunction.addRegularizationSum(regL2 * neuralNet.getL2Reg()); // 0.00001f
+            if (regL2 != 0) lossFunction.addRegularizationSum(regL2 * neuralNet.getL2Reg()); // 0.00001f
 
             endEpoch = System.currentTimeMillis();
 
@@ -308,23 +308,23 @@ public class BackpropagationTrainer implements Trainer, Serializable {
                 neuralNet.applyWeightChanges();
             }
 
-            totalTrainingLoss = lossFunction.getTotal(); 
-            totalLossChange = totalTrainingLoss - prevTotalLoss; 
+            totalTrainingLoss = lossFunction.getTotal();
+            totalLossChange = totalTrainingLoss - prevTotalLoss;
             prevTotalLoss = totalTrainingLoss;
-            trainAccuracy = calculateAccuracy(this.trainingSet); 
-            
-            if (validationSet != null) {    
+            trainAccuracy = calculateAccuracy(this.trainingSet);
+
+            if (validationSet != null) {
                 prevValLoss = valLoss;
-                valLoss = validationLoss(validationSet);  
+                valLoss = validationLoss(validationSet);
                 valAccuracy = calculateAccuracy(validationSet);
             }
 
             epochTime = endEpoch - startEpoch;
 
             if (validationSet != null)
-                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy + ", ValError:" + valLoss + ", ValAccuracy: "+valAccuracy);
+                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy + ", ValError:" + valLoss + ", ValAccuracy: " + valAccuracy);
             else
-                LOGGER.info( "Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: "+trainAccuracy);
+                LOGGER.info("Epoch:" + epoch + ", Time:" + epochTime + "ms, TrainError:" + totalTrainingLoss + ", TrainErrorChange:" + totalLossChange + ", TrainAccuracy: " + trainAccuracy);
 
 
             if (Float.isNaN(totalTrainingLoss)) {
@@ -338,12 +338,12 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             if (earlyStopping && (epoch > 0 && epoch % checkpointEpochs == 0)) {
                 if (prevCheckpointTestLoss - valLoss < earlyStoppingMinDelta) {
                     if (earlyStoppingCheckpointCount == earlyStoppingPatience) {
-                        stop(); 
+                        stop();
                     } else {
-                        earlyStoppingCheckpointCount++;    
+                        earlyStoppingCheckpointCount++;
                     }
                 } else {
-                    earlyStoppingCheckpointCount = 0; 
+                    earlyStoppingCheckpointCount = 0;
                 }
 
                 // save network at this checkpoint since loss if going down
@@ -351,16 +351,16 @@ public class BackpropagationTrainer implements Trainer, Serializable {
             }
 
             if (trainingSnapshots && (epoch > 0 && epoch % snapshotEpochs == 0)) {
-                try { 
+                try {
                     FileIO.writeToFile(neuralNet, snapshotPath + "_epoch_" + epoch + ".dnet");
-                } catch (IOException ex) { 
+                } catch (IOException ex) {
                     LOGGER.catching(ex);
-                }                
+                }
             }
-            
-            stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));          
-            
-        } while (!stopTraining); 
+
+            stopTraining = stopTraining || ((epoch == maxEpochs) || (totalTrainingLoss <= maxError));
+
+        } while (!stopTraining);
 
         endTraining = System.currentTimeMillis();
         trainingTime = endTraining - startTraining;
@@ -431,13 +431,13 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     private void fireTrainingEvent(TrainingEvent.Type type) {
         for (TrainingListener l : listeners) {
             l.handleEvent(new TrainingEvent(this, type));
-        }    
+        }
     }
 
     public void addListener(TrainingListener listener) {
         Objects.requireNonNull(listener, "Training listener cannot be null!");
 
-        synchronized(listeners) {
+        synchronized (listeners) {
             if (!listeners.contains(listener)) {
                 listeners.add(listener);
             }
@@ -445,7 +445,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
     public synchronized void removeListener(TrainingListener listener) {
-        synchronized(listeners) {        
+        synchronized (listeners) {
             listeners.remove(listener);
         }
     }
@@ -500,8 +500,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public float getValidationAccuracy() {
         return valAccuracy;
     }
-    
-    
+
 
     public int getCurrentEpoch() {
         return epoch;
@@ -545,10 +544,10 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     public void setSnapshotEpochs(int snapshotEpochs) {
         this.snapshotEpochs = snapshotEpochs;
     }
-    
+
     public String getSnapshotPath() {
         return snapshotPath;
-    }    
+    }
 
     public boolean createsTrainingSnaphots() {
         return trainingSnapshots;
@@ -556,7 +555,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     public void setTrainingSnapshots(boolean trainingSnapshots) {
         this.trainingSnapshots = trainingSnapshots;
-    }   
+    }
 
     public int getCheckpointEpochs() {
         return checkpointEpochs;
@@ -586,7 +585,6 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
 
-
     /**
      * Sets properties from available keys in specified prop object.
      *
@@ -602,7 +600,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
         this.optType = OptimizerType.valueOf(prop.getProperty(PROP_OPTIMIZER_TYPE));
 
         // iterate properties keys?use reflection to set them?
-   //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
+        //     this.maxLoss = Float.parseFloat(prop.getProperty(PROP_MAX_LOSS));
 //        this.maxEpochs = Integer.parseInt(prop.getProperty(PROP_MAX_EPOCHS));
 
         if (prop.getProperty(PROP_LEARNING_RATE) != null)
@@ -626,7 +624,7 @@ public class BackpropagationTrainer implements Trainer, Serializable {
 
     private float validationLoss(DataSet<? extends MLDataItem> validationSet) {
         lossFunction.reset();
-        float validationLoss =  lossFunction.valueFor(neuralNet, validationSet);
+        float validationLoss = lossFunction.valueFor(neuralNet, validationSet);
         return validationLoss;
     }
 
@@ -637,9 +635,8 @@ public class BackpropagationTrainer implements Trainer, Serializable {
     }
 
 
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException 
-    {       
-         listeners = new ArrayList<>(); 
-    }    
-    
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+        listeners = new ArrayList<>();
+    }
+
 }

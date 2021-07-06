@@ -1,20 +1,20 @@
 /**
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
- *  based learning and image recognition.
- *
- *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
- *
+ * DeepNetts is pure Java Deep Learning Library with support for Backpropagation
+ * based learning and image recognition.
+ * <p>
+ * Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
+ * <p>
  * This file is part of DeepNetts.
- *
+ * <p>
  * DeepNetts is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * <p>
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.package
  * deepnetts.core;
@@ -23,20 +23,21 @@ package deepnetts.data;
 
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
+
+import javax.visrec.ml.data.Column;
+import javax.visrec.ml.data.DataSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import javax.visrec.ml.data.Column;
-import javax.visrec.ml.data.DataSet;
 
 /**
  * Basic data set used for training neural networks in deep netts.
- * 
+ * <p>
  * Note: implements DataSet from visrec api, and specify data set elements. Extends BasicDataSet from visrec.ml layer
- * 
- * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
+ *
  * @param <E> Type of elements in this data set.
+ * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.BasicDataSet<E> {
 
@@ -45,15 +46,15 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
     protected String[] columnNames; // column names
 
     // TODO: do we need constructor with vector dimensions annd capacity?
-    
+
     protected TabularDataSet() {
         items = new ArrayList<>();
     }
 
     /**
      * Create a new instance of BasicDataSet with specified size of input and output.
-     * 
-     * @param numInputs number of input features
+     *
+     * @param numInputs  number of input features
      * @param numOutputs number of output features
      */
     public TabularDataSet(int numInputs, int numOutputs) {
@@ -80,7 +81,7 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
      */
     @Override
     public DataSet[] split(int parts) {
-        double partSize = (Math.round((100d / parts)))/100d;
+        double partSize = (Math.round((100d / parts))) / 100d;
         double[] partsArr = new double[parts];
         for (int i = 0; i < parts; i++) {
             partsArr[i] = partSize;
@@ -173,23 +174,22 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
     @Override
     public void setColumnNames(String[] columnNames) {
         this.columnNames = columnNames;
-        List<Column> columns= new ArrayList<>(columnNames.length);
-        for(int i=0; i<columnNames.length; i++) {
+        List<Column> columns = new ArrayList<>(columnNames.length);
+        for (int i = 0; i < columnNames.length; i++) {
             Column col = new Column(columnNames[i]);
             columns.add(col);
         }
         super.setColumns(columns);
-    }
 
-    public String[] getTargetNames() {
+        // Setting target columns
         String[] targetLabels = new String[numOutputs];
         for (int i = 0; i < numOutputs; i++) {
             targetLabels[i] = columnNames[numInputs + i];
         }
-
-        return targetLabels;
+        setAsTargetColumns(targetLabels);
     }
-    
+
+
     /**
      * Represents a basic data set item (single row) with input tensor and
      * target vector in a data set.
@@ -231,6 +231,6 @@ public class TabularDataSet<E extends MLDataItem> extends javax.visrec.ml.data.B
         }
 
     }
-    
-    
+
+
 }

@@ -1,20 +1,20 @@
 /**
- *  DeepNetts is pure Java Deep Learning Library with support for Backpropagation
- *  based learning and image recognition.
- *
- *  Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
- *
+ * DeepNetts is pure Java Deep Learning Library with support for Backpropagation
+ * based learning and image recognition.
+ * <p>
+ * Copyright (C) 2017  Zoran Sevarac <sevarac@gmail.com>
+ * <p>
  * This file is part of DeepNetts.
- *
+ * <p>
  * DeepNetts is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * <p>
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
@@ -25,6 +25,12 @@ import deepnetts.util.DeepNettsException;
 import deepnetts.util.ImageSetUtils;
 import deepnetts.util.ImageUtils;
 import deepnetts.util.Tensor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import javax.visrec.ml.data.Column;
+import javax.visrec.ml.data.DataSet;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,15 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import javax.imageio.ImageIO;
-import javax.visrec.ml.data.Column;
-import javax.visrec.ml.data.DataSet;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Data set with images that will be used to train convolutional neural network.
@@ -148,7 +145,7 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
         // TODO: da radi u batch-u. Da ima interni brojac dokle je stigao. Ili da drzi otvoren stream da iam metodu loadNextBatch() mozda to najbolje u posebnoj metodi ako je mod za trening batch.
         // TODO: napravi ovo asinhrono da ucitava i preprocesira u posebnim threadovima, u perspektivi u batchovima, ne sve odjendnom
         // ucitaj prvo indeks slika a onda ucitavanje i preprocrsiranje slika parelelizuj da jedan thread radi ucitavanje a drugi preprocsiranje onoga sto je ucitano
-        try ( BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
             int lineCount = 0;
             //  List<Future<?>> results = new LinkedList<>();
@@ -223,7 +220,7 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
         List<String> labels = new LinkedList<>();
 
         // ako je numOfImages manji od broja slika u fajlu logovati
-        try ( BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(imageIdxFile))) {
             String line = null;
 
             for (int i = 0; i < numOfImages; i++) {
@@ -251,8 +248,8 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
                 images.add(image);
                 labels.add(label);
             }
-            
-            processImages(images, labels);            
+
+            processImages(images, labels);
         } catch (FileNotFoundException ex) {
             LOGGER.error(ex);
             throw new DeepNettsException("Could not find image file: " + imgFileName, ex);
@@ -260,7 +257,6 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
             LOGGER.error(ex);
             throw new DeepNettsException("Error loading image file: " + imgFileName, ex);
         }
-
 
 
         // sacekaj da pool zavrsi
@@ -271,16 +267,16 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
     }
 
     private void processImages(List<BufferedImage> images, List<String> labels) throws IOException {
-            for (int i = 0; i < images.size(); i++) {
-                BufferedImage img = images.get(i);
-                final  String lbl = labels.get(i);
-                if (scaleImages) img = ImageUtils.scaleImage(img, imageWidth, imageHeight);
-                
-                final ExampleImage exImg = new ExampleImage(img, lbl);
-                exImg.setTargetOutput(new Tensor(oneHotEncode(lbl, columnNames)));
-                if (invertImages) exImg.invert();
-                add(exImg);
-            }
+        for (int i = 0; i < images.size(); i++) {
+            BufferedImage img = images.get(i);
+            final String lbl = labels.get(i);
+            if (scaleImages) img = ImageUtils.scaleImage(img, imageWidth, imageHeight);
+
+            final ExampleImage exImg = new ExampleImage(img, lbl);
+            exImg.setTargetOutput(new Tensor(oneHotEncode(lbl, columnNames)));
+            if (invertImages) exImg.invert();
+            add(exImg);
+        }
     }
 
     public void invert() {
@@ -308,7 +304,7 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
                 BufferedImage img = images.get(i);
                 String lbl = li.next();
                 if (scaleImages) img = ImageUtils.scaleImage(img, imageWidth, imageHeight);
-                
+
                 final ExampleImage exImg = new ExampleImage(img, lbl);
                 exImg.setTargetOutput(new Tensor(oneHotEncode(lbl, columnNames)));
                 if (invertImages) exImg.invert();
@@ -326,7 +322,7 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
      * zero. Returns all zeros for label 'negative'.
      *
      * TODO: maybe to greate map and just get corresponding vector for each
-     * 
+     *
      * @param label specific tabel to encode with 1 in return vector
      * @param labels all available labels
      * @return
@@ -393,7 +389,7 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
             subSets[p] = subSet;
             //subSets[p].columnNames = columnNames;
             subSet.setColumnNames(this.columnNames);
-            subSet.setColumns(this.getColumns());                        
+            subSet.setColumns(this.getColumns());
             // anything else? image dimensions?
             subSet.setColumns(this.getColumns());
         }
@@ -422,12 +418,12 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
      * @throws DeepNettsException
      */
     public String[] loadLabels(File file) throws DeepNettsException {
-        try ( BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = null;
             List<String> labelsList = new ArrayList<>(); // temporary labels list
             while ((line = br.readLine()) != null) {
                 if (line.isEmpty()) continue; // skip empty lines
-                
+
                 line = line.trim();
                 if (line.contains(" ")) {
                     throw new DeepNettsException("Bad label format: Labels should not contain space characters! For label:" + line);
@@ -436,7 +432,8 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
                 this.getColumns().add(new Column(line, Column.Type.BINARY, true));
             }
             this.columnNames = labelsList.toArray(new String[labelsList.size()]);
-            
+            setAsTargetColumns(columnNames);
+
             LOGGER.info("Loaded " + labelsList.size() + " labels");
             return columnNames;
         } catch (FileNotFoundException ex) {
@@ -458,19 +455,19 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
         mean = new Tensor(imageHeight, imageWidth, 3);
 
         // sum all matrices
-        items.forEach((img) ->  mean.add(img.getInput()));
+        items.forEach((img) -> mean.add(img.getInput()));
 
         // divide by number of images
         mean.div(items.size());
 
-        
+
         //List<Callable<Boolean>> workers = new ArrayList<>();
-                
+
         // subtract mean from each image
         for (ExampleImage image : items) {
             image.getInput().sub(mean);
         }
-        
+
 //        items.parallelStream().forEach((item)->image.getInput().sub(mean));
 
         return mean;
@@ -511,18 +508,6 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
         this.invertImages = invertImages;
     }
 
-    
-    
-    /**
-     * Returns output/image labels.
-     *
-     * @return
-     */
-    @Override
-    public String[] getTargetNames() {
-        return columnNames;
-    }
-
     public Map<String, Integer> countByClasses() {
         HashMap<String, Integer> map = new HashMap<>();
 
@@ -550,7 +535,6 @@ public class ImageSet extends TabularDataSet<ExampleImage> {
     public void setDelimiter(String delimiter) {
         this.delimiter = delimiter;
     }
-    
-    
+
 
 }

@@ -5,7 +5,7 @@
 
     <groupId>com.deepnetts</groupId>
     <artifactId>deepnetts-core</artifactId>
-    <version>1.13.1</version>
+    <version>1.13.2</version>
     <packaging>jar</packaging>
 
     <name>com.deepnetts:deepnetts-core</name>
