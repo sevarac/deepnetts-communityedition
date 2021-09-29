@@ -17,36 +17,7 @@ import java.net.URI;
  * The best place for LogManager.setFactory method call is during your android.app.Application instance onCreate method execution.
  */
 public class LoggerContextFactory_Dummy implements LoggerContextFactory {
-    /**
-     * Shuts down the LoggerContext.
-     *
-     * @param fqcn           The fully qualified class name of the caller.
-     * @param loader         The ClassLoader to use or null.
-     * @param currentContext If true shuts down the current Context, if false shuts down the Context appropriate
-     *                       for the caller if a more appropriate Context can be determined.
-     * @param allContexts    if true all LoggerContexts that can be located will be shutdown.
-     * @since 2.13.0
-     */
-    @Override
-    public void shutdown(String fqcn, ClassLoader loader, boolean currentContext, boolean allContexts) {
-        System.out.println("LoggerContextFactory_Dummy: shutdown");
-    }
-
-    /**
-     * Checks to see if a LoggerContext is installed. The default implementation returns false.
-     *
-     * @param fqcn           The fully qualified class name of the caller.
-     * @param loader         The ClassLoader to use or null.
-     * @param currentContext If true returns the current Context, if false returns the Context appropriate
-     *                       for the caller if a more appropriate Context can be determined.
-     * @return true if a LoggerContext has been installed, false otherwise.
-     * @since 2.13.0
-     */
-    @Override
-    public boolean hasContext(String fqcn, ClassLoader loader, boolean currentContext) {
-        System.out.println("LoggerContextFactory_Dummy: hasContext");
-        return true;
-    }
+	
 
     /**
      * Creates a {@link LoggerContext}.
