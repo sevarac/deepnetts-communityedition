@@ -37,6 +37,10 @@ import java.util.logging.Logger;
  */
 public final class MaxPoolingLayer extends AbstractLayer {
 
+	
+	private static final long serialVersionUID = -5187033033631855969L;
+	
+	
     /**
      * Filter dimensions.
      *

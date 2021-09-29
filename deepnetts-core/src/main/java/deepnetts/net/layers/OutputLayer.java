@@ -36,6 +36,10 @@ import java.util.Arrays;
  */
 public class OutputLayer extends AbstractLayer {
 
+	
+	private static final long serialVersionUID = 537944573867996766L;
+	
+	
     protected float[] outputErrors;
     protected final String[] labels;
     protected LossType lossType;

@@ -32,6 +32,10 @@ import java.util.function.Function;
  */
 public class Tensor implements Serializable {
 
+	
+	private static final long serialVersionUID = -2345745004528761209L;
+	
+	
     // tensor dimensions - better use shape
     private final int cols, rows, depth, fourthDim, dimensions;
     private final int[] shape = new int[4];

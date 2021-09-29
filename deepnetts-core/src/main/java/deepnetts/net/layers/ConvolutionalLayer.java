@@ -41,6 +41,10 @@ import deepnetts.util.Tensors;
  */
 public final class ConvolutionalLayer extends AbstractLayer {
 
+	
+	private static final long serialVersionUID = -1136065373511990910L;
+	
+	
     Tensor[] filters;           // each filter corresponds to a single channel. Each filter can be 3D, where 3rd dimension coreesponds to depth in previous layer. TODO: the depth pf th efilter should be tunable
     Tensor[] deltaWeights;      
     Tensor[] prevDeltaWeights;  // delta weights from previous iteration (used for momentum)

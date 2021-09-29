@@ -38,6 +38,9 @@ import deepnetts.net.train.BackpropagationTrainer;
 import deepnetts.util.DeepNettsException;
 import deepnetts.util.RandomGenerator;
 import deepnetts.util.Tensor;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -60,11 +63,28 @@ import java.util.logging.Logger;
  */
 public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> implements Serializable {
 
+	
+	private static final long serialVersionUID = 6311052836990578126L;
+	
+	
     private ConvolutionalNetwork() {
         super();
         setTrainer(new BackpropagationTrainer(this));
     }
 
+    
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
+    {
+        ois.defaultReadObject();
+
+        List<AbstractLayer> layers = this.getLayers();
+        
+        for (AbstractLayer cur: layers) {
+            cur.init();
+        }
+    }
+    
+    
     public static ConvolutionalNetwork.Builder builder() {
         return new Builder();
     }

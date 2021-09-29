@@ -31,6 +31,11 @@ import java.io.Serializable;
  * @author Zoran Sevarac <zoran.sevarac@deepnetts.com>
  */
 public class CrossEntropyLoss implements LossFunction, Serializable {
+	
+	
+	private static final long serialVersionUID = 7810738324038602274L;
+	
+	
     private final float[] outputError;
     private int targetIdx;    
     private float totalError;

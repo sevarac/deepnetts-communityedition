@@ -42,6 +42,10 @@ import deepnetts.util.Tensors;
  */
 public final class FullyConnectedLayer extends AbstractLayer {
 
+	
+	private static final long serialVersionUID = -8383673021557469094L;
+	
+	
     private static final Logger LOG = Logger.getLogger(DeepNetts.class.getName());
 
     /**

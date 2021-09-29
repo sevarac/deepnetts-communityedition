@@ -37,7 +37,9 @@ import deepnetts.net.weights.RandomWeightsType;
  */
 public abstract class AbstractLayer implements Layer, Serializable {
 
-    private static final long serialVersionUid = 1L;
+    
+	private static final long serialVersionUID = 4172662870441249554L;
+	
 
     /**
      * Previous layer in network

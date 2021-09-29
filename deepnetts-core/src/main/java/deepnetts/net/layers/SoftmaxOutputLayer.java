@@ -33,6 +33,10 @@ import java.util.Arrays;
  */
 public class SoftmaxOutputLayer extends OutputLayer {
 
+	
+	private static final long serialVersionUID = -5557183169491335524L;
+	
+	
     public SoftmaxOutputLayer(int width) {
         super(width);
         setActivationType(ActivationType.SOFTMAX);

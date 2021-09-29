@@ -15,3 +15,7 @@
 *-reduced-pom*.xml
 .ipynb_checkpoints
 *.jar
+/bin/
+/.classpath
+/.project
+/.settings/*

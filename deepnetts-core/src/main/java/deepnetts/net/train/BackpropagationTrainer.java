@@ -58,6 +58,10 @@ import java.util.Properties;
  */
 public class BackpropagationTrainer implements Trainer, Serializable {
 
+	
+	private static final long serialVersionUID = -2074106047858300199L;
+	
+	
     /**
      * Maximum training epochs. Training will stop when this number of epochs is
      * reached regardless the total network error.

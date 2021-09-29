@@ -31,6 +31,10 @@ import java.io.Serializable;
  */
 public final class SgdOptimizer implements Optimizer, Serializable  {
 
+	
+	private static final long serialVersionUID = 8838615133822228400L;
+	
+	
     private float learningRate;
     // bias lr?
     

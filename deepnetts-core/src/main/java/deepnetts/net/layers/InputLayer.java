@@ -31,6 +31,10 @@ import deepnetts.util.Tensor;
  */
 public class InputLayer extends AbstractLayer {
 
+	
+	private static final long serialVersionUID = 4852747073698145422L;
+	
+	
     /**
      * Creates input layer with specified width, height, and depth (number of
      * channels).
