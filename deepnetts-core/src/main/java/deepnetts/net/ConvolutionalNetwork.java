@@ -77,7 +77,10 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
     {
         ois.defaultReadObject();
         
-        //initClassMembers();
+        //This has to be enabled when layers.init() methods stop touching not null class members (class fields) after deserialization.
+        if (false) {
+        	initClassMembers();
+        }
     }
     
     /**
