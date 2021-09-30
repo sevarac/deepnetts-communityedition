@@ -76,9 +76,20 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
     private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException
     {
         ois.defaultReadObject();
-
-        List<AbstractLayer> layers = this.getLayers();
         
+        initClassMembers();
+    }
+    
+    /**
+     * This method is called in 2 scenarios:
+     * 1. Creating new ConvolutionalNetwork instance, where all class members are null and have to be initialized.
+     * 2. After deserialization from saved net file, where some class members will be initialized by reading the stream during deserialization in defaultReadObject method. 
+     * 
+     * Init methods of all layers must be sensitive for both scenarios and check if field is null before initializing it with default new objects.
+     * In most cases if the field is not null, than Init method should not touch it.
+     */
+    private void initClassMembers() {
+    	List<AbstractLayer> layers = this.getLayers();
         for (AbstractLayer cur: layers) {
             cur.init();
         }
@@ -287,9 +298,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
             }
 
             // init all layers
-            neuralNet.getLayers().forEach((layer) -> {
-                layer.init();
-            });
+            neuralNet.initClassMembers();
 
             // if loss is not set use default loss function
             if (neuralNet.getLossFunction() == null) {
