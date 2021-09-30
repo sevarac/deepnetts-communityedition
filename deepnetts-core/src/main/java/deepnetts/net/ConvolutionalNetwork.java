@@ -77,7 +77,7 @@ public class ConvolutionalNetwork extends NeuralNetwork<BackpropagationTrainer> 
     {
         ois.defaultReadObject();
         
-        initClassMembers();
+        //initClassMembers();
     }
     
     /**
